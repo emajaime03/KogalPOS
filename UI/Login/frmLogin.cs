@@ -1,5 +1,4 @@
 ﻿using DevExpress.Utils.VisualEffects;
-using Modelo;
 using Services.Domain;
 using Services.Facade;
 using System;
@@ -12,7 +11,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
-namespace Cliente.Login
+namespace UI.Login
 {
     public partial class frmLogin : Form
     {

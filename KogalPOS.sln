@@ -3,11 +3,11 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 16
 VisualStudioVersion = 16.0.35130.168
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UI", "Cliente\UI.csproj", "{AFF94DDA-77E7-42AF-A602-FF404B4DA55F}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UI", "UI\UI.csproj", "{AFF94DDA-77E7-42AF-A602-FF404B4DA55F}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Services", "Servicios\Services.csproj", "{5FA211BE-2D7E-49FD-867D-AE1147E03850}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Services", "Services\Services.csproj", "{5FA211BE-2D7E-49FD-867D-AE1147E03850}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Domain", "Modelo\Domain.csproj", "{FC002E47-485C-46EA-8468-DE10EE05EBF2}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Domain", "Domain\Domain.csproj", "{FC002E47-485C-46EA-8468-DE10EE05EBF2}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BLL", "BLL\BLL.csproj", "{7A7D85F6-5538-42D3-B7AC-14251AA6DC7C}"
 EndProject

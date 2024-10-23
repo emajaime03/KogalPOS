@@ -1,6 +1,4 @@
-﻿using Cliente.Login;
-using Modelo;
-using Services.Domain;
+﻿using Services.Domain;
 using Services.Facade;
 using System;
 using System.Collections.Generic;
@@ -8,7 +6,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
-namespace Cliente
+namespace UI
 {
     static class Program
     {

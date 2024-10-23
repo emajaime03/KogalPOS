@@ -1,4 +1,4 @@
-﻿namespace Cliente.Login
+﻿namespace UI.Login
 {
     partial class frmLogin
     {

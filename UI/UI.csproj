@@ -6,8 +6,8 @@
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
     <ProjectGuid>{AFF94DDA-77E7-42AF-A602-FF404B4DA55F}</ProjectGuid>
     <OutputType>WinExe</OutputType>
-    <RootNamespace>Cliente</RootNamespace>
-    <AssemblyName>Cliente</AssemblyName>
+    <RootNamespace>UI</RootNamespace>
+    <AssemblyName>UI</AssemblyName>
     <TargetFrameworkVersion>v4.8</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
@@ -100,6 +100,7 @@
     <Compile Include="Properties\Resources.Designer.cs">
       <AutoGen>True</AutoGen>
       <DependentUpon>Resources.resx</DependentUpon>
+      <DesignTime>True</DesignTime>
     </Compile>
     <None Include="I18n\es-ES" />
     <None Include="packages.config" />
@@ -117,11 +118,11 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\Modelo\Domain.csproj">
+    <ProjectReference Include="..\Domain\Domain.csproj">
       <Project>{FC002E47-485C-46EA-8468-DE10EE05EBF2}</Project>
       <Name>Domain</Name>
     </ProjectReference>
-    <ProjectReference Include="..\Servicios\Services.csproj">
+    <ProjectReference Include="..\Services\Services.csproj">
       <Project>{5FA211BE-2D7E-49FD-867D-AE1147E03850}</Project>
       <Name>Services</Name>
     </ProjectReference>

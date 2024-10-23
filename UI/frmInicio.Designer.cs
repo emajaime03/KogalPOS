@@ -1,5 +1,5 @@
 ﻿
-namespace Cliente
+namespace UI
 {
     partial class frmInicio
     {
