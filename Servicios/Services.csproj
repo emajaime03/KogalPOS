@@ -1,0 +1,98 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="15.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{5FA211BE-2D7E-49FD-867D-AE1147E03850}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>Services</RootNamespace>
+    <AssemblyName>Services</AssemblyName>
+    <TargetFrameworkVersion>v4.7.2</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <Deterministic>true</Deterministic>
+    <TargetFrameworkProfile />
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="System" />
+    <Reference Include="System.Configuration" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Net.Http" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="BLL\Services\ExceptionBLL.cs" />
+    <Compile Include="BLL\Services\LanguageBLL.cs" />
+    <Compile Include="BLL\Services\LoggerBLL.cs" />
+    <Compile Include="BLL\Services\UsuarioBLL.cs" />
+    <Compile Include="DAL\Contracts\IUsuarioRepository.cs" />
+    <Compile Include="DAL\Contracts\IGenericRepository.cs" />
+    <Compile Include="DAL\Contracts\IJoinRepository.cs" />
+    <Compile Include="DAL\Contracts\ILanguageRepository.cs" />
+    <Compile Include="DAL\Contracts\ILoggerRepository.cs" />
+    <Compile Include="DAL\Contracts\IObjectMapper.cs" />
+    <Compile Include="DAL\Contracts\UnitOfWork\IUnitOfWork.cs" />
+    <Compile Include="DAL\Contracts\UnitOfWork\IUnitOfWorkAdapter.cs" />
+    <Compile Include="DAL\Contracts\UnitOfWork\IUnitOfWorkRepository.cs" />
+    <Compile Include="DAL\Factories\ApplicationFactory.cs" />
+    <Compile Include="DAL\Factories\LanguageFactory.cs" />
+    <Compile Include="DAL\Factories\LoggerFactory.cs" />
+    <Compile Include="DAL\Implementations\SqlServer\Repository.cs" />
+    <Compile Include="DAL\Implementations\SqlServer\UnitOfWork\UnitOfWorkSqlServer.cs" />
+    <Compile Include="DAL\Implementations\SqlServer\UnitOfWork\UnitOfWorkSqlServerAdapter.cs" />
+    <Compile Include="DAL\Implementations\SqlServer\UnitOfWork\UnitOfWorkSqlServerRepository.cs" />
+    <Compile Include="DAL\Tools\Helpers\SqlHelper.cs" />
+    <Compile Include="DAL\Implementations\PlainText\LoggerRepository.cs" />
+    <Compile Include="DAL\Implementations\SqlServer\UsuarioFamiliaRepository.cs" />
+    <Compile Include="DAL\Implementations\SqlServer\FamiliaFamiliaRepository.cs" />
+    <Compile Include="DAL\Implementations\SqlServer\UsuarioPatenteRepository.cs" />
+    <Compile Include="DAL\Implementations\SqlServer\FamiliaPatenteRepository.cs" />
+    <Compile Include="DAL\Implementations\SqlServer\FamiliaRepository.cs" />
+    <Compile Include="DAL\Implementations\SqlServer\LoggerRepository.cs" />
+    <Compile Include="DAL\Implementations\PlainText\LanguageRepository.cs" />
+    <Compile Include="DAL\Implementations\SqlServer\Mappers\UsuarioMapper.cs" />
+    <Compile Include="DAL\Implementations\SqlServer\Mappers\FamiliaMapper.cs" />
+    <Compile Include="DAL\Implementations\SqlServer\Mappers\PatenteMapper.cs" />
+    <Compile Include="DAL\Implementations\SqlServer\PatenteRepository.cs" />
+    <Compile Include="DAL\Implementations\SqlServer\UsuarioRepository.cs" />
+    <Compile Include="Domain\Acceso.cs" />
+    <Compile Include="Domain\ApplicationSettings.cs" />
+    <Compile Include="Domain\Familia.cs" />
+    <Compile Include="Domain\Log.cs" />
+    <Compile Include="Domain\Patente.cs" />
+    <Compile Include="Domain\Usuario.cs" />
+    <Compile Include="Facade\CryptographyService.cs" />
+    <Compile Include="Facade\Extensions\ExceptionExtension.cs" />
+    <Compile Include="Facade\Extensions\StringExtension.cs" />
+    <Compile Include="Facade\LanguageService.cs" />
+    <Compile Include="Facade\LoggerService.cs" />
+    <Compile Include="Facade\UsuarioService.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="DAL\Tools\Snippets\singleton.snippet" />
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+</Project>
