@@ -23,7 +23,7 @@ namespace Services.DAL.Implementations.SqlServer.UnitOfWork
 
             Repositories = new UnitOfWorkSqlServerRepository(_context, _transaction);
         }
-
+        
         public void Dispose()
         {
             if (_transaction != null)
@@ -44,6 +44,7 @@ namespace Services.DAL.Implementations.SqlServer.UnitOfWork
         public void SaveChanges()
         {
             _transaction.Commit();
+            Dispose();
         }
     }
 }

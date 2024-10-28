@@ -9,13 +9,14 @@ using System.Text;
 using System.Threading.Tasks;
 using Services.DAL.Contracts;
 using Services.DAL.Tools.Helpers;
+using Services.DAL.Contracts.UnitOfWork;
 
 namespace Services.DAL.Implementations.SqlServer
 {
     public sealed class FamiliaRepository : Repository, IGenericRepository<Familia>
     {
-        public FamiliaRepository(SqlConnection context, SqlTransaction _transaction)
-            : base(context, _transaction)
+        public FamiliaRepository(SqlConnection context, SqlTransaction _transaction, IUnitOfWorkRepository unitOfWorkRepository)
+            : base(context, _transaction, unitOfWorkRepository)
         {
 
         }
@@ -49,6 +50,9 @@ namespace Services.DAL.Implementations.SqlServer
                     reader.GetValues(data);
 
                     familia = FamiliaMapper.Current.Fill(data);
+
+                    _unitOfWorkRepository.FamiliaPatenteRepository.Join(familia);
+                    _unitOfWorkRepository.FamiliaFamiliaRepository.Join(familia);
                 }
             }
 

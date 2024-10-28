@@ -33,12 +33,7 @@ namespace Services.DAL.Implementations.SqlServer.Mappers
             //Nivel de hidratación 1 (Primitivos)
             Usuario usuario = new Usuario();
             usuario.IdUsuario = Guid.Parse(values[0].ToString());
-            usuario.UserName = values[1].ToString();
-
-            //Nivel 2 de hidratación (Agregaciones)
-
-            UsuarioPatenteRepository..Join(usuario);
-            UsuarioFamiliaRepository.Current.Join(usuario);
+            usuario.UserName = values[2].ToString();
 
             return usuario;
         }

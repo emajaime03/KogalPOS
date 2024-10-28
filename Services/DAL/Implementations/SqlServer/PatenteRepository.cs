@@ -9,13 +9,14 @@ using System.Text;
 using System.Threading.Tasks;
 using Services.DAL.Contracts;
 using Services.DAL.Tools.Helpers;
+using Services.DAL.Contracts.UnitOfWork;
 
 namespace Services.DAL.Implementations.SqlServer
 {
     public sealed class PatenteRepository : Repository, IGenericRepository<Patente>
     {
-        public PatenteRepository(SqlConnection context, SqlTransaction _transaction)
-            : base(context, _transaction)
+        public PatenteRepository(SqlConnection context, SqlTransaction _transaction, IUnitOfWorkRepository unitOfWorkRepository)
+            : base(context, _transaction, unitOfWorkRepository)
         {
 
         }

@@ -10,7 +10,7 @@ namespace Services.DAL.Factories
 {
     public static class ApplicationFactory
     {
-        private static string servicesPersistance = ApplicationSettings.Current.ServicesPersistance;
+        private readonly static int servicesPersistance = ApplicationSettings.Current.ServicesPersistance;
 
         /// <summary>
         /// Actualizo todos los repositorios a patrón UnitOfWork ya que todos los repositorios estarán contenidos
@@ -20,19 +20,26 @@ namespace Services.DAL.Factories
 
         static ApplicationFactory()
         {
-            if (servicesPersistance == "sqlserver")
+            switch (servicesPersistance)
             {
-                UnitOfWork = new Implementations.SqlServer.UnitOfWork.UnitOfWorkSqlServer();
+                case (int)PersistanceType.SqlServer:
+                    UnitOfWork = new Implementations.SqlServer.UnitOfWork.UnitOfWorkSqlServer();
+                    break;
+                case (int)PersistanceType.PlainText:
+                    //CustomerRepository = new DAL.Implementations.PlainText.CustomerRepository();
+                    break;
+                case (int)PersistanceType.Memory:
+                    //AlmacenRepository = new DAL.Implementations.Memory.AlmacenRepository();
+                    //MovimientoRepository = new DAL.Implementations.Memory.MovimientoRepository();
+                    break;
             }
-            else if (servicesPersistance == "plaintext")
-            {
-                //CustomerRepository = new DAL.Implementations.PlainText.CustomerRepository();
-            }
-            else if (servicesPersistance == "memory")
-            {
-                //AlmacenRepository = new DAL.Implementations.Memory.AlmacenRepository();
-                //MovimientoRepository = new DAL.Implementations.Memory.MovimientoRepository();
-            }
+        }
+
+        enum PersistanceType
+        {
+            SqlServer,
+            PlainText,
+            Memory
         }
     }
 }

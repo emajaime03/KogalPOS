@@ -8,13 +8,14 @@ using System.Text;
 using System.Threading.Tasks;
 using Services.DAL.Contracts;
 using Services.DAL.Tools.Helpers;
+using Services.DAL.Contracts.UnitOfWork;
 
 namespace Services.DAL.Implementations.SqlServer
 {
     public sealed class UsuarioPatenteRepository : Repository, IJoinRepository<Usuario>
     {
-        public UsuarioPatenteRepository(SqlConnection context, SqlTransaction _transaction)
-            : base(context, _transaction)
+        public UsuarioPatenteRepository(SqlConnection context, SqlTransaction _transaction, IUnitOfWorkRepository unitOfWorkRepository)
+            : base(context, _transaction, unitOfWorkRepository)
         {
 
         }
@@ -22,7 +23,7 @@ namespace Services.DAL.Implementations.SqlServer
         public void Join(Usuario entity)
         {
             string query = $"SELECT IdPatente FROM Usuarios_Patentes WHERE IdUsuario = @IdUsuario";
-            using (var reader = SqlHelper.ExecuteReader(query, CommandType.Text,
+            using (var reader = ExecuteReader(query, CommandType.Text,
               new SqlParameter[] { new SqlParameter("@IdUsuario", entity.IdUsuario) }))
             {
                 while (reader.Read())
@@ -36,7 +37,7 @@ namespace Services.DAL.Implementations.SqlServer
                     }
 
                     //Busco en el repositorio de patentes a partir del id patente de mi tupla-relación
-                    entity.Accesos.Add(PatenteRepository.Current.GetById(Guid.Parse(data[0].ToString())));
+                    entity.Accesos.Add(_unitOfWorkRepository.PatenteRepository.GetById(Guid.Parse(data[0].ToString())));
                 }
             }
 

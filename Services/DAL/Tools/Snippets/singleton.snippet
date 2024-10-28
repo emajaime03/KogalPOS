@@ -24,23 +24,20 @@
 			</Declarations>
 			<Code Language="csharp">
 				<![CDATA[
-        public sealed class $className$
-									{
-										private readonly static $className$ _instance = new $className$();
+	private readonly static $className$ _instance = new $className$();
 
-										public static $className$ Current
-											{
-													get
-													{
-															return _instance;
-													}
-											}
+	public static $className$ Current
+		{
+				get
+				{
+						return _instance;
+				}
+		}
 
-										private $className$()
-										{
-       										//Implent here the initialization of your singleton
-										}
-									}
+	private $className$()
+	{
+		//Implent here the initialization of your singleton
+	}
                   ]]>
 			</Code>
 		</Snippet>

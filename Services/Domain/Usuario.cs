@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Services.Facade;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -9,8 +10,25 @@ namespace Services.Domain
     public class Usuario {
 
     public Guid IdUsuario { get; set; }
+    public int Estado { get; set; }
     public string UserName { get; set; }
+    public string Password { get; set; }
 
+    public string HashPassword
+    {
+        get
+        {
+            return CryptographyService.Encrypt(this.Password);
+        }
+    }
+
+    public string HashVH
+    {
+        get
+        {
+            return CryptographyService.Encrypt(this.IdUsuario.ToString() + this.Estado.ToString() + this.UserName + this.Password);
+        }
+    }
 
     public List<Acceso> Accesos = new List<Acceso>();
 

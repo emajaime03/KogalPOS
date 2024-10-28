@@ -8,13 +8,14 @@ using System.Text;
 using System.Threading.Tasks;
 using Services.DAL.Contracts;
 using Services.DAL.Tools.Helpers;
+using Services.DAL.Contracts.UnitOfWork;
 
 namespace Services.DAL.Implementations.SqlServer
 {
     public sealed class FamiliaPatenteRepository : Repository, IJoinRepository<Familia>
     {
-        public FamiliaPatenteRepository(SqlConnection context, SqlTransaction _transaction)
-            : base(context, _transaction)
+        public FamiliaPatenteRepository(SqlConnection context, SqlTransaction _transaction, IUnitOfWorkRepository unitOfWorkRepository)
+            : base(context, _transaction, unitOfWorkRepository)
         {
 
         }
@@ -32,7 +33,7 @@ namespace Services.DAL.Implementations.SqlServer
                     reader.GetValues(data);
 
                     //Busco en el repositorio de patentes a partir del id patente de mi tupla-relación
-                    entity.Add(PatenteRepository.Current.GetById(Guid.Parse(data[0].ToString())));
+                    entity.Add(_unitOfWorkRepository.PatenteRepository.GetById(Guid.Parse(data[0].ToString())));
                 }
             }
 

@@ -13,6 +13,7 @@ namespace Services.DAL.Implementations.SqlServer
     {
         protected SqlConnection _context;
         protected SqlTransaction _transaction;
+        protected IUnitOfWorkRepository _unitOfWorkRepository;
 
         private SqlCommand CreateCommand(string query)
         {
@@ -23,6 +24,7 @@ namespace Services.DAL.Implementations.SqlServer
         {
             this._context = context;
             this._transaction = _transaction;
+            this._unitOfWorkRepository = unitOfWorkRepository;
         }
 
         protected Int32 ExecuteNonQuery(String commandText,
@@ -77,7 +79,7 @@ namespace Services.DAL.Implementations.SqlServer
                 cmd.Parameters.AddRange(parameters);
                 // When using CommandBehavior.CloseConnection, the connection will be closed when the 
                 // IDataReader is closed.
-                SqlDataReader reader = cmd.ExecuteReader(CommandBehavior.CloseConnection);
+                SqlDataReader reader = cmd.ExecuteReader();
 
                 return reader;
             }

@@ -1,6 +1,8 @@
-﻿using Services.Domain;
+﻿using Domain;
+using Services.Domain;
 using Services.Facade;
 using System;
+using UI.Login;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
@@ -21,22 +23,23 @@ namespace UI
                 Application.EnableVisualStyles();
                 Application.SetCompatibleTextRenderingDefault(false);
 
-                //Usuario usuario = default;
-                 
-                //frmLogin frmLogin = new frmLogin();
-                //if (frmLogin.ShowDialog() == DialogResult.OK)
-                //{
-                //    usuario = frmLogin.UsuarioLogin;
-                //}
+                Usuario usuario = default;
 
-                //if (usuario == null)
-                //{
-                //    return;
-                //} else
-                //{
-                    //GlobalCliente.UsuarioLogin = usuario;
+                frmLogin frmLogin = new frmLogin();
+                if (frmLogin.ShowDialog() == DialogResult.OK)
+                {
+                    usuario = frmLogin.UsuarioLogin;
+                }
+
+                if (usuario == null)
+                {
+                    return;
+                }
+                else
+                {
+                    GlobalCliente.UsuarioLogin = usuario;
                     Application.Run(new frmInicio());
-                //}
+                }
             }
             catch (Exception ex)
             { 

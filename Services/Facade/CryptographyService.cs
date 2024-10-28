@@ -9,7 +9,7 @@ namespace Services.Facade
 {
     public static class CryptographyService
     {
-        public static string HashPassword(string textPlainPass)
+        public static string Encrypt(string textPlainPass)
         {
             StringBuilder sb = new StringBuilder();
 

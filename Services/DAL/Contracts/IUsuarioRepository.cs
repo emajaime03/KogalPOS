@@ -10,6 +10,6 @@ namespace Services.DAL.Contracts
     public interface IUsuarioRepository<T> : IGenericRepository<T>
     {
         T GetByUserPassword(string user, string password);
-
+        string GetHashedVH(Guid idUsuario);
     }
 }

@@ -34,11 +34,6 @@ namespace Services.DAL.Implementations.SqlServer.Mappers
             familia.Id = Guid.Parse(values[0].ToString());
             familia.Nombre = values[1].ToString();
 
-            //Nivel 2 de hidratación (Agregaciones)
-
-            FamiliaPatenteRepository.Current.Join(familia);
-            FamiliaFamiliaRepository.Current.Join(familia);
-
             return familia;
         }
 

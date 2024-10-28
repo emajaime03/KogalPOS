@@ -23,12 +23,12 @@ namespace Services.DAL.Implementations.SqlServer.UnitOfWork
         public UnitOfWorkSqlServerRepository(SqlConnection context, SqlTransaction transaction)
         {
             UsuarioRepository = new UsuarioRepository(context, transaction, this);
-            UsuarioPatenteRepository = new UsuarioPatenteRepository(context, transaction);
-            UsuarioFamiliaRepository = new UsuarioFamiliaRepository(context, transaction);
-            FamiliaRepository = new FamiliaRepository(context, transaction);
-            FamiliaFamiliaRepository = new FamiliaFamiliaRepository(context, transaction);
-            FamiliaPatenteRepository = new FamiliaPatenteRepository(context, transaction);
-            PatenteRepository = new PatenteRepository(context, transaction);
+            UsuarioPatenteRepository = new UsuarioPatenteRepository(context, transaction, this);
+            UsuarioFamiliaRepository = new UsuarioFamiliaRepository(context, transaction, this);
+            FamiliaRepository = new FamiliaRepository(context, transaction, this);
+            FamiliaFamiliaRepository = new FamiliaFamiliaRepository(context, transaction, this);
+            FamiliaPatenteRepository = new FamiliaPatenteRepository(context, transaction, this);
+            PatenteRepository = new PatenteRepository(context, transaction, this);
         }
     }
 }

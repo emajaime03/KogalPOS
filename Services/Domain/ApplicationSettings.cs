@@ -21,11 +21,11 @@ namespace Services.Domain
         }
         #endregion
 
-        public string ServicesPersistance
+        public int ServicesPersistance
         {
             get
             {
-                return ConfigurationManager.AppSettings["ServicesPersistance"].ToString();
+                return int.Parse(ConfigurationManager.AppSettings["ServicesPersistance"]);
             }
         }
 

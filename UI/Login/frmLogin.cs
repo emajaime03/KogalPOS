@@ -1,6 +1,10 @@
 ﻿using DevExpress.Utils.VisualEffects;
+using Services.BLL;
 using Services.Domain;
+using Services.Domain.BLL;
+using Services.Domain.BLL.Base;
 using Services.Facade;
+using Services.Facade.Extensions;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -21,32 +25,28 @@ namespace UI.Login
         {
             InitializeComponent();
 
-            ControlesInicializar();
+            ControlesInicializar();            
         }
 
         private void ControlesInicializar()
         {
-            lblUserName.Text = LanguageService.Translate("user");
-            lblPassword.Text = LanguageService.Translate("password");
+            lblUserName.Text = LanguageService.Translate("Usuario");
+            lblPassword.Text = LanguageService.Translate("Contraseña");
         }
-
+        
         private void btnIngresar_Click(object sender, EventArgs e)
         {
-            UsuarioLogin = UsuarioService.Login(txtUserName.Text, CryptographyService.HashPassword(txtPassword.Text));
+            ResUsuarioLogin res = (ResUsuarioLogin)RequestBLL.Current.GetResponse(new ReqUsuarioLogin { Username = txtUserName.Text, Password = txtPassword.Text });
 
-            if (UsuarioLogin == null)
+            if (res.Success)
             {
-                MessageBox.Show(LanguageService.Translate("Incorrect username or password."));
-            } else
-            {
-                string mensajeLogin = "Login correcto";
-                MessageBox.Show(mensajeLogin);
-                LoggerService.WriteLog(new Log(mensajeLogin, UsuarioLogin.UserName));
-
+                this.UsuarioLogin = res.Usuario;
                 this.DialogResult = DialogResult.OK;
                 this.Close();
+            } else
+            {
+                MessageBox.Show(res.Message.Translate());
             }
-
         }
     }
 }

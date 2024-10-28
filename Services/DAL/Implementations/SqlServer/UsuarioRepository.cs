@@ -82,9 +82,24 @@ namespace Services.DAL.Implementations.SqlServer
                     reader.GetValues(data);
 
                     usuario = UsuarioMapper.Current.Fill(data);
+
                 }
             }
+
+            if (usuario != null)
+            {
+                _unitOfWorkRepository.UsuarioPatenteRepository.Join(usuario);
+                _unitOfWorkRepository.UsuarioFamiliaRepository.Join(usuario);
+            }           
+
             return usuario;
+        }
+
+        public string GetHashedVH(Guid idUsuario)
+        {
+            string query = $"SELECT VH FROM Usuarios WHERE IdUsuario = @IdUsuario";
+            var VH = ExecuteScalar(query, CommandType.Text, new SqlParameter[] { new SqlParameter("@IdUsuario", idUsuario) }).ToString();
+            return VH;
         }
     }
 }

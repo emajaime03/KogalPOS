@@ -8,13 +8,14 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Services.DAL.Tools.Helpers;
+using Services.DAL.Contracts.UnitOfWork;
 
 namespace Services.DAL.Implementations.SqlServer
 {
     public sealed class UsuarioFamiliaRepository : Repository, IJoinRepository<Usuario>
     {
-        public UsuarioFamiliaRepository(SqlConnection context, SqlTransaction _transaction)
-            : base(context, _transaction)
+        public UsuarioFamiliaRepository(SqlConnection context, SqlTransaction _transaction, IUnitOfWorkRepository unitOfWorkRepository)
+            : base(context, _transaction, unitOfWorkRepository)
         {
 
         }
@@ -32,7 +33,7 @@ namespace Services.DAL.Implementations.SqlServer
                     reader.GetValues(data);
 
                     //Busco en el repositorio de familias a partir del id familia de mi tupla-relación
-                    entity.Accesos.Add(FamiliaRepository.GetById(Guid.Parse(data[0].ToString())));
+                    entity.Accesos.Add(_unitOfWorkRepository.FamiliaRepository.GetById(Guid.Parse(data[0].ToString())));
                 }
             }
 
