@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Services.Domain.Enums;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -9,7 +10,7 @@ namespace Services.Domain
     public class Patente : Acceso
     {
 
-        public string DataKey { get; set; }
+        public E_Patentes DataKey { get; set; }
 
         public Patente()
         {

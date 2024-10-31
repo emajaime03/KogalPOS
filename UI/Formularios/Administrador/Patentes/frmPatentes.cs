@@ -8,11 +8,11 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
-namespace UI
+namespace UI.Formularios.Administrador.Patentes
 {
-    public partial class frmPrincipal : Form
+    public partial class frmPatentes : Form
     {
-        public frmPrincipal()
+        public frmPatentes()
         {
             InitializeComponent();
         }

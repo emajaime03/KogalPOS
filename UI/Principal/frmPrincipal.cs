@@ -6,13 +6,14 @@ using System.Data;
 using System.Drawing;
 using System.Linq;
 using System.Text;
+using System.Threading.Tasks;
 using System.Windows.Forms;
 
-namespace UI
+namespace UI.Principal
 {
-    public partial class frmInicio : DevExpress.XtraBars.FluentDesignSystem.FluentDesignForm
+    public partial class frmPrincipal : DevExpress.XtraBars.Ribbon.RibbonForm
     {
-        public frmInicio()
+        public frmPrincipal()
         {
             InitializeComponent();
         }

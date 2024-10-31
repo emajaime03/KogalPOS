@@ -1,5 +1,6 @@
 ﻿using Services.DAL.Contracts;
 using Services.Domain;
+using Services.Domain.Enums;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -31,8 +32,9 @@ namespace Services.DAL.Implementations.SqlServer.Mappers
         {
             Patente patente = new Patente();
             patente.Id = Guid.Parse(values[0].ToString());
-            patente.Nombre = values[1].ToString();
-            patente.DataKey = values[2].ToString();
+            patente.Estado = (E_Estados)values[1];
+            patente.Descripcion = values[2].ToString();
+            patente.DataKey = (E_Patentes)values[3];
 
             return patente;
         }

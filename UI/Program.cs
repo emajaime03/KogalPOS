@@ -7,6 +7,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using UI.Principal;
 
 namespace UI
 {
@@ -38,7 +39,7 @@ namespace UI
                 else
                 {
                     GlobalCliente.UsuarioLogin = usuario;
-                    Application.Run(new frmInicio());
+                    Application.Run(new frmPrincipal());
                 }
             }
             catch (Exception ex)

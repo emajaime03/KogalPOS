@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Services.Domain.Enums;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -10,8 +11,8 @@ namespace Services.Domain
     {
 
         public Guid Id { get; set; }
-
-        public string Nombre { get; set; }
+        public E_Estados Estado { get; set; }
+        public string Descripcion { get; set; }
 
         public Acceso()
         {

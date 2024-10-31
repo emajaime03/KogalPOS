@@ -1,4 +1,5 @@
-﻿using Services.Facade;
+﻿using Services.Domain.Enums;
+using Services.Facade;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -10,7 +11,7 @@ namespace Services.Domain
     public class Usuario {
 
     public Guid IdUsuario { get; set; }
-    public int Estado { get; set; }
+    public E_Estados Estado { get; set; }
     public string UserName { get; set; }
     public string Password { get; set; }
 
@@ -39,6 +40,11 @@ namespace Services.Domain
     public Usuario(Guid idUsuario)
     {
         this.IdUsuario = idUsuario;
+    }
+
+    public bool CheckPatente(E_Patentes patente)
+    {
+        return GetPatentes().Any(p => p.DataKey == patente);
     }
 
     public List<Patente> GetPatentes()

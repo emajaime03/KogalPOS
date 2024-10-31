@@ -81,6 +81,8 @@
     <Compile Include="Domain\Acceso.cs" />
     <Compile Include="Domain\ApplicationSettings.cs" />
     <Compile Include="Domain\BLL\ReqResUsuario.cs" />
+    <Compile Include="Domain\Enums\E_Estados.cs" />
+    <Compile Include="Domain\Enums\E_Patentes.cs" />
     <Compile Include="Domain\Familia.cs" />
     <Compile Include="Domain\Log.cs" />
     <Compile Include="Domain\Patente.cs" />

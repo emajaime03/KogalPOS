@@ -10,8 +10,6 @@ namespace Services.Domain
     {
         private List<Acceso> accesos = new List<Acceso>();
 
-        public string Descripcion { get; set; }
-
         public Familia(Acceso acceso = null)
         {
             if (acceso != null)

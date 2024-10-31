@@ -1,5 +1,6 @@
 ﻿using Services.DAL.Contracts;
 using Services.Domain;
+using Services.Domain.Enums;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -32,7 +33,8 @@ namespace Services.DAL.Implementations.SqlServer.Mappers
             //Nivel de hidratación 1 (Primitivos)
             Familia familia = new Familia();
             familia.Id = Guid.Parse(values[0].ToString());
-            familia.Nombre = values[1].ToString();
+            familia.Estado = (E_Estados)values[1];
+            familia.Descripcion = values[2].ToString();
 
             return familia;
         }
