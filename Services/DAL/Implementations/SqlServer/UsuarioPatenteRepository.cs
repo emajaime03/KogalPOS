@@ -23,7 +23,7 @@ namespace Services.DAL.Implementations.SqlServer
         public void Join(Usuario entity)
         {
             string query = $"SELECT IdPatente FROM Usuarios_Patentes WHERE IdUsuario = @IdUsuario";
-            using (var reader = ExecuteReader(query, CommandType.Text,
+            using (var reader = SqlHelper.ExecuteReader(query, CommandType.Text,
               new SqlParameter[] { new SqlParameter("@IdUsuario", entity.IdUsuario) }))
             {
                 while (reader.Read())

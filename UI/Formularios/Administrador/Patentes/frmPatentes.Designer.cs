@@ -1,7 +1,9 @@
 ﻿
+using UI.Formularios.Base;
+
 namespace UI.Formularios.Administrador.Patentes
 {
-    partial class frmPatentes
+    partial class frmPatentes : frmGrillaBase
     {
         /// <summary>
         /// Required designer variable.
@@ -29,24 +31,21 @@ namespace UI.Formularios.Administrador.Patentes
         /// </summary>
         private void InitializeComponent()
         {
-            this.button1 = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
-            // button1
+            // btnNuevo
             // 
-            this.button1.Location = new System.Drawing.Point(222, 110);
-            this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(350, 224);
-            this.button1.TabIndex = 1;
-            this.button1.Text = "button1";
-            this.button1.UseVisualStyleBackColor = true;
+            this.btnNuevo.Size = new System.Drawing.Size(699, 22);
+            // 
+            // btnDetalle
+            // 
+            this.btnDetalle.Size = new System.Drawing.Size(699, 22);
             // 
             // frmPatentes
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(800, 450);
-            this.Controls.Add(this.button1);
+            this.ClientSize = new System.Drawing.Size(879, 430);
             this.Name = "frmPatentes";
             this.Text = "frmPatentes";
             this.ResumeLayout(false);
@@ -54,6 +53,5 @@ namespace UI.Formularios.Administrador.Patentes
         }
 
         #endregion
-        private System.Windows.Forms.Button button1;
     }
 }

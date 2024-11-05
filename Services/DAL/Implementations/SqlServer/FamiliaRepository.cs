@@ -61,7 +61,26 @@ namespace Services.DAL.Implementations.SqlServer
 
         public List<Familia> GetAll()
         {
-            throw new NotImplementedException();
+            List<Familia> familias = new List<Familia>();
+            
+            string query = $"SELECT * FROM Familias";
+            using (var reader = SqlHelper.ExecuteReader(query, CommandType.Text))
+            {
+                while (reader.Read())
+                {
+                    object[] data = new object[reader.FieldCount];
+                    reader.GetValues(data);
+
+                    Familia familia = FamiliaMapper.Current.Fill(data);
+
+                    _unitOfWorkRepository.FamiliaPatenteRepository.Join(familia);
+                    _unitOfWorkRepository.FamiliaFamiliaRepository.Join(familia);
+
+                    familias.Add(familia);
+                }
+            }
+
+            return familias;
         }
 
     }

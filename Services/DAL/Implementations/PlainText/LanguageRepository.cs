@@ -50,7 +50,11 @@ namespace Services.DAL.Implementations.PlainText
                 }
             }
             //No encontré la clave...
+#if !DEBUG
             throw new Exception("Palabra o frase no encontrada");
+#else
+            return key;
+#endif
 
         }
     }

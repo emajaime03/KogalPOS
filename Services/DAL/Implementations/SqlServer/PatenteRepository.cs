@@ -10,6 +10,7 @@ using System.Threading.Tasks;
 using Services.DAL.Contracts;
 using Services.DAL.Tools.Helpers;
 using Services.DAL.Contracts.UnitOfWork;
+using Services.Domain.Enums;
 
 namespace Services.DAL.Implementations.SqlServer
 {
@@ -59,7 +60,22 @@ namespace Services.DAL.Implementations.SqlServer
 
         public List<Patente> GetAll()
         {
-            throw new NotImplementedException();
+            List<Patente> patentes = new List<Patente>();
+
+            string query = $"SELECT * FROM Patentes";
+
+            using (var reader = SqlHelper.ExecuteReader(query, CommandType.Text))
+            {
+                while (reader.Read())
+                {
+                    object[] data = new object[reader.FieldCount];
+                    reader.GetValues(data);
+
+                    patentes.Add(PatenteMapper.Current.Fill(data));
+                }
+            }
+
+            return patentes;
         }
 
     }

@@ -1,8 +1,7 @@
-﻿using DevExpress.Utils.VisualEffects;
+﻿using DevExpress.XtraEditors;
 using Services.BLL;
 using Services.Domain;
 using Services.Domain.BLL;
-using Services.Domain.BLL.Base;
 using Services.Facade;
 using Services.Facade.Extensions;
 using System;
@@ -17,7 +16,7 @@ using System.Windows.Forms;
 
 namespace UI.Login
 {
-    public partial class frmLogin : Form
+    public partial class frmLogin : DevExpress.XtraEditors.XtraForm
     {
         public Usuario UsuarioLogin { get; set; }
 
@@ -25,15 +24,15 @@ namespace UI.Login
         {
             InitializeComponent();
 
-            ControlesInicializar();            
+            ControlesInicializar();
         }
 
         private void ControlesInicializar()
         {
-            lblUserName.Text = LanguageService.Translate("Usuario");
-            lblPassword.Text = LanguageService.Translate("Contraseña");
+            //lblUserName.Text = LanguageService.Translate("Usuario");
+            //lblPassword.Text = LanguageService.Translate("Contraseña");
         }
-        
+
         private void btnIngresar_Click(object sender, EventArgs e)
         {
             ResUsuarioLogin res = (ResUsuarioLogin)RequestBLL.Current.GetResponse(new ReqUsuarioLogin { Username = txtUserName.Text, Password = txtPassword.Text });
@@ -43,9 +42,11 @@ namespace UI.Login
                 this.UsuarioLogin = res.Usuario;
                 this.DialogResult = DialogResult.OK;
                 this.Close();
-            } else
+            }
+            else
             {
-                MessageBox.Show(res.Message.Translate());
+                lblMensaje.Text = res.Message.Translate();
+                lblMensaje.Visible = true;
             }
         }
     }

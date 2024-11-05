@@ -73,7 +73,7 @@ namespace Services.DAL.Implementations.SqlServer
             Usuario usuario = default;
 
             string query = $"SELECT * FROM Usuarios WHERE UserName = @UserName AND Password = @Password";
-            using (var reader = ExecuteReader(query, CommandType.Text,
+            using (var reader = SqlHelper.ExecuteReader(query, CommandType.Text,
                 new SqlParameter[] { new SqlParameter("@UserName", user), new SqlParameter("@Password", password) }))
             {
                 while (reader.Read())   
@@ -98,7 +98,7 @@ namespace Services.DAL.Implementations.SqlServer
         public string GetHashedVH(Guid idUsuario)
         {
             string query = $"SELECT VH FROM Usuarios WHERE IdUsuario = @IdUsuario";
-            var VH = ExecuteScalar(query, CommandType.Text, new SqlParameter[] { new SqlParameter("@IdUsuario", idUsuario) }).ToString();
+            var VH = SqlHelper.ExecuteScalar(query, CommandType.Text, new SqlParameter[] { new SqlParameter("@IdUsuario", idUsuario) }).ToString();
             return VH;
         }
     }

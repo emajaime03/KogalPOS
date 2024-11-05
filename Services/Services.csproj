@@ -45,8 +45,10 @@
   <ItemGroup>
     <Compile Include="BLL\RequestBLL.cs" />
     <Compile Include="BLL\Services\ExceptionBLL.cs" />
+    <Compile Include="BLL\Services\FamiliasBLL.cs" />
     <Compile Include="BLL\Services\LanguageBLL.cs" />
     <Compile Include="BLL\Services\LoggerBLL.cs" />
+    <Compile Include="BLL\Services\PatentesBLL.cs" />
     <Compile Include="BLL\Services\UsuarioBLL.cs" />
     <Compile Include="DAL\Contracts\IUsuarioRepository.cs" />
     <Compile Include="DAL\Contracts\IGenericRepository.cs" />
@@ -80,6 +82,8 @@
     <Compile Include="DAL\Implementations\SqlServer\UsuarioRepository.cs" />
     <Compile Include="Domain\Acceso.cs" />
     <Compile Include="Domain\ApplicationSettings.cs" />
+    <Compile Include="Domain\BLL\ReqResFamilias.cs" />
+    <Compile Include="Domain\BLL\ReqResPatentes.cs" />
     <Compile Include="Domain\BLL\ReqResUsuario.cs" />
     <Compile Include="Domain\Enums\E_Estados.cs" />
     <Compile Include="Domain\Enums\E_Patentes.cs" />
@@ -97,10 +101,8 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="DAL\Tools\Snippets\singleton.snippet" />
+    <None Include="Facade\Snippets\singleton.snippet" />
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="UI\" />
-  </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

@@ -24,7 +24,7 @@ namespace Services.DAL.Implementations.SqlServer
         {
             //Familia_PatenteSelectByIdFamilia
             string query = $"SELECT IdFamilia FROM Usuarios_Familias WHERE IdUsuario = @IdUsuario";
-            using (var reader = ExecuteReader(query, CommandType.Text,
+            using (var reader = SqlHelper.ExecuteReader(query, CommandType.Text,
               new SqlParameter[] { new SqlParameter("@IdUsuario", entity.IdUsuario) }))
             {
                 while (reader.Read())

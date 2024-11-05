@@ -42,6 +42,12 @@ namespace Services.BLL
                     case ReqUsuarioLogin reqLogin:
                         res = UsuarioBLL.Current.Login((ReqUsuarioLogin)req);
                         break;
+                    case ReqPatentesObtener reqPatentesObtener:
+                        res = PatentesBLL.Current.Obtener((ReqPatentesObtener)req);
+                        break;
+                    case ReqFamiliasObtener reqFamiliasObtener:
+                        res = FamiliasBLL.Current.Obtener((ReqFamiliasObtener)req);
+                        break;
                 }
             }
             catch (Exception ex)
