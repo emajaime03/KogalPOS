@@ -86,6 +86,7 @@
     <Compile Include="Domain\BLL\ReqResPatentes.cs" />
     <Compile Include="Domain\BLL\ReqResUsuario.cs" />
     <Compile Include="Domain\Enums\E_Estados.cs" />
+    <Compile Include="Domain\Enums\E_FormsServicesValues.cs" />
     <Compile Include="Domain\Enums\E_Patentes.cs" />
     <Compile Include="Domain\Familia.cs" />
     <Compile Include="Domain\Log.cs" />
@@ -98,6 +99,9 @@
     <Compile Include="Facade\Extensions\StringExtension.cs" />
     <Compile Include="Facade\LanguageService.cs" />
     <Compile Include="Facade\LoggerService.cs" />
+    <Compile Include="Facade\Observer\IObserver.cs" />
+    <Compile Include="Facade\Observer\ISubject.cs" />
+    <Compile Include="Facade\Observer\FormSubject.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

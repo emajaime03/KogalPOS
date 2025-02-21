@@ -44,6 +44,7 @@
     <Reference Include="DevExpress.XtraGrid.v19.1, Version=19.1.5.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL" />
     <Reference Include="DevExpress.XtraLayout.v19.1, Version=19.1.5.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a" />
     <Reference Include="DevExpress.XtraPrinting.v19.1, Version=19.1.5.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a" />
+    <Reference Include="DevExpress.XtraTreeList.v19.1, Version=19.1.5.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL" />
     <Reference Include="FontAwesome.Sharp, Version=6.6.0.0, Culture=neutral, PublicKeyToken=d16d1e4e568ec10f, processorArchitecture=MSIL">
       <HintPath>..\packages\FontAwesome.Sharp.6.6.0\lib\net48\FontAwesome.Sharp.dll</HintPath>
     </Reference>
@@ -77,17 +78,24 @@
     <Compile Include="Formularios\Administrador\Familias\frmFamilias.Designer.cs">
       <DependentUpon>frmFamilias.cs</DependentUpon>
     </Compile>
+    <Compile Include="Formularios\Administrador\Familias\frmFamiliasABM.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Formularios\Administrador\Familias\frmFamiliasABM.Designer.cs">
+      <DependentUpon>frmFamiliasABM.cs</DependentUpon>
+    </Compile>
     <Compile Include="Formularios\Administrador\Patentes\frmPatentes.cs">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="Formularios\Administrador\Patentes\frmPatentes.Designer.cs">
       <DependentUpon>frmPatentes.cs</DependentUpon>
     </Compile>
-    <Compile Include="Formularios\Base\frmGrillaBase.cs">
+    <Compile Include="Formularios\Base\E_TipoPantalla.cs" />
+    <Compile Include="Formularios\Base\frmBaseGrilla.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Formularios\Base\frmGrillaBase.Designer.cs">
-      <DependentUpon>frmGrillaBase.cs</DependentUpon>
+    <Compile Include="Formularios\Base\frmBaseGrilla.Designer.cs">
+      <DependentUpon>frmBaseGrilla.cs</DependentUpon>
     </Compile>
     <Compile Include="Formularios\FormulariosManager.cs" />
     <Compile Include="Login\frmLogin.cs">
@@ -107,11 +115,14 @@
     <EmbeddedResource Include="Formularios\Administrador\Familias\frmFamilias.resx">
       <DependentUpon>frmFamilias.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="Formularios\Administrador\Familias\frmFamiliasABM.resx">
+      <DependentUpon>frmFamiliasABM.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Formularios\Administrador\Patentes\frmPatentes.resx">
       <DependentUpon>frmPatentes.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Formularios\Base\frmGrillaBase.resx">
-      <DependentUpon>frmGrillaBase.cs</DependentUpon>
+    <EmbeddedResource Include="Formularios\Base\frmBaseGrilla.resx">
+      <DependentUpon>frmBaseGrilla.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Login\frmLogin.resx">
       <DependentUpon>frmLogin.cs</DependentUpon>

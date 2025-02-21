@@ -40,11 +40,18 @@ namespace Services.Domain
             accesos.RemoveAll(o => o.Id == component.Id);
         }
 
-        public List<Patente> GetPatentes()
+        public List<Patente> GetPatentes(bool soloAsignadas = false)
         {
             List<Patente> patentes = new List<Patente>();
 
-            GetAllPatentes(Accesos, patentes);
+            if (!soloAsignadas)
+            {
+                GetAllPatentes(Accesos, patentes);
+            }
+            else
+            {
+                patentes = accesos.OfType<Patente>().Where(p => p.GetCount() == 0).ToList();
+            }
 
             return patentes;
         }
@@ -69,12 +76,19 @@ namespace Services.Domain
             }
         }
 
-        public List<Familia> GetFamilias()
+        public List<Familia> GetFamilias(bool soloAsignadas = false)
         {
 
             List<Familia> familias = new List<Familia>();
 
-            GetAllFamilias(Accesos, familias);
+            if (!soloAsignadas)
+            {
+                GetAllFamilias(Accesos, familias);
+            }
+            else
+            {
+                familias = accesos.OfType<Familia>().Where(f => f.GetCount() > 0).ToList();
+            }
 
             return familias;
 

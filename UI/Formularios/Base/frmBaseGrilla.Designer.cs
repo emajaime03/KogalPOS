@@ -1,7 +1,7 @@
 ﻿
 namespace UI.Formularios.Base
 {
-    partial class frmGrillaBase
+    partial class frmBaseGrilla
     {
         /// <summary>
         /// Required designer variable.
@@ -29,7 +29,7 @@ namespace UI.Formularios.Base
         /// </summary>
         private void InitializeComponent()
         {
-            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(frmGrillaBase));
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(frmBaseGrilla));
             this.layoutControl1 = new DevExpress.XtraLayout.LayoutControl();
             this.btnRefresh = new DevExpress.XtraEditors.SimpleButton();
             this.btnExport = new DevExpress.XtraEditors.SimpleButton();

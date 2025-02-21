@@ -15,4 +15,15 @@ namespace Services.Domain.BLL
     {
         public List<Familia> Familias { get; set; }
     }
+    public class ReqFamiliaObtener : ReqBase
+    {
+        public Guid Id { get; set; }
+    }
+    public class ResFamiliaObtener : ResBase
+    {
+        public Familia Familia { get; set; }
+
+        public List<Patente> ListaPatentes { get; set; }
+        public List<Familia> ListaFamilias { get; set; }
+    }
 }

@@ -127,6 +127,7 @@ namespace UI.Formularios.Administrador.Familias
             this.btnDetalle.StyleController = this.layoutControl1;
             this.btnDetalle.TabIndex = 11;
             this.btnDetalle.Text = "Detalle";
+            this.btnDetalle.Click += new System.EventHandler(this.btnDetalle_Click);
             // 
             // btnNuevo
             // 
@@ -136,6 +137,7 @@ namespace UI.Formularios.Administrador.Familias
             this.btnNuevo.StyleController = this.layoutControl1;
             this.btnNuevo.TabIndex = 10;
             this.btnNuevo.Text = "Nuevo";
+            this.btnNuevo.Click += new System.EventHandler(this.btnNuevo_Click);
             // 
             // labelControl3
             // 

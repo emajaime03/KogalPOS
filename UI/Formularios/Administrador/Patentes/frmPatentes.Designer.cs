@@ -3,7 +3,7 @@ using UI.Formularios.Base;
 
 namespace UI.Formularios.Administrador.Patentes
 {
-    partial class frmPatentes : frmGrillaBase
+    partial class frmPatentes : frmBaseGrilla
     {
         /// <summary>
         /// Required designer variable.

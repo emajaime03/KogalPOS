@@ -29,5 +29,13 @@ namespace UI.Formularios
             frmFamilias.MaximizeBox = true;
             frmFamilias.Show();
         }
+
+        public static void FamiliasABM(Guid id = default)
+        {
+            frmFamiliasABM frmFamiliasABM = new frmFamiliasABM(id);
+            frmFamiliasABM.MdiParent = frmPrincipal;
+            frmFamiliasABM.MaximizeBox = true;
+            frmFamiliasABM.Show();
+        }
     }
 }

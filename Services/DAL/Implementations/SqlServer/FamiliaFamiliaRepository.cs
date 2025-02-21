@@ -33,7 +33,7 @@ namespace Services.DAL.Implementations.SqlServer
                     reader.GetValues(data);
 
                     //Busco en el repositorio de familias a partir del id familia de mi tupla-relación
-                    entity.Add(_unitOfWorkRepository.FamiliaRepository.GetById(Guid.Parse(data[1].ToString())));
+                    entity.Add(_unitOfWorkRepository.FamiliaRepository.GetById(Guid.Parse(data[0].ToString())));
                 }
             }
 

@@ -46,7 +46,10 @@ namespace Services.BLL
                         res = PatentesBLL.Current.Obtener((ReqPatentesObtener)req);
                         break;
                     case ReqFamiliasObtener reqFamiliasObtener:
-                        res = FamiliasBLL.Current.Obtener((ReqFamiliasObtener)req);
+                        res = FamiliasBLL.Current.ObtenerLista((ReqFamiliasObtener)req);
+                        break;
+                    case ReqFamiliaObtener reqFamiliaObtener:
+                        res = FamiliasBLL.Current.Obtener((ReqFamiliaObtener)req);
                         break;
                 }
             }

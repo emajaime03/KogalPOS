@@ -8,99 +8,101 @@ using System.Threading.Tasks;
 
 namespace Services.Domain
 {
-    public class Usuario {
-
-    public Guid IdUsuario { get; set; }
-    public E_Estados Estado { get; set; }
-    public string UserName { get; set; }
-    public string Password { get; set; }
-
-    public string HashPassword
+    public class Usuario
     {
-        get
+
+        public Guid IdUsuario { get; set; }
+        public E_Estados Estado { get; set; }
+        public string UserName { get; set; }
+        public string Password { get; set; }
+
+        public string HashPassword
         {
-            return CryptographyService.Encrypt(this.Password);
-        }
-    }
-
-    public string HashVH
-    {
-        get
-        {
-            return CryptographyService.Encrypt(this.IdUsuario.ToString() + this.Estado.ToString() + this.UserName + this.Password);
-        }
-    }
-
-    public List<Acceso> Accesos = new List<Acceso>();
-
-	public Usuario(){
-        IdUsuario = Guid.NewGuid();
-	}
-
-    public Usuario(Guid idUsuario)
-    {
-        this.IdUsuario = idUsuario;
-    }
-
-    public bool CheckPatente(E_Patentes patente)
-    {
-        return GetPatentes().Any(p => p.DataKey == patente);
-    }
-
-    public List<Patente> GetPatentes()
-    {
-        List<Patente> patentes= new List<Patente>();
-
-        GetAllPatentes(Accesos, patentes);
-
-        return patentes;
-    }
-
-    private void GetAllPatentes(List<Acceso> accesos, List<Patente> patentesReturn)
-    {
-        foreach(var acceso in accesos)
-        {
-            //Cuál sería mi condición de corte?
-            //Significa que estoy ante un elemento de tipo Leaf, Hoja, Primitivo
-            if (acceso.GetCount() == 0)
+            get
             {
-                //Podría pasar que la patente ya esté agregada (Similar a un distinct)
-                if(!patentesReturn.Any(o => o.Id == acceso.Id))
-                    patentesReturn.Add(acceso as Patente);
-            }
-            else
-            {
-                //Tengo que tratar a mi "acceso" como si fuese una familia
-                GetAllPatentes((acceso as Familia).Accesos, patentesReturn);
+                return CryptographyService.Encrypt(this.Password);
             }
         }
-    }
 
-    public List<Familia> GetFamilias() {
-
-        List<Familia> familias= new List<Familia>();
-
-        GetAllFamilias(Accesos, familias);
-
-        return familias;
-
-    }
-
-    private void GetAllFamilias(List<Acceso> accesos, List<Familia> famililaReturn)
-    {
-        foreach (var acceso in accesos)
+        public string HashVH
         {
-            //Cuál sería mi condición de corte?
-            //Significa que estoy ante un elemento de tipo Composite
-            if (acceso.GetCount() > 0)
+            get
             {
-                if (!famililaReturn.Any(o => o.Id == acceso.Id))
-                    famililaReturn.Add(acceso as Familia);
+                return CryptographyService.Encrypt(this.IdUsuario.ToString() + this.Estado.ToString() + this.UserName + this.Password);
+            }
+        }
 
-                GetAllFamilias((acceso as Familia).Accesos, famililaReturn);
+        public List<Acceso> Accesos = new List<Acceso>();
+
+        public Usuario()
+        {
+            IdUsuario = Guid.NewGuid();
+        }
+
+        public Usuario(Guid idUsuario)
+        {
+            this.IdUsuario = idUsuario;
+        }
+
+        public bool CheckPatente(E_Patentes patente)
+        {
+            return GetPatentes().Any(p => p.DataKey == patente);
+        }
+
+        public List<Patente> GetPatentes()
+        {
+            List<Patente> patentes = new List<Patente>();
+
+            GetAllPatentes(Accesos, patentes);
+
+            return patentes;
+        }
+
+        private void GetAllPatentes(List<Acceso> accesos, List<Patente> patentesReturn)
+        {
+            foreach (var acceso in accesos)
+            {
+                //Cuál sería mi condición de corte?
+                //Significa que estoy ante un elemento de tipo Leaf, Hoja, Primitivo
+                if (acceso.GetCount() == 0)
+                {
+                    //Podría pasar que la patente ya esté agregada (Similar a un distinct)
+                    if (!patentesReturn.Any(o => o.Id == acceso.Id))
+                        patentesReturn.Add(acceso as Patente);
+                }
+                else
+                {
+                    //Tengo que tratar a mi "acceso" como si fuese una familia
+                    GetAllPatentes((acceso as Familia).Accesos, patentesReturn);
+                }
+            }
+        }
+
+        public List<Familia> GetFamilias()
+        {
+
+            List<Familia> familias = new List<Familia>();
+
+            GetAllFamilias(Accesos, familias);
+
+            return familias;
+
+        }
+
+        private void GetAllFamilias(List<Acceso> accesos, List<Familia> famililaReturn)
+        {
+            foreach (var acceso in accesos)
+            {
+                //Cuál sería mi condición de corte?
+                //Significa que estoy ante un elemento de tipo Composite
+                if (acceso.GetCount() > 0)
+                {
+                    if (!famililaReturn.Any(o => o.Id == acceso.Id))
+                        famililaReturn.Add(acceso as Familia);
+
+                    GetAllFamilias((acceso as Familia).Accesos, famililaReturn);
+                }
             }
         }
     }
-
-}//end User
 }

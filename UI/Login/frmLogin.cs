@@ -49,5 +49,17 @@ namespace UI.Login
                 lblMensaje.Visible = true;
             }
         }
+
+        private void frmLogin_KeyPress(object sender, KeyPressEventArgs e)
+        {
+#if DEBUG
+            if ((Control.ModifierKeys == Keys.Shift) && (e.KeyChar == '_' || e.KeyChar == '-'))
+            {
+                txtUserName.Text = "ema";
+                txtPassword.Text = "hola";
+                btnIngresar.PerformClick();
+            }
+#endif
+        }
     }
 }

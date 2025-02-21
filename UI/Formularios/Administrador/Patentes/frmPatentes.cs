@@ -17,7 +17,7 @@ using UI.Formularios.Base;
 
 namespace UI.Formularios.Administrador.Patentes
 {
-    public partial class frmPatentes : frmGrillaBase
+    public partial class frmPatentes : frmBaseGrilla
     {
         public frmPatentes()
         {

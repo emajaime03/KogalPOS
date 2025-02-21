@@ -30,5 +30,7 @@ namespace Services.Domain
 
         public abstract int GetCount();
 
+        public bool Temp_Seleccionado { get; set; }
+
     }//end Component
 }

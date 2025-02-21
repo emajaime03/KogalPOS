@@ -24,6 +24,7 @@
 			</Declarations>
 			<Code Language="csharp">
 				<![CDATA[
+#region "Singleton"				
 	private readonly static $className$ _instance = new $className$();
 
 	public static $className$ Current
@@ -38,6 +39,7 @@
 	{
 		//Implent here the initialization of your singleton
 	}
+#endregion
                   ]]>
 			</Code>
 		</Snippet>

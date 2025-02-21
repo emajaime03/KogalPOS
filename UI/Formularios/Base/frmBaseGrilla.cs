@@ -12,9 +12,9 @@ using System.Windows.Forms;
 
 namespace UI.Formularios.Base
 {
-    public partial class frmGrillaBase : DevExpress.XtraEditors.XtraForm
+    public partial class frmBaseGrilla : DevExpress.XtraEditors.XtraForm
     {
-        public frmGrillaBase()
+        public frmBaseGrilla()
         {
             InitializeComponent();
         }
