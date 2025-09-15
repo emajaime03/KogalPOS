@@ -211,13 +211,13 @@ namespace UI.Formularios.Base
             this.layoutControlItem5.TextSize = new System.Drawing.Size(0, 0);
             this.layoutControlItem5.TextVisible = false;
             // 
-            // frmGrillaBase
+            // frmBaseGrilla
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(873, 436);
             this.Controls.Add(this.layoutControl1);
-            this.Name = "frmGrillaBase";
+            this.Name = "frmBaseGrilla";
             this.Text = "frmGrillaBase";
             ((System.ComponentModel.ISupportInitialize)(this.layoutControl1)).EndInit();
             this.layoutControl1.ResumeLayout(false);

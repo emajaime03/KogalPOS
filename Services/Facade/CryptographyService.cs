@@ -9,13 +9,13 @@ namespace Services.Facade
 {
     public static class CryptographyService
     {
-        public static string Encrypt(string textPlainPass)
+        public static string HashMD5(string text)
         {
             StringBuilder sb = new StringBuilder();
 
             using (MD5 md5 = MD5.Create())
             {
-                byte[] retVal = md5.ComputeHash(Encoding.Unicode.GetBytes(textPlainPass));
+                byte[] retVal = md5.ComputeHash(Encoding.Unicode.GetBytes(text));
                 for (int i = 0; i < retVal.Length; i++)
                 {
                     sb.Append(retVal[i].ToString("x2"));

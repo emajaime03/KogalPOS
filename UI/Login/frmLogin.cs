@@ -35,7 +35,7 @@ namespace UI.Login
 
         private void btnIngresar_Click(object sender, EventArgs e)
         {
-            ResUsuarioLogin res = (ResUsuarioLogin)RequestBLL.Current.GetResponse(new ReqUsuarioLogin { Username = txtUserName.Text, Password = txtPassword.Text });
+            ResUsuarioLogin res = (ResUsuarioLogin)RequestBLL.Current.GetResponse(new ReqUsuarioLogin { Username = txtUserName.Text, Password = CryptographyService.HashMD5(txtPassword.Text) });
 
             if (res.Success)
             {
@@ -55,8 +55,8 @@ namespace UI.Login
 #if DEBUG
             if ((Control.ModifierKeys == Keys.Shift) && (e.KeyChar == '_' || e.KeyChar == '-'))
             {
-                txtUserName.Text = "ema";
-                txtPassword.Text = "hola";
+                txtUserName.Text = "emajaime073@gmail.com";
+                txtPassword.Text = "1234";
                 btnIngresar.PerformClick();
             }
 #endif

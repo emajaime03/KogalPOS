@@ -20,15 +20,15 @@ namespace Services.Domain
         {
             get
             {
-                return CryptographyService.Encrypt(this.Password);
+                return CryptographyService.HashMD5(this.Password);
             }
         }
-
+        
         public string HashVH
         {
             get
             {
-                return CryptographyService.Encrypt(this.IdUsuario.ToString() + this.Estado.ToString() + this.UserName + this.Password);
+                return CryptographyService.HashMD5(this.IdUsuario.ToString() + this.Estado.ToString() + this.UserName + this.Password);
             }
         }
 

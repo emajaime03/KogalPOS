@@ -37,10 +37,8 @@ namespace Services.BLL.Services
 
             using (var context = ApplicationFactory.UnitOfWork.Create())
             {
-                req.Password = CryptographyService.Encrypt(req.Password);
-
                 res.Usuario = context.Repositories.UsuarioRepository.GetByUserPassword(req.Username, req.Password);
-
+                 
                 if (res.Usuario != null)
                 {
                     if (context.Repositories.UsuarioRepository.GetHashedVH(res.Usuario.IdUsuario) != res.Usuario.HashVH)
