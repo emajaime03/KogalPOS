@@ -16,14 +16,30 @@ namespace Services.DAL.Implementations.SqlServer.UnitOfWork
 
         public UnitOfWorkSqlServerAdapter(string connectionString)
         {
-            _context = new SqlConnection(connectionString);
-            _context.Open();
+            if (string.IsNullOrWhiteSpace(connectionString))
+                throw new ArgumentException("La cadena de conexión no puede estar vacía.", nameof(connectionString));
 
-            _transaction = _context.BeginTransaction();
+            try
+            {
+                _context = new SqlConnection(connectionString);
+                _context.Open(); // puede lanzar SqlException
 
-            Repositories = new UnitOfWorkSqlServerRepository(_context, _transaction);
+                _transaction = _context.BeginTransaction(); // también puede lanzar error si falla la conexión
+
+                Repositories = new UnitOfWorkSqlServerRepository(_context, _transaction);
+            }
+            catch (SqlException ex)
+            {
+                // Error típico de SQL Server (login failed, timeout, etc.)
+                throw new InvalidOperationException("No se pudo abrir la conexión a SQL Server.", ex);
+            }
+            catch (Exception ex)
+            {
+                // Cualquier otro error inesperado
+                throw new InvalidOperationException("Error al inicializar UnitOfWorkSqlServerAdapter.", ex);
+            }
         }
-        
+
         public void Dispose()
         {
             if (_transaction != null)

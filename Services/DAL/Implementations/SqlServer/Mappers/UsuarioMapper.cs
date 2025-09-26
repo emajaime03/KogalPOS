@@ -32,8 +32,7 @@ namespace Services.DAL.Implementations.SqlServer.Mappers
         public Usuario Fill(object[] values)
         {
             //Nivel de hidratación 1 (Primitivos)
-            Usuario usuario = new Usuario();
-            usuario.IdUsuario = Guid.Parse(values[0].ToString());
+            Usuario usuario = new Usuario(Guid.Parse(values[0].ToString()));
             usuario.Estado = (E_Estados)Convert.ToInt32(values[1]);
             usuario.UserName = values[2].ToString();
             usuario.Password = values[3].ToString();

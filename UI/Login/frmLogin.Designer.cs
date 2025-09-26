@@ -62,18 +62,20 @@ namespace UI.Login
             this.layoutControl1.Controls.Add(this.btnIngresar);
             this.layoutControl1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.layoutControl1.Location = new System.Drawing.Point(0, 0);
+            this.layoutControl1.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.layoutControl1.Name = "layoutControl1";
-            this.layoutControl1.OptionsCustomizationForm.DesignTimeCustomizationFormPositionAndSize = new System.Drawing.Rectangle(346, 7, 650, 400);
+            this.layoutControl1.OptionsCustomizationForm.DesignTimeCustomizationFormPositionAndSize = new System.Drawing.Rectangle(365, 151, 650, 400);
             this.layoutControl1.Root = this.Root;
-            this.layoutControl1.Size = new System.Drawing.Size(320, 118);
+            this.layoutControl1.Size = new System.Drawing.Size(410, 145);
             this.layoutControl1.TabIndex = 0;
             this.layoutControl1.Text = "layoutControl1";
             // 
             // lblMensaje
             // 
-            this.lblMensaje.Location = new System.Drawing.Point(12, 60);
+            this.lblMensaje.Location = new System.Drawing.Point(14, 66);
+            this.lblMensaje.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.lblMensaje.Name = "lblMensaje";
-            this.lblMensaje.Size = new System.Drawing.Size(296, 13);
+            this.lblMensaje.Size = new System.Drawing.Size(382, 16);
             this.lblMensaje.StyleController = this.layoutControl1;
             this.lblMensaje.TabIndex = 8;
             this.lblMensaje.Visible = false;
@@ -81,27 +83,30 @@ namespace UI.Login
             // txtUserName
             // 
             this.txtUserName.EditValue = "myEmail@mail.com";
-            this.txtUserName.Location = new System.Drawing.Point(12, 12);
+            this.txtUserName.Location = new System.Drawing.Point(14, 14);
+            this.txtUserName.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.txtUserName.Name = "txtUserName";
-            this.txtUserName.Size = new System.Drawing.Size(296, 20);
+            this.txtUserName.Size = new System.Drawing.Size(382, 22);
             this.txtUserName.StyleController = this.layoutControl1;
             this.txtUserName.TabIndex = 4;
             // 
             // txtPassword
             // 
             this.txtPassword.EditValue = "Password";
-            this.txtPassword.Location = new System.Drawing.Point(12, 36);
+            this.txtPassword.Location = new System.Drawing.Point(14, 40);
+            this.txtPassword.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.txtPassword.Name = "txtPassword";
             this.txtPassword.Properties.PasswordChar = '*';
-            this.txtPassword.Size = new System.Drawing.Size(296, 20);
+            this.txtPassword.Size = new System.Drawing.Size(382, 22);
             this.txtPassword.StyleController = this.layoutControl1;
             this.txtPassword.TabIndex = 5;
             // 
             // btnIngresar
             // 
-            this.btnIngresar.Location = new System.Drawing.Point(12, 77);
+            this.btnIngresar.Location = new System.Drawing.Point(14, 86);
+            this.btnIngresar.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.btnIngresar.Name = "btnIngresar";
-            this.btnIngresar.Size = new System.Drawing.Size(118, 22);
+            this.btnIngresar.Size = new System.Drawing.Size(153, 27);
             this.btnIngresar.StyleController = this.layoutControl1;
             this.btnIngresar.TabIndex = 7;
             this.btnIngresar.Text = "Ingresar";
@@ -114,7 +119,7 @@ namespace UI.Login
             this.Root.Items.AddRange(new DevExpress.XtraLayout.BaseLayoutItem[] {
             this.layoutControlGroup1});
             this.Root.Name = "Root";
-            this.Root.Size = new System.Drawing.Size(320, 118);
+            this.Root.Size = new System.Drawing.Size(410, 145);
             this.Root.TextVisible = false;
             // 
             // layoutControlGroup1
@@ -128,7 +133,7 @@ namespace UI.Login
             this.layoutControlItem5});
             this.layoutControlGroup1.Location = new System.Drawing.Point(0, 0);
             this.layoutControlGroup1.Name = "LayoutRootGroupForRestore";
-            this.layoutControlGroup1.Size = new System.Drawing.Size(300, 98);
+            this.layoutControlGroup1.Size = new System.Drawing.Size(386, 121);
             this.layoutControlGroup1.Tag = "LayoutRootGroupForRestore";
             // 
             // layoutControlItem1
@@ -137,7 +142,7 @@ namespace UI.Login
             this.layoutControlItem1.CustomizationFormText = "layoutControlItem1";
             this.layoutControlItem1.Location = new System.Drawing.Point(0, 0);
             this.layoutControlItem1.Name = "layoutControlItem1";
-            this.layoutControlItem1.Size = new System.Drawing.Size(300, 24);
+            this.layoutControlItem1.Size = new System.Drawing.Size(386, 26);
             this.layoutControlItem1.TextLocation = DevExpress.Utils.Locations.Left;
             this.layoutControlItem1.TextSize = new System.Drawing.Size(0, 0);
             this.layoutControlItem1.TextVisible = false;
@@ -146,9 +151,9 @@ namespace UI.Login
             // 
             this.layoutControlItem2.Control = this.txtPassword;
             this.layoutControlItem2.CustomizationFormText = "layoutControlItem2";
-            this.layoutControlItem2.Location = new System.Drawing.Point(0, 24);
+            this.layoutControlItem2.Location = new System.Drawing.Point(0, 26);
             this.layoutControlItem2.Name = "layoutControlItem2";
-            this.layoutControlItem2.Size = new System.Drawing.Size(300, 24);
+            this.layoutControlItem2.Size = new System.Drawing.Size(386, 26);
             this.layoutControlItem2.TextLocation = DevExpress.Utils.Locations.Left;
             this.layoutControlItem2.TextSize = new System.Drawing.Size(0, 0);
             this.layoutControlItem2.TextVisible = false;
@@ -157,9 +162,9 @@ namespace UI.Login
             // 
             this.layoutControlItem4.Control = this.btnIngresar;
             this.layoutControlItem4.CustomizationFormText = "layoutControlItem4";
-            this.layoutControlItem4.Location = new System.Drawing.Point(0, 65);
+            this.layoutControlItem4.Location = new System.Drawing.Point(0, 72);
             this.layoutControlItem4.Name = "layoutControlItem4";
-            this.layoutControlItem4.Size = new System.Drawing.Size(122, 33);
+            this.layoutControlItem4.Size = new System.Drawing.Size(157, 49);
             this.layoutControlItem4.TextLocation = DevExpress.Utils.Locations.Left;
             this.layoutControlItem4.TextSize = new System.Drawing.Size(0, 0);
             this.layoutControlItem4.TextVisible = false;
@@ -168,28 +173,29 @@ namespace UI.Login
             // 
             this.emptySpaceItem1.AllowHotTrack = false;
             this.emptySpaceItem1.CustomizationFormText = "emptySpaceItem1";
-            this.emptySpaceItem1.Location = new System.Drawing.Point(122, 65);
+            this.emptySpaceItem1.Location = new System.Drawing.Point(157, 72);
             this.emptySpaceItem1.Name = "emptySpaceItem1";
-            this.emptySpaceItem1.Size = new System.Drawing.Size(178, 33);
+            this.emptySpaceItem1.Size = new System.Drawing.Size(229, 49);
             this.emptySpaceItem1.TextSize = new System.Drawing.Size(0, 0);
             // 
             // layoutControlItem5
             // 
             this.layoutControlItem5.Control = this.lblMensaje;
-            this.layoutControlItem5.Location = new System.Drawing.Point(0, 48);
+            this.layoutControlItem5.Location = new System.Drawing.Point(0, 52);
             this.layoutControlItem5.Name = "layoutControlItem5";
-            this.layoutControlItem5.Size = new System.Drawing.Size(300, 17);
+            this.layoutControlItem5.Size = new System.Drawing.Size(386, 20);
             this.layoutControlItem5.TextSize = new System.Drawing.Size(0, 0);
             this.layoutControlItem5.TextVisible = false;
             // 
             // frmLogin
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(320, 118);
+            this.ClientSize = new System.Drawing.Size(410, 145);
             this.Controls.Add(this.layoutControl1);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
             this.KeyPreview = true;
+            this.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.MaximizeBox = false;
             this.Name = "frmLogin";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;

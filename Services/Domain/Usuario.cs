@@ -16,23 +16,15 @@ namespace Services.Domain
         public string UserName { get; set; }
         public string Password { get; set; }
 
-        public string HashPassword
-        {
-            get
-            {
-                return CryptographyService.HashMD5(this.Password);
-            }
-        }
-        
-        public string HashVH
-        {
-            get
-            {
-                return CryptographyService.HashMD5(this.IdUsuario.ToString() + this.Estado.ToString() + this.UserName + this.Password);
-            }
-        }
-
         public List<Acceso> Accesos = new List<Acceso>();
+
+        public string HashedDVH
+        {
+            get
+            {
+                return CryptographyService.Hash(this.IdUsuario.ToString() + (int)this.Estado + this.UserName + this.Password);
+            }
+        }
 
         public Usuario()
         {

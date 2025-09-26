@@ -10,6 +10,7 @@ using Services.DAL.Contracts;
 using Services.DAL.Implementations.SqlServer.Mappers;
 using Services.DAL.Tools.Helpers;
 using Services.DAL.Contracts.UnitOfWork;
+using Services.Facade;
 
 namespace Services.DAL.Implementations.SqlServer
 {
@@ -100,6 +101,17 @@ namespace Services.DAL.Implementations.SqlServer
             string query = $"SELECT VH FROM Usuarios WHERE IdUsuario = @IdUsuario";
             var VH = SqlHelper.ExecuteScalar(query, CommandType.Text, new SqlParameter[] { new SqlParameter("@IdUsuario", idUsuario) }).ToString();
             return VH;
+        }
+
+        public bool VerifyDVH(Usuario usuario)
+        {
+            string query = $"SELECT DVH FROM Usuarios WHERE IdUsuario = @IdUsuario";
+            var DVH = SqlHelper.ExecuteScalar(query, CommandType.Text, new SqlParameter[] { new SqlParameter("@IdUsuario", usuario.IdUsuario) }).ToString();
+
+            if (usuario.HashedDVH.Equals(DVH))
+                return true;
+            else
+                return false;
         }
     }
 }

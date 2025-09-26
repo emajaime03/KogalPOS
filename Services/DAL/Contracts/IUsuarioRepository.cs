@@ -1,4 +1,5 @@
 ﻿using Microsoft.Win32;
+using Services.Domain;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -10,6 +11,6 @@ namespace Services.DAL.Contracts
     public interface IUsuarioRepository<T> : IGenericRepository<T>
     {
         T GetByUserPassword(string user, string password);
-        string GetHashedVH(Guid idUsuario);
+        bool VerifyDVH(Usuario usuario);
     }
 }

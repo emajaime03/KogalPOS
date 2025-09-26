@@ -38,10 +38,10 @@ namespace Services.BLL.Services
             using (var context = ApplicationFactory.UnitOfWork.Create())
             {
                 res.Usuario = context.Repositories.UsuarioRepository.GetByUserPassword(req.Username, req.Password);
-                 
+                
                 if (res.Usuario != null)
                 {
-                    if (context.Repositories.UsuarioRepository.GetHashedVH(res.Usuario.IdUsuario) != res.Usuario.HashVH)
+                    if (!context.Repositories.UsuarioRepository.VerifyDVH(res.Usuario))
                     {
                         res.Success = false;
                         res.Message = "Ha ocurrido un error de seguridad, por favor comunicar a soporte.";

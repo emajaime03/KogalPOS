@@ -35,9 +35,15 @@ namespace UI.Login
 
         private void btnIngresar_Click(object sender, EventArgs e)
         {
-            ResUsuarioLogin res = (ResUsuarioLogin)RequestBLL.Current.GetResponse(new ReqUsuarioLogin { Username = txtUserName.Text, Password = CryptographyService.HashMD5(txtPassword.Text) });
+            var response = RequestBLL.Current.GetResponse(
+                new ReqUsuarioLogin
+                {
+                    Username = txtUserName.Text,
+                    Password = CryptographyService.Hash(txtPassword.Text)
+                }
+            );
 
-            if (res.Success)
+            if (response is ResUsuarioLogin res && res.Success)
             {
                 this.UsuarioLogin = res.Usuario;
                 this.DialogResult = DialogResult.OK;
@@ -45,7 +51,7 @@ namespace UI.Login
             }
             else
             {
-                lblMensaje.Text = res.Message.Translate();
+                lblMensaje.Text = (response as ResUsuarioLogin)?.Message.Translate() ?? "Error en login.";
                 lblMensaje.Visible = true;
             }
         }
