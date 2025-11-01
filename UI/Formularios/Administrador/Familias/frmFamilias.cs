@@ -4,6 +4,7 @@ using Services.BLL;
 using Services.Domain;
 using Services.Domain.BLL;
 using Services.Domain.Enums;
+using Services.Facade;
 using Services.Facade.Observer;
 using System;
 using System.Collections.Generic;
@@ -95,7 +96,7 @@ namespace UI.Formularios.Administrador.Familias
         }
         private void CargarPantalla()
         {
-            ResFamiliasObtener res = (ResFamiliasObtener)RequestBLL.Current.GetResponse(new ReqFamiliasObtener());
+            ResFamiliasObtener res = (ResFamiliasObtener)RequestService.Current.GetResponse(new ReqFamiliasObtener());
 
             this.gcFamilias.DataSource = res.Familias;
         }

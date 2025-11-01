@@ -4,6 +4,7 @@ using Services.BLL;
 using Services.Domain;
 using Services.Domain.BLL;
 using Services.Domain.Enums;
+using Services.Facade;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -51,9 +52,14 @@ namespace UI.Formularios.Administrador.Patentes
 
         protected override void CargarPantalla()
         {
-            ResPatentesObtener res = (ResPatentesObtener)RequestBLL.Current.GetResponse(new ReqPatentesObtener());
+            ResPatentesObtener res = (ResPatentesObtener)RequestService.Current.GetResponse(new ReqPatentesObtener());
                     
             this.gridControl.DataSource = res.Patentes;
+        }
+
+        private void windowsUIButtonPanel1_Click(object sender, EventArgs e)
+        {
+
         }
     }
 }

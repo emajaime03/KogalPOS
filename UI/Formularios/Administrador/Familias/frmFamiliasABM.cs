@@ -5,6 +5,7 @@ using Services.BLL;
 using Services.Domain;
 using Services.Domain.BLL;
 using Services.Domain.Enums;
+using Services.Facade;
 using Services.Facade.Extensions;
 using Services.Facade.Observer;
 using System;
@@ -149,7 +150,7 @@ namespace UI.Formularios.Administrador.Familias
         private void CargarPantalla()
         {
 
-            ResFamiliaObtener res = (ResFamiliaObtener)RequestBLL.Current.GetResponse(new ReqFamiliaObtener { Id = this.Id });
+            ResFamiliaObtener res = (ResFamiliaObtener)RequestService.Current.GetResponse(new ReqFamiliaObtener { Id = this.Id });
 
             TodasFamilias = res.ListaFamilias;
             TodasPatentes = res.ListaPatentes;

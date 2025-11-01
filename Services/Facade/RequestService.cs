@@ -9,15 +9,15 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Services.BLL
+namespace Services.Facade
 {
     
-    public class RequestBLL
+    public class RequestService
     {
 #region "Singleton"
-        private readonly static RequestBLL _instance = new RequestBLL();
+        private readonly static RequestService _instance = new RequestService();
 
-        public static RequestBLL Current
+        public static RequestService Current
         {
             get
             {
@@ -25,7 +25,7 @@ namespace Services.BLL
             }
         }
 
-        private RequestBLL()
+        private RequestService()
         {
             //Implent here the initialization of your singleton
         }
@@ -51,6 +51,9 @@ namespace Services.BLL
                     case ReqFamiliaObtener reqFamiliaObtener:
                         res = FamiliasBLL.Current.Obtener((ReqFamiliaObtener)req);
                         break;
+                    case ReqPatentesSincronizar reqPatentesObtener:
+                        res = PatentesBLL.Current.Sincronizar((ReqPatentesSincronizar)req);
+                        break;
                 }
             }
             catch (Exception ex)
@@ -62,7 +65,5 @@ namespace Services.BLL
 
             return res;
         }
-             
-
     }
 }

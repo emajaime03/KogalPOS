@@ -35,17 +35,17 @@ namespace UI.Formularios.Administrador.Patentes
             // 
             // btnNuevo
             // 
-            this.btnNuevo.Size = new System.Drawing.Size(699, 22);
+            this.btnNuevo.Size = new System.Drawing.Size(895, 22);
             // 
             // btnDetalle
             // 
-            this.btnDetalle.Size = new System.Drawing.Size(699, 22);
+            this.btnDetalle.Size = new System.Drawing.Size(895, 22);
             // 
             // frmPatentes
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(879, 430);
+            this.ClientSize = new System.Drawing.Size(1075, 430);
             this.Name = "frmPatentes";
             this.Text = "frmPatentes";
             this.ResumeLayout(false);

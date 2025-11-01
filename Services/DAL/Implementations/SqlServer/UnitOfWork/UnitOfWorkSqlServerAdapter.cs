@@ -23,7 +23,7 @@ namespace Services.DAL.Implementations.SqlServer.UnitOfWork
             {
                 _context = new SqlConnection(connectionString);
                 _context.Open(); // puede lanzar SqlException
-
+                    
                 _transaction = _context.BeginTransaction(); // también puede lanzar error si falla la conexión
 
                 Repositories = new UnitOfWorkSqlServerRepository(_context, _transaction);

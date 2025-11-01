@@ -43,7 +43,8 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="BLL\RequestBLL.cs" />
+    <Compile Include="DAL\Contracts\IPatenteRepository.cs" />
+    <Compile Include="Facade\RequestService.cs" />
     <Compile Include="BLL\Services\ExceptionBLL.cs" />
     <Compile Include="BLL\Services\FamiliasBLL.cs" />
     <Compile Include="BLL\Services\LanguageBLL.cs" />

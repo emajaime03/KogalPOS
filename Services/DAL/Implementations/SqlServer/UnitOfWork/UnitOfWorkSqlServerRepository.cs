@@ -18,7 +18,7 @@ namespace Services.DAL.Implementations.SqlServer.UnitOfWork
         public IGenericRepository<Familia> FamiliaRepository { get; }
         public IJoinRepository<Familia> FamiliaFamiliaRepository { get; }
         public IJoinRepository<Familia> FamiliaPatenteRepository { get; }
-        public IGenericRepository<Patente> PatenteRepository { get; }
+        public IPatenteRepository<Patente> PatenteRepository { get; }
 
         public UnitOfWorkSqlServerRepository(SqlConnection context, SqlTransaction transaction)
         {

@@ -8,6 +8,8 @@ using System.Threading.Tasks;
 
 namespace Services.Domain.BLL
 {
+    public class ReqPatentesSincronizar : ReqBase { }
+
     public class ReqPatentesObtener : ReqBase
     {
 

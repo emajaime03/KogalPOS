@@ -8,6 +8,10 @@ using System.Linq;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using UI.Principal;
+using Services.Domain.BLL;
+using DevExpress.Skins;
+using DevExpress.LookAndFeel;
+using DevExpress.XtraEditors;
 
 namespace UI
 {
@@ -20,9 +24,12 @@ namespace UI
         static void Main()
         {
             try
-            {
+            { 
                 Application.EnableVisualStyles();
                 Application.SetCompatibleTextRenderingDefault(false);
+
+                // Sincronizo todas las patentes del enum a la base de datos
+                var res = RequestService.Current.GetResponse(new ReqPatentesSincronizar());
 
                 Usuario usuario = default;
 

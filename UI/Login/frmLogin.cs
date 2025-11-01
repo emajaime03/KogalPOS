@@ -35,7 +35,7 @@ namespace UI.Login
 
         private void btnIngresar_Click(object sender, EventArgs e)
         {
-            var response = RequestBLL.Current.GetResponse(
+            var response = RequestService.Current.GetResponse(
                 new ReqUsuarioLogin
                 {
                     Username = txtUserName.Text,
