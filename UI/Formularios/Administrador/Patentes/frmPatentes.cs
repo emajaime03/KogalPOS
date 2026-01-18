@@ -1,19 +1,7 @@
-﻿using DevExpress.XtraEditors;
-using DevExpress.XtraGrid.Columns;
-using Services.BLL;
 using Services.Domain;
 using Services.Domain.BLL;
-using Services.Domain.Enums;
 using Services.Facade;
-using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows.Forms;
+using Services.Facade.Extensions;
 using UI.Formularios.Base;
 
 namespace UI.Formularios.Administrador.Patentes
@@ -24,42 +12,46 @@ namespace UI.Formularios.Administrador.Patentes
         {
             InitializeComponent();
 
-            ControlesInicializar();
+            MostrarBotonNuevo = false;
+            MostrarBotonDetalle = false;
         }
 
-        private void ControlesInicializar()
+        protected override void ConfigurarTextos()
         {
-            this.Text = "Patentes";
+            // Llamar al método base para actualizar los botones de la barra de herramientas
+            base.ConfigurarTextos();
 
-            this.btnNuevo.Enabled = false;
-            this.btnDetalle.Enabled = false;
+            this.Text = "Patentes".Translate();
 
-            List<GridColumn> gridColumns = new List<GridColumn>
+            // Actualizar captions de las columnas
+            if (GridViewPrincipal.Columns.Count > 0)
             {
-                new GridColumn
-                {
-                    FieldName = nameof(Patente.Descripcion),
-                    Caption = "DESCRIPCIÓN",
-                    Visible = true,
-                }
-            };
+                var colId = GridViewPrincipal.Columns[nameof(Patente.Id)];
+                var colDescripcion = GridViewPrincipal.Columns[nameof(Patente.Descripcion)];
+                var colEstado = GridViewPrincipal.Columns[nameof(Patente.Estado)];
 
-            // Agregar columnas al GridView
-            gridView.Columns.AddRange(gridColumns.ToArray());
+                if (colId != null) colId.Caption = "ID";
+                if (colDescripcion != null) colDescripcion.Caption = "DESCRIPCIÓN".Translate();
+                if (colEstado != null) colEstado.Caption = "ESTADO".Translate();
+            }
+        }
 
-            CargarPantalla();
+        protected override void ConfigurarColumnas()
+        {
+            AgregarColumnas(
+                CrearColumna(nameof(Patente.Id), "ID", width: 80),
+                CrearColumna(nameof(Patente.Descripcion), "DESCRIPCIÓN".Translate()),
+                CrearColumna(nameof(Patente.Estado), "ESTADO".Translate(), width: 100)
+            );
+
+            // Configurar textos iniciales
+            ConfigurarTextos();
         }
 
         protected override void CargarPantalla()
         {
-            ResPatentesObtener res = (ResPatentesObtener)RequestService.Current.GetResponse(new ReqPatentesObtener());
-                    
-            this.gridControl.DataSource = res.Patentes;
-        }
-
-        private void windowsUIButtonPanel1_Click(object sender, EventArgs e)
-        {
-
+            var res = (ResPatentesObtener)RequestService.Current.GetResponse(new ReqPatentesObtener());
+            EstablecerDataSource(res.Patentes);
         }
     }
 }

@@ -1,7 +1,7 @@
 
-namespace UI.Formularios.Administrador.Familias
+namespace UI.Formularios.Administrador.Usuarios
 {
-    partial class frmFamiliasABM
+    partial class frmUsuariosABM
     {
         /// <summary>
         /// Required designer variable.
@@ -33,10 +33,11 @@ namespace UI.Formularios.Administrador.Familias
             this.gcPatentes = new DevExpress.XtraGrid.GridControl();
             this.gvPatentes = new DevExpress.XtraGrid.Views.Grid.GridView();
             this.lblPatentes = new DevExpress.XtraEditors.LabelControl();
-            this.gcFamiliasHijos = new DevExpress.XtraGrid.GridControl();
-            this.gvFamiliasHijos = new DevExpress.XtraGrid.Views.Grid.GridView();
-            this.lblFamiliasHijos = new DevExpress.XtraEditors.LabelControl();
-            this.txtDescripcion = new DevExpress.XtraEditors.TextEdit();
+            this.gcFamilias = new DevExpress.XtraGrid.GridControl();
+            this.gvFamilias = new DevExpress.XtraGrid.Views.Grid.GridView();
+            this.lblFamilias = new DevExpress.XtraEditors.LabelControl();
+            this.txtUserName = new DevExpress.XtraEditors.TextEdit();
+            this.txtPassword = new DevExpress.XtraEditors.TextEdit();
             this.btnCancelar = new DevExpress.XtraEditors.SimpleButton();
             this.btnAceptar = new DevExpress.XtraEditors.SimpleButton();
             this.btnRestaurar = new DevExpress.XtraEditors.SimpleButton();
@@ -49,7 +50,8 @@ namespace UI.Formularios.Administrador.Familias
             this.emptySpaceItem1 = new DevExpress.XtraLayout.EmptySpaceItem();
             this.lcAceptar = new DevExpress.XtraLayout.LayoutControlItem();
             this.lcCancelar = new DevExpress.XtraLayout.LayoutControlItem();
-            this.lcDescripcion = new DevExpress.XtraLayout.LayoutControlItem();
+            this.lcUserName = new DevExpress.XtraLayout.LayoutControlItem();
+            this.lcPassword = new DevExpress.XtraLayout.LayoutControlItem();
             this.layoutControlItem1 = new DevExpress.XtraLayout.LayoutControlItem();
             this.layoutControlItem2 = new DevExpress.XtraLayout.LayoutControlItem();
             this.layoutControlItem3 = new DevExpress.XtraLayout.LayoutControlItem();
@@ -58,9 +60,10 @@ namespace UI.Formularios.Administrador.Familias
             this.layoutControl1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.gcPatentes)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.gvPatentes)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.gcFamiliasHijos)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.gvFamiliasHijos)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.txtDescripcion.Properties)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.gcFamilias)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.gvFamilias)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.txtUserName.Properties)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.txtPassword.Properties)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.Root)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.lcModificar)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.lcEliminar)).BeginInit();
@@ -68,7 +71,8 @@ namespace UI.Formularios.Administrador.Familias
             ((System.ComponentModel.ISupportInitialize)(this.emptySpaceItem1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.lcAceptar)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.lcCancelar)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.lcDescripcion)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.lcUserName)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.lcPassword)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.layoutControlItem1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.layoutControlItem2)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.layoutControlItem3)).BeginInit();
@@ -79,9 +83,10 @@ namespace UI.Formularios.Administrador.Familias
             // 
             this.layoutControl1.Controls.Add(this.gcPatentes);
             this.layoutControl1.Controls.Add(this.lblPatentes);
-            this.layoutControl1.Controls.Add(this.gcFamiliasHijos);
-            this.layoutControl1.Controls.Add(this.lblFamiliasHijos);
-            this.layoutControl1.Controls.Add(this.txtDescripcion);
+            this.layoutControl1.Controls.Add(this.gcFamilias);
+            this.layoutControl1.Controls.Add(this.lblFamilias);
+            this.layoutControl1.Controls.Add(this.txtUserName);
+            this.layoutControl1.Controls.Add(this.txtPassword);
             this.layoutControl1.Controls.Add(this.btnCancelar);
             this.layoutControl1.Controls.Add(this.btnAceptar);
             this.layoutControl1.Controls.Add(this.btnRestaurar);
@@ -91,17 +96,17 @@ namespace UI.Formularios.Administrador.Familias
             this.layoutControl1.Location = new System.Drawing.Point(0, 0);
             this.layoutControl1.Name = "layoutControl1";
             this.layoutControl1.Root = this.Root;
-            this.layoutControl1.Size = new System.Drawing.Size(977, 537);
+            this.layoutControl1.Size = new System.Drawing.Size(977, 587);
             this.layoutControl1.TabIndex = 0;
             this.layoutControl1.Text = "layoutControl1";
             // 
             // gcPatentes
             // 
-            this.gcPatentes.Location = new System.Drawing.Point(12, 279);
+            this.gcPatentes.Location = new System.Drawing.Point(12, 329);
             this.gcPatentes.MainView = this.gvPatentes;
             this.gcPatentes.Name = "gcPatentes";
-            this.gcPatentes.Size = new System.Drawing.Size(953, 220);
-            this.gcPatentes.TabIndex = 13;
+            this.gcPatentes.Size = new System.Drawing.Size(953, 206);
+            this.gcPatentes.TabIndex = 15;
             this.gcPatentes.ViewCollection.AddRange(new DevExpress.XtraGrid.Views.Base.BaseView[] {
             this.gvPatentes});
             // 
@@ -113,49 +118,59 @@ namespace UI.Formularios.Administrador.Familias
             // 
             // lblPatentes
             // 
-            this.lblPatentes.Location = new System.Drawing.Point(12, 262);
+            this.lblPatentes.Location = new System.Drawing.Point(12, 312);
             this.lblPatentes.Name = "lblPatentes";
             this.lblPatentes.Size = new System.Drawing.Size(43, 13);
             this.lblPatentes.StyleController = this.layoutControl1;
-            this.lblPatentes.TabIndex = 12;
+            this.lblPatentes.TabIndex = 14;
             this.lblPatentes.Text = "Patentes";
             // 
-            // gcFamiliasHijos
+            // gcFamilias
             // 
-            this.gcFamiliasHijos.Location = new System.Drawing.Point(12, 79);
-            this.gcFamiliasHijos.MainView = this.gvFamiliasHijos;
-            this.gcFamiliasHijos.Name = "gcFamiliasHijos";
-            this.gcFamiliasHijos.Size = new System.Drawing.Size(953, 179);
-            this.gcFamiliasHijos.TabIndex = 11;
-            this.gcFamiliasHijos.ViewCollection.AddRange(new DevExpress.XtraGrid.Views.Base.BaseView[] {
-            this.gvFamiliasHijos});
+            this.gcFamilias.Location = new System.Drawing.Point(12, 105);
+            this.gcFamilias.MainView = this.gvFamilias;
+            this.gcFamilias.Name = "gcFamilias";
+            this.gcFamilias.Size = new System.Drawing.Size(953, 203);
+            this.gcFamilias.TabIndex = 13;
+            this.gcFamilias.ViewCollection.AddRange(new DevExpress.XtraGrid.Views.Base.BaseView[] {
+            this.gvFamilias});
             // 
-            // gvFamiliasHijos
+            // gvFamilias
             // 
-            this.gvFamiliasHijos.GridControl = this.gcFamiliasHijos;
-            this.gvFamiliasHijos.Name = "gvFamiliasHijos";
-            this.gvFamiliasHijos.OptionsView.ShowGroupPanel = false;
+            this.gvFamilias.GridControl = this.gcFamilias;
+            this.gvFamilias.Name = "gvFamilias";
+            this.gvFamilias.OptionsView.ShowGroupPanel = false;
             // 
-            // lblFamiliasHijos
+            // lblFamilias
             // 
-            this.lblFamiliasHijos.Location = new System.Drawing.Point(12, 62);
-            this.lblFamiliasHijos.Name = "lblFamiliasHijos";
-            this.lblFamiliasHijos.Size = new System.Drawing.Size(63, 13);
-            this.lblFamiliasHijos.StyleController = this.layoutControl1;
-            this.lblFamiliasHijos.TabIndex = 10;
-            this.lblFamiliasHijos.Text = "Familias Hijos";
+            this.lblFamilias.Location = new System.Drawing.Point(12, 88);
+            this.lblFamilias.Name = "lblFamilias";
+            this.lblFamilias.Size = new System.Drawing.Size(37, 13);
+            this.lblFamilias.StyleController = this.layoutControl1;
+            this.lblFamilias.TabIndex = 12;
+            this.lblFamilias.Text = "Familias";
             // 
-            // txtDescripcion
+            // txtUserName
             // 
-            this.txtDescripcion.Location = new System.Drawing.Point(69, 38);
-            this.txtDescripcion.Name = "txtDescripcion";
-            this.txtDescripcion.Size = new System.Drawing.Size(896, 20);
-            this.txtDescripcion.StyleController = this.layoutControl1;
-            this.txtDescripcion.TabIndex = 9;
+            this.txtUserName.Location = new System.Drawing.Point(69, 38);
+            this.txtUserName.Name = "txtUserName";
+            this.txtUserName.Size = new System.Drawing.Size(450, 20);
+            this.txtUserName.StyleController = this.layoutControl1;
+            this.txtUserName.TabIndex = 10;
+            // 
+            // txtPassword
+            // 
+            this.txtPassword.Location = new System.Drawing.Point(576, 38);
+            this.txtPassword.Name = "txtPassword";
+            this.txtPassword.Properties.PasswordChar = '*';
+            this.txtPassword.Properties.UseSystemPasswordChar = true;
+            this.txtPassword.Size = new System.Drawing.Size(389, 20);
+            this.txtPassword.StyleController = this.layoutControl1;
+            this.txtPassword.TabIndex = 11;
             // 
             // btnCancelar
             // 
-            this.btnCancelar.Location = new System.Drawing.Point(490, 489);
+            this.btnCancelar.Location = new System.Drawing.Point(490, 539);
             this.btnCancelar.Name = "btnCancelar";
             this.btnCancelar.Size = new System.Drawing.Size(475, 36);
             this.btnCancelar.StyleController = this.layoutControl1;
@@ -164,7 +179,7 @@ namespace UI.Formularios.Administrador.Familias
             // 
             // btnAceptar
             // 
-            this.btnAceptar.Location = new System.Drawing.Point(12, 489);
+            this.btnAceptar.Location = new System.Drawing.Point(12, 539);
             this.btnAceptar.Name = "btnAceptar";
             this.btnAceptar.Size = new System.Drawing.Size(474, 36);
             this.btnAceptar.StyleController = this.layoutControl1;
@@ -209,13 +224,14 @@ namespace UI.Formularios.Administrador.Familias
             this.emptySpaceItem1,
             this.lcAceptar,
             this.lcCancelar,
-            this.lcDescripcion,
+            this.lcUserName,
+            this.lcPassword,
             this.layoutControlItem1,
             this.layoutControlItem2,
             this.layoutControlItem3,
             this.layoutControlItem4});
             this.Root.Name = "Root";
-            this.Root.Size = new System.Drawing.Size(977, 537);
+            this.Root.Size = new System.Drawing.Size(977, 587);
             this.Root.TextVisible = false;
             // 
             // lcModificar
@@ -265,7 +281,7 @@ namespace UI.Formularios.Administrador.Familias
             // lcAceptar
             // 
             this.lcAceptar.Control = this.btnAceptar;
-            this.lcAceptar.Location = new System.Drawing.Point(0, 477);
+            this.lcAceptar.Location = new System.Drawing.Point(0, 527);
             this.lcAceptar.MaxSize = new System.Drawing.Size(0, 40);
             this.lcAceptar.MinSize = new System.Drawing.Size(50, 40);
             this.lcAceptar.Name = "lcAceptar";
@@ -277,7 +293,7 @@ namespace UI.Formularios.Administrador.Familias
             // lcCancelar
             // 
             this.lcCancelar.Control = this.btnCancelar;
-            this.lcCancelar.Location = new System.Drawing.Point(478, 477);
+            this.lcCancelar.Location = new System.Drawing.Point(478, 527);
             this.lcCancelar.MaxSize = new System.Drawing.Size(0, 40);
             this.lcCancelar.MinSize = new System.Drawing.Size(50, 40);
             this.lcCancelar.Name = "lcCancelar";
@@ -286,19 +302,28 @@ namespace UI.Formularios.Administrador.Familias
             this.lcCancelar.TextSize = new System.Drawing.Size(0, 0);
             this.lcCancelar.TextVisible = false;
             // 
-            // lcDescripcion
+            // lcUserName
             // 
-            this.lcDescripcion.Control = this.txtDescripcion;
-            this.lcDescripcion.Location = new System.Drawing.Point(0, 36);
-            this.lcDescripcion.Name = "lcDescripcion";
-            this.lcDescripcion.Size = new System.Drawing.Size(957, 24);
-            this.lcDescripcion.Text = "Descripción";
-            this.lcDescripcion.TextSize = new System.Drawing.Size(54, 13);
+            this.lcUserName.Control = this.txtUserName;
+            this.lcUserName.Location = new System.Drawing.Point(0, 36);
+            this.lcUserName.Name = "lcUserName";
+            this.lcUserName.Size = new System.Drawing.Size(507, 24);
+            this.lcUserName.Text = "Usuario";
+            this.lcUserName.TextSize = new System.Drawing.Size(54, 13);
+            // 
+            // lcPassword
+            // 
+            this.lcPassword.Control = this.txtPassword;
+            this.lcPassword.Location = new System.Drawing.Point(507, 36);
+            this.lcPassword.Name = "lcPassword";
+            this.lcPassword.Size = new System.Drawing.Size(450, 24);
+            this.lcPassword.Text = "Contraseña";
+            this.lcPassword.TextSize = new System.Drawing.Size(54, 13);
             // 
             // layoutControlItem1
             // 
-            this.layoutControlItem1.Control = this.lblFamiliasHijos;
-            this.layoutControlItem1.Location = new System.Drawing.Point(0, 60);
+            this.layoutControlItem1.Control = this.lblFamilias;
+            this.layoutControlItem1.Location = new System.Drawing.Point(0, 76);
             this.layoutControlItem1.Name = "layoutControlItem1";
             this.layoutControlItem1.Size = new System.Drawing.Size(957, 17);
             this.layoutControlItem1.TextSize = new System.Drawing.Size(0, 0);
@@ -306,17 +331,17 @@ namespace UI.Formularios.Administrador.Familias
             // 
             // layoutControlItem2
             // 
-            this.layoutControlItem2.Control = this.gcFamiliasHijos;
-            this.layoutControlItem2.Location = new System.Drawing.Point(0, 77);
+            this.layoutControlItem2.Control = this.gcFamilias;
+            this.layoutControlItem2.Location = new System.Drawing.Point(0, 93);
             this.layoutControlItem2.Name = "layoutControlItem2";
-            this.layoutControlItem2.Size = new System.Drawing.Size(957, 183);
+            this.layoutControlItem2.Size = new System.Drawing.Size(957, 207);
             this.layoutControlItem2.TextSize = new System.Drawing.Size(0, 0);
             this.layoutControlItem2.TextVisible = false;
             // 
             // layoutControlItem3
             // 
             this.layoutControlItem3.Control = this.lblPatentes;
-            this.layoutControlItem3.Location = new System.Drawing.Point(0, 260);
+            this.layoutControlItem3.Location = new System.Drawing.Point(0, 300);
             this.layoutControlItem3.Name = "layoutControlItem3";
             this.layoutControlItem3.Size = new System.Drawing.Size(957, 17);
             this.layoutControlItem3.TextSize = new System.Drawing.Size(0, 0);
@@ -325,27 +350,28 @@ namespace UI.Formularios.Administrador.Familias
             // layoutControlItem4
             // 
             this.layoutControlItem4.Control = this.gcPatentes;
-            this.layoutControlItem4.Location = new System.Drawing.Point(0, 277);
+            this.layoutControlItem4.Location = new System.Drawing.Point(0, 317);
             this.layoutControlItem4.Name = "layoutControlItem4";
-            this.layoutControlItem4.Size = new System.Drawing.Size(957, 200);
+            this.layoutControlItem4.Size = new System.Drawing.Size(957, 210);
             this.layoutControlItem4.TextSize = new System.Drawing.Size(0, 0);
             this.layoutControlItem4.TextVisible = false;
             // 
-            // frmFamiliasABM
+            // frmUsuariosABM
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(977, 537);
+            this.ClientSize = new System.Drawing.Size(977, 587);
             this.Controls.Add(this.layoutControl1);
-            this.Name = "frmFamiliasABM";
-            this.Text = "frmFamiliasABM";
+            this.Name = "frmUsuariosABM";
+            this.Text = "frmUsuariosABM";
             ((System.ComponentModel.ISupportInitialize)(this.layoutControl1)).EndInit();
             this.layoutControl1.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.gcPatentes)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.gvPatentes)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.gcFamiliasHijos)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.gvFamiliasHijos)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.txtDescripcion.Properties)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.gcFamilias)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.gvFamilias)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.txtUserName.Properties)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.txtPassword.Properties)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.Root)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.lcModificar)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.lcEliminar)).EndInit();
@@ -353,7 +379,8 @@ namespace UI.Formularios.Administrador.Familias
             ((System.ComponentModel.ISupportInitialize)(this.emptySpaceItem1)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.lcAceptar)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.lcCancelar)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.lcDescripcion)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.lcUserName)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.lcPassword)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.layoutControlItem1)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.layoutControlItem2)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.layoutControlItem3)).EndInit();
@@ -379,11 +406,13 @@ namespace UI.Formularios.Administrador.Familias
         private DevExpress.XtraGrid.GridControl gcPatentes;
         private DevExpress.XtraGrid.Views.Grid.GridView gvPatentes;
         private DevExpress.XtraEditors.LabelControl lblPatentes;
-        private DevExpress.XtraGrid.GridControl gcFamiliasHijos;
-        private DevExpress.XtraGrid.Views.Grid.GridView gvFamiliasHijos;
-        private DevExpress.XtraEditors.LabelControl lblFamiliasHijos;
-        private DevExpress.XtraEditors.TextEdit txtDescripcion;
-        private DevExpress.XtraLayout.LayoutControlItem lcDescripcion;
+        private DevExpress.XtraGrid.GridControl gcFamilias;
+        private DevExpress.XtraGrid.Views.Grid.GridView gvFamilias;
+        private DevExpress.XtraEditors.LabelControl lblFamilias;
+        private DevExpress.XtraEditors.TextEdit txtUserName;
+        private DevExpress.XtraEditors.TextEdit txtPassword;
+        private DevExpress.XtraLayout.LayoutControlItem lcUserName;
+        private DevExpress.XtraLayout.LayoutControlItem lcPassword;
         private DevExpress.XtraLayout.LayoutControlItem layoutControlItem1;
         private DevExpress.XtraLayout.LayoutControlItem layoutControlItem2;
         private DevExpress.XtraLayout.LayoutControlItem layoutControlItem3;

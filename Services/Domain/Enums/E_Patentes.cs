@@ -8,6 +8,11 @@ namespace Services.Domain.Enums
 {
     public enum E_Patentes
     {
-        Admin = 1
+        Admin = 1,
+        Ventas = 2,
+        Cajas = 3,
+        Compras = 4,
+        Proveedores = 5,
+        Reportes = 6,
     }
 }

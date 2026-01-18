@@ -44,6 +44,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="DAL\Contracts\IPatenteRepository.cs" />
+    <Compile Include="Domain\GlobalCliente.cs" />
     <Compile Include="Facade\RequestService.cs" />
     <Compile Include="BLL\Services\ExceptionBLL.cs" />
     <Compile Include="BLL\Services\FamiliasBLL.cs" />

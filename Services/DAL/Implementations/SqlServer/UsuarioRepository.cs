@@ -1,4 +1,4 @@
-﻿using Services.Domain;
+using Services.Domain;
 using System;
 using System.Collections.Generic;
 using System.Data.SqlClient;
@@ -11,6 +11,7 @@ using Services.DAL.Implementations.SqlServer.Mappers;
 using Services.DAL.Tools.Helpers;
 using Services.DAL.Contracts.UnitOfWork;
 using Services.Facade;
+using Services.Domain.Enums;
 
 namespace Services.DAL.Implementations.SqlServer
 {
@@ -24,49 +25,143 @@ namespace Services.DAL.Implementations.SqlServer
 
         public void Add(Usuario obj)
         {
-            ////Esto debería ser una Tx
-            //SqlHelper.ExecuteNonQuery("UsuarioInsert", CommandType.StoredProcedure,
-            //  new SqlParameter[] { new SqlParameter("@IdUsuario", obj.IdUsuario),
-            //                       new SqlParameter("@UserName", obj.UserName),
-            //                       new SqlParameter("@Password", obj.Password) });
+            string query = @"INSERT INTO Usuarios (IdUsuario, Estado, UserName, Password, DVH) 
+                             VALUES (@IdUsuario, @Estado, @UserName, @Password, @DVH)";
 
-            ////Stop al SQL SERVER
-
-            ////Hay que verificar las relaciones?
-            //foreach (var item in obj.Accesos)
-            //{
-            //    if (item.GetCount() == 0)
-            //    {
-            //        //Estoy ante una patente
-            //        //Usuario_PatenteInsert
-
-            //    }
-            //    else
-            //    {
-            //        //Estoy ante una familia
-            //        //Usuario_FamiliaInsert
-            //    }
-            //}
+            SqlHelper.ExecuteNonQuery(query, CommandType.Text, new SqlParameter[]
+            {
+                new SqlParameter("@IdUsuario", obj.IdUsuario),
+                new SqlParameter("@Estado", (int)obj.Estado),
+                new SqlParameter("@UserName", obj.UserName),
+                new SqlParameter("@Password", obj.Password),
+                new SqlParameter("@DVH", obj.HashedDVH)
+            });
         }
 
         public void Update(Usuario obj)
         {
-            throw new NotImplementedException();
+            // Determinar si se proporciona una nueva contraseña
+            // Si Password es null o vacío, significa que no se quiere cambiar la contraseña
+            bool cambiarPassword = !string.IsNullOrEmpty(obj.Password);
+
+            if (cambiarPassword)
+            {
+                // La contraseña es nueva (texto plano), hashearla
+                obj.Password = CryptographyService.Hash(obj.Password);
+            }
+            else
+            {
+                // Obtener la contraseña actual de la BD para mantenerla y calcular el DVH correctamente
+                string queryPassword = "SELECT Password FROM Usuarios WHERE IdUsuario = @IdUsuario";
+                var passwordActual = SqlHelper.ExecuteScalar(queryPassword, CommandType.Text, 
+                    new SqlParameter[] { new SqlParameter("@IdUsuario", obj.IdUsuario) });
+                obj.Password = passwordActual?.ToString() ?? string.Empty;
+            }
+
+            // Siempre actualizar UserName, Password y DVH (el DVH se recalcula con todos los campos actuales)
+            string query = @"UPDATE Usuarios 
+                          SET UserName = @UserName, 
+                              Password = @Password,
+                              DVH = @DVH
+                          WHERE IdUsuario = @IdUsuario";
+
+            var parameters = new SqlParameter[]
+            {
+                new SqlParameter("@IdUsuario", obj.IdUsuario),
+                new SqlParameter("@UserName", obj.UserName),
+                new SqlParameter("@Password", obj.Password),
+                new SqlParameter("@DVH", obj.HashedDVH)
+            };
+
+            SqlHelper.ExecuteNonQuery(query, CommandType.Text, parameters);
         }
 
         public void Remove(Guid id)
         {
-            throw new NotImplementedException();
+            // Obtener el usuario actual para recalcular el DVH con el nuevo estado
+            var usuario = GetById(id);
+            if (usuario == null) return;
+
+            usuario.Estado = E_Estados.Inactivo;
+
+            // Eliminación lógica con actualización del DVH
+            string query = @"UPDATE Usuarios SET Estado = @Estado, DVH = @DVH WHERE IdUsuario = @IdUsuario";
+
+            SqlHelper.ExecuteNonQuery(query, CommandType.Text, new SqlParameter[]
+            {
+                new SqlParameter("@IdUsuario", id),
+                new SqlParameter("@Estado", (int)E_Estados.Inactivo),
+                new SqlParameter("@DVH", usuario.HashedDVH)
+            });
+        }
+
+        public void Restore(Guid id)
+        {
+            // Obtener el usuario actual para recalcular el DVH con el nuevo estado
+            var usuario = GetById(id);
+            if (usuario == null) return;
+
+            usuario.Estado = E_Estados.Activo;
+
+            // Restauración con actualización del DVH
+            string query = @"UPDATE Usuarios SET Estado = @Estado, DVH = @DVH WHERE IdUsuario = @IdUsuario";
+
+            SqlHelper.ExecuteNonQuery(query, CommandType.Text, new SqlParameter[]
+            {
+                new SqlParameter("@IdUsuario", id),
+                new SqlParameter("@Estado", (int)E_Estados.Activo),
+                new SqlParameter("@DVH", usuario.HashedDVH)
+            });
         }
 
         public Usuario GetById(Guid id)
         {
-            throw new NotImplementedException();
+            Usuario usuario = null;
+
+            string query = "SELECT * FROM Usuarios WHERE IdUsuario = @IdUsuario";
+            using (var reader = SqlHelper.ExecuteReader(query, CommandType.Text,
+                new SqlParameter[] { new SqlParameter("@IdUsuario", id) }))
+            {
+                while (reader.Read())
+                {
+                    object[] data = new object[reader.FieldCount];
+                    reader.GetValues(data);
+
+                    usuario = UsuarioMapper.Current.Fill(data);
+                }
+            }
+
+            if (usuario != null)
+            {
+                _unitOfWorkRepository.UsuarioPatenteRepository.Join(usuario);
+                _unitOfWorkRepository.UsuarioFamiliaRepository.Join(usuario);
+            }
+
+            return usuario;
         }
 
         public List<Usuario> GetAll()
         {
-            throw new NotImplementedException();
+            List<Usuario> usuarios = new List<Usuario>();
+
+            string query = "SELECT * FROM Usuarios ORDER BY UserName";
+            using (var reader = SqlHelper.ExecuteReader(query, CommandType.Text))
+            {
+                while (reader.Read())
+                {
+                    object[] data = new object[reader.FieldCount];
+                    reader.GetValues(data);
+
+                    var usuario = UsuarioMapper.Current.Fill(data);
+
+                    _unitOfWorkRepository.UsuarioPatenteRepository.Join(usuario);
+                    _unitOfWorkRepository.UsuarioFamiliaRepository.Join(usuario);
+
+                    usuarios.Add(usuario);
+                }
+            }
+
+            return usuarios;
         }
 
         public Usuario GetByUserPassword(string user, string password)

@@ -16,20 +16,20 @@ using System.Windows.Forms;
 using UI.Formularios.Base;
 using UI.Helpers;
 
-namespace UI.Formularios.Administrador.Familias
+namespace UI.Formularios.Administrador.Usuarios
 {
-    public partial class frmFamiliasABM : XtraForm, IObserver
+    public partial class frmUsuariosABM : XtraForm, IObserver
     {
         #region "PROPIEDADES"
         private Guid Id { get; set; }
-        private Familia FamiliaActual { get; set; }
+        private Usuario UsuarioActual { get; set; }
         private List<Familia> TodasFamilias { get; set; }
         private List<Patente> TodasPatentes { get; set; }
 
-        private List<Familia> FamiliasHijosGrilla
+        private List<Familia> FamiliasGrilla
         {
-            get => (List<Familia>)gcFamiliasHijos.DataSource;
-            set => gcFamiliasHijos.DataSource = value;
+            get => (List<Familia>)gcFamilias.DataSource;
+            set => gcFamilias.DataSource = value;
         }
 
         private List<Patente> PatentesGrilla
@@ -51,7 +51,7 @@ namespace UI.Formularios.Administrador.Familias
         #endregion
 
         #region "CONSTRUCTOR"
-        public frmFamiliasABM(Guid id)
+        public frmUsuariosABM(Guid id)
         {
             Id = id;
 
@@ -76,11 +76,11 @@ namespace UI.Formularios.Administrador.Familias
         {
             if (Id != Guid.Empty)
             {
-                this.Text = "Detalle Familia".Translate();
+                this.Text = "Detalle Usuario".Translate();
             }
             else
             {
-                this.Text = "Nueva Familia".Translate();
+                this.Text = "Nuevo Usuario".Translate();
             }
 
             btnModificar.Text = "Modificar".Translate();
@@ -88,8 +88,10 @@ namespace UI.Formularios.Administrador.Familias
             btnRestaurar.Text = "Restaurar".Translate();
             btnAceptar.Text = "Aceptar".Translate();
             btnCancelar.Text = "Cancelar".Translate();
-            lblFamiliasHijos.Text = "Familias Hijos".Translate();
+            lblFamilias.Text = "Familias".Translate();
             lblPatentes.Text = "Patentes".Translate();
+            lcUserName.Text = "Usuario".Translate();
+            lcPassword.Text = "Contraseña".Translate();
 
             // Actualizar captions de las columnas de grillas
             ActualizarCaptionsColumnas();
@@ -97,11 +99,11 @@ namespace UI.Formularios.Administrador.Familias
 
         private void ActualizarCaptionsColumnas()
         {
-            // Columnas de gvFamiliasHijos
-            if (gvFamiliasHijos.Columns.Count > 0)
+            // Columnas de gvFamilias
+            if (gvFamilias.Columns.Count > 0)
             {
-                var colDescripcion = gvFamiliasHijos.Columns[nameof(Familia.Descripcion)];
-                var colSeleccionado = gvFamiliasHijos.Columns[nameof(Familia.Temp_Seleccionado)];
+                var colDescripcion = gvFamilias.Columns[nameof(Familia.Descripcion)];
+                var colSeleccionado = gvFamilias.Columns[nameof(Familia.Temp_Seleccionado)];
 
                 if (colDescripcion != null) colDescripcion.Caption = "DESCRIPCIÓN".Translate();
                 if (colSeleccionado != null) colSeleccionado.Caption = "SELECCIONADO".Translate();
@@ -120,10 +122,10 @@ namespace UI.Formularios.Administrador.Familias
 
         private void ConfigurarGrillas()
         {
-            gvFamiliasHijos.OptionsDetail.EnableMasterViewMode = false;
+            gvFamilias.OptionsDetail.EnableMasterViewMode = false;
             gvPatentes.OptionsDetail.EnableMasterViewMode = false;
 
-            // Configurar columnas de Familias Hijos
+            // Configurar columnas de Familias
             var columnsFamilias = new List<GridColumn>
             {
                 new GridColumn
@@ -141,7 +143,7 @@ namespace UI.Formularios.Administrador.Familias
                     ColumnEdit = new RepositoryItemCheckEdit()
                 }
             };
-            gvFamiliasHijos.Columns.AddRange(columnsFamilias.ToArray());
+            gvFamilias.Columns.AddRange(columnsFamilias.ToArray());
 
             // Configurar columnas de Patentes
             var columnsPatentes = new List<GridColumn>
@@ -164,11 +166,11 @@ namespace UI.Formularios.Administrador.Familias
             gvPatentes.Columns.AddRange(columnsPatentes.ToArray());
 
             // Aplicar estilos visuales
-            GridStyleHelper.AplicarEstilo(gvFamiliasHijos);
+            GridStyleHelper.AplicarEstilo(gvFamilias);
             GridStyleHelper.AplicarEstilo(gvPatentes);
 
             // Configurar fuentes de etiquetas de sección
-            lblFamiliasHijos.Font = FontHelper.FuenteSubtituloSemibold;
+            lblFamilias.Font = FontHelper.FuenteSubtituloSemibold;
             lblPatentes.Font = FontHelper.FuenteSubtituloSemibold;
 
             // Aplicar estilos a los botones del ABM
@@ -188,28 +190,29 @@ namespace UI.Formularios.Administrador.Familias
             btnRestaurar.Click += btnRestaurar_Click;
             btnAceptar.Click += btnAceptar_Click;
             btnCancelar.Click += btnCancelar_Click;
-            gvFamiliasHijos.CellValueChanged += gvFamiliasHijos_CellValueChanged;
+            gvFamilias.CellValueChanged += gvFamilias_CellValueChanged;
         }
 
         private void CargarPantalla()
         {
-            var res = (ResFamiliaObtener)RequestService.Current.GetResponse(new ReqFamiliaObtener { Id = Id });
+            var res = (ResUsuarioObtener)RequestService.Current.GetResponse(new ReqUsuarioObtener { Id = Id });
 
             TodasFamilias = res.ListaFamilias ?? new List<Familia>();
             TodasPatentes = res.ListaPatentes ?? new List<Patente>();
-            FamiliaActual = res.Familia;
+            UsuarioActual = res.Usuario;
 
-            if (FamiliaActual != null)
+            if (UsuarioActual != null)
             {
-                // Modo visualización/edición de familia existente
-                txtDescripcion.Text = FamiliaActual.Descripcion;
+                // Modo visualización/edición de usuario existente
+                txtUserName.Text = UsuarioActual.UserName;
+                txtPassword.Text = ""; // No mostramos la contraseña por seguridad
 
                 // Determinar tipo de pantalla según estado
-                TipoPantalla = FamiliaActual.Estado == E_Estados.Activo
+                TipoPantalla = UsuarioActual.Estado == E_Estados.Activo
                     ? E_TipoPantalla.Visualizar
                     : E_TipoPantalla.VisualizarEliminado;
 
-                CargarGrillasConFamiliaExistente();
+                CargarGrillasConUsuarioExistente();
             }
             else
             {
@@ -221,27 +224,26 @@ namespace UI.Formularios.Administrador.Familias
             RefrescarGrillas();
         }
 
-        private void CargarGrillasConFamiliaExistente()
+        private void CargarGrillasConUsuarioExistente()
         {
-            // Cargar lista de familias disponibles (excluyendo la actual y evitando ciclos)
-            FamiliasHijosGrilla = new List<Familia>(TodasFamilias);
+            // Cargar lista de familias disponibles
+            FamiliasGrilla = new List<Familia>(TodasFamilias);
 
-            // Obtener familias hijas directas de la familia actual
-            var familiasHijasDirectas = FamiliaActual.GetFamilias(true);
-
-            // Marcar las familias que ya son hijas
-            FamiliasHijosGrilla.ForEach(f => f.Temp_Seleccionado = familiasHijasDirectas.Any(fh => fh.Id == f.Id));
-
-            // Filtrar familias que crearían ciclos (familias que contienen a la actual)
-            FamiliasHijosGrilla = FamiliasHijosGrilla
-                .Where(f => !CreariaCicloRecursivo(f, FamiliaActual.Id))
+            // Obtener familias directas del usuario
+            var familiasDirectas = UsuarioActual.Accesos
+                .OfType<Familia>()
                 .ToList();
+
+            // Marcar las familias que ya están asignadas
+            FamiliasGrilla.ForEach(f => f.Temp_Seleccionado = familiasDirectas.Any(fd => fd.Id == f.Id));
 
             // Cargar patentes
             PatentesGrilla = new List<Patente>(TodasPatentes);
 
-            // Obtener patentes directas de la familia actual
-            var patentesDirectas = FamiliaActual.GetPatentes(true);
+            // Obtener patentes directas del usuario (no heredadas de familias)
+            var patentesDirectas = UsuarioActual.Accesos
+                .OfType<Patente>()
+                .ToList();
 
             // Marcar las patentes que ya están asignadas directamente
             PatentesGrilla.ForEach(p => p.Temp_Seleccionado = patentesDirectas.Any(pd => pd.Id == p.Id));
@@ -252,47 +254,19 @@ namespace UI.Formularios.Administrador.Familias
         private void CargarGrillasParaNuevo()
         {
             // Para nuevo, mostrar todas las familias y patentes disponibles
-            FamiliasHijosGrilla = new List<Familia>(TodasFamilias);
-            FamiliasHijosGrilla.ForEach(f => f.Temp_Seleccionado = false);
+            FamiliasGrilla = new List<Familia>(TodasFamilias);
+            FamiliasGrilla.ForEach(f => f.Temp_Seleccionado = false);
 
             PatentesGrilla = new List<Patente>(TodasPatentes);
             PatentesGrilla.ForEach(p => p.Temp_Seleccionado = false);
-        }
-
-        /// <summary>
-        /// Verifica si agregar una familia como hija crearía un ciclo recursivo.
-        /// Una familia no puede ser hija si ella contiene a la familia actual en su árbol.
-        /// </summary>
-        private bool CreariaCicloRecursivo(Familia familiaCandidata, Guid familiaActualId)
-        {
-            return ContieneEnArbol(familiaCandidata, familiaActualId, new HashSet<Guid>());
-        }
-
-        private bool ContieneEnArbol(Familia familia, Guid idBuscado, HashSet<Guid> visitados)
-        {
-            if (visitados.Contains(familia.Id))
-                return false;
-
-            visitados.Add(familia.Id);
-
-            foreach (var acceso in familia.Accesos)
-            {
-                if (acceso.Id == idBuscado)
-                    return true;
-
-                if (acceso is Familia familiaHija && ContieneEnArbol(familiaHija, idBuscado, visitados))
-                    return true;
-            }
-
-            return false;
         }
 
         private void ActualizarPatentesSegunFamiliasSeleccionadas()
         {
             if (PatentesGrilla == null) return;
 
-            // Obtener todas las patentes que vienen de familias hijas seleccionadas
-            var familiasSeleccionadas = FamiliasHijosGrilla?.Where(f => f.Temp_Seleccionado).ToList() ?? new List<Familia>();
+            // Obtener todas las patentes que vienen de familias seleccionadas
+            var familiasSeleccionadas = FamiliasGrilla?.Where(f => f.Temp_Seleccionado).ToList() ?? new List<Familia>();
             var patentesHeredadas = new HashSet<Guid>();
 
             foreach (var familia in familiasSeleccionadas)
@@ -303,23 +277,19 @@ namespace UI.Formularios.Administrador.Familias
                 }
             }
 
-            // Marcar patentes heredadas como no editables (las mostraremos pero no se pueden deseleccionar)
-            foreach (var patente in PatentesGrilla)
-            {
-                // Si la patente viene de una familia hija, la marcamos como seleccionada automáticamente
-                // Esto se maneja visualmente pero no se guarda como relación directa
-            }
+            // Las patentes heredadas se muestran pero el usuario puede elegir si quiere
+            // asignarlas también directamente (para cuando se desasignen las familias)
         }
 
         private void RefrescarGrillas()
         {
-            gcFamiliasHijos.RefreshDataSource();
+            gcFamilias.RefreshDataSource();
             gcPatentes.RefreshDataSource();
         }
 
         public void Update<T>(T value, object data = null)
         {
-            if (E_FormsServicesValues.Familia.Equals(value))
+            if (E_FormsServicesValues.Usuario.Equals(value))
             {
                 CargarPantalla();
             }
@@ -339,14 +309,14 @@ namespace UI.Formularios.Administrador.Familias
         private void btnEliminar_Click(object sender, EventArgs e)
         {
             var result = XtraMessageBox.Show(
-                "¿Está seguro que desea eliminar esta familia?".Translate(),
+                "¿Está seguro que desea eliminar este usuario?".Translate(),
                 "Confirmar eliminación".Translate(),
                 MessageBoxButtons.YesNo,
                 MessageBoxIcon.Question);
 
             if (result != DialogResult.Yes) return;
 
-            var res = (ResFamiliaEliminar)RequestService.Current.GetResponse(new ReqFamiliaEliminar { Id = Id });
+            var res = (ResUsuarioEliminar)RequestService.Current.GetResponse(new ReqUsuarioEliminar { Id = Id });
 
             if (res.Success)
             {
@@ -356,7 +326,7 @@ namespace UI.Formularios.Administrador.Familias
                     MessageBoxButtons.OK,
                     MessageBoxIcon.Information);
 
-                FormSubject.Current.Notify(E_FormsServicesValues.Familia);
+                FormSubject.Current.Notify(E_FormsServicesValues.Usuario);
                 TipoPantalla = E_TipoPantalla.VisualizarEliminado;
             }
             else
@@ -372,14 +342,14 @@ namespace UI.Formularios.Administrador.Familias
         private void btnRestaurar_Click(object sender, EventArgs e)
         {
             var result = XtraMessageBox.Show(
-                "¿Está seguro que desea restaurar esta familia?".Translate(),
+                "¿Está seguro que desea restaurar este usuario?".Translate(),
                 "Confirmar restauración".Translate(),
                 MessageBoxButtons.YesNo,
                 MessageBoxIcon.Question);
 
             if (result != DialogResult.Yes) return;
 
-            var res = (ResFamiliaRestaurar)RequestService.Current.GetResponse(new ReqFamiliaRestaurar { Id = Id });
+            var res = (ResUsuarioRestaurar)RequestService.Current.GetResponse(new ReqUsuarioRestaurar { Id = Id });
 
             if (res.Success)
             {
@@ -389,7 +359,7 @@ namespace UI.Formularios.Administrador.Familias
                     MessageBoxButtons.OK,
                     MessageBoxIcon.Information);
 
-                FormSubject.Current.Notify(E_FormsServicesValues.Familia);
+                FormSubject.Current.Notify(E_FormsServicesValues.Usuario);
                 TipoPantalla = E_TipoPantalla.Visualizar;
             }
             else
@@ -404,20 +374,32 @@ namespace UI.Formularios.Administrador.Familias
 
         private void btnAceptar_Click(object sender, EventArgs e)
         {
-            // Validar descripción
-            if (string.IsNullOrWhiteSpace(txtDescripcion.Text))
+            // Validar nombre de usuario
+            if (string.IsNullOrWhiteSpace(txtUserName.Text))
             {
                 XtraMessageBox.Show(
-                    "La descripción es requerida".Translate(),
+                    "El nombre de usuario es requerido".Translate(),
                     "Validación".Translate(),
                     MessageBoxButtons.OK,
                     MessageBoxIcon.Warning);
-                txtDescripcion.Focus();
+                txtUserName.Focus();
+                return;
+            }
+
+            // Validar contraseña para nuevo usuario
+            if (TipoPantalla == E_TipoPantalla.Nuevo && string.IsNullOrWhiteSpace(txtPassword.Text))
+            {
+                XtraMessageBox.Show(
+                    "La contraseña es requerida para nuevos usuarios".Translate(),
+                    "Validación".Translate(),
+                    MessageBoxButtons.OK,
+                    MessageBoxIcon.Warning);
+                txtPassword.Focus();
                 return;
             }
 
             // Obtener IDs seleccionados
-            var familiasHijosIds = FamiliasHijosGrilla?
+            var familiasIds = FamiliasGrilla?
                 .Where(f => f.Temp_Seleccionado)
                 .Select(f => f.Id)
                 .ToList() ?? new List<Guid>();
@@ -431,29 +413,35 @@ namespace UI.Formularios.Administrador.Familias
 
             if (TipoPantalla == E_TipoPantalla.Nuevo)
             {
-                // Insertar nueva familia
-                var familia = new Familia
+                // Insertar nuevo usuario
+                var usuario = new Usuario
                 {
-                    Descripcion = txtDescripcion.Text.Trim(),
+                    UserName = txtUserName.Text.Trim(),
+                    Password = txtPassword.Text,
                     Estado = E_Estados.Activo
                 };
 
-                res = RequestService.Current.GetResponse(new ReqFamiliaInsertar
+                res = RequestService.Current.GetResponse(new ReqUsuarioInsertar
                 {
-                    Familia = familia,
-                    FamiliasHijosIds = familiasHijosIds,
+                    Usuario = usuario,
+                    FamiliasIds = familiasIds,
                     PatentesIds = patentesIds
                 });
             }
             else
             {
-                // Modificar familia existente
-                FamiliaActual.Descripcion = txtDescripcion.Text.Trim();
+                // Modificar usuario existente
+                UsuarioActual.UserName = txtUserName.Text.Trim();
+                
+                // Si se ingresó nueva contraseña, asignarla; si no, enviar null para mantener la actual
+                UsuarioActual.Password = !string.IsNullOrWhiteSpace(txtPassword.Text) 
+                    ? txtPassword.Text 
+                    : null;
 
-                res = RequestService.Current.GetResponse(new ReqFamiliaModificar
+                res = RequestService.Current.GetResponse(new ReqUsuarioModificar
                 {
-                    Familia = FamiliaActual,
-                    FamiliasHijosIds = familiasHijosIds,
+                    Usuario = UsuarioActual,
+                    FamiliasIds = familiasIds,
                     PatentesIds = patentesIds
                 });
             }
@@ -466,7 +454,7 @@ namespace UI.Formularios.Administrador.Familias
                     MessageBoxButtons.OK,
                     MessageBoxIcon.Information);
 
-                FormSubject.Current.Notify(E_FormsServicesValues.Familia);
+                FormSubject.Current.Notify(E_FormsServicesValues.Usuario);
 
                 if (TipoPantalla == E_TipoPantalla.Nuevo)
                 {
@@ -499,7 +487,7 @@ namespace UI.Formularios.Administrador.Familias
             }
         }
 
-        private void gvFamiliasHijos_CellValueChanged(object sender, DevExpress.XtraGrid.Views.Base.CellValueChangedEventArgs e)
+        private void gvFamilias_CellValueChanged(object sender, DevExpress.XtraGrid.Views.Base.CellValueChangedEventArgs e)
         {
             if (e.Column.FieldName == nameof(Familia.Temp_Seleccionado))
             {
@@ -543,8 +531,9 @@ namespace UI.Formularios.Administrador.Familias
             }
 
             // Usar ReadOnly en lugar de Enabled para mantener legibilidad
-            txtDescripcion.Properties.ReadOnly = !esEditable;
-            gvFamiliasHijos.OptionsBehavior.Editable = esEditable;
+            txtUserName.Properties.ReadOnly = !esEditable;
+            txtPassword.Properties.ReadOnly = !esEditable;
+            gvFamilias.OptionsBehavior.Editable = esEditable;
             gvPatentes.OptionsBehavior.Editable = esEditable;
 
             // Cambiar apariencia visual para indicar modo solo lectura
@@ -554,7 +543,6 @@ namespace UI.Formularios.Administrador.Familias
         private void AplicarEstiloSegunModo(bool esEditable)
         {
             // === COLORES PARA MODO VISUALIZACIÓN (solo lectura) ===
-            // Fondo gris claro que indica "información, no editable"
             var colorFondoVisualizacion = Color.FromArgb(240, 240, 240);
             var colorTextoVisualizacion = Color.FromArgb(60, 60, 60);
             var colorBordeVisualizacion = Color.FromArgb(200, 200, 200);
@@ -562,69 +550,81 @@ namespace UI.Formularios.Administrador.Familias
             // === COLORES PARA MODO EDICIÓN ===
             var colorFondoEdicion = Color.White;
             var colorTextoEdicion = Color.Black;
-            var colorBordeEdicion = Color.FromArgb(100, 149, 237); // Azul que indica "activo"
+            var colorBordeEdicion = Color.FromArgb(100, 149, 237);
 
             // === COLORES PARA LABELS/TÍTULOS ===
             var colorTituloVisualizacion = Color.FromArgb(80, 80, 80);
-            var colorTituloEdicion = Color.FromArgb(52, 73, 94); // Azul oscuro
+            var colorTituloEdicion = Color.FromArgb(52, 73, 94);
 
             if (!esEditable)
             {
                 // *** MODO VISUALIZACIÓN ***
                 
-                // TextBox - aspecto de "información mostrada"
-                txtDescripcion.Properties.Appearance.BackColor = colorFondoVisualizacion;
-                txtDescripcion.Properties.Appearance.ForeColor = colorTextoVisualizacion;
-                txtDescripcion.Properties.Appearance.BorderColor = colorBordeVisualizacion;
-                txtDescripcion.Properties.Appearance.Options.UseBackColor = true;
-                txtDescripcion.Properties.Appearance.Options.UseForeColor = true;
-                txtDescripcion.Properties.Appearance.Options.UseBorderColor = true;
+                // TextBoxes - aspecto de "información mostrada"
+                txtUserName.Properties.Appearance.BackColor = colorFondoVisualizacion;
+                txtUserName.Properties.Appearance.ForeColor = colorTextoVisualizacion;
+                txtUserName.Properties.Appearance.BorderColor = colorBordeVisualizacion;
+                txtUserName.Properties.Appearance.Options.UseBackColor = true;
+                txtUserName.Properties.Appearance.Options.UseForeColor = true;
+                txtUserName.Properties.Appearance.Options.UseBorderColor = true;
 
-                // Labels - color más suave, sin negrita
-                lblFamiliasHijos.ForeColor = colorTituloVisualizacion;
+                txtPassword.Properties.Appearance.BackColor = colorFondoVisualizacion;
+                txtPassword.Properties.Appearance.ForeColor = colorTextoVisualizacion;
+                txtPassword.Properties.Appearance.BorderColor = colorBordeVisualizacion;
+                txtPassword.Properties.Appearance.Options.UseBackColor = true;
+                txtPassword.Properties.Appearance.Options.UseForeColor = true;
+                txtPassword.Properties.Appearance.Options.UseBorderColor = true;
+
+                // Labels - color más suave
+                lblFamilias.ForeColor = colorTituloVisualizacion;
                 lblPatentes.ForeColor = colorTituloVisualizacion;
-                lblFamiliasHijos.Font = FontHelper.FuenteSubtitulo;
+                lblFamilias.Font = FontHelper.FuenteSubtitulo;
                 lblPatentes.Font = FontHelper.FuenteSubtitulo;
 
-                // Grillas - estilo de consulta (sin resaltado de edición)
-                AplicarEstiloGrillaVisualizacion(gvFamiliasHijos);
+                // Grillas - estilo de consulta
+                AplicarEstiloGrillaVisualizacion(gvFamilias);
                 AplicarEstiloGrillaVisualizacion(gvPatentes);
             }
             else
             {
                 // *** MODO EDICIÓN ***
                 
-                // TextBox - aspecto de campo editable activo
-                txtDescripcion.Properties.Appearance.BackColor = colorFondoEdicion;
-                txtDescripcion.Properties.Appearance.ForeColor = colorTextoEdicion;
-                txtDescripcion.Properties.Appearance.BorderColor = colorBordeEdicion;
-                txtDescripcion.Properties.Appearance.Options.UseBackColor = true;
-                txtDescripcion.Properties.Appearance.Options.UseForeColor = true;
-                txtDescripcion.Properties.Appearance.Options.UseBorderColor = true;
+                // TextBoxes - aspecto de campo editable activo
+                txtUserName.Properties.Appearance.BackColor = colorFondoEdicion;
+                txtUserName.Properties.Appearance.ForeColor = colorTextoEdicion;
+                txtUserName.Properties.Appearance.BorderColor = colorBordeEdicion;
+                txtUserName.Properties.Appearance.Options.UseBackColor = true;
+                txtUserName.Properties.Appearance.Options.UseForeColor = true;
+                txtUserName.Properties.Appearance.Options.UseBorderColor = true;
+
+                txtPassword.Properties.Appearance.BackColor = colorFondoEdicion;
+                txtPassword.Properties.Appearance.ForeColor = colorTextoEdicion;
+                txtPassword.Properties.Appearance.BorderColor = colorBordeEdicion;
+                txtPassword.Properties.Appearance.Options.UseBackColor = true;
+                txtPassword.Properties.Appearance.Options.UseForeColor = true;
+                txtPassword.Properties.Appearance.Options.UseBorderColor = true;
 
                 // Labels - color más destacado
-                lblFamiliasHijos.ForeColor = colorTituloEdicion;
+                lblFamilias.ForeColor = colorTituloEdicion;
                 lblPatentes.ForeColor = colorTituloEdicion;
-                lblFamiliasHijos.Font = FontHelper.FuenteSubtituloSemibold;
+                lblFamilias.Font = FontHelper.FuenteSubtituloSemibold;
                 lblPatentes.Font = FontHelper.FuenteSubtituloSemibold;
 
                 // Grillas - estilo de edición activa
-                AplicarEstiloGrillaEdicion(gvFamiliasHijos);
+                AplicarEstiloGrillaEdicion(gvFamilias);
                 AplicarEstiloGrillaEdicion(gvPatentes);
             }
         }
 
         private void AplicarEstiloGrillaVisualizacion(DevExpress.XtraGrid.Views.Grid.GridView gridView)
         {
-            // Header con fondo gris claro y texto oscuro (legible)
-            gridView.Appearance.HeaderPanel.BackColor = Color.FromArgb(222, 226, 230); // Gris claro
-            gridView.Appearance.HeaderPanel.ForeColor = Color.FromArgb(73, 80, 87);    // Gris oscuro
+            gridView.Appearance.HeaderPanel.BackColor = Color.FromArgb(222, 226, 230);
+            gridView.Appearance.HeaderPanel.ForeColor = Color.FromArgb(73, 80, 87);
             gridView.Appearance.HeaderPanel.Font = FontHelper.FuenteEncabezadoGrilla;
             gridView.Appearance.HeaderPanel.Options.UseBackColor = true;
             gridView.Appearance.HeaderPanel.Options.UseForeColor = true;
             gridView.Appearance.HeaderPanel.Options.UseFont = true;
 
-            // Filas con fondo gris claro (indica solo lectura)
             gridView.Appearance.Row.BackColor = Color.FromArgb(245, 245, 245);
             gridView.Appearance.Row.ForeColor = Color.FromArgb(60, 60, 60);
             gridView.Appearance.Row.Font = FontHelper.FuenteFilaGrilla;
@@ -632,7 +632,6 @@ namespace UI.Formularios.Administrador.Familias
             gridView.Appearance.Row.Options.UseForeColor = true;
             gridView.Appearance.Row.Options.UseFont = true;
 
-            // Filas alternadas sutiles
             gridView.OptionsView.EnableAppearanceEvenRow = true;
             gridView.OptionsView.EnableAppearanceOddRow = true;
             gridView.Appearance.EvenRow.BackColor = Color.FromArgb(240, 240, 240);
@@ -644,7 +643,6 @@ namespace UI.Formularios.Administrador.Familias
             gridView.Appearance.EvenRow.Options.UseForeColor = true;
             gridView.Appearance.OddRow.Options.UseForeColor = true;
 
-            // Fila seleccionada más sutil
             gridView.Appearance.FocusedRow.BackColor = Color.FromArgb(220, 220, 220);
             gridView.Appearance.FocusedRow.ForeColor = Color.FromArgb(40, 40, 40);
             gridView.Appearance.FocusedRow.Font = FontHelper.FuenteFilaGrilla;
@@ -655,15 +653,13 @@ namespace UI.Formularios.Administrador.Familias
 
         private void AplicarEstiloGrillaEdicion(DevExpress.XtraGrid.Views.Grid.GridView gridView)
         {
-            // Header con fondo azul claro y texto azul oscuro (legible y activo)
-            gridView.Appearance.HeaderPanel.BackColor = Color.FromArgb(209, 231, 251); // Azul claro
-            gridView.Appearance.HeaderPanel.ForeColor = Color.FromArgb(30, 60, 114);   // Azul oscuro
+            gridView.Appearance.HeaderPanel.BackColor = Color.FromArgb(209, 231, 251);
+            gridView.Appearance.HeaderPanel.ForeColor = Color.FromArgb(30, 60, 114);
             gridView.Appearance.HeaderPanel.Font = FontHelper.FuenteEncabezadoGrilla;
             gridView.Appearance.HeaderPanel.Options.UseBackColor = true;
             gridView.Appearance.HeaderPanel.Options.UseForeColor = true;
             gridView.Appearance.HeaderPanel.Options.UseFont = true;
 
-            // Filas con fondo blanco (indica editable)
             gridView.Appearance.Row.BackColor = Color.White;
             gridView.Appearance.Row.ForeColor = Color.Black;
             gridView.Appearance.Row.Font = FontHelper.FuenteFilaGrilla;
@@ -671,10 +667,9 @@ namespace UI.Formularios.Administrador.Familias
             gridView.Appearance.Row.Options.UseForeColor = true;
             gridView.Appearance.Row.Options.UseFont = true;
 
-            // Filas alternadas más visibles
             gridView.OptionsView.EnableAppearanceEvenRow = true;
             gridView.OptionsView.EnableAppearanceOddRow = true;
-            gridView.Appearance.EvenRow.BackColor = Color.FromArgb(248, 251, 255); // Toque azul muy sutil
+            gridView.Appearance.EvenRow.BackColor = Color.FromArgb(248, 251, 255);
             gridView.Appearance.OddRow.BackColor = Color.White;
             gridView.Appearance.EvenRow.ForeColor = Color.Black;
             gridView.Appearance.OddRow.ForeColor = Color.Black;
@@ -683,8 +678,7 @@ namespace UI.Formularios.Administrador.Familias
             gridView.Appearance.EvenRow.Options.UseForeColor = true;
             gridView.Appearance.OddRow.Options.UseForeColor = true;
 
-            // Fila seleccionada con color azul (indica selección activa)
-            gridView.Appearance.FocusedRow.BackColor = Color.FromArgb(189, 215, 238); // Azul claro
+            gridView.Appearance.FocusedRow.BackColor = Color.FromArgb(189, 215, 238);
             gridView.Appearance.FocusedRow.ForeColor = Color.FromArgb(31, 64, 104);
             gridView.Appearance.FocusedRow.Font = FontHelper.FuenteFilaGrilla;
             gridView.Appearance.FocusedRow.Options.UseBackColor = true;

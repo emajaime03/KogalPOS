@@ -11,12 +11,12 @@ using System.Collections.Generic;
 using System.Windows.Forms;
 using UI.Helpers;
 
-namespace UI.Formularios.Administrador.Familias
+namespace UI.Formularios.Administrador.Usuarios
 {
-    public partial class frmFamilias : XtraForm, IObserver
+    public partial class frmUsuarios : XtraForm, IObserver
     {
         #region "CONSTRUCTOR"
-        public frmFamilias()
+        public frmUsuarios()
         {
             InitializeComponent();
 
@@ -29,18 +29,18 @@ namespace UI.Formularios.Administrador.Familias
         #region "PROCEDIMIENTOS"
         private void ControlesInicializar()
         {
-            gvFamilias.FocusedRowChanged += gvFamilias_FocusedRowChanged;
-            gvFamilias.DoubleClick += gvFamilias_DoubleClick;
+            gvUsuarios.FocusedRowChanged += gvUsuarios_FocusedRowChanged;
+            gvUsuarios.DoubleClick += gvUsuarios_DoubleClick;
 
+            gvUsuarios.OptionsDetail.EnableMasterViewMode = false;
             gvFamilias.OptionsDetail.EnableMasterViewMode = false;
-            gvFamiliasHijos.OptionsDetail.EnableMasterViewMode = false;
             gvPatentes.OptionsDetail.EnableMasterViewMode = false;
 
             ConfigurarTextos();
             ConfigurarColumnas();
             
             // Aplicar estilos automáticamente (grilla principal + grillas compactas de detalle)
-            FormStyleHelper.AplicarEstilosListado(this, "gcFamilias");
+            FormStyleHelper.AplicarEstilosListado(this, "gcUsuarios");
             ButtonStyleHelper.ConfigurarBarraHerramientas(btnNuevo, btnDetalle, btnRefresh, btnExport);
             
             CargarPantalla();
@@ -48,9 +48,9 @@ namespace UI.Formularios.Administrador.Familias
 
         private void ConfigurarTextos()
         {
-            this.Text = "Familias".Translate();
-            labelControl3.Text = "Familias".Translate();
-            labelControl1.Text = "Familias Hijos".Translate();
+            this.Text = "Usuarios".Translate();
+            labelControl3.Text = "Usuarios".Translate();
+            labelControl1.Text = "Familias".Translate();
             labelControl2.Text = "Patentes".Translate();
 
             // Actualizar textos de los botones de la barra de herramientas
@@ -65,23 +65,21 @@ namespace UI.Formularios.Administrador.Familias
 
         private void ActualizarCaptionsColumnas()
         {
+            // Columnas de gvUsuarios
+            if (gvUsuarios.Columns.Count > 0)
+            {
+                var colEstado = gvUsuarios.Columns[nameof(Usuario.Estado)];
+                var colUserName = gvUsuarios.Columns[nameof(Usuario.UserName)];
+
+                if (colEstado != null) colEstado.Caption = "ESTADO".Translate();
+                if (colUserName != null) colUserName.Caption = "NOMBRE DE USUARIO".Translate();
+            }
+
             // Columnas de gvFamilias
             if (gvFamilias.Columns.Count > 0)
             {
-                var colId = gvFamilias.Columns[nameof(Familia.Id)];
-                var colEstado = gvFamilias.Columns[nameof(Familia.Estado)];
                 var colDescripcion = gvFamilias.Columns[nameof(Familia.Descripcion)];
-
-                if (colId != null) colId.Caption = "ID";
-                if (colEstado != null) colEstado.Caption = "ESTADO".Translate();
-                if (colDescripcion != null) colDescripcion.Caption = "DESCRIPCIÓN".Translate();
-            }
-
-            // Columnas de gvFamiliasHijos
-            if (gvFamiliasHijos.Columns.Count > 0)
-            {
-                var colDescripcion = gvFamiliasHijos.Columns[nameof(Familia.Descripcion)];
-                var colEstado = gvFamiliasHijos.Columns[nameof(Familia.Estado)];
+                var colEstado = gvFamilias.Columns[nameof(Familia.Estado)];
 
                 if (colDescripcion != null) colDescripcion.Caption = "DESCRIPCIÓN".Translate();
                 if (colEstado != null) colEstado.Caption = "ESTADO".Translate();
@@ -90,24 +88,47 @@ namespace UI.Formularios.Administrador.Familias
             // Columnas de gvPatentes
             if (gvPatentes.Columns.Count > 0)
             {
-                var colId = gvPatentes.Columns[nameof(Patente.Id)];
-                var colEstado = gvPatentes.Columns[nameof(Patente.Estado)];
                 var colDescripcion = gvPatentes.Columns[nameof(Patente.Descripcion)];
+                var colEstado = gvPatentes.Columns[nameof(Patente.Estado)];
 
-                if (colId != null) colId.Caption = "ID";
-                if (colEstado != null) colEstado.Caption = "ESTADO".Translate();
                 if (colDescripcion != null) colDescripcion.Caption = "DESCRIPCIÓN".Translate();
+                if (colEstado != null) colEstado.Caption = "ESTADO".Translate();
             }
         }
 
         private void ConfigurarColumnas()
         {
+            List<GridColumn> gridColumnsUsuarios = new List<GridColumn>
+            {
+                new GridColumn
+                {
+                    FieldName = nameof(Usuario.IdUsuario),
+                    Caption = "ID",
+                    Visible = false,
+                },
+                new GridColumn
+                {
+                    FieldName = nameof(Usuario.Estado),
+                    Caption = "ESTADO".Translate(),
+                    Visible = true,
+                },
+                new GridColumn
+                {
+                    FieldName = nameof(Usuario.UserName),
+                    Caption = "NOMBRE DE USUARIO".Translate(),
+                    Visible = true,
+                },
+            };
+
+            gvUsuarios.Columns.AddRange(gridColumnsUsuarios.ToArray());
+            
+            // Columnas para familias
             List<GridColumn> gridColumnsFamilias = new List<GridColumn>
             {
                 new GridColumn
                 {
-                    FieldName = nameof(Familia.Id),
-                    Caption = "ID",
+                    FieldName = nameof(Familia.Descripcion),
+                    Caption = "DESCRIPCIÓN".Translate(),
                     Visible = true,
                 },
                 new GridColumn
@@ -116,53 +137,23 @@ namespace UI.Formularios.Administrador.Familias
                     Caption = "ESTADO".Translate(),
                     Visible = true,
                 },
-                new GridColumn
-                {
-                    FieldName = nameof(Familia.Descripcion),
-                    Caption = "DESCRIPCIÓN".Translate(),
-                    Visible = true,
-                },
             };
-
+            
             gvFamilias.Columns.AddRange(gridColumnsFamilias.ToArray());
-            
-            // Columnas para familias hijos (sin ID)
-            List<GridColumn> gridColumnsFamiliasHijos = new List<GridColumn>
-            {
-                new GridColumn
-                {
-                    FieldName = nameof(Familia.Descripcion),
-                    Caption = "DESCRIPCIÓN".Translate(),
-                    Visible = true,
-                },
-                new GridColumn
-                {
-                    FieldName = nameof(Familia.Estado),
-                    Caption = "ESTADO".Translate(),
-                    Visible = true,
-                },
-            };
-            
-            gvFamiliasHijos.Columns.AddRange(gridColumnsFamiliasHijos.ToArray());
 
+            // Columnas para patentes
             List<GridColumn> gridColumnsPatentes = new List<GridColumn>
             {
                 new GridColumn
                 {
-                    FieldName = nameof(Patente.Id),
-                    Caption = "ID",
+                    FieldName = nameof(Patente.Descripcion),
+                    Caption = "DESCRIPCIÓN".Translate(),
                     Visible = true,
                 },
                 new GridColumn
                 {
                     FieldName = nameof(Patente.Estado),
                     Caption = "ESTADO".Translate(),
-                    Visible = true,
-                },
-                new GridColumn
-                {
-                    FieldName = nameof(Patente.Descripcion),
-                    Caption = "DESCRIPCIÓN".Translate(),
                     Visible = true,
                 }
             };
@@ -172,25 +163,30 @@ namespace UI.Formularios.Administrador.Familias
 
         private void CargarPantalla()
         {
-            ResFamiliasObtener res = (ResFamiliasObtener)RequestService.Current.GetResponse(new ReqFamiliasObtener());
-            this.gcFamilias.DataSource = res.Familias;
+            ResUsuariosObtener res = (ResUsuariosObtener)RequestService.Current.GetResponse(new ReqUsuariosObtener());
+            this.gcUsuarios.DataSource = res.Usuarios;
         }
 
-        private void CargarDetallesFamilia(Familia familia)
+        private void CargarDetallesUsuario(Usuario usuario)
         {
-            if (familia != null)
+            if (usuario != null)
             {
-                this.gcFamiliasHijos.DataSource = familia.GetFamilias();
-                this.gcPatentes.DataSource = familia.GetPatentes();
+                this.gcFamilias.DataSource = usuario.GetFamilias();
+                this.gcPatentes.DataSource = usuario.GetPatentes();
 
-                this.gcFamiliasHijos.RefreshDataSource();
+                this.gcFamilias.RefreshDataSource();
                 this.gcPatentes.RefreshDataSource();
+            }
+            else
+            {
+                this.gcFamilias.DataSource = null;
+                this.gcPatentes.DataSource = null;
             }
         }
 
         public void Update<T>(T value, object data = null)
         {
-            if (E_FormsServicesValues.Familia.Equals(value))
+            if (E_FormsServicesValues.Usuario.Equals(value))
             {
                 CargarPantalla();
             }
@@ -208,20 +204,24 @@ namespace UI.Formularios.Administrador.Familias
         #endregion
 
         #region "EVENTOS"
-        private void gvFamilias_FocusedRowChanged(object sender, DevExpress.XtraGrid.Views.Base.FocusedRowChangedEventArgs e)
+        private void gvUsuarios_FocusedRowChanged(object sender, DevExpress.XtraGrid.Views.Base.FocusedRowChangedEventArgs e)
         {
             int rowHandle = e.FocusedRowHandle;
 
             if (rowHandle >= 0)
             {
-                Familia familia = gvFamilias.GetRow(rowHandle) as Familia;
-                CargarDetallesFamilia(familia);
+                Usuario usuario = gvUsuarios.GetRow(rowHandle) as Usuario;
+                CargarDetallesUsuario(usuario);
+            }
+            else
+            {
+                CargarDetallesUsuario(null);
             }
 
             btnDetalle.Enabled = rowHandle >= 0;
         }
 
-        private void gvFamilias_DoubleClick(object sender, EventArgs e)
+        private void gvUsuarios_DoubleClick(object sender, EventArgs e)
         {
             AbrirDetalle();
         }
@@ -233,30 +233,30 @@ namespace UI.Formularios.Administrador.Familias
 
         private void btnExport_Click(object sender, EventArgs e)
         {
-            if (gcFamilias.MainView is DevExpress.XtraGrid.Views.Grid.GridView gridView)
+            if (gcUsuarios.MainView is DevExpress.XtraGrid.Views.Grid.GridView gridView)
             {
                 using (SaveFileDialog saveFileDialog = new SaveFileDialog())
                 {
                     saveFileDialog.Filter = "Archivos Excel (*.xlsx)|*.xlsx";
-                    saveFileDialog.Title = "Guardar archivo Excel";
-                    saveFileDialog.FileName = "Exportado.xlsx";
+                    saveFileDialog.Title = "Guardar archivo Excel".Translate();
+                    saveFileDialog.FileName = "Usuarios.xlsx";
 
                     if (saveFileDialog.ShowDialog() == DialogResult.OK)
                     {
                         gridView.ExportToXlsx(saveFileDialog.FileName);
-                        XtraMessageBox.Show("Exportación completada exitosamente.", "Éxito", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                        XtraMessageBox.Show("Exportación completada exitosamente.".Translate(), "Éxito".Translate(), MessageBoxButtons.OK, MessageBoxIcon.Information);
                     }
                 }
             }
             else
             {
-                XtraMessageBox.Show("El GridControl no contiene un GridView válido.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                XtraMessageBox.Show("El GridControl no contiene un GridView válido.".Translate(), "Error".Translate(), MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
 
         private void btnNuevo_Click(object sender, EventArgs e)
         {
-            FormulariosManager.FamiliasABM();
+            FormulariosManager.UsuariosABM();
         }
 
         private void btnDetalle_Click(object sender, EventArgs e)
@@ -266,14 +266,14 @@ namespace UI.Formularios.Administrador.Familias
 
         private void AbrirDetalle()
         {
-            int rowHandle = gvFamilias.FocusedRowHandle;
+            int rowHandle = gvUsuarios.FocusedRowHandle;
             if (rowHandle >= 0)
             {
-                Familia familiaSeleccionada = gvFamilias.GetRow(rowHandle) as Familia;
+                Usuario usuarioSeleccionado = gvUsuarios.GetRow(rowHandle) as Usuario;
 
-                if (familiaSeleccionada != null)
+                if (usuarioSeleccionado != null)
                 {
-                    FormulariosManager.FamiliasABM(familiaSeleccionada.Id);
+                    FormulariosManager.UsuariosABM(usuarioSeleccionado.IdUsuario);
                 }
             }
         }

@@ -1,4 +1,4 @@
-﻿<?xml version="1.0" encoding="utf-8"?>
+<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="15.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
   <PropertyGroup>
@@ -106,7 +106,25 @@
     <Compile Include="Formularios\Administrador\Patentes\frmPatentes.Designer.cs">
       <DependentUpon>frmPatentes.cs</DependentUpon>
     </Compile>
+    <Compile Include="Formularios\Administrador\Usuarios\frmUsuarios.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Formularios\Administrador\Usuarios\frmUsuarios.Designer.cs">
+      <DependentUpon>frmUsuarios.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Formularios\Administrador\Usuarios\frmUsuariosABM.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Formularios\Administrador\Usuarios\frmUsuariosABM.Designer.cs">
+      <DependentUpon>frmUsuariosABM.cs</DependentUpon>
+    </Compile>
     <Compile Include="Formularios\Base\E_TipoPantalla.cs" />
+    <Compile Include="Formularios\Base\frmBaseABM.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Formularios\Base\frmBaseABM.Designer.cs">
+      <DependentUpon>frmBaseABM.cs</DependentUpon>
+    </Compile>
     <Compile Include="Formularios\Base\frmBaseGrilla.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -114,6 +132,10 @@
       <DependentUpon>frmBaseGrilla.cs</DependentUpon>
     </Compile>
     <Compile Include="Formularios\FormulariosManager.cs" />
+    <Compile Include="Helpers\ButtonStyleHelper.cs" />
+    <Compile Include="Helpers\FormStyleHelper.cs" />
+    <Compile Include="Helpers\FontHelper.cs" />
+    <Compile Include="Helpers\GridStyleHelper.cs" />
     <Compile Include="Login\frmLogin.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -136,6 +158,15 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Formularios\Administrador\Patentes\frmPatentes.resx">
       <DependentUpon>frmPatentes.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Formularios\Administrador\Usuarios\frmUsuarios.resx">
+      <DependentUpon>frmUsuarios.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Formularios\Administrador\Usuarios\frmUsuariosABM.resx">
+      <DependentUpon>frmUsuariosABM.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Formularios\Base\frmBaseABM.resx">
+      <DependentUpon>frmBaseABM.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Formularios\Base\frmBaseGrilla.resx">
       <DependentUpon>frmBaseGrilla.cs</DependentUpon>

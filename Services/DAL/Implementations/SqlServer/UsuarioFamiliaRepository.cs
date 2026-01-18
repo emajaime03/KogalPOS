@@ -1,4 +1,4 @@
-﻿using Services.DAL.Contracts;
+using Services.DAL.Contracts;
 using Services.Domain;
 using System;
 using System.Collections.Generic;
@@ -17,28 +17,45 @@ namespace Services.DAL.Implementations.SqlServer
         public UsuarioFamiliaRepository(SqlConnection context, SqlTransaction _transaction, IUnitOfWorkRepository unitOfWorkRepository)
             : base(context, _transaction, unitOfWorkRepository)
         {
-
         }
 
         public void Join(Usuario entity)
         {
-            //Familia_PatenteSelectByIdFamilia
-            string query = $"SELECT IdFamilia FROM Usuarios_Familias WHERE IdUsuario = @IdUsuario";
+            string query = "SELECT IdFamilia FROM Usuarios_Familias WHERE IdUsuario = @IdUsuario";
             using (var reader = SqlHelper.ExecuteReader(query, CommandType.Text,
-              new SqlParameter[] { new SqlParameter("@IdUsuario", entity.IdUsuario) }))
+                new SqlParameter[] { new SqlParameter("@IdUsuario", entity.IdUsuario) }))
             {
                 while (reader.Read())
                 {
                     object[] data = new object[reader.FieldCount];
                     reader.GetValues(data);
 
-                    //Busco en el repositorio de familias a partir del id familia de mi tupla-relación
+                    // Busco en el repositorio de familias a partir del id familia de mi tupla-relación
                     entity.Accesos.Add(_unitOfWorkRepository.FamiliaRepository.GetById(Guid.Parse(data[0].ToString())));
                 }
             }
-
-
         }
 
+        public void Add(Guid usuarioId, Guid familiaId)
+        {
+            string query = @"INSERT INTO Usuarios_Familias (IdUsuario, IdFamilia) 
+                             VALUES (@IdUsuario, @IdFamilia)";
+
+            SqlHelper.ExecuteNonQuery(query, CommandType.Text, new SqlParameter[]
+            {
+                new SqlParameter("@IdUsuario", usuarioId),
+                new SqlParameter("@IdFamilia", familiaId)
+            });
+        }
+
+        public void RemoveByFamilia(Guid usuarioId)
+        {
+            string query = "DELETE FROM Usuarios_Familias WHERE IdUsuario = @IdUsuario";
+
+            SqlHelper.ExecuteNonQuery(query, CommandType.Text, new SqlParameter[]
+            {
+                new SqlParameter("@IdUsuario", usuarioId)
+            });
+        }
     }
 }

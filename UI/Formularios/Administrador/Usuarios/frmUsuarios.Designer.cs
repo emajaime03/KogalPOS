@@ -1,7 +1,7 @@
 
-namespace UI.Formularios.Administrador.Familias
+namespace UI.Formularios.Administrador.Usuarios
 {
-    partial class frmFamilias
+    partial class frmUsuarios
     {
         /// <summary>
         /// Required designer variable.
@@ -29,7 +29,7 @@ namespace UI.Formularios.Administrador.Familias
         /// </summary>
         private void InitializeComponent()
         {
-            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(frmFamilias));
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(frmUsuarios));
             this.layoutControl1 = new DevExpress.XtraLayout.LayoutControl();
             this.btnExport = new DevExpress.XtraEditors.SimpleButton();
             this.btnRefresh = new DevExpress.XtraEditors.SimpleButton();
@@ -40,10 +40,10 @@ namespace UI.Formularios.Administrador.Familias
             this.labelControl1 = new DevExpress.XtraEditors.LabelControl();
             this.gcPatentes = new DevExpress.XtraGrid.GridControl();
             this.gvPatentes = new DevExpress.XtraGrid.Views.Grid.GridView();
-            this.gcFamiliasHijos = new DevExpress.XtraGrid.GridControl();
-            this.gvFamiliasHijos = new DevExpress.XtraGrid.Views.Grid.GridView();
             this.gcFamilias = new DevExpress.XtraGrid.GridControl();
             this.gvFamilias = new DevExpress.XtraGrid.Views.Grid.GridView();
+            this.gcUsuarios = new DevExpress.XtraGrid.GridControl();
+            this.gvUsuarios = new DevExpress.XtraGrid.Views.Grid.GridView();
             this.Root = new DevExpress.XtraLayout.LayoutControlGroup();
             this.layoutControlItem1 = new DevExpress.XtraLayout.LayoutControlItem();
             this.layoutControlItem2 = new DevExpress.XtraLayout.LayoutControlItem();
@@ -60,10 +60,10 @@ namespace UI.Formularios.Administrador.Familias
             this.layoutControl1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.gcPatentes)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.gvPatentes)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.gcFamiliasHijos)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.gvFamiliasHijos)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.gcFamilias)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.gvFamilias)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.gcUsuarios)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.gvUsuarios)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.Root)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.layoutControlItem1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.layoutControlItem2)).BeginInit();
@@ -88,8 +88,8 @@ namespace UI.Formularios.Administrador.Familias
             this.layoutControl1.Controls.Add(this.labelControl2);
             this.layoutControl1.Controls.Add(this.labelControl1);
             this.layoutControl1.Controls.Add(this.gcPatentes);
-            this.layoutControl1.Controls.Add(this.gcFamiliasHijos);
             this.layoutControl1.Controls.Add(this.gcFamilias);
+            this.layoutControl1.Controls.Add(this.gcUsuarios);
             this.layoutControl1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.layoutControl1.Location = new System.Drawing.Point(0, 0);
             this.layoutControl1.Name = "layoutControl1";
@@ -151,7 +151,7 @@ namespace UI.Formularios.Administrador.Familias
             this.labelControl3.Size = new System.Drawing.Size(421, 24);
             this.labelControl3.StyleController = this.layoutControl1;
             this.labelControl3.TabIndex = 9;
-            this.labelControl3.Text = "Familias";
+            this.labelControl3.Text = "Usuarios";
             // 
             // labelControl2
             // 
@@ -171,7 +171,7 @@ namespace UI.Formularios.Administrador.Familias
             this.labelControl1.Size = new System.Drawing.Size(390, 24);
             this.labelControl1.StyleController = this.layoutControl1;
             this.labelControl1.TabIndex = 7;
-            this.labelControl1.Text = "Familias Hijos";
+            this.labelControl1.Text = "Familias";
             // 
             // gcPatentes
             // 
@@ -192,32 +192,13 @@ namespace UI.Formularios.Administrador.Familias
             this.gvPatentes.OptionsView.ShowAutoFilterRow = true;
             this.gvPatentes.OptionsView.ShowGroupPanel = false;
             // 
-            // gcFamiliasHijos
-            // 
-            this.gcFamiliasHijos.Location = new System.Drawing.Point(437, 92);
-            this.gcFamiliasHijos.MainView = this.gvFamiliasHijos;
-            this.gcFamiliasHijos.Name = "gcFamiliasHijos";
-            this.gcFamiliasHijos.Size = new System.Drawing.Size(390, 189);
-            this.gcFamiliasHijos.TabIndex = 5;
-            this.gcFamiliasHijos.ViewCollection.AddRange(new DevExpress.XtraGrid.Views.Base.BaseView[] {
-            this.gvFamiliasHijos});
-            // 
-            // gvFamiliasHijos
-            // 
-            this.gvFamiliasHijos.GridControl = this.gcFamiliasHijos;
-            this.gvFamiliasHijos.Name = "gvFamiliasHijos";
-            this.gvFamiliasHijos.OptionsBehavior.Editable = false;
-            this.gvFamiliasHijos.OptionsBehavior.ReadOnly = true;
-            this.gvFamiliasHijos.OptionsView.ShowAutoFilterRow = true;
-            this.gvFamiliasHijos.OptionsView.ShowGroupPanel = false;
-            // 
             // gcFamilias
             // 
-            this.gcFamilias.Location = new System.Drawing.Point(12, 92);
+            this.gcFamilias.Location = new System.Drawing.Point(437, 92);
             this.gcFamilias.MainView = this.gvFamilias;
             this.gcFamilias.Name = "gcFamilias";
-            this.gcFamilias.Size = new System.Drawing.Size(421, 409);
-            this.gcFamilias.TabIndex = 4;
+            this.gcFamilias.Size = new System.Drawing.Size(390, 189);
+            this.gcFamilias.TabIndex = 5;
             this.gcFamilias.ViewCollection.AddRange(new DevExpress.XtraGrid.Views.Base.BaseView[] {
             this.gvFamilias});
             // 
@@ -229,6 +210,25 @@ namespace UI.Formularios.Administrador.Familias
             this.gvFamilias.OptionsBehavior.ReadOnly = true;
             this.gvFamilias.OptionsView.ShowAutoFilterRow = true;
             this.gvFamilias.OptionsView.ShowGroupPanel = false;
+            // 
+            // gcUsuarios
+            // 
+            this.gcUsuarios.Location = new System.Drawing.Point(12, 92);
+            this.gcUsuarios.MainView = this.gvUsuarios;
+            this.gcUsuarios.Name = "gcUsuarios";
+            this.gcUsuarios.Size = new System.Drawing.Size(421, 409);
+            this.gcUsuarios.TabIndex = 4;
+            this.gcUsuarios.ViewCollection.AddRange(new DevExpress.XtraGrid.Views.Base.BaseView[] {
+            this.gvUsuarios});
+            // 
+            // gvUsuarios
+            // 
+            this.gvUsuarios.GridControl = this.gcUsuarios;
+            this.gvUsuarios.Name = "gvUsuarios";
+            this.gvUsuarios.OptionsBehavior.Editable = false;
+            this.gvUsuarios.OptionsBehavior.ReadOnly = true;
+            this.gvUsuarios.OptionsView.ShowAutoFilterRow = true;
+            this.gvUsuarios.OptionsView.ShowGroupPanel = false;
             // 
             // Root
             // 
@@ -252,7 +252,7 @@ namespace UI.Formularios.Administrador.Familias
             // 
             // layoutControlItem1
             // 
-            this.layoutControlItem1.Control = this.gcFamilias;
+            this.layoutControlItem1.Control = this.gcUsuarios;
             this.layoutControlItem1.Location = new System.Drawing.Point(0, 64);
             this.layoutControlItem1.Name = "layoutControlItem1";
             this.layoutControlItem1.Size = new System.Drawing.Size(425, 429);
@@ -261,7 +261,7 @@ namespace UI.Formularios.Administrador.Familias
             // 
             // layoutControlItem2
             // 
-            this.layoutControlItem2.Control = this.gcFamiliasHijos;
+            this.layoutControlItem2.Control = this.gcFamilias;
             this.layoutControlItem2.Location = new System.Drawing.Point(425, 64);
             this.layoutControlItem2.Name = "layoutControlItem2";
             this.layoutControlItem2.Size = new System.Drawing.Size(394, 209);
@@ -366,22 +366,22 @@ namespace UI.Formularios.Administrador.Familias
             this.layoutControlItem10.TextSize = new System.Drawing.Size(0, 0);
             this.layoutControlItem10.TextVisible = false;
             // 
-            // frmFamilias
+            // frmUsuarios
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(839, 513);
             this.Controls.Add(this.layoutControl1);
-            this.Name = "frmFamilias";
-            this.Text = "frmFamilias";
+            this.Name = "frmUsuarios";
+            this.Text = "Usuarios";
             ((System.ComponentModel.ISupportInitialize)(this.layoutControl1)).EndInit();
             this.layoutControl1.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.gcPatentes)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.gvPatentes)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.gcFamiliasHijos)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.gvFamiliasHijos)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.gcFamilias)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.gvFamilias)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.gcUsuarios)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.gvUsuarios)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.Root)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.layoutControlItem1)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.layoutControlItem2)).EndInit();
@@ -406,10 +406,10 @@ namespace UI.Formularios.Administrador.Familias
         private DevExpress.XtraEditors.LabelControl labelControl1;
         private DevExpress.XtraGrid.GridControl gcPatentes;
         private DevExpress.XtraGrid.Views.Grid.GridView gvPatentes;
-        private DevExpress.XtraGrid.GridControl gcFamiliasHijos;
-        private DevExpress.XtraGrid.Views.Grid.GridView gvFamiliasHijos;
         private DevExpress.XtraGrid.GridControl gcFamilias;
         private DevExpress.XtraGrid.Views.Grid.GridView gvFamilias;
+        private DevExpress.XtraGrid.GridControl gcUsuarios;
+        private DevExpress.XtraGrid.Views.Grid.GridView gvUsuarios;
         private DevExpress.XtraLayout.LayoutControlGroup Root;
         private DevExpress.XtraLayout.LayoutControlItem layoutControlItem1;
         private DevExpress.XtraLayout.LayoutControlItem layoutControlItem2;

@@ -1,4 +1,4 @@
-﻿
+
 namespace UI.Principal
 {
     partial class frmPrincipal

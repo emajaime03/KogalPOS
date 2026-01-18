@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -14,9 +14,10 @@ namespace Services.DAL.Contracts
 
         void Remove(Guid id);
 
+        void Restore(Guid id);
+
         T GetById(Guid id);
 
         List<T> GetAll();
-
     }
 }

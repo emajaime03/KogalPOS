@@ -1,4 +1,4 @@
-﻿
+
 namespace UI.Formularios.Base
 {
     partial class frmBaseGrilla
@@ -44,6 +44,7 @@ namespace UI.Formularios.Base
             this.layoutControlItem1 = new DevExpress.XtraLayout.LayoutControlItem();
             this.layoutControlItem4 = new DevExpress.XtraLayout.LayoutControlItem();
             this.layoutControlItem5 = new DevExpress.XtraLayout.LayoutControlItem();
+            this.emptySpaceItem1 = new DevExpress.XtraLayout.EmptySpaceItem();
             ((System.ComponentModel.ISupportInitialize)(this.layoutControl1)).BeginInit();
             this.layoutControl1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.gridControl)).BeginInit();
@@ -55,6 +56,7 @@ namespace UI.Formularios.Base
             ((System.ComponentModel.ISupportInitialize)(this.layoutControlItem1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.layoutControlItem4)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.layoutControlItem5)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.emptySpaceItem1)).BeginInit();
             this.SuspendLayout();
             // 
             // layoutControl1
@@ -77,59 +79,61 @@ namespace UI.Formularios.Base
             // 
             this.btnRefresh.ImageOptions.AllowGlyphSkinning = DevExpress.Utils.DefaultBoolean.True;
             this.btnRefresh.ImageOptions.Image = ((System.Drawing.Image)(resources.GetObject("btnRefresh.ImageOptions.Image")));
-            this.btnRefresh.ImageOptions.Location = DevExpress.XtraEditors.ImageLocation.MiddleCenter;
+            this.btnRefresh.ImageOptions.Location = DevExpress.XtraEditors.ImageLocation.MiddleLeft;
             this.btnRefresh.ImeMode = System.Windows.Forms.ImeMode.NoControl;
             this.btnRefresh.Location = new System.Drawing.Point(709, 12);
             this.btnRefresh.Name = "btnRefresh";
-            this.btnRefresh.Size = new System.Drawing.Size(74, 48);
+            this.btnRefresh.Size = new System.Drawing.Size(74, 32);
             this.btnRefresh.StyleController = this.layoutControl1;
             this.btnRefresh.TabIndex = 11;
+            this.btnRefresh.Text = "Actualizar";
             this.btnRefresh.Click += new System.EventHandler(this.btnRefresh_Click);
             // 
             // btnExport
             // 
             this.btnExport.ImageOptions.Image = ((System.Drawing.Image)(resources.GetObject("btnExport.ImageOptions.Image")));
-            this.btnExport.ImageOptions.Location = DevExpress.XtraEditors.ImageLocation.MiddleCenter;
+            this.btnExport.ImageOptions.Location = DevExpress.XtraEditors.ImageLocation.MiddleLeft;
             this.btnExport.Location = new System.Drawing.Point(787, 12);
             this.btnExport.Name = "btnExport";
-            this.btnExport.Size = new System.Drawing.Size(74, 48);
+            this.btnExport.Size = new System.Drawing.Size(74, 32);
             this.btnExport.StyleController = this.layoutControl1;
             this.btnExport.TabIndex = 10;
+            this.btnExport.Text = "Exportar";
             this.btnExport.Click += new System.EventHandler(this.btnExport_Click);
             // 
             // btnDetalle
             // 
-            this.btnDetalle.Location = new System.Drawing.Point(12, 38);
+            this.btnDetalle.Location = new System.Drawing.Point(117, 12);
             this.btnDetalle.Name = "btnDetalle";
-            this.btnDetalle.Size = new System.Drawing.Size(693, 22);
+            this.btnDetalle.Size = new System.Drawing.Size(100, 32);
             this.btnDetalle.StyleController = this.layoutControl1;
             this.btnDetalle.TabIndex = 9;
-            this.btnDetalle.Text = "Detalle";
+            this.btnDetalle.Text = "Ver Detalle";
+            this.btnDetalle.Click += new System.EventHandler(this.btnDetalle_Click);
             // 
             // btnNuevo
             // 
             this.btnNuevo.Location = new System.Drawing.Point(12, 12);
             this.btnNuevo.Name = "btnNuevo";
-            this.btnNuevo.Size = new System.Drawing.Size(693, 22);
+            this.btnNuevo.Size = new System.Drawing.Size(100, 32);
             this.btnNuevo.StyleController = this.layoutControl1;
             this.btnNuevo.TabIndex = 8;
             this.btnNuevo.Text = "Nuevo";
             this.btnNuevo.Visible = false;
+            this.btnNuevo.Click += new System.EventHandler(this.btnNuevo_Click);
             // 
             // gridControl
             // 
-            this.gridControl.Location = new System.Drawing.Point(12, 64);
+            this.gridControl.Location = new System.Drawing.Point(12, 48);
             this.gridControl.MainView = this.gridView;
             this.gridControl.Name = "gridControl";
-            this.gridControl.Size = new System.Drawing.Size(849, 359);
+            this.gridControl.Size = new System.Drawing.Size(849, 375);
             this.gridControl.TabIndex = 7;
             this.gridControl.ViewCollection.AddRange(new DevExpress.XtraGrid.Views.Base.BaseView[] {
             this.gridView});
             // 
             // gridView
             // 
-            this.gridView.Appearance.HeaderPanel.Font = new System.Drawing.Font("Tahoma", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.gridView.Appearance.HeaderPanel.Options.UseFont = true;
             this.gridView.GridControl = this.gridControl;
             this.gridView.Name = "gridView";
             this.gridView.OptionsBehavior.Editable = false;
@@ -147,8 +151,9 @@ namespace UI.Formularios.Base
             this.simpleSeparator1,
             this.layoutControlItem2,
             this.layoutControlItem1,
-            this.layoutControlItem4,
-            this.layoutControlItem5});
+            this.emptySpaceItem1,
+            this.layoutControlItem5,
+            this.layoutControlItem4});
             this.Root.Name = "Root";
             this.Root.Size = new System.Drawing.Size(873, 436);
             this.Root.TextVisible = false;
@@ -156,9 +161,9 @@ namespace UI.Formularios.Base
             // layoutControlItem3
             // 
             this.layoutControlItem3.Control = this.gridControl;
-            this.layoutControlItem3.Location = new System.Drawing.Point(0, 52);
+            this.layoutControlItem3.Location = new System.Drawing.Point(0, 36);
             this.layoutControlItem3.Name = "layoutControlItem3";
-            this.layoutControlItem3.Size = new System.Drawing.Size(853, 363);
+            this.layoutControlItem3.Size = new System.Drawing.Size(853, 379);
             this.layoutControlItem3.TextSize = new System.Drawing.Size(0, 0);
             this.layoutControlItem3.TextVisible = false;
             // 
@@ -173,43 +178,57 @@ namespace UI.Formularios.Base
             // 
             this.layoutControlItem2.Control = this.btnNuevo;
             this.layoutControlItem2.Location = new System.Drawing.Point(0, 0);
+            this.layoutControlItem2.MaxSize = new System.Drawing.Size(105, 36);
+            this.layoutControlItem2.MinSize = new System.Drawing.Size(105, 36);
             this.layoutControlItem2.Name = "layoutControlItem2";
-            this.layoutControlItem2.Size = new System.Drawing.Size(697, 26);
+            this.layoutControlItem2.Size = new System.Drawing.Size(105, 36);
+            this.layoutControlItem2.SizeConstraintsType = DevExpress.XtraLayout.SizeConstraintsType.Custom;
             this.layoutControlItem2.TextSize = new System.Drawing.Size(0, 0);
             this.layoutControlItem2.TextVisible = false;
             // 
             // layoutControlItem1
             // 
             this.layoutControlItem1.Control = this.btnDetalle;
-            this.layoutControlItem1.Location = new System.Drawing.Point(0, 26);
+            this.layoutControlItem1.Location = new System.Drawing.Point(105, 0);
+            this.layoutControlItem1.MaxSize = new System.Drawing.Size(105, 36);
+            this.layoutControlItem1.MinSize = new System.Drawing.Size(105, 36);
             this.layoutControlItem1.Name = "layoutControlItem1";
-            this.layoutControlItem1.Size = new System.Drawing.Size(697, 26);
+            this.layoutControlItem1.Size = new System.Drawing.Size(105, 36);
+            this.layoutControlItem1.SizeConstraintsType = DevExpress.XtraLayout.SizeConstraintsType.Custom;
             this.layoutControlItem1.TextSize = new System.Drawing.Size(0, 0);
             this.layoutControlItem1.TextVisible = false;
             // 
-            // layoutControlItem4
+            // emptySpaceItem1
             // 
-            this.layoutControlItem4.Control = this.btnExport;
-            this.layoutControlItem4.Location = new System.Drawing.Point(775, 0);
-            this.layoutControlItem4.MaxSize = new System.Drawing.Size(78, 52);
-            this.layoutControlItem4.MinSize = new System.Drawing.Size(78, 52);
-            this.layoutControlItem4.Name = "layoutControlItem4";
-            this.layoutControlItem4.Size = new System.Drawing.Size(78, 52);
-            this.layoutControlItem4.SizeConstraintsType = DevExpress.XtraLayout.SizeConstraintsType.Custom;
-            this.layoutControlItem4.TextSize = new System.Drawing.Size(0, 0);
-            this.layoutControlItem4.TextVisible = false;
+            this.emptySpaceItem1.AllowHotTrack = false;
+            this.emptySpaceItem1.Location = new System.Drawing.Point(210, 0);
+            this.emptySpaceItem1.Name = "emptySpaceItem1";
+            this.emptySpaceItem1.Size = new System.Drawing.Size(433, 36);
+            this.emptySpaceItem1.TextSize = new System.Drawing.Size(0, 0);
             // 
             // layoutControlItem5
             // 
             this.layoutControlItem5.Control = this.btnRefresh;
-            this.layoutControlItem5.Location = new System.Drawing.Point(697, 0);
-            this.layoutControlItem5.MaxSize = new System.Drawing.Size(78, 52);
-            this.layoutControlItem5.MinSize = new System.Drawing.Size(78, 52);
+            this.layoutControlItem5.Location = new System.Drawing.Point(643, 0);
+            this.layoutControlItem5.MaxSize = new System.Drawing.Size(105, 36);
+            this.layoutControlItem5.MinSize = new System.Drawing.Size(105, 36);
             this.layoutControlItem5.Name = "layoutControlItem5";
-            this.layoutControlItem5.Size = new System.Drawing.Size(78, 52);
+            this.layoutControlItem5.Size = new System.Drawing.Size(105, 36);
             this.layoutControlItem5.SizeConstraintsType = DevExpress.XtraLayout.SizeConstraintsType.Custom;
             this.layoutControlItem5.TextSize = new System.Drawing.Size(0, 0);
             this.layoutControlItem5.TextVisible = false;
+            // 
+            // layoutControlItem4
+            // 
+            this.layoutControlItem4.Control = this.btnExport;
+            this.layoutControlItem4.Location = new System.Drawing.Point(748, 0);
+            this.layoutControlItem4.MaxSize = new System.Drawing.Size(105, 36);
+            this.layoutControlItem4.MinSize = new System.Drawing.Size(105, 36);
+            this.layoutControlItem4.Name = "layoutControlItem4";
+            this.layoutControlItem4.Size = new System.Drawing.Size(105, 36);
+            this.layoutControlItem4.SizeConstraintsType = DevExpress.XtraLayout.SizeConstraintsType.Custom;
+            this.layoutControlItem4.TextSize = new System.Drawing.Size(0, 0);
+            this.layoutControlItem4.TextVisible = false;
             // 
             // frmBaseGrilla
             // 
@@ -230,6 +249,7 @@ namespace UI.Formularios.Base
             ((System.ComponentModel.ISupportInitialize)(this.layoutControlItem1)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.layoutControlItem4)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.layoutControlItem5)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.emptySpaceItem1)).EndInit();
             this.ResumeLayout(false);
 
         }
@@ -250,5 +270,6 @@ namespace UI.Formularios.Base
         private DevExpress.XtraEditors.SimpleButton btnExport;
         private DevExpress.XtraLayout.LayoutControlItem layoutControlItem4;
         private DevExpress.XtraLayout.LayoutControlItem layoutControlItem5;
+        private DevExpress.XtraLayout.EmptySpaceItem emptySpaceItem1;
     }
 }

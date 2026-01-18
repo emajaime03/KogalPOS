@@ -103,5 +103,10 @@ namespace Services.DAL.Implementations.SqlServer
 
             SqlHelper.ExecuteNonQuery(sb.ToString(), CommandType.Text, parametros.ToArray());
         }
+
+        public void Restore(Guid id)
+        {
+            throw new NotImplementedException();
+        }
     }
 }

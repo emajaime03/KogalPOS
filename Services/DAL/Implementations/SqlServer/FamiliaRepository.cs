@@ -1,5 +1,6 @@
-﻿using Services.DAL.Implementations.SqlServer.Mappers;
+using Services.DAL.Implementations.SqlServer.Mappers;
 using Services.Domain;
+using Services.Domain.Enums;
 using System;
 using System.Collections.Generic;
 using System.Data.SqlClient;
@@ -18,31 +19,66 @@ namespace Services.DAL.Implementations.SqlServer
         public FamiliaRepository(SqlConnection context, SqlTransaction _transaction, IUnitOfWorkRepository unitOfWorkRepository)
             : base(context, _transaction, unitOfWorkRepository)
         {
-
         }
 
         public void Add(Familia obj)
         {
-            throw new NotImplementedException();
+            string query = @"INSERT INTO Familias (IdFamilia, Descripcion, Estado) 
+                             VALUES (@IdFamilia, @Descripcion, @Estado)";
+
+            SqlHelper.ExecuteNonQuery(query, CommandType.Text, new SqlParameter[]
+            {
+                new SqlParameter("@IdFamilia", obj.Id),
+                new SqlParameter("@Descripcion", obj.Descripcion),
+                new SqlParameter("@Estado", (int)obj.Estado)
+            });
         }
 
         public void Update(Familia obj)
         {
-            throw new NotImplementedException();
+            string query = @"UPDATE Familias 
+                             SET Descripcion = @Descripcion, Estado = @Estado 
+                             WHERE IdFamilia = @IdFamilia";
+
+            SqlHelper.ExecuteNonQuery(query, CommandType.Text, new SqlParameter[]
+            {
+                new SqlParameter("@IdFamilia", obj.Id),
+                new SqlParameter("@Descripcion", obj.Descripcion),
+                new SqlParameter("@Estado", (int)obj.Estado)
+            });
         }
 
         public void Remove(Guid id)
         {
-            throw new NotImplementedException();
+            // Eliminación lógica - cambiar estado a Inactivo
+            string query = @"UPDATE Familias SET Estado = @Estado WHERE IdFamilia = @IdFamilia";
+
+            SqlHelper.ExecuteNonQuery(query, CommandType.Text, new SqlParameter[]
+            {
+                new SqlParameter("@IdFamilia", id),
+                new SqlParameter("@Estado", (int)E_Estados.Inactivo)
+            });
+        }
+
+        public void Restore(Guid id)
+        {
+            // Restaurar - cambiar estado a Activo
+            string query = @"UPDATE Familias SET Estado = @Estado WHERE IdFamilia = @IdFamilia";
+
+            SqlHelper.ExecuteNonQuery(query, CommandType.Text, new SqlParameter[]
+            {
+                new SqlParameter("@IdFamilia", id),
+                new SqlParameter("@Estado", (int)E_Estados.Activo)
+            });
         }
 
         public Familia GetById(Guid id)
         {
             Familia familia = default;
 
-            string query = $"SELECT * FROM Familias WHERE IdFamilia = @IdFamilia";
+            string query = "SELECT * FROM Familias WHERE IdFamilia = @IdFamilia";
             using (var reader = SqlHelper.ExecuteReader(query, CommandType.Text,
-              new SqlParameter[] { new SqlParameter("@IdFamilia", id) }))
+                new SqlParameter[] { new SqlParameter("@IdFamilia", id) }))
             {
                 if (reader.Read())
                 {
@@ -62,8 +98,8 @@ namespace Services.DAL.Implementations.SqlServer
         public List<Familia> GetAll()
         {
             List<Familia> familias = new List<Familia>();
-            
-            string query = $"SELECT * FROM Familias";
+
+            string query = "SELECT * FROM Familias";
             using (var reader = SqlHelper.ExecuteReader(query, CommandType.Text))
             {
                 while (reader.Read())
@@ -82,6 +118,5 @@ namespace Services.DAL.Implementations.SqlServer
 
             return familias;
         }
-
     }
 }

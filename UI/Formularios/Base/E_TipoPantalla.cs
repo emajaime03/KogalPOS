@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace UI.Formularios.Base
 {
-    enum E_TipoPantalla
+    public enum E_TipoPantalla
     {
         Visualizar,
         VisualizarEliminado,

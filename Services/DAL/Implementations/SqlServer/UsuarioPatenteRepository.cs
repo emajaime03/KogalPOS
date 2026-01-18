@@ -1,4 +1,4 @@
-﻿using Services.Domain;
+using Services.Domain;
 using System;
 using System.Collections.Generic;
 using System.Data.SqlClient;
@@ -17,14 +17,13 @@ namespace Services.DAL.Implementations.SqlServer
         public UsuarioPatenteRepository(SqlConnection context, SqlTransaction _transaction, IUnitOfWorkRepository unitOfWorkRepository)
             : base(context, _transaction, unitOfWorkRepository)
         {
-
         }
 
         public void Join(Usuario entity)
         {
-            string query = $"SELECT IdPatente FROM Usuarios_Patentes WHERE IdUsuario = @IdUsuario";
+            string query = "SELECT IdPatente FROM Usuarios_Patentes WHERE IdUsuario = @IdUsuario";
             using (var reader = SqlHelper.ExecuteReader(query, CommandType.Text,
-              new SqlParameter[] { new SqlParameter("@IdUsuario", entity.IdUsuario) }))
+                new SqlParameter[] { new SqlParameter("@IdUsuario", entity.IdUsuario) }))
             {
                 while (reader.Read())
                 {
@@ -36,13 +35,32 @@ namespace Services.DAL.Implementations.SqlServer
                         continue;
                     }
 
-                    //Busco en el repositorio de patentes a partir del id patente de mi tupla-relación
+                    // Busco en el repositorio de patentes a partir del id patente de mi tupla-relación
                     entity.Accesos.Add(_unitOfWorkRepository.PatenteRepository.GetById(Guid.Parse(data[0].ToString())));
                 }
             }
-
-
         }
 
+        public void Add(Guid usuarioId, Guid patenteId)
+        {
+            string query = @"INSERT INTO Usuarios_Patentes (IdUsuario, IdPatente) 
+                             VALUES (@IdUsuario, @IdPatente)";
+
+            SqlHelper.ExecuteNonQuery(query, CommandType.Text, new SqlParameter[]
+            {
+                new SqlParameter("@IdUsuario", usuarioId),
+                new SqlParameter("@IdPatente", patenteId)
+            });
+        }
+
+        public void RemoveByFamilia(Guid usuarioId)
+        {
+            string query = "DELETE FROM Usuarios_Patentes WHERE IdUsuario = @IdUsuario";
+
+            SqlHelper.ExecuteNonQuery(query, CommandType.Text, new SqlParameter[]
+            {
+                new SqlParameter("@IdUsuario", usuarioId)
+            });
+        }
     }
 }
