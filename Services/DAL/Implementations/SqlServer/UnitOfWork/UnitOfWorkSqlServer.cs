@@ -16,9 +16,9 @@ namespace Services.DAL.Implementations.SqlServer.UnitOfWork
         {
         }
 
-        public IUnitOfWorkAdapter Create()
+        public IUnitOfWorkAdapter Create(bool useTransaction = true)
         {
-            return new UnitOfWorkSqlServerAdapter(connectionString);
+            return new UnitOfWorkSqlServerAdapter(connectionString, useTransaction);
         }
     }
 }

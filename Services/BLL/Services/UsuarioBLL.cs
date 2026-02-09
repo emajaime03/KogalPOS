@@ -38,7 +38,7 @@ namespace Services.BLL.Services
         {
             ResUsuarioLogin res = new ResUsuarioLogin();
 
-            using (var context = ApplicationFactory.UnitOfWork.Create())
+            using (var context = ApplicationFactory.UnitOfWork.Create(false))
             {
                 res.Usuario = context.Repositories.UsuarioRepository.GetByUserPassword(req.Username, req.Password);
                 
@@ -61,7 +61,7 @@ namespace Services.BLL.Services
 
                 LoggerService.WriteLog(new Log("Login exitoso.", res.Usuario.UserName, TraceLevel.Info));
 
-                context.SaveChanges();
+
                     
             }
 
@@ -74,10 +74,10 @@ namespace Services.BLL.Services
         {
             ResUsuariosObtener res = new ResUsuariosObtener();
 
-            using (var context = ApplicationFactory.UnitOfWork.Create())
+            using (var context = ApplicationFactory.UnitOfWork.Create(false))
             {
                 res.Usuarios = context.Repositories.UsuarioRepository.GetAll();
-                context.SaveChanges();
+
             }
 
             return res;
@@ -87,7 +87,7 @@ namespace Services.BLL.Services
         {
             ResUsuarioObtener res = new ResUsuarioObtener();
 
-            using (var context = ApplicationFactory.UnitOfWork.Create())
+            using (var context = ApplicationFactory.UnitOfWork.Create(false))
             {
                 res.ListaFamilias = context.Repositories.FamiliaRepository.GetAll()
                     .Where(f => f.Estado == E_Estados.Activo)
@@ -101,7 +101,7 @@ namespace Services.BLL.Services
                     res.Usuario = context.Repositories.UsuarioRepository.GetById(req.Id);
                 }
 
-                context.SaveChanges();
+
             }
 
             return res;

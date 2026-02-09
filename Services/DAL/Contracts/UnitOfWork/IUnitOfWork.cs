@@ -8,6 +8,6 @@ namespace Services.DAL.Contracts.UnitOfWork
 {
     public interface IUnitOfWork
     {
-        IUnitOfWorkAdapter Create();
+        IUnitOfWorkAdapter Create(bool useTransaction = true);
     }
 }

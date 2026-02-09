@@ -26,7 +26,7 @@ namespace Services.DAL.Implementations.SqlServer
             string query = @"INSERT INTO Familias (IdFamilia, Descripcion, Estado) 
                              VALUES (@IdFamilia, @Descripcion, @Estado)";
 
-            SqlHelper.ExecuteNonQuery(query, CommandType.Text, new SqlParameter[]
+            base.ExecuteNonQuery(query, CommandType.Text, new SqlParameter[]
             {
                 new SqlParameter("@IdFamilia", obj.Id),
                 new SqlParameter("@Descripcion", obj.Descripcion),
@@ -40,7 +40,7 @@ namespace Services.DAL.Implementations.SqlServer
                              SET Descripcion = @Descripcion, Estado = @Estado 
                              WHERE IdFamilia = @IdFamilia";
 
-            SqlHelper.ExecuteNonQuery(query, CommandType.Text, new SqlParameter[]
+            base.ExecuteNonQuery(query, CommandType.Text, new SqlParameter[]
             {
                 new SqlParameter("@IdFamilia", obj.Id),
                 new SqlParameter("@Descripcion", obj.Descripcion),
@@ -53,7 +53,7 @@ namespace Services.DAL.Implementations.SqlServer
             // Eliminación lógica - cambiar estado a Inactivo
             string query = @"UPDATE Familias SET Estado = @Estado WHERE IdFamilia = @IdFamilia";
 
-            SqlHelper.ExecuteNonQuery(query, CommandType.Text, new SqlParameter[]
+            base.ExecuteNonQuery(query, CommandType.Text, new SqlParameter[]
             {
                 new SqlParameter("@IdFamilia", id),
                 new SqlParameter("@Estado", (int)E_Estados.Inactivo)
@@ -65,7 +65,7 @@ namespace Services.DAL.Implementations.SqlServer
             // Restaurar - cambiar estado a Activo
             string query = @"UPDATE Familias SET Estado = @Estado WHERE IdFamilia = @IdFamilia";
 
-            SqlHelper.ExecuteNonQuery(query, CommandType.Text, new SqlParameter[]
+            base.ExecuteNonQuery(query, CommandType.Text, new SqlParameter[]
             {
                 new SqlParameter("@IdFamilia", id),
                 new SqlParameter("@Estado", (int)E_Estados.Activo)
@@ -77,7 +77,7 @@ namespace Services.DAL.Implementations.SqlServer
             Familia familia = default;
 
             string query = "SELECT * FROM Familias WHERE IdFamilia = @IdFamilia";
-            using (var reader = SqlHelper.ExecuteReader(query, CommandType.Text,
+            using (var reader = base.ExecuteReader(query, CommandType.Text,
                 new SqlParameter[] { new SqlParameter("@IdFamilia", id) }))
             {
                 if (reader.Read())
@@ -100,7 +100,7 @@ namespace Services.DAL.Implementations.SqlServer
             List<Familia> familias = new List<Familia>();
 
             string query = "SELECT * FROM Familias";
-            using (var reader = SqlHelper.ExecuteReader(query, CommandType.Text))
+            using (var reader = base.ExecuteReader(query, CommandType.Text))
             {
                 while (reader.Read())
                 {

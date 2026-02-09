@@ -33,10 +33,9 @@ namespace Services.BLL.Services
         {
             ResFamiliasObtener res = new ResFamiliasObtener();
 
-            using (var context = ApplicationFactory.UnitOfWork.Create())
+            using (var context = ApplicationFactory.UnitOfWork.Create(false))
             {
                 res.Familias = context.Repositories.FamiliaRepository.GetAll();
-                context.SaveChanges();
             }
 
             return res;
@@ -46,7 +45,7 @@ namespace Services.BLL.Services
         {
             ResFamiliaObtener res = new ResFamiliaObtener();
 
-            using (var context = ApplicationFactory.UnitOfWork.Create())
+            using (var context = ApplicationFactory.UnitOfWork.Create(false))
             {
                 res.ListaFamilias = context.Repositories.FamiliaRepository.GetAll();
                 res.ListaPatentes = context.Repositories.PatenteRepository.GetAll();
@@ -59,8 +58,6 @@ namespace Services.BLL.Services
                         .Where(f => !f.Accesos.Any(acceso => acceso.Id == res.Familia.Id) && f.Id != res.Familia.Id)
                         .ToList();
                 }
-
-                context.SaveChanges();
             }
 
             return res;
@@ -261,7 +258,7 @@ namespace Services.BLL.Services
                 return "Una familia no puede ser hija de sí misma";
             }
 
-            using (var context = ApplicationFactory.UnitOfWork.Create())
+            using (var context = ApplicationFactory.UnitOfWork.Create(false))
             {
                 foreach (var hijoId in familiasHijosIds)
                 {

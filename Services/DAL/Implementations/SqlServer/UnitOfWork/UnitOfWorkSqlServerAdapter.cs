@@ -14,7 +14,7 @@ namespace Services.DAL.Implementations.SqlServer.UnitOfWork
         private SqlTransaction _transaction { get; set; }
         public IUnitOfWorkRepository Repositories { get; set; }
 
-        public UnitOfWorkSqlServerAdapter(string connectionString)
+        public UnitOfWorkSqlServerAdapter(string connectionString, bool useTransaction)
         {
             if (string.IsNullOrWhiteSpace(connectionString))
                 throw new ArgumentException("La cadena de conexión no puede estar vacía.", nameof(connectionString));
@@ -24,7 +24,10 @@ namespace Services.DAL.Implementations.SqlServer.UnitOfWork
                 _context = new SqlConnection(connectionString);
                 _context.Open(); // puede lanzar SqlException
                     
-                _transaction = _context.BeginTransaction(); // también puede lanzar error si falla la conexión
+                if (useTransaction)
+                {
+                    _transaction = _context.BeginTransaction(); // también puede lanzar error si falla la conexión
+                }
 
                 Repositories = new UnitOfWorkSqlServerRepository(_context, _transaction);
             }
@@ -45,7 +48,6 @@ namespace Services.DAL.Implementations.SqlServer.UnitOfWork
             if (_transaction != null)
             {
                 _transaction.Dispose();
-
             }
 
             if (_context != null)
@@ -59,8 +61,8 @@ namespace Services.DAL.Implementations.SqlServer.UnitOfWork
 
         public void SaveChanges()
         {
-            _transaction.Commit();
-            Dispose();
+            if (_transaction != null)
+                _transaction.Commit();
         }
     }
 }

@@ -42,7 +42,7 @@ namespace Services.DAL.Implementations.SqlServer
 
             string query = $"SELECT * FROM Patentes WHERE IdPatente = @IdPatente";
 
-            using (var reader = SqlHelper.ExecuteReader(query, CommandType.Text,
+            using (var reader = base.ExecuteReader(query, CommandType.Text,
               new SqlParameter[] { new SqlParameter("@IdPatente", id) }))
             {
                 //Mientras tenga algo en mi tabla de Customers
@@ -64,7 +64,7 @@ namespace Services.DAL.Implementations.SqlServer
 
             string query = $"SELECT * FROM Patentes";
 
-            using (var reader = SqlHelper.ExecuteReader(query, CommandType.Text))
+            using (var reader = base.ExecuteReader(query, CommandType.Text))
             {
                 while (reader.Read())
                 {
@@ -101,7 +101,7 @@ namespace Services.DAL.Implementations.SqlServer
             }
             sb.Append(";");
 
-            SqlHelper.ExecuteNonQuery(sb.ToString(), CommandType.Text, parametros.ToArray());
+            base.ExecuteNonQuery(sb.ToString(), CommandType.Text, parametros.ToArray());
         }
 
         public void Restore(Guid id)

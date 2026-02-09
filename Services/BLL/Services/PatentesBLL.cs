@@ -36,12 +36,9 @@ namespace Services.BLL.Services
         {
             ResPatentesObtener res = new ResPatentesObtener();
 
-            using (var context = ApplicationFactory.UnitOfWork.Create())
+            using (var context = ApplicationFactory.UnitOfWork.Create(false))
             {
                 res.Patentes = context.Repositories.PatenteRepository.GetAll();
-
-                context.SaveChanges();
-                    
             }
 
             return res;

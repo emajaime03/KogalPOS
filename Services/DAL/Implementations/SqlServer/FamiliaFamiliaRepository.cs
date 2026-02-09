@@ -22,7 +22,7 @@ namespace Services.DAL.Implementations.SqlServer
         public void Join(Familia entity)
         {
             string query = "SELECT IdFamiliaHijo FROM Familias_Familias WHERE IdFamilia = @IdFamilia";
-            using (var reader = SqlHelper.ExecuteReader(query, CommandType.Text,
+            using (var reader = base.ExecuteReader(query, CommandType.Text,
                 new SqlParameter[] { new SqlParameter("@IdFamilia", entity.Id) }))
             {
                 while (reader.Read())
@@ -41,7 +41,7 @@ namespace Services.DAL.Implementations.SqlServer
             string query = @"INSERT INTO Familias_Familias (IdFamilia, IdFamiliaHijo) 
                              VALUES (@IdFamilia, @IdFamiliaHijo)";
 
-            SqlHelper.ExecuteNonQuery(query, CommandType.Text, new SqlParameter[]
+            base.ExecuteNonQuery(query, CommandType.Text, new SqlParameter[]
             {
                 new SqlParameter("@IdFamilia", familiaId),
                 new SqlParameter("@IdFamiliaHijo", familiaHijoId)
@@ -52,7 +52,7 @@ namespace Services.DAL.Implementations.SqlServer
         {
             string query = "DELETE FROM Familias_Familias WHERE IdFamilia = @IdFamilia";
 
-            SqlHelper.ExecuteNonQuery(query, CommandType.Text, new SqlParameter[]
+            base.ExecuteNonQuery(query, CommandType.Text, new SqlParameter[]
             {
                 new SqlParameter("@IdFamilia", familiaId)
             });

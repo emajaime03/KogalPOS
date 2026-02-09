@@ -22,7 +22,7 @@ namespace Services.DAL.Implementations.SqlServer
         public void Join(Usuario entity)
         {
             string query = "SELECT IdPatente FROM Usuarios_Patentes WHERE IdUsuario = @IdUsuario";
-            using (var reader = SqlHelper.ExecuteReader(query, CommandType.Text,
+            using (var reader = base.ExecuteReader(query, CommandType.Text,
                 new SqlParameter[] { new SqlParameter("@IdUsuario", entity.IdUsuario) }))
             {
                 while (reader.Read())
@@ -46,7 +46,7 @@ namespace Services.DAL.Implementations.SqlServer
             string query = @"INSERT INTO Usuarios_Patentes (IdUsuario, IdPatente) 
                              VALUES (@IdUsuario, @IdPatente)";
 
-            SqlHelper.ExecuteNonQuery(query, CommandType.Text, new SqlParameter[]
+            base.ExecuteNonQuery(query, CommandType.Text, new SqlParameter[]
             {
                 new SqlParameter("@IdUsuario", usuarioId),
                 new SqlParameter("@IdPatente", patenteId)
@@ -57,7 +57,7 @@ namespace Services.DAL.Implementations.SqlServer
         {
             string query = "DELETE FROM Usuarios_Patentes WHERE IdUsuario = @IdUsuario";
 
-            SqlHelper.ExecuteNonQuery(query, CommandType.Text, new SqlParameter[]
+            base.ExecuteNonQuery(query, CommandType.Text, new SqlParameter[]
             {
                 new SqlParameter("@IdUsuario", usuarioId)
             });

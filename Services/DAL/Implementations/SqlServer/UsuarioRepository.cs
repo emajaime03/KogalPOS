@@ -28,7 +28,7 @@ namespace Services.DAL.Implementations.SqlServer
             string query = @"INSERT INTO Usuarios (IdUsuario, Estado, UserName, Password, DVH) 
                              VALUES (@IdUsuario, @Estado, @UserName, @Password, @DVH)";
 
-            SqlHelper.ExecuteNonQuery(query, CommandType.Text, new SqlParameter[]
+            base.ExecuteNonQuery(query, CommandType.Text, new SqlParameter[]
             {
                 new SqlParameter("@IdUsuario", obj.IdUsuario),
                 new SqlParameter("@Estado", (int)obj.Estado),
@@ -53,7 +53,7 @@ namespace Services.DAL.Implementations.SqlServer
             {
                 // Obtener la contraseña actual de la BD para mantenerla y calcular el DVH correctamente
                 string queryPassword = "SELECT Password FROM Usuarios WHERE IdUsuario = @IdUsuario";
-                var passwordActual = SqlHelper.ExecuteScalar(queryPassword, CommandType.Text, 
+                var passwordActual = base.ExecuteScalar(queryPassword, CommandType.Text, 
                     new SqlParameter[] { new SqlParameter("@IdUsuario", obj.IdUsuario) });
                 obj.Password = passwordActual?.ToString() ?? string.Empty;
             }
@@ -73,7 +73,7 @@ namespace Services.DAL.Implementations.SqlServer
                 new SqlParameter("@DVH", obj.HashedDVH)
             };
 
-            SqlHelper.ExecuteNonQuery(query, CommandType.Text, parameters);
+            base.ExecuteNonQuery(query, CommandType.Text, parameters);
         }
 
         public void Remove(Guid id)
@@ -87,7 +87,7 @@ namespace Services.DAL.Implementations.SqlServer
             // Eliminación lógica con actualización del DVH
             string query = @"UPDATE Usuarios SET Estado = @Estado, DVH = @DVH WHERE IdUsuario = @IdUsuario";
 
-            SqlHelper.ExecuteNonQuery(query, CommandType.Text, new SqlParameter[]
+            base.ExecuteNonQuery(query, CommandType.Text, new SqlParameter[]
             {
                 new SqlParameter("@IdUsuario", id),
                 new SqlParameter("@Estado", (int)E_Estados.Inactivo),
@@ -106,7 +106,7 @@ namespace Services.DAL.Implementations.SqlServer
             // Restauración con actualización del DVH
             string query = @"UPDATE Usuarios SET Estado = @Estado, DVH = @DVH WHERE IdUsuario = @IdUsuario";
 
-            SqlHelper.ExecuteNonQuery(query, CommandType.Text, new SqlParameter[]
+            base.ExecuteNonQuery(query, CommandType.Text, new SqlParameter[]
             {
                 new SqlParameter("@IdUsuario", id),
                 new SqlParameter("@Estado", (int)E_Estados.Activo),
@@ -119,7 +119,7 @@ namespace Services.DAL.Implementations.SqlServer
             Usuario usuario = null;
 
             string query = "SELECT * FROM Usuarios WHERE IdUsuario = @IdUsuario";
-            using (var reader = SqlHelper.ExecuteReader(query, CommandType.Text,
+            using (var reader = base.ExecuteReader(query, CommandType.Text,
                 new SqlParameter[] { new SqlParameter("@IdUsuario", id) }))
             {
                 while (reader.Read())
@@ -145,7 +145,7 @@ namespace Services.DAL.Implementations.SqlServer
             List<Usuario> usuarios = new List<Usuario>();
 
             string query = "SELECT * FROM Usuarios ORDER BY UserName";
-            using (var reader = SqlHelper.ExecuteReader(query, CommandType.Text))
+            using (var reader = base.ExecuteReader(query, CommandType.Text))
             {
                 while (reader.Read())
                 {
@@ -169,7 +169,7 @@ namespace Services.DAL.Implementations.SqlServer
             Usuario usuario = default;
 
             string query = $"SELECT * FROM Usuarios WHERE UserName = @UserName AND Password = @Password";
-            using (var reader = SqlHelper.ExecuteReader(query, CommandType.Text,
+            using (var reader = base.ExecuteReader(query, CommandType.Text,
                 new SqlParameter[] { new SqlParameter("@UserName", user), new SqlParameter("@Password", password) }))
             {
                 while (reader.Read())   
@@ -194,14 +194,14 @@ namespace Services.DAL.Implementations.SqlServer
         public string GetHashedVH(Guid idUsuario)
         {
             string query = $"SELECT VH FROM Usuarios WHERE IdUsuario = @IdUsuario";
-            var VH = SqlHelper.ExecuteScalar(query, CommandType.Text, new SqlParameter[] { new SqlParameter("@IdUsuario", idUsuario) }).ToString();
+            var VH = base.ExecuteScalar(query, CommandType.Text, new SqlParameter[] { new SqlParameter("@IdUsuario", idUsuario) }).ToString();
             return VH;
         }
 
         public bool VerifyDVH(Usuario usuario)
         {
             string query = $"SELECT DVH FROM Usuarios WHERE IdUsuario = @IdUsuario";
-            var DVH = SqlHelper.ExecuteScalar(query, CommandType.Text, new SqlParameter[] { new SqlParameter("@IdUsuario", usuario.IdUsuario) }).ToString();
+            var DVH = base.ExecuteScalar(query, CommandType.Text, new SqlParameter[] { new SqlParameter("@IdUsuario", usuario.IdUsuario) }).ToString();
 
             if (usuario.HashedDVH.Equals(DVH))
                 return true;
