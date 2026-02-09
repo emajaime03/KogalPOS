@@ -16,5 +16,6 @@ namespace Services.DAL.Contracts.UnitOfWork
         IJoinRepository<Familia> FamiliaFamiliaRepository { get; }
         IJoinRepository<Familia> FamiliaPatenteRepository { get; }
         IPatenteRepository<Patente> PatenteRepository { get; }
+        ISystemRepository SystemRepository { get; }
     }
 }

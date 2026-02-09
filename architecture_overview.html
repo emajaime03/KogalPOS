@@ -1,0 +1,254 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Arquitectura KogalPOS</title>
+    <style>
+        :root {
+            --primary: #2c3e50;
+            --secondary: #3498db;
+            --accent: #e74c3c;
+            --light: #ecf0f1;
+            --dark: #2c3e50;
+            --text: #333;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            color: var(--text);
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+            background-color: #f9f9f9;
+        }
+
+        h1,
+        h2,
+        h3 {
+            color: var(--primary);
+        }
+
+        h1 {
+            border-bottom: 3px solid var(--secondary);
+            padding-bottom: 10px;
+        }
+
+        .container {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 20px;
+        }
+
+        .card {
+            background: white;
+            border-radius: 8px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            padding: 20px;
+            flex: 1;
+            min-width: 300px;
+        }
+
+        .layer-badge {
+            display: inline-block;
+            padding: 4px 8px;
+            border-radius: 4px;
+            font-weight: bold;
+            color: white;
+            font-size: 0.8em;
+            margin-right: 5px;
+        }
+
+        .layer-ui {
+            background-color: #E67E22;
+        }
+
+        .layer-services {
+            background-color: #9B59B6;
+        }
+
+        .layer-bll {
+            background-color: #3498DB;
+        }
+
+        .layer-dal {
+            background-color: #2ECC71;
+        }
+
+        .layer-domain {
+            background-color: #F1C40F;
+            color: black;
+        }
+
+        code {
+            background-color: #eee;
+            padding: 2px 4px;
+            border-radius: 3px;
+            font-family: 'Consolas', monospace;
+            color: #c7254e;
+        }
+
+        .mermaid {
+            background: white;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            margin-bottom: 20px;
+            text-align: center;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 10px;
+        }
+
+        th,
+        td {
+            text-align: left;
+            padding: 12px;
+            border-bottom: 1px solid #ddd;
+        }
+
+        th {
+            background-color: var(--primary);
+            color: white;
+        }
+
+        tr:hover {
+            background-color: #f5f5f5;
+        }
+    </style>
+    <script type="module">
+        import mermaid from 'https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.esm.min.mjs';
+        mermaid.initialize({ startOnLoad: true });
+    </script>
+</head>
+
+<body>
+    <h1>Arquitectura del Sistema KogalPOS</h1>
+
+    <div class="card" style="margin-bottom: 20px;">
+        <h2>Resumen de Alto Nivel</h2>
+        <p>El sistema sigue una arquitectura en capas estricta, utilizando el patrón Facade (RequestService) para
+            orquestar la lógica de negocio y mantener el desacoplamiento entre la UI y la BLL.</p>
+    </div>
+
+    <h2>Flujo de Comunicación</h2>
+    <div class="mermaid">
+        graph TD
+        subgraph Presentation ["Capa de UI - DevExpress"]
+        Form["Formulario (frmBaseABM)"]
+        Btn["Evento Click"]
+        end
+
+        subgraph CrossCutting ["Servicios Transversales"]
+        Facade["RequestService (Facade/Singleton)"]
+        ReqObj["Objeto Request (ReqUsuarioInsertar)"]
+        ResObj["Objeto Response (ResUsuarioInsertar)"]
+        end
+
+        subgraph BusinessLogic ["Capa BLL"]
+        Switch{"Switch por Tipo Request"}
+        BLL["UsuarioBLL (Singleton)"]
+        Valid["Validaciones de Negocio"]
+        end
+
+        subgraph DataAccess ["Capa DAL"]
+        UoW["UnitOfWork"]
+        Repo["UsuarioRepository"]
+        Context["DbContext / SQL"]
+        end
+
+        Form -->|"1. Crea Request"| ReqObj
+        Btn -->|"2. Llama GetResponse(Req)"| Facade
+        Facade -->|"3. Identifica Request"| Switch
+        Switch -->|"4. Despacha"| BLL
+        BLL -->|"5. Inicia Transacción"| UoW
+        BLL -->|"6. Llama repositorio"| Repo
+        Repo -->|"7. Consulta/Comando"| Context
+        Context -->|"8. Retorna Datos"| Repo
+        Repo -->|"9. Mapea Entidad"| BLL
+        BLL -->|"10. Retorna Response"| Facade
+        Facade -->|"11. Retorna Response"| Form
+        Form -->|"12. Actualiza UI"| Form
+
+        classDef ui fill:#E67E22,stroke:#333,stroke-width:2px,color:white;
+        classDef cross fill:#9B59B6,stroke:#333,stroke-width:2px,color:white;
+        classDef bll fill:#3498DB,stroke:#333,stroke-width:2px,color:white;
+        classDef dal fill:#2ECC71,stroke:#333,stroke-width:2px,color:white;
+
+        class Form,Btn ui;
+        class Facade,ReqObj,ResObj cross;
+        class Switch,BLL,Valid bll;
+        class UoW,Repo,Context dal;
+    </div>
+
+    <h2>Componentes y Patrones Key</h2>
+
+    <div class="container">
+        <div class="card">
+            <h3><span class="layer-badge layer-ui">UI</span> Presentación</h3>
+            <p>Implementada con <strong>DevExpress</strong> para WinForms.</p>
+            <ul>
+                <li><strong>Template Method</strong>: Uso de <code>frmBaseABM</code> que define el esqueleto de un ABM.
+                </li>
+                <li><strong>Observer Pattern</strong>: Los formularios implementan <code>IObserver</code> para
+                    reaccionar a cambios.</li>
+            </ul>
+        </div>
+
+        <div class="card">
+            <h3><span class="layer-badge layer-services">Services</span> Facade & Core</h3>
+            <p>Punto de entrada único para la lógica de negocio.</p>
+            <ul>
+                <li><strong>Facade Pattern</strong>: <code>RequestService</code> oculta la complejidad.</li>
+                <li><strong>Singleton</strong>: Servicios transversales y BLLs son Singletons.</li>
+                <li><strong>Request-Response</strong>: Comunicación tipada mediante DTOs.</li>
+            </ul>
+        </div>
+
+        <div class="card">
+            <h3><span class="layer-badge layer-bll">BLL</span> Logica de Negocio</h3>
+            <p>Contiene reglas, validaciones y control de transacciones.</p>
+        </div>
+
+        <div class="card">
+            <h3><span class="layer-badge layer-dal">DAL</span> Acceso a Datos</h3>
+            <p>Abstracción de la base de datos SQL Server mediante Unit of Work y Repository.</p>
+        </div>
+    </div>
+
+    <h2>Estructura de Carpetas Analizada</h2>
+    <table>
+        <thead>
+            <tr>
+                <th>Ruta</th>
+                <th>Descripción</th>
+                <th>Contenido Clave</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td><code>/UI/Formularios/Base</code></td>
+                <td>Clases base</td>
+                <td><code>frmBaseABM.cs</code></td>
+            </tr>
+            <tr>
+                <td><code>/Services/Facade</code></td>
+                <td>Orquestación</td>
+                <td><code>RequestService.cs</code></td>
+            </tr>
+            <tr>
+                <td><code>/Services/BLL/Services</code></td>
+                <td>Lógica</td>
+                <td><code>UsuarioBLL.cs</code></td>
+            </tr>
+        </tbody>
+    </table>
+
+</body>
+
+</html>

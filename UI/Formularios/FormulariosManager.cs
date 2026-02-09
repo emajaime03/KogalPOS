@@ -7,6 +7,7 @@ using UI.Principal;
 using UI.Formularios.Administrador.Patentes;
 using UI.Formularios.Administrador.Familias;
 using UI.Formularios.Administrador.Usuarios;
+using UI.Formularios.Administrador.BackupRestore;
 
 namespace UI.Formularios
 {
@@ -58,6 +59,16 @@ namespace UI.Formularios
             frmUsuariosABM.MdiParent = frmPrincipal;
             frmUsuariosABM.MaximizeBox = true;
             frmUsuariosABM.Show();
+        }
+        #endregion
+
+        #region "BACKUP"
+        public static void CopiasSeguridad()
+        {
+            frmBackupRestore frm = new frmBackupRestore();
+            frm.MdiParent = frmPrincipal;
+            frm.MaximizeBox = false; // Es un diálogo pequeño
+            frm.Show();
         }
         #endregion
     }

@@ -46,6 +46,7 @@ namespace UI.Principal
                 AgregarItem(E_MenuItems.Patentes, this.rbpAdmin);
                 AgregarItem(E_MenuItems.Familias, this.rbpAdmin);
                 AgregarItem(E_MenuItems.Usuarios, this.rbpAdmin);
+                AgregarItem(E_MenuItems.BackupRestore, this.rbpAdmin);
             }
         }
 
@@ -176,6 +177,8 @@ namespace UI.Principal
                             btn.Caption = "Familias".Translate();
                         else if (btn.Name == "barButtonItem_Usuarios")
                             btn.Caption = "Usuarios".Translate();
+                        else if (btn.Name == "barButtonItem_BackupRestore")
+                            btn.Caption = "Copias de Seguridad".Translate();
                     }
                 }
             }
@@ -204,7 +207,8 @@ namespace UI.Principal
         {
             Patentes,
             Familias,
-            Usuarios
+            Usuarios,
+            BackupRestore
         }
 
         private void BarButtonItem_ItemClick(E_MenuItems item)
@@ -223,6 +227,10 @@ namespace UI.Principal
 
                 case E_MenuItems.Usuarios:
                     FormulariosManager.Usuarios();
+                    break;
+
+                case E_MenuItems.BackupRestore:
+                    FormulariosManager.CopiasSeguridad();
                     break;
             }
         }

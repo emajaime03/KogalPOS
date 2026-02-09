@@ -89,6 +89,14 @@ namespace Services.Facade
                     case ReqFamiliaRestaurar reqFamiliaRestaurar:
                         res = FamiliasBLL.Current.Restaurar(reqFamiliaRestaurar);
                         break;
+
+                    // Backup & Restore
+                    case ReqBackupRealizar reqBackupRealizar:
+                        res = BackupBLL.Current.RealizarBackup(reqBackupRealizar);
+                        break;
+                    case ReqBackupRestaurar reqBackupRestaurar:
+                        res = BackupBLL.Current.RealizarRestore(reqBackupRestaurar);
+                        break;
                 }
             }
             catch (Exception ex)

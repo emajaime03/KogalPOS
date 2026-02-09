@@ -19,6 +19,7 @@ namespace Services.DAL.Implementations.SqlServer.UnitOfWork
         public IJoinRepository<Familia> FamiliaFamiliaRepository { get; }
         public IJoinRepository<Familia> FamiliaPatenteRepository { get; }
         public IPatenteRepository<Patente> PatenteRepository { get; }
+        public ISystemRepository SystemRepository { get; }
 
         public UnitOfWorkSqlServerRepository(SqlConnection context, SqlTransaction transaction)
         {
@@ -29,6 +30,7 @@ namespace Services.DAL.Implementations.SqlServer.UnitOfWork
             FamiliaFamiliaRepository = new FamiliaFamiliaRepository(context, transaction, this);
             FamiliaPatenteRepository = new FamiliaPatenteRepository(context, transaction, this);
             PatenteRepository = new PatenteRepository(context, transaction, this);
+            SystemRepository = new SystemRepository(context, transaction, this);
         }
     }
 }

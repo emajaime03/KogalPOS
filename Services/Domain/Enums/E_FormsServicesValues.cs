@@ -11,6 +11,7 @@ namespace Services.Domain.Enums
         Patente,
         Familia,
         Usuario,
-        Idioma
+        Idioma,
+        Backup
     }
 }
