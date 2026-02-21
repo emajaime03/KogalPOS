@@ -15,7 +15,7 @@ using System.Threading.Tasks;
 
 namespace Services.BLL.Services
 {
-    internal class PatentesBLL
+    public class PatentesBLL
     {
         private readonly static PatentesBLL _instance = new PatentesBLL();
 

@@ -1,7 +1,7 @@
 using DevExpress.XtraEditors;
 using Services.Domain.BLL;
 using Services.Domain.Enums;
-using Services.Facade;
+using Services.BLL.Services;
 using Services.Facade.Extensions;
 using Services.Facade.Observer;
 using System;
@@ -56,7 +56,7 @@ namespace UI.Formularios.Administrador.BackupRestore
                 if (saveFileDialog.ShowDialog() == DialogResult.OK)
                 {
                     var req = new ReqBackupRealizar { RutaArchivo = saveFileDialog.FileName };
-                    var res = RequestService.Current.GetResponse(req);
+                    var res = BackupBLL.Current.RealizarBackup(req);
 
                     MostrarResultado(res);
                 }
@@ -84,7 +84,7 @@ namespace UI.Formularios.Administrador.BackupRestore
                     
                     // Mostrar wait form o cursor de espera sería ideal aquí, pero simplificamos
                     Cursor.Current = Cursors.WaitCursor;
-                    var res = RequestService.Current.GetResponse(req);
+                    var res = BackupBLL.Current.RealizarRestore(req);
                     Cursor.Current = Cursors.Default;
 
                     MostrarResultado(res);

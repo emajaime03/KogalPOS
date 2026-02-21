@@ -5,7 +5,7 @@ using Services.Domain;
 using Services.Domain.BLL;
 using Services.Domain.BLL.Base;
 using Services.Domain.Enums;
-using Services.Facade;
+using Services.BLL.Services;
 using Services.Facade.Extensions;
 using Services.Facade.Observer;
 using System;
@@ -193,7 +193,7 @@ namespace UI.Formularios.Administrador.Familias
 
         private void CargarPantalla()
         {
-            var res = (ResFamiliaObtener)RequestService.Current.GetResponse(new ReqFamiliaObtener { Id = Id });
+            var res = FamiliasBLL.Current.Obtener(new ReqFamiliaObtener { Id = Id });
 
             TodasFamilias = res.ListaFamilias ?? new List<Familia>();
             TodasPatentes = res.ListaPatentes ?? new List<Patente>();
@@ -346,7 +346,7 @@ namespace UI.Formularios.Administrador.Familias
 
             if (result != DialogResult.Yes) return;
 
-            var res = (ResFamiliaEliminar)RequestService.Current.GetResponse(new ReqFamiliaEliminar { Id = Id });
+            var res = FamiliasBLL.Current.Eliminar(new ReqFamiliaEliminar { Id = Id });
 
             if (res.Success)
             {
@@ -379,7 +379,7 @@ namespace UI.Formularios.Administrador.Familias
 
             if (result != DialogResult.Yes) return;
 
-            var res = (ResFamiliaRestaurar)RequestService.Current.GetResponse(new ReqFamiliaRestaurar { Id = Id });
+            var res = FamiliasBLL.Current.Restaurar(new ReqFamiliaRestaurar { Id = Id });
 
             if (res.Success)
             {
@@ -438,7 +438,7 @@ namespace UI.Formularios.Administrador.Familias
                     Estado = E_Estados.Activo
                 };
 
-                res = RequestService.Current.GetResponse(new ReqFamiliaInsertar
+                res = FamiliasBLL.Current.Insertar(new ReqFamiliaInsertar
                 {
                     Familia = familia,
                     FamiliasHijosIds = familiasHijosIds,
@@ -450,7 +450,7 @@ namespace UI.Formularios.Administrador.Familias
                 // Modificar familia existente
                 FamiliaActual.Descripcion = txtDescripcion.Text.Trim();
 
-                res = RequestService.Current.GetResponse(new ReqFamiliaModificar
+                res = FamiliasBLL.Current.Modificar(new ReqFamiliaModificar
                 {
                     Familia = FamiliaActual,
                     FamiliasHijosIds = familiasHijosIds,

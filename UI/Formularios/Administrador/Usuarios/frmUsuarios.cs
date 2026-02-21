@@ -3,7 +3,7 @@ using DevExpress.XtraGrid.Columns;
 using Services.Domain;
 using Services.Domain.BLL;
 using Services.Domain.Enums;
-using Services.Facade;
+using Services.BLL.Services;
 using Services.Facade.Extensions;
 using Services.Facade.Observer;
 using System;
@@ -163,7 +163,7 @@ namespace UI.Formularios.Administrador.Usuarios
 
         private void CargarPantalla()
         {
-            ResUsuariosObtener res = (ResUsuariosObtener)RequestService.Current.GetResponse(new ReqUsuariosObtener());
+            var res = UsuarioBLL.Current.ObtenerLista(new ReqUsuariosObtener());
             this.gcUsuarios.DataSource = res.Usuarios;
         }
 

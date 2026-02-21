@@ -15,7 +15,7 @@ using System.Threading.Tasks;
 
 namespace Services.BLL.Services
 {
-    internal class UsuarioBLL
+    public class UsuarioBLL
     {
         #region "Singleton"
         private readonly static UsuarioBLL _instance = new UsuarioBLL();

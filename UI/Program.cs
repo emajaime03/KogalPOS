@@ -1,5 +1,6 @@
 using DevExpress.XtraEditors;
 using Services.Domain;
+using Services.BLL.Services;
 using Services.Facade;
 using System;
 using System.Threading;
@@ -38,7 +39,7 @@ namespace UI
                 DevExpress.XtraEditors.WindowsFormsSettings.DefaultFont = FontHelper.FuenteBase;
 
                 // Sincronizo todas las patentes del enum a la base de datos
-                var res = RequestService.Current.GetResponse(new ReqPatentesSincronizar());
+                PatentesBLL.Current.Sincronizar(new ReqPatentesSincronizar());
 
                 // Ciclo de login - permite volver al login después de cerrar sesión
                 bool continuar = true;

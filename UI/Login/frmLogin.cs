@@ -1,6 +1,7 @@
 using Services.BLL;
 using Services.Domain;
 using Services.Domain.BLL;
+using Services.BLL.Services;
 using Services.Facade;
 using Services.Facade.Extensions;
 using System;
@@ -247,7 +248,7 @@ namespace UI.Login
 
             try
             {
-                var response = RequestService.Current.GetResponse(
+                var res = UsuarioBLL.Current.Login(
                     new ReqUsuarioLogin
                     {
                         Username = username,
@@ -255,7 +256,7 @@ namespace UI.Login
                     }
                 );
 
-                if (response is ResUsuarioLogin res && res.Success)
+                if (res.Success)
                 {
                     this.UsuarioLogin = res.Usuario;
                     this.DialogResult = DialogResult.OK;
@@ -263,7 +264,7 @@ namespace UI.Login
                 }
                 else
                 {
-                    MostrarError((response as ResUsuarioLogin)?.Message.Translate() ?? "Error en login.");
+                    MostrarError(res.Message.Translate());
                 }
             }
             finally

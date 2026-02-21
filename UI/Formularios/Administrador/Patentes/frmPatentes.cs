@@ -1,6 +1,6 @@
 using Services.Domain;
 using Services.Domain.BLL;
-using Services.Facade;
+using Services.BLL.Services;
 using Services.Facade.Extensions;
 using UI.Formularios.Base;
 
@@ -50,7 +50,7 @@ namespace UI.Formularios.Administrador.Patentes
 
         protected override void CargarPantalla()
         {
-            var res = (ResPatentesObtener)RequestService.Current.GetResponse(new ReqPatentesObtener());
+            var res = PatentesBLL.Current.Obtener(new ReqPatentesObtener());
             EstablecerDataSource(res.Patentes);
         }
     }

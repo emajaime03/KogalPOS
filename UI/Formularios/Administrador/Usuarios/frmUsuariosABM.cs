@@ -5,7 +5,7 @@ using Services.Domain;
 using Services.Domain.BLL;
 using Services.Domain.BLL.Base;
 using Services.Domain.Enums;
-using Services.Facade;
+using Services.BLL.Services;
 using Services.Facade.Extensions;
 using Services.Facade.Observer;
 using System;
@@ -195,7 +195,7 @@ namespace UI.Formularios.Administrador.Usuarios
 
         private void CargarPantalla()
         {
-            var res = (ResUsuarioObtener)RequestService.Current.GetResponse(new ReqUsuarioObtener { Id = Id });
+            var res = UsuarioBLL.Current.Obtener(new ReqUsuarioObtener { Id = Id });
 
             TodasFamilias = res.ListaFamilias ?? new List<Familia>();
             TodasPatentes = res.ListaPatentes ?? new List<Patente>();
@@ -316,7 +316,7 @@ namespace UI.Formularios.Administrador.Usuarios
 
             if (result != DialogResult.Yes) return;
 
-            var res = (ResUsuarioEliminar)RequestService.Current.GetResponse(new ReqUsuarioEliminar { Id = Id });
+            var res = UsuarioBLL.Current.Eliminar(new ReqUsuarioEliminar { Id = Id });
 
             if (res.Success)
             {
@@ -349,7 +349,7 @@ namespace UI.Formularios.Administrador.Usuarios
 
             if (result != DialogResult.Yes) return;
 
-            var res = (ResUsuarioRestaurar)RequestService.Current.GetResponse(new ReqUsuarioRestaurar { Id = Id });
+            var res = UsuarioBLL.Current.Restaurar(new ReqUsuarioRestaurar { Id = Id });
 
             if (res.Success)
             {
@@ -421,7 +421,7 @@ namespace UI.Formularios.Administrador.Usuarios
                     Estado = E_Estados.Activo
                 };
 
-                res = RequestService.Current.GetResponse(new ReqUsuarioInsertar
+                res = UsuarioBLL.Current.Insertar(new ReqUsuarioInsertar
                 {
                     Usuario = usuario,
                     FamiliasIds = familiasIds,
@@ -438,7 +438,7 @@ namespace UI.Formularios.Administrador.Usuarios
                     ? txtPassword.Text 
                     : null;
 
-                res = RequestService.Current.GetResponse(new ReqUsuarioModificar
+                res = UsuarioBLL.Current.Modificar(new ReqUsuarioModificar
                 {
                     Usuario = UsuarioActual,
                     FamiliasIds = familiasIds,

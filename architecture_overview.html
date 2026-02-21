@@ -132,8 +132,8 @@
 
     <div class="card" style="margin-bottom: 20px;">
         <h2>Resumen de Alto Nivel</h2>
-        <p>El sistema sigue una arquitectura en capas estricta, utilizando el patrón Facade (RequestService) para
-            orquestar la lógica de negocio y mantener el desacoplamiento entre la UI y la BLL.</p>
+        <p>El sistema sigue una arquitectura en capas estricta. La UI llama directamente a los BLLs (Singletons)
+            mediante objetos Request/Response tipados, manteniendo type-safety sin capas intermedias innecesarias.</p>
     </div>
 
     <h2>Flujo de Comunicación</h2>
@@ -144,15 +144,13 @@
         Btn["Evento Click"]
         end
 
-        subgraph CrossCutting ["Servicios Transversales"]
-        Facade["RequestService (Facade/Singleton)"]
-        ReqObj["Objeto Request (ReqUsuarioInsertar)"]
-        ResObj["Objeto Response (ResUsuarioInsertar)"]
+        subgraph DTOs ["Objetos Request / Response"]
+        ReqObj["ReqUsuarioInsertar"]
+        ResObj["ResUsuarioInsertar"]
         end
 
-        subgraph BusinessLogic ["Capa BLL"]
-        Switch{"Switch por Tipo Request"}
-        BLL["UsuarioBLL (Singleton)"]
+        subgraph BusinessLogic ["Capa BLL (Singletons)"]
+        BLL["UsuarioBLL.Current"]
         Valid["Validaciones de Negocio"]
         end
 
@@ -163,26 +161,24 @@
         end
 
         Form -->|"1. Crea Request"| ReqObj
-        Btn -->|"2. Llama GetResponse(Req)"| Facade
-        Facade -->|"3. Identifica Request"| Switch
-        Switch -->|"4. Despacha"| BLL
-        BLL -->|"5. Inicia Transacción"| UoW
-        BLL -->|"6. Llama repositorio"| Repo
-        Repo -->|"7. Consulta/Comando"| Context
-        Context -->|"8. Retorna Datos"| Repo
-        Repo -->|"9. Mapea Entidad"| BLL
-        BLL -->|"10. Retorna Response"| Facade
-        Facade -->|"11. Retorna Response"| Form
-        Form -->|"12. Actualiza UI"| Form
+        Btn -->|"2. Llama BLL.Insertar(Req)"| BLL
+        BLL -->|"3. Valida"| Valid
+        BLL -->|"4. Inicia Transacción"| UoW
+        BLL -->|"5. Llama repositorio"| Repo
+        Repo -->|"6. Consulta/Comando"| Context
+        Context -->|"7. Retorna Datos"| Repo
+        Repo -->|"8. Mapea Entidad"| BLL
+        BLL -->|"9. Retorna Response tipado"| ResObj
+        ResObj -->|"10. Actualiza UI"| Form
 
         classDef ui fill:#E67E22,stroke:#333,stroke-width:2px,color:white;
-        classDef cross fill:#9B59B6,stroke:#333,stroke-width:2px,color:white;
+        classDef dto fill:#9B59B6,stroke:#333,stroke-width:2px,color:white;
         classDef bll fill:#3498DB,stroke:#333,stroke-width:2px,color:white;
         classDef dal fill:#2ECC71,stroke:#333,stroke-width:2px,color:white;
 
         class Form,Btn ui;
-        class Facade,ReqObj,ResObj cross;
-        class Switch,BLL,Valid bll;
+        class ReqObj,ResObj dto;
+        class BLL,Valid bll;
         class UoW,Repo,Context dal;
     </div>
 
@@ -201,12 +197,13 @@
         </div>
 
         <div class="card">
-            <h3><span class="layer-badge layer-services">Services</span> Facade & Core</h3>
-            <p>Punto de entrada único para la lógica de negocio.</p>
+            <h3><span class="layer-badge layer-services">Services</span> Servicios Transversales</h3>
+            <p>Servicios de soporte compartidos por todas las capas.</p>
             <ul>
-                <li><strong>Facade Pattern</strong>: <code>RequestService</code> oculta la complejidad.</li>
-                <li><strong>Singleton</strong>: Servicios transversales y BLLs son Singletons.</li>
-                <li><strong>Request-Response</strong>: Comunicación tipada mediante DTOs.</li>
+                <li><strong>Singleton</strong>: BLLs y servicios transversales son Singletons.</li>
+                <li><strong>Request-Response</strong>: Comunicación type-safe mediante DTOs tipados.</li>
+                <li><strong>LoggerService</strong>: Registro de eventos y excepciones.</li>
+                <li><strong>CryptographyService</strong>: Hashing de contraseñas.</li>
             </ul>
         </div>
 
@@ -238,8 +235,8 @@
             </tr>
             <tr>
                 <td><code>/Services/Facade</code></td>
-                <td>Orquestación</td>
-                <td><code>RequestService.cs</code></td>
+                <td>Servicios transversales</td>
+                <td><code>LoggerService.cs</code>, <code>CryptographyService.cs</code></td>
             </tr>
             <tr>
                 <td><code>/Services/BLL/Services</code></td>

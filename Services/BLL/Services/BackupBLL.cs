@@ -9,7 +9,7 @@ using System.IO;
 
 namespace Services.BLL.Services
 {
-    internal class BackupBLL
+    public class BackupBLL
     {
         #region "Singleton"
         private readonly static BackupBLL _instance = new BackupBLL();

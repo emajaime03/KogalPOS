@@ -3,7 +3,7 @@ using DevExpress.XtraGrid.Columns;
 using Services.Domain;
 using Services.Domain.BLL;
 using Services.Domain.Enums;
-using Services.Facade;
+using Services.BLL.Services;
 using Services.Facade.Extensions;
 using Services.Facade.Observer;
 using System;
@@ -172,7 +172,7 @@ namespace UI.Formularios.Administrador.Familias
 
         private void CargarPantalla()
         {
-            ResFamiliasObtener res = (ResFamiliasObtener)RequestService.Current.GetResponse(new ReqFamiliasObtener());
+            var res = FamiliasBLL.Current.ObtenerLista(new ReqFamiliasObtener());
             this.gcFamilias.DataSource = res.Familias;
         }
 

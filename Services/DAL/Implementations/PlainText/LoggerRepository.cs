@@ -28,26 +28,36 @@ namespace Services.DAL.Implementations.PlainText
 
         public void WriteLog(Log log)
         {
-            WriteToFile(LoggerPath, FormatMessage(log));
+            try
+            {
+                WriteToFile(LoggerPath, FormatMessage(log));
+            } catch { }
         }
 
         private string FormatMessage(Log log)
         {
-            if (string.IsNullOrEmpty(log.Usuario))
+            try
             {
-                return $"{DateTime.Now.ToString("dd/MM/yyyy hh:mm:ss tt")} [LEVEL {log.TraceLevel.ToString()}] Mensaje: {log.Message}";
-            } 
+                if (string.IsNullOrEmpty(log.Usuario))
+                {
+                    return $"{DateTime.Now.ToString("dd/MM/yyyy hh:mm:ss tt")} [LEVEL {log.TraceLevel.ToString()}] Mensaje: {log.Message}";
+                } 
 
-            return $"{DateTime.Now.ToString("dd/MM/yyyy hh:mm:ss tt")} [LEVEL {log.TraceLevel.ToString()}] User: {log.Usuario}, Mensaje: {log.Message}";
+                return $"{DateTime.Now.ToString("dd/MM/yyyy hh:mm:ss tt")} [LEVEL {log.TraceLevel.ToString()}] User: {log.Usuario}, Mensaje: {log.Message}";
+            } catch { }
 
+            return "";
         }
 
         private void WriteToFile(string path, string message)
         {
-            using (StreamWriter str = new StreamWriter(path, true))
+            try
             {
-                str.WriteLine(message);
-            }
+                using (StreamWriter str = new StreamWriter(path, true))
+                {
+                    str.WriteLine(message);
+                }
+            } catch { }
         }
     }
 }

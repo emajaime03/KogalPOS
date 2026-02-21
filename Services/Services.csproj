@@ -49,7 +49,7 @@
     <Compile Include="DAL\Implementations\SqlServer\SystemRepository.cs" />
     <Compile Include="Domain\BLL\ReqResBackup.cs" />
     <Compile Include="Domain\GlobalCliente.cs" />
-    <Compile Include="Facade\RequestService.cs" />
+
     <Compile Include="BLL\Services\ExceptionBLL.cs" />
     <Compile Include="BLL\Services\FamiliasBLL.cs" />
     <Compile Include="BLL\Services\LanguageBLL.cs" />

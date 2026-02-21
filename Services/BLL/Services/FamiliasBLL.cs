@@ -10,7 +10,7 @@ using System.Threading.Tasks;
 
 namespace Services.BLL.Services
 {
-    internal class FamiliasBLL
+    public class FamiliasBLL
     {
         #region "Singleton"
         private readonly static FamiliasBLL _instance = new FamiliasBLL();
