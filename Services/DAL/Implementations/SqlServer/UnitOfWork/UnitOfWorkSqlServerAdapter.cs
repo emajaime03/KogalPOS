@@ -1,18 +1,14 @@
 ﻿using Services.DAL.Contracts.UnitOfWork;
 using System;
-using System.Collections.Generic;
 using System.Data.SqlClient;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Services.DAL.Implementations.SqlServer.UnitOfWork
 {
-    public class UnitOfWorkSqlServerAdapter : IUnitOfWorkAdapter
+    public class UnitOfWorkSqlServerAdapter<TRepository> : IUnitOfWorkAdapter<TRepository>
     {
-        private SqlConnection _context { get; set; }
-        private SqlTransaction _transaction { get; set; }
-        public IUnitOfWorkRepository Repositories { get; set; }
+        protected SqlConnection _context { get; set; }
+        protected SqlTransaction _transaction { get; set; }
+        public TRepository Repositories { get; set; }
 
         public UnitOfWorkSqlServerAdapter(string connectionString, bool useTransaction)
         {
@@ -22,23 +18,19 @@ namespace Services.DAL.Implementations.SqlServer.UnitOfWork
             try
             {
                 _context = new SqlConnection(connectionString);
-                _context.Open(); // puede lanzar SqlException
+                _context.Open();
                     
                 if (useTransaction)
                 {
-                    _transaction = _context.BeginTransaction(); // también puede lanzar error si falla la conexión
+                    _transaction = _context.BeginTransaction();
                 }
-
-                Repositories = new UnitOfWorkSqlServerRepository(_context, _transaction);
             }
             catch (SqlException ex)
             {
-                // Error típico de SQL Server (login failed, timeout, etc.)
                 throw new InvalidOperationException("No se pudo abrir la conexión a SQL Server.", ex);
             }
             catch (Exception ex)
             {
-                // Cualquier otro error inesperado
                 throw new InvalidOperationException("Error al inicializar UnitOfWorkSqlServerAdapter.", ex);
             }
         }
@@ -56,7 +48,7 @@ namespace Services.DAL.Implementations.SqlServer.UnitOfWork
                 _context.Dispose();
             }
 
-            Repositories = null;
+            Repositories = default(TRepository);
         }
 
         public void SaveChanges()

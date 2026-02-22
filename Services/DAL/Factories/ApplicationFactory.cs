@@ -16,7 +16,7 @@ namespace Services.DAL.Factories
         /// Actualizo todos los repositorios a patrón UnitOfWork ya que todos los repositorios estarán contenidos
         /// dentro de un contexto transaccional
         /// </summary>
-        public static IUnitOfWork UnitOfWork { get; private set; }
+        public static IUnitOfWork<IUnitOfWorkRepository> UnitOfWork { get; private set; }
 
         static ApplicationFactory()
         {

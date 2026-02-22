@@ -71,6 +71,7 @@
     <Compile Include="DAL\Implementations\SqlServer\Repository.cs" />
     <Compile Include="DAL\Implementations\SqlServer\UnitOfWork\UnitOfWorkSqlServer.cs" />
     <Compile Include="DAL\Implementations\SqlServer\UnitOfWork\UnitOfWorkSqlServerAdapter.cs" />
+    <Compile Include="DAL\Implementations\SqlServer\UnitOfWork\ServicesUnitOfWorkAdapter.cs" />
     <Compile Include="DAL\Implementations\SqlServer\UnitOfWork\UnitOfWorkSqlServerRepository.cs" />
     <Compile Include="DAL\Tools\Helpers\SqlHelper.cs" />
     <Compile Include="DAL\Implementations\PlainText\LoggerRepository.cs" />

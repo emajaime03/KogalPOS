@@ -6,8 +6,8 @@ using System.Threading.Tasks;
 
 namespace Services.DAL.Contracts.UnitOfWork
 {
-    public interface IUnitOfWork
+    public interface IUnitOfWork<TRepository>
     {
-        IUnitOfWorkAdapter Create(bool useTransaction = true);
+        IUnitOfWorkAdapter<TRepository> Create(bool useTransaction = true);
     }
 }

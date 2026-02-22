@@ -138,6 +138,18 @@
       <DependentUpon>frmBaseGrilla.cs</DependentUpon>
     </Compile>
     <Compile Include="Formularios\FormulariosManager.cs" />
+    <Compile Include="Formularios\Proveedores\frmProveedores.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Formularios\Proveedores\frmProveedores.Designer.cs">
+      <DependentUpon>frmProveedores.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Formularios\Proveedores\frmProveedoresABM.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Formularios\Proveedores\frmProveedoresABM.Designer.cs">
+      <DependentUpon>frmProveedoresABM.cs</DependentUpon>
+    </Compile>
     <Compile Include="Helpers\ButtonStyleHelper.cs" />
     <Compile Include="Helpers\FormStyleHelper.cs" />
     <Compile Include="Helpers\FontHelper.cs" />
@@ -214,6 +226,14 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\BLL\BLL.csproj">
+      <Project>{7A7D85F6-5538-42D3-B7AC-14251AA6DC7C}</Project>
+      <Name>BLL</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\DAL\DAL.csproj">
+      <Project>{28D41A0D-396C-4A1D-9F91-9ADE289F7917}</Project>
+      <Name>DAL</Name>
+    </ProjectReference>
     <ProjectReference Include="..\Domain\Domain.csproj">
       <Project>{FC002E47-485C-46EA-8468-DE10EE05EBF2}</Project>
       <Name>Domain</Name>

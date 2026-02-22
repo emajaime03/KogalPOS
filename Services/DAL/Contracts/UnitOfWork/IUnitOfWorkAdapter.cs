@@ -6,9 +6,9 @@ using System.Threading.Tasks;
 
 namespace Services.DAL.Contracts.UnitOfWork
 {
-    public interface IUnitOfWorkAdapter : IDisposable
+    public interface IUnitOfWorkAdapter<TRepository> : IDisposable
     {
-        IUnitOfWorkRepository Repositories { get; }
+        TRepository Repositories { get; }
         void SaveChanges();
     }
 }

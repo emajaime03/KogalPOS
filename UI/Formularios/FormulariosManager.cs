@@ -8,6 +8,7 @@ using UI.Formularios.Administrador.Patentes;
 using UI.Formularios.Administrador.Familias;
 using UI.Formularios.Administrador.Usuarios;
 using UI.Formularios.Administrador.BackupRestore;
+using UI.Formularios.Proveedores;
 
 namespace UI.Formularios
 {
@@ -68,6 +69,24 @@ namespace UI.Formularios
             frmBackupRestore frm = new frmBackupRestore();
             frm.MdiParent = frmPrincipal;
             frm.MaximizeBox = false; // Es un diálogo pequeño
+            frm.Show();
+        }
+        #endregion
+
+        #region "PROVEEDORES"
+        public static void Proveedores()
+        {
+            frmProveedores frm = new frmProveedores();
+            frm.MdiParent = frmPrincipal;
+            frm.MaximizeBox = true;
+            frm.Show();
+        }
+
+        public static void ProveedoresABM(System.Guid id = default)
+        {
+            frmProveedoresABM frm = new frmProveedoresABM(id);
+            frm.MdiParent = frmPrincipal;
+            frm.MaximizeBox = true;
             frm.Show();
         }
         #endregion

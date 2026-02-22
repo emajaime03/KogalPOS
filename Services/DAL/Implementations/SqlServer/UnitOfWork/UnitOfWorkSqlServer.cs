@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace Services.DAL.Implementations.SqlServer.UnitOfWork
 {
-    public class UnitOfWorkSqlServer : IUnitOfWork
+    public class UnitOfWorkSqlServer : IUnitOfWork<IUnitOfWorkRepository>
     {
         string connectionString = ApplicationSettings.Current.ServicesConnectionStringSqlServer;
 
@@ -16,9 +16,9 @@ namespace Services.DAL.Implementations.SqlServer.UnitOfWork
         {
         }
 
-        public IUnitOfWorkAdapter Create(bool useTransaction = true)
+        public IUnitOfWorkAdapter<IUnitOfWorkRepository> Create(bool useTransaction = true)
         {
-            return new UnitOfWorkSqlServerAdapter(connectionString, useTransaction);
+            return new ServicesUnitOfWorkAdapter(connectionString, useTransaction);
         }
     }
 }

@@ -32,6 +32,7 @@
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="System" />
+    <Reference Include="System.Configuration" />
     <Reference Include="System.Core" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
@@ -41,11 +42,25 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Contracts\IBusinessUnitOfWorkRepository.cs" />
+    <Compile Include="Factories\BusinessFactory.cs" />
+    <Compile Include="Implementations\SqlServer\BusinessRepository.cs" />
+    <Compile Include="Implementations\SqlServer\Mappers\ProveedorMapper.cs" />
+    <Compile Include="Implementations\SqlServer\ProveedorRepository.cs" />
+    <Compile Include="Implementations\SqlServer\UnitOfWork\BusinessUnitOfWork.cs" />
+    <Compile Include="Implementations\SqlServer\UnitOfWork\BusinessUnitOfWorkAdapter.cs" />
+    <Compile Include="Implementations\SqlServer\UnitOfWork\BusinessUnitOfWorkRepository.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="Contracts\" />
-    <Folder Include="Factories\" />
+    <ProjectReference Include="..\Domain\Domain.csproj">
+      <Project>{FC002E47-485C-46EA-8468-DE10EE05EBF2}</Project>
+      <Name>Domain</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Services\Services.csproj">
+      <Project>{5FA211BE-2D7E-49FD-867D-AE1147E03850}</Project>
+      <Name>Services</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
