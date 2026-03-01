@@ -150,7 +150,20 @@
     <Compile Include="Formularios\Proveedores\frmProveedoresABM.Designer.cs">
       <DependentUpon>frmProveedoresABM.cs</DependentUpon>
     </Compile>
+    <Compile Include="Formularios\Articulos\frmArticulos.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Formularios\Articulos\frmArticulos.Designer.cs">
+      <DependentUpon>frmArticulos.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Formularios\Articulos\frmArticulosABM.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Formularios\Articulos\frmArticulosABM.Designer.cs">
+      <DependentUpon>frmArticulosABM.cs</DependentUpon>
+    </Compile>
     <Compile Include="Helpers\ButtonStyleHelper.cs" />
+    <Compile Include="Helpers\ControlFactory.cs" />
     <Compile Include="Helpers\FormStyleHelper.cs" />
     <Compile Include="Helpers\FontHelper.cs" />
     <Compile Include="Helpers\GridStyleHelper.cs" />

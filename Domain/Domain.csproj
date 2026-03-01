@@ -41,6 +41,8 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Articulo.cs" />
+    <Compile Include="BLL\ReqResArticulos.cs" />
     <Compile Include="BLL\ReqResProveedores.cs" />
     <Compile Include="Proveedor.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

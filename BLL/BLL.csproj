@@ -42,6 +42,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Services\ArticuloBLL.cs" />
     <Compile Include="Services\ProveedorBLL.cs" />
   </ItemGroup>
   <ItemGroup>

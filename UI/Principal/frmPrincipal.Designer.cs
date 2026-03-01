@@ -34,6 +34,8 @@ namespace UI.Principal
             this.ribbonStatusBar = new DevExpress.XtraBars.Ribbon.RibbonStatusBar();
             this.ribbon = new DevExpress.XtraBars.Ribbon.RibbonControl();
             this.rbpAdmin = new DevExpress.XtraBars.Ribbon.RibbonPage();
+            this.rbpCompras = new DevExpress.XtraBars.Ribbon.RibbonPage();
+            this.rbpInventario = new DevExpress.XtraBars.Ribbon.RibbonPage();
             this.documentManager1 = new DevExpress.XtraBars.Docking2010.DocumentManager(this.components);
             this.tabbedView1 = new DevExpress.XtraBars.Docking2010.Views.Tabbed.TabbedView(this.components);
             ((System.ComponentModel.ISupportInitialize)(this.ribbon)).BeginInit();
@@ -58,7 +60,9 @@ namespace UI.Principal
             this.ribbon.MaxItemId = 5;
             this.ribbon.Name = "ribbon";
             this.ribbon.Pages.AddRange(new DevExpress.XtraBars.Ribbon.RibbonPage[] {
-            this.rbpAdmin});
+            this.rbpAdmin,
+            this.rbpCompras,
+            this.rbpInventario});
             this.ribbon.RibbonStyle = DevExpress.XtraBars.Ribbon.RibbonControlStyle.TabletOffice;
             this.ribbon.Size = new System.Drawing.Size(804, 99);
             this.ribbon.StatusBar = this.ribbonStatusBar;
@@ -68,6 +72,16 @@ namespace UI.Principal
             this.rbpAdmin.ImageOptions.Image = ((System.Drawing.Image)(resources.GetObject("rbpAdmin.ImageOptions.Image")));
             this.rbpAdmin.Name = "rbpAdmin";
             this.rbpAdmin.Text = "Admin";
+            // 
+            // rbpCompras
+            // 
+            this.rbpCompras.Name = "rbpCompras";
+            this.rbpCompras.Text = "Compras";
+            // 
+            // rbpInventario
+            // 
+            this.rbpInventario.Name = "rbpInventario";
+            this.rbpInventario.Text = "Inventario";
             // 
             // documentManager1
             // 
@@ -109,5 +123,7 @@ namespace UI.Principal
         private DevExpress.XtraBars.Docking2010.Views.Tabbed.TabbedView tabbedView1;
         private DevExpress.XtraBars.Ribbon.RibbonControl ribbon;
         private DevExpress.XtraBars.Ribbon.RibbonPage rbpAdmin;
+        private DevExpress.XtraBars.Ribbon.RibbonPage rbpCompras;
+        private DevExpress.XtraBars.Ribbon.RibbonPage rbpInventario;
     }
 }

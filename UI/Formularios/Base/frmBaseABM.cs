@@ -179,41 +179,7 @@ namespace UI.Formularios.Base
         /// </summary>
         protected void AplicarEstiloGrillaVisualizacion(GridView gridView)
         {
-            // Header con fondo gris claro y texto oscuro (legible)
-            gridView.Appearance.HeaderPanel.BackColor = Color.FromArgb(222, 226, 230);
-            gridView.Appearance.HeaderPanel.ForeColor = Color.FromArgb(73, 80, 87);
-            gridView.Appearance.HeaderPanel.Font = FontHelper.FuenteEncabezadoGrilla;
-            gridView.Appearance.HeaderPanel.Options.UseBackColor = true;
-            gridView.Appearance.HeaderPanel.Options.UseForeColor = true;
-            gridView.Appearance.HeaderPanel.Options.UseFont = true;
-
-            // Filas con fondo gris claro (indica solo lectura)
-            gridView.Appearance.Row.BackColor = Color.FromArgb(245, 245, 245);
-            gridView.Appearance.Row.ForeColor = Color.FromArgb(60, 60, 60);
-            gridView.Appearance.Row.Font = FontHelper.FuenteFilaGrilla;
-            gridView.Appearance.Row.Options.UseBackColor = true;
-            gridView.Appearance.Row.Options.UseForeColor = true;
-            gridView.Appearance.Row.Options.UseFont = true;
-
-            // Filas alternadas sutiles
-            gridView.OptionsView.EnableAppearanceEvenRow = true;
-            gridView.OptionsView.EnableAppearanceOddRow = true;
-            gridView.Appearance.EvenRow.BackColor = Color.FromArgb(240, 240, 240);
-            gridView.Appearance.OddRow.BackColor = Color.FromArgb(248, 248, 248);
-            gridView.Appearance.EvenRow.ForeColor = Color.FromArgb(60, 60, 60);
-            gridView.Appearance.OddRow.ForeColor = Color.FromArgb(60, 60, 60);
-            gridView.Appearance.EvenRow.Options.UseBackColor = true;
-            gridView.Appearance.OddRow.Options.UseBackColor = true;
-            gridView.Appearance.EvenRow.Options.UseForeColor = true;
-            gridView.Appearance.OddRow.Options.UseForeColor = true;
-
-            // Fila seleccionada más sutil
-            gridView.Appearance.FocusedRow.BackColor = Color.FromArgb(220, 220, 220);
-            gridView.Appearance.FocusedRow.ForeColor = Color.FromArgb(40, 40, 40);
-            gridView.Appearance.FocusedRow.Font = FontHelper.FuenteFilaGrilla;
-            gridView.Appearance.FocusedRow.Options.UseBackColor = true;
-            gridView.Appearance.FocusedRow.Options.UseForeColor = true;
-            gridView.Appearance.FocusedRow.Options.UseFont = true;
+            ControlFactory.AplicarModoGrillaVisualizacion(gridView);
         }
 
         /// <summary>
@@ -221,41 +187,7 @@ namespace UI.Formularios.Base
         /// </summary>
         protected void AplicarEstiloGrillaEdicion(GridView gridView)
         {
-            // Header con fondo azul claro y texto azul oscuro (legible y activo)
-            gridView.Appearance.HeaderPanel.BackColor = Color.FromArgb(209, 231, 251);
-            gridView.Appearance.HeaderPanel.ForeColor = Color.FromArgb(30, 60, 114);
-            gridView.Appearance.HeaderPanel.Font = FontHelper.FuenteEncabezadoGrilla;
-            gridView.Appearance.HeaderPanel.Options.UseBackColor = true;
-            gridView.Appearance.HeaderPanel.Options.UseForeColor = true;
-            gridView.Appearance.HeaderPanel.Options.UseFont = true;
-
-            // Filas con fondo blanco (indica editable)
-            gridView.Appearance.Row.BackColor = Color.White;
-            gridView.Appearance.Row.ForeColor = Color.Black;
-            gridView.Appearance.Row.Font = FontHelper.FuenteFilaGrilla;
-            gridView.Appearance.Row.Options.UseBackColor = true;
-            gridView.Appearance.Row.Options.UseForeColor = true;
-            gridView.Appearance.Row.Options.UseFont = true;
-
-            // Filas alternadas más visibles
-            gridView.OptionsView.EnableAppearanceEvenRow = true;
-            gridView.OptionsView.EnableAppearanceOddRow = true;
-            gridView.Appearance.EvenRow.BackColor = Color.FromArgb(248, 251, 255);
-            gridView.Appearance.OddRow.BackColor = Color.White;
-            gridView.Appearance.EvenRow.ForeColor = Color.Black;
-            gridView.Appearance.OddRow.ForeColor = Color.Black;
-            gridView.Appearance.EvenRow.Options.UseBackColor = true;
-            gridView.Appearance.OddRow.Options.UseBackColor = true;
-            gridView.Appearance.EvenRow.Options.UseForeColor = true;
-            gridView.Appearance.OddRow.Options.UseForeColor = true;
-
-            // Fila seleccionada con color azul (indica selección activa)
-            gridView.Appearance.FocusedRow.BackColor = Color.FromArgb(189, 215, 238);
-            gridView.Appearance.FocusedRow.ForeColor = Color.FromArgb(31, 64, 104);
-            gridView.Appearance.FocusedRow.Font = FontHelper.FuenteFilaGrilla;
-            gridView.Appearance.FocusedRow.Options.UseBackColor = true;
-            gridView.Appearance.FocusedRow.Options.UseForeColor = true;
-            gridView.Appearance.FocusedRow.Options.UseFont = true;
+            ControlFactory.AplicarModoGrillaEdicion(gridView);
         }
 
         /// <summary>
@@ -263,33 +195,10 @@ namespace UI.Formularios.Base
         /// </summary>
         protected void AplicarEstiloTextEdit(TextEdit textEdit, bool esEditable)
         {
-            // Colores para modo visualización
-            var colorFondoVisualizacion = Color.FromArgb(240, 240, 240);
-            var colorTextoVisualizacion = Color.FromArgb(60, 60, 60);
-            var colorBordeVisualizacion = Color.FromArgb(200, 200, 200);
-
-            // Colores para modo edición
-            var colorFondoEdicion = Color.White;
-            var colorTextoEdicion = Color.Black;
-            var colorBordeEdicion = Color.FromArgb(100, 149, 237);
-
-            if (!esEditable)
-            {
-                textEdit.Properties.Appearance.BackColor = colorFondoVisualizacion;
-                textEdit.Properties.Appearance.ForeColor = colorTextoVisualizacion;
-                textEdit.Properties.Appearance.BorderColor = colorBordeVisualizacion;
-            }
+            if (esEditable)
+                ControlFactory.AplicarModoEdicion(textEdit);
             else
-            {
-                textEdit.Properties.Appearance.BackColor = colorFondoEdicion;
-                textEdit.Properties.Appearance.ForeColor = colorTextoEdicion;
-                textEdit.Properties.Appearance.BorderColor = colorBordeEdicion;
-            }
-
-            textEdit.Properties.Appearance.Options.UseBackColor = true;
-            textEdit.Properties.Appearance.Options.UseForeColor = true;
-            textEdit.Properties.Appearance.Options.UseBorderColor = true;
-            textEdit.Properties.ReadOnly = !esEditable;
+                ControlFactory.AplicarModoVisualizacion(textEdit);
         }
 
         /// <summary>
@@ -297,19 +206,10 @@ namespace UI.Formularios.Base
         /// </summary>
         protected void AplicarEstiloLabel(LabelControl label, bool esEditable)
         {
-            var colorTituloVisualizacion = Color.FromArgb(80, 80, 80);
-            var colorTituloEdicion = Color.FromArgb(52, 73, 94);
-
-            if (!esEditable)
-            {
-                label.ForeColor = colorTituloVisualizacion;
-                label.Font = FontHelper.FuenteSubtitulo;
-            }
+            if (esEditable)
+                ControlFactory.AplicarModoEdicionLabels(label);
             else
-            {
-                label.ForeColor = colorTituloEdicion;
-                label.Font = FontHelper.FuenteSubtituloSemibold;
-            }
+                ControlFactory.AplicarModoVisualizacionLabels(label);
         }
 
         /// <summary>
@@ -482,6 +382,12 @@ namespace UI.Formularios.Base
             if (E_FormsServicesValues.Idioma.Equals(value))
             {
                 ConfigurarTextos();
+            }
+
+            var formValue = GetFormServiceValue();
+            if (formValue.HasValue && formValue.Value.Equals(value))
+            {
+                CargarDatos();
             }
         }
 

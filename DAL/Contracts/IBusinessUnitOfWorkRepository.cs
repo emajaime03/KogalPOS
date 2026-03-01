@@ -9,5 +9,6 @@ namespace DAL.Contracts
     public interface IBusinessUnitOfWorkRepository
     {
         IGenericRepository<Domain.Proveedor> ProveedorRepository { get; }
+        IGenericRepository<Domain.Articulo> ArticuloRepository { get; }
     }
 }

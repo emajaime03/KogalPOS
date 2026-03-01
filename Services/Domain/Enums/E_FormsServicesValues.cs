@@ -13,6 +13,7 @@ namespace Services.Domain.Enums
         Usuario,
         Idioma,
         Backup,
-        Proveedor
+        Proveedor,
+        Articulo
     }
 }

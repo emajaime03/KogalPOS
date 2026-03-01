@@ -8,7 +8,7 @@ namespace Services.Domain.Enums
 {
     public enum E_Estados
     {
-        Activo,
-        Inactivo
+        Activo = 1,
+        Inactivo = 2
     }
 }

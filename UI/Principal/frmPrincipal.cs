@@ -39,15 +39,80 @@ namespace UI.Principal
         #endregion
 
         #region "INICIALIZACIÓN"
+
+        /// Configuración declarativa de un item de menú
+        private class MenuItemConfig
+        {
+            public E_Patentes Patente { get; set; }
+            public string CaptionKey { get; set; }
+            public Func<RibbonPage> GetPage { get; set; }
+            public Action OnClick { get; set; }
+            public BarButtonItem Button { get; set; } // se asigna al crear
+        }
+
+        /// Fuente única de verdad: agregar un módulo nuevo = agregar UNA línea
+        private MenuItemConfig[] _menuItems;
+
+        private MenuItemConfig[] CrearMenuItems()
+        {
+            return new[]
+            {
+                // ── Admin ──
+                new MenuItemConfig { Patente = E_Patentes.Admin, CaptionKey = "Patentes",           GetPage = () => rbpAdmin,   OnClick = () => FormulariosManager.Patentes() },
+                new MenuItemConfig { Patente = E_Patentes.Admin, CaptionKey = "Familias",           GetPage = () => rbpAdmin,   OnClick = () => FormulariosManager.Familias() },
+                new MenuItemConfig { Patente = E_Patentes.Admin, CaptionKey = "Usuarios",           GetPage = () => rbpAdmin,   OnClick = () => FormulariosManager.Usuarios() },
+                new MenuItemConfig { Patente = E_Patentes.Admin, CaptionKey = "Copias de Seguridad", GetPage = () => rbpAdmin,   OnClick = () => FormulariosManager.CopiasSeguridad() },
+
+                // ── Compras ──
+                new MenuItemConfig { Patente = E_Patentes.Proveedores, CaptionKey = "Proveedores",  GetPage = () => rbpCompras, OnClick = () => FormulariosManager.Proveedores() },
+                
+                // ── Inventario ──
+                new MenuItemConfig { Patente = E_Patentes.Articulos, CaptionKey = "Artículos",  GetPage = () => rbpInventario, OnClick = () => FormulariosManager.Articulos() },
+            };
+        }
+
         private void ControlesInicializar()
         {
-            if (GlobalCliente.UsuarioLogin.CheckPatente(E_Patentes.Admin))
+            _menuItems = CrearMenuItems();
+
+            foreach (var item in _menuItems)
             {
-                AgregarItem(E_MenuItems.Patentes, this.rbpAdmin);
-                AgregarItem(E_MenuItems.Familias, this.rbpAdmin);
-                AgregarItem(E_MenuItems.Usuarios, this.rbpAdmin);
-                AgregarItem(E_MenuItems.BackupRestore, this.rbpAdmin);
+                if (GlobalCliente.UsuarioLogin.CheckPatente(item.Patente))
+                {
+                    AgregarItem(item);
+                }
             }
+
+            // Ocultar RibbonPages que quedaron vacías (sin permisos para ningún item)
+            foreach (RibbonPage page in ribbon.Pages)
+            {
+                if (page.Groups.Count == 0)
+                {
+                    page.Visible = false;
+                }
+            }
+        }
+
+        private void AgregarItem(MenuItemConfig item)
+        {
+            var btn = new BarButtonItem
+            {
+                Caption = item.CaptionKey.Translate(),
+                Id = ribbon.Items.Count + 1,
+                Name = $"barButtonItem_{item.CaptionKey}"
+            };
+
+            btn.ItemClick += (s, e) =>
+            {
+                FormulariosManager.frmPrincipal = this;
+                item.OnClick();
+            };
+
+            item.Button = btn;
+
+            var group = new RibbonPageGroup();
+            group.ItemLinks.Add(btn);
+            item.GetPage().Groups.Add(group);
         }
 
         private void ConfigurarBarraEstado()
@@ -143,7 +208,10 @@ namespace UI.Principal
         private void ConfigurarTextos()
         {
             this.Text = $"KogalPOS - {GlobalCliente.UsuarioLogin?.UserName}";
+
+            // Traducir captions de las páginas del ribbon
             rbpAdmin.Text = "Administración".Translate();
+            rbpCompras.Text = "Compras".Translate();
 
             // Actualizar textos de la barra de estado
             if (lblIdioma != null) lblIdioma.Caption = "🌐 " + "Idioma".Translate() + ":";
@@ -164,23 +232,12 @@ namespace UI.Principal
 
         private void ActualizarCaptionsMenu()
         {
-            foreach (RibbonPageGroup group in rbpAdmin.Groups)
+            if (_menuItems == null) return;
+
+            foreach (var item in _menuItems)
             {
-                foreach (BarItemLink link in group.ItemLinks)
-                {
-                    if (link.Item is BarButtonItem btn)
-                    {
-                        // Obtener el nombre del item del menú desde el Name del botón
-                        if (btn.Name == "barButtonItem_Patentes")
-                            btn.Caption = "Patentes".Translate();
-                        else if (btn.Name == "barButtonItem_Familias")
-                            btn.Caption = "Familias".Translate();
-                        else if (btn.Name == "barButtonItem_Usuarios")
-                            btn.Caption = "Usuarios".Translate();
-                        else if (btn.Name == "barButtonItem_BackupRestore")
-                            btn.Caption = "Copias de Seguridad".Translate();
-                    }
-                }
+                if (item.Button != null)
+                    item.Button.Caption = item.CaptionKey.Translate();
             }
         }
 
@@ -188,7 +245,6 @@ namespace UI.Principal
         {
             string idiomaActual = LanguageService.IdiomaActual;
 
-            // Estilo para botón activo vs inactivo
             if (idiomaActual == "es-MX" || idiomaActual.StartsWith("es"))
             {
                 btnEspanol.Caption = "🇲🇽 ES";
@@ -199,58 +255,6 @@ namespace UI.Principal
                 btnEspanol.Caption = "ES";
                 btnIngles.Caption = "🇺🇸 EN";
             }
-        }
-        #endregion
-
-        #region "MENÚ ITEMS"
-        enum E_MenuItems
-        {
-            Patentes,
-            Familias,
-            Usuarios,
-            BackupRestore
-        }
-
-        private void BarButtonItem_ItemClick(E_MenuItems item)
-        {
-            FormulariosManager.frmPrincipal = this;
-
-            switch (item)
-            {
-                case E_MenuItems.Patentes:
-                    FormulariosManager.Patentes();
-                    break;
-
-                case E_MenuItems.Familias:
-                    FormulariosManager.Familias();
-                    break;
-
-                case E_MenuItems.Usuarios:
-                    FormulariosManager.Usuarios();
-                    break;
-
-                case E_MenuItems.BackupRestore:
-                    FormulariosManager.CopiasSeguridad();
-                    break;
-            }
-        }
-
-        private void AgregarItem(E_MenuItems item, RibbonPage padre)
-        {
-            BarButtonItem barButtonItem = new BarButtonItem();
-
-            barButtonItem.Caption = item.ToString();
-            barButtonItem.Id = ribbon.Items.Count + 1;
-            barButtonItem.Name = $"barButtonItem_{item}";
-
-            barButtonItem.ItemClick += (s, e) => BarButtonItem_ItemClick(item);
-
-            RibbonPageGroup ribbonPageGroup = new RibbonPageGroup();
-
-            ribbonPageGroup.ItemLinks.Add(barButtonItem);
-            ribbonPageGroup.Name = $"ribbonPageGroup{item}";
-
-            padre.Groups.Add(ribbonPageGroup);
         }
         #endregion
 

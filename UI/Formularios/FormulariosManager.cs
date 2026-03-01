@@ -9,6 +9,7 @@ using UI.Formularios.Administrador.Familias;
 using UI.Formularios.Administrador.Usuarios;
 using UI.Formularios.Administrador.BackupRestore;
 using UI.Formularios.Proveedores;
+using UI.Formularios.Articulos;
 
 namespace UI.Formularios
 {
@@ -85,6 +86,24 @@ namespace UI.Formularios
         public static void ProveedoresABM(System.Guid id = default)
         {
             frmProveedoresABM frm = new frmProveedoresABM(id);
+            frm.MdiParent = frmPrincipal;
+            frm.MaximizeBox = true;
+            frm.Show();
+        }
+        #endregion
+
+        #region "ARTICULOS"
+        public static void Articulos()
+        {
+            frmArticulos frm = new frmArticulos();
+            frm.MdiParent = frmPrincipal;
+            frm.MaximizeBox = true;
+            frm.Show();
+        }
+
+        public static void ArticulosABM(System.Guid id = default)
+        {
+            frmArticulosABM frm = new frmArticulosABM(id);
             frm.MdiParent = frmPrincipal;
             frm.MaximizeBox = true;
             frm.Show();

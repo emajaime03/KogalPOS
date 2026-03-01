@@ -6,6 +6,7 @@ using Services.Domain.Enums;
 using Services.Facade.Extensions;
 using System;
 using UI.Formularios.Base;
+using UI.Helpers;
 
 namespace UI.Formularios.Proveedores
 {
@@ -116,15 +117,11 @@ namespace UI.Formularios.Proveedores
 
         protected override void OnTipoPantallaCambiado(E_TipoPantalla tipoPantalla)
         {
-            bool editable = EsModoEdicion;
-
-            AplicarEstiloTextEdit(txtDescripcion, editable);
-            AplicarEstiloTextEdit(txtEmail, editable);
-            AplicarEstiloTextEdit(txtCelular, editable);
-
-            AplicarEstiloLabel(lblDescripcion, editable);
-            AplicarEstiloLabel(lblEmail, editable);
-            AplicarEstiloLabel(lblCelular, editable);
+            ControlFactory.AplicarModo(
+                EsModoEdicion,
+                new[] { txtDescripcion, txtEmail, txtCelular },
+                new[] { lblDescripcion, lblEmail, lblCelular }
+            );
         }
 
         protected override E_FormsServicesValues? GetFormServiceValue()
