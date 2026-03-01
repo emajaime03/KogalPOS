@@ -1,15 +1,15 @@
 using DAL.Contracts;
 using Services.DAL.Contracts.UnitOfWork;
+using System.Configuration;
 
 namespace DAL.Implementations.SqlServer.UnitOfWork
 {
     public class BusinessUnitOfWork : IUnitOfWork<IBusinessUnitOfWorkRepository>
     {
-        private readonly string _connectionString;
+        private readonly string _connectionString = ConfigurationManager.ConnectionStrings["BusinessConnectionStringSqlServer"].ToString();
 
-        public BusinessUnitOfWork(string connectionString)
+        public BusinessUnitOfWork()
         {
-            _connectionString = connectionString;
         }
 
         public IUnitOfWorkAdapter<IBusinessUnitOfWorkRepository> Create(bool useTransaction = true)

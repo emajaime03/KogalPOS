@@ -15,8 +15,7 @@ namespace DAL.Factories
 
         static BusinessFactory()
         {
-            string connectionString = ConfigurationManager.ConnectionStrings["BusinessConnectionStringSqlServer"].ToString();
-            UnitOfWork = new BusinessUnitOfWork(connectionString);
+            UnitOfWork = new BusinessUnitOfWork();
         }
     }
 }

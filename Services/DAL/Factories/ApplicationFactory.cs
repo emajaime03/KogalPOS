@@ -1,4 +1,5 @@
 ﻿using Services.DAL.Contracts.UnitOfWork;
+using Services.DAL.Implementations.SqlServer.UnitOfWork;
 using Services.Domain;
 using System;
 using System.Collections.Generic;
@@ -23,7 +24,7 @@ namespace Services.DAL.Factories
             switch (servicesPersistance)
             {
                 case (int)PersistanceType.SqlServer:
-                    UnitOfWork = new Implementations.SqlServer.UnitOfWork.UnitOfWorkSqlServer();
+                    UnitOfWork = new UnitOfWorkSqlServer();
                     break;
                 case (int)PersistanceType.PlainText:
                     //CustomerRepository = new DAL.Implementations.PlainText.CustomerRepository();
