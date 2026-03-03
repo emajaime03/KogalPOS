@@ -95,6 +95,7 @@
     <Compile Include="Domain\Enums\E_Estados.cs" />
     <Compile Include="Domain\Enums\E_FormsServicesValues.cs" />
     <Compile Include="Domain\Enums\E_Patentes.cs" />
+    <Compile Include="Domain\Enums\E_TipoDocumento.cs" />
     <Compile Include="Domain\Familia.cs" />
     <Compile Include="Domain\Log.cs" />
     <Compile Include="Domain\Patente.cs" />

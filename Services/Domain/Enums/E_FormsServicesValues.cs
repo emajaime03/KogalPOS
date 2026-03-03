@@ -14,6 +14,7 @@ namespace Services.Domain.Enums
         Idioma,
         Backup,
         Proveedor,
-        Articulo
+        Articulo,
+        Cliente
     }
 }

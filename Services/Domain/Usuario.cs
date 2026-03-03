@@ -43,58 +43,16 @@ namespace Services.Domain
 
         public List<Patente> GetPatentes()
         {
-            List<Patente> patentes = new List<Patente>();
-
-            GetAllPatentes(Accesos, patentes);
-
-            return patentes;
+            return Acceso.GetAllPatentes(Accesos);
         }
 
-        private void GetAllPatentes(List<Acceso> accesos, List<Patente> patentesReturn)
-        {
-            foreach (var acceso in accesos)
-            {
-                //Cuál sería mi condición de corte?
-                //Significa que estoy ante un elemento de tipo Leaf, Hoja, Primitivo
-                if (acceso.GetCount() == 0)
-                {
-                    //Podría pasar que la patente ya esté agregada (Similar a un distinct)
-                    if (!patentesReturn.Any(o => o.Id == acceso.Id))
-                        patentesReturn.Add(acceso as Patente);
-                }
-                else
-                {
-                    //Tengo que tratar a mi "acceso" como si fuese una familia
-                    GetAllPatentes((acceso as Familia).Accesos, patentesReturn);
-                }
-            }
-        }
+
 
         public List<Familia> GetFamilias()
         {
-
-            List<Familia> familias = new List<Familia>();
-
-            GetAllFamilias(Accesos, familias);
-
-            return familias;
-
+            return Acceso.GetAllFamilias(Accesos);
         }
 
-        private void GetAllFamilias(List<Acceso> accesos, List<Familia> famililaReturn)
-        {
-            foreach (var acceso in accesos)
-            {
-                //Cuál sería mi condición de corte?
-                //Significa que estoy ante un elemento de tipo Composite
-                if (acceso.GetCount() > 0)
-                {
-                    if (!famililaReturn.Any(o => o.Id == acceso.Id))
-                        famililaReturn.Add(acceso as Familia);
 
-                    GetAllFamilias((acceso as Familia).Accesos, famililaReturn);
-                }
-            }
-        }
     }
 }

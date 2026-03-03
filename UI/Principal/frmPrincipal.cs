@@ -68,6 +68,9 @@ namespace UI.Principal
                 
                 // ── Inventario ──
                 new MenuItemConfig { Patente = E_Patentes.Articulos, CaptionKey = "Artículos",  GetPage = () => rbpInventario, OnClick = () => FormulariosManager.Articulos() },
+
+                // ── Ventas ──
+                new MenuItemConfig { Patente = E_Patentes.Clientes, CaptionKey = "Clientes",  GetPage = () => rbpVentas, OnClick = () => FormulariosManager.Clientes() },
             };
         }
 
@@ -212,6 +215,7 @@ namespace UI.Principal
             // Traducir captions de las páginas del ribbon
             rbpAdmin.Text = "Administración".Translate();
             rbpCompras.Text = "Compras".Translate();
+            rbpVentas.Text = "Ventas".Translate();
 
             // Actualizar textos de la barra de estado
             if (lblIdioma != null) lblIdioma.Caption = "🌐 " + "Idioma".Translate() + ":";

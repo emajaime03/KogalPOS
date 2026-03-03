@@ -36,6 +36,7 @@ namespace UI.Principal
             this.rbpAdmin = new DevExpress.XtraBars.Ribbon.RibbonPage();
             this.rbpCompras = new DevExpress.XtraBars.Ribbon.RibbonPage();
             this.rbpInventario = new DevExpress.XtraBars.Ribbon.RibbonPage();
+            this.rbpVentas = new DevExpress.XtraBars.Ribbon.RibbonPage();
             this.documentManager1 = new DevExpress.XtraBars.Docking2010.DocumentManager(this.components);
             this.tabbedView1 = new DevExpress.XtraBars.Docking2010.Views.Tabbed.TabbedView(this.components);
             ((System.ComponentModel.ISupportInitialize)(this.ribbon)).BeginInit();
@@ -62,7 +63,8 @@ namespace UI.Principal
             this.ribbon.Pages.AddRange(new DevExpress.XtraBars.Ribbon.RibbonPage[] {
             this.rbpAdmin,
             this.rbpCompras,
-            this.rbpInventario});
+            this.rbpInventario,
+            this.rbpVentas});
             this.ribbon.RibbonStyle = DevExpress.XtraBars.Ribbon.RibbonControlStyle.TabletOffice;
             this.ribbon.Size = new System.Drawing.Size(804, 99);
             this.ribbon.StatusBar = this.ribbonStatusBar;
@@ -82,6 +84,11 @@ namespace UI.Principal
             // 
             this.rbpInventario.Name = "rbpInventario";
             this.rbpInventario.Text = "Inventario";
+            // 
+            // rbpVentas
+            // 
+            this.rbpVentas.Name = "rbpVentas";
+            this.rbpVentas.Text = "Ventas";
             // 
             // documentManager1
             // 
@@ -125,5 +132,6 @@ namespace UI.Principal
         private DevExpress.XtraBars.Ribbon.RibbonPage rbpAdmin;
         private DevExpress.XtraBars.Ribbon.RibbonPage rbpCompras;
         private DevExpress.XtraBars.Ribbon.RibbonPage rbpInventario;
+        private DevExpress.XtraBars.Ribbon.RibbonPage rbpVentas;
     }
 }

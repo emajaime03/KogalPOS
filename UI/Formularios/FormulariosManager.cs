@@ -10,6 +10,7 @@ using UI.Formularios.Administrador.Usuarios;
 using UI.Formularios.Administrador.BackupRestore;
 using UI.Formularios.Proveedores;
 using UI.Formularios.Articulos;
+using UI.Formularios.Clientes;
 
 namespace UI.Formularios
 {
@@ -104,6 +105,24 @@ namespace UI.Formularios
         public static void ArticulosABM(System.Guid id = default)
         {
             frmArticulosABM frm = new frmArticulosABM(id);
+            frm.MdiParent = frmPrincipal;
+            frm.MaximizeBox = true;
+            frm.Show();
+        }
+        #endregion
+
+        #region "CLIENTES"
+        public static void Clientes()
+        {
+            frmClientes frm = new frmClientes();
+            frm.MdiParent = frmPrincipal;
+            frm.MaximizeBox = true;
+            frm.Show();
+        }
+
+        public static void ClientesABM(System.Guid id = default)
+        {
+            frmClientesABM frm = new frmClientesABM(id);
             frm.MdiParent = frmPrincipal;
             frm.MaximizeBox = true;
             frm.Show();

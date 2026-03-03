@@ -46,7 +46,9 @@
     <Compile Include="Factories\BusinessFactory.cs" />
     <Compile Include="Implementations\SqlServer\BusinessRepository.cs" />
     <Compile Include="Implementations\SqlServer\ArticuloRepository.cs" />
+    <Compile Include="Implementations\SqlServer\ClienteRepository.cs" />
     <Compile Include="Implementations\SqlServer\Mappers\ArticuloMapper.cs" />
+    <Compile Include="Implementations\SqlServer\Mappers\ClienteMapper.cs" />
     <Compile Include="Implementations\SqlServer\Mappers\ProveedorMapper.cs" />
     <Compile Include="Implementations\SqlServer\ProveedorRepository.cs" />
     <Compile Include="Implementations\SqlServer\UnitOfWork\BusinessUnitOfWork.cs" />

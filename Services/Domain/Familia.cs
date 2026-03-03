@@ -42,71 +42,25 @@ namespace Services.Domain
 
         public List<Patente> GetPatentes(bool soloAsignadas = false)
         {
-            List<Patente> patentes = new List<Patente>();
-
             if (!soloAsignadas)
             {
-                GetAllPatentes(Accesos, patentes);
+                return Acceso.GetAllPatentes(Accesos);
             }
             else
             {
-                patentes = accesos.OfType<Patente>().Where(p => p.GetCount() == 0).ToList();
-            }
-
-            return patentes;
-        }
-
-        private void GetAllPatentes(List<Acceso> accesos, List<Patente> patentesReturn)
-        {
-            foreach (var acceso in accesos)
-            {
-                //Cuál sería mi condición de corte?
-                //Significa que estoy ante un elemento de tipo Leaf, Hoja, Primitivo
-                if (acceso.GetCount() == 0)
-                {
-                    //Podría pasar que la patente ya esté agregada (Similar a un distinct)
-                    if (!patentesReturn.Any(o => o.Id == acceso.Id))
-                        patentesReturn.Add(acceso as Patente);
-                }
-                else
-                {
-                    //Tengo que tratar a mi "acceso" como si fuese una familia
-                    GetAllPatentes((acceso as Familia).Accesos, patentesReturn);
-                }
+                return accesos.OfType<Patente>().ToList();
             }
         }
 
         public List<Familia> GetFamilias(bool soloAsignadas = false)
         {
-
-            List<Familia> familias = new List<Familia>();
-
             if (!soloAsignadas)
             {
-                GetAllFamilias(Accesos, familias);
+                return Acceso.GetAllFamilias(Accesos);
             }
             else
             {
-                familias = accesos.OfType<Familia>().Where(f => f.GetCount() > 0).ToList();
-            }
-
-            return familias;
-
-        }
-
-        private void GetAllFamilias(List<Acceso> accesos, List<Familia> famililaReturn)
-        {
-            foreach (var acceso in accesos)
-            {
-                //Cuál sería mi condición de corte?
-                //Significa que estoy ante un elemento de tipo Composite
-                if (acceso.GetCount() > 0)
-                {
-                    if (!famililaReturn.Any(o => o.Id == acceso.Id))
-                        famililaReturn.Add(acceso as Familia);
-
-                    GetAllFamilias((acceso as Familia).Accesos, famililaReturn);
-                }
+                return accesos.OfType<Familia>().ToList();
             }
         }
 

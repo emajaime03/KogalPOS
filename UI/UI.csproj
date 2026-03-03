@@ -162,6 +162,18 @@
     <Compile Include="Formularios\Articulos\frmArticulosABM.Designer.cs">
       <DependentUpon>frmArticulosABM.cs</DependentUpon>
     </Compile>
+    <Compile Include="Formularios\Clientes\frmClientes.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Formularios\Clientes\frmClientes.Designer.cs">
+      <DependentUpon>frmClientes.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Formularios\Clientes\frmClientesABM.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Formularios\Clientes\frmClientesABM.Designer.cs">
+      <DependentUpon>frmClientesABM.cs</DependentUpon>
+    </Compile>
     <Compile Include="Helpers\ButtonStyleHelper.cs" />
     <Compile Include="Helpers\ControlFactory.cs" />
     <Compile Include="Helpers\FormStyleHelper.cs" />

@@ -20,5 +20,9 @@ namespace Services.Domain.Enums
         Articulos = 40,
         #endregion
 
+        #region VENTAS
+        Clientes = 60,
+        #endregion
+
     }
 }
