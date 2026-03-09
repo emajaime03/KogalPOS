@@ -62,9 +62,9 @@ namespace UI.Principal
             this.ribbon.Name = "ribbon";
             this.ribbon.Pages.AddRange(new DevExpress.XtraBars.Ribbon.RibbonPage[] {
             this.rbpAdmin,
+            this.rbpVentas,
             this.rbpCompras,
-            this.rbpInventario,
-            this.rbpVentas});
+            this.rbpInventario});
             this.ribbon.RibbonStyle = DevExpress.XtraBars.Ribbon.RibbonControlStyle.TabletOffice;
             this.ribbon.Size = new System.Drawing.Size(804, 99);
             this.ribbon.StatusBar = this.ribbonStatusBar;
@@ -77,16 +77,19 @@ namespace UI.Principal
             // 
             // rbpCompras
             // 
+            this.rbpCompras.ImageOptions.SvgImage = ((DevExpress.Utils.Svg.SvgImage)(resources.GetObject("rbpCompras.ImageOptions.SvgImage")));
             this.rbpCompras.Name = "rbpCompras";
             this.rbpCompras.Text = "Compras";
             // 
             // rbpInventario
             // 
+            this.rbpInventario.ImageOptions.SvgImage = ((DevExpress.Utils.Svg.SvgImage)(resources.GetObject("rbpInventario.ImageOptions.SvgImage")));
             this.rbpInventario.Name = "rbpInventario";
             this.rbpInventario.Text = "Inventario";
             // 
             // rbpVentas
             // 
+            this.rbpVentas.ImageOptions.SvgImage = ((DevExpress.Utils.Svg.SvgImage)(resources.GetObject("rbpVentas.ImageOptions.SvgImage")));
             this.rbpVentas.Name = "rbpVentas";
             this.rbpVentas.Text = "Ventas";
             // 
