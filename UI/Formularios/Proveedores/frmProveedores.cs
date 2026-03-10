@@ -23,10 +23,10 @@ namespace UI.Formularios.Proveedores
         {
             AgregarColumnas(
                 CrearColumna(nameof(Proveedor.IdProveedor), "ID", visible: false),
-                CrearColumna(nameof(Proveedor.Estado), "ESTADO".Translate()),
-                CrearColumna(nameof(Proveedor.Descripcion), "DESCRIPCIÓN".Translate()),
-                CrearColumna(nameof(Proveedor.Email), "EMAIL".Translate()),
-                CrearColumna(nameof(Proveedor.Celular), "CELULAR".Translate())
+                CrearColumna(nameof(Proveedor.Estado), "Estado".Translate()),
+                CrearColumna(nameof(Proveedor.Descripcion), "Descripción".Translate()),
+                CrearColumna(nameof(Proveedor.Email), "Email".Translate()),
+                CrearColumna(nameof(Proveedor.Celular), "Celular".Translate())
             );
         }
 

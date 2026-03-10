@@ -15,6 +15,7 @@ namespace Services.Domain.Enums
         Backup,
         Proveedor,
         Articulo,
-        Cliente
+        Cliente,
+        AjusteStock
     }
 }

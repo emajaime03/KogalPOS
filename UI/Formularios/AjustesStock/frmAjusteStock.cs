@@ -1,0 +1,332 @@
+using BLL.Services;
+using DevExpress.XtraEditors;
+using DevExpress.XtraGrid.Columns;
+using DevExpress.XtraGrid.Views.Grid;
+using Domain;
+using Domain.BLL;
+using Services.Domain.Enums;
+using Services.Facade.Extensions;
+using System;
+using System.Collections.Generic;
+using System.ComponentModel;
+using System.Windows.Forms;
+using UI.Formularios.Base;
+using UI.Helpers;
+
+namespace UI.Formularios.AjustesStock
+{
+    public partial class frmAjusteStock : frmBaseABM
+    {
+        #region "PROPIEDADES"
+        private MovimientoStock MovimientoActual { get; set; }
+        private BindingList<MovimientoItem> ItemsBinding { get; set; }
+        private List<Articulo> ArticulosDisponibles { get; set; }
+        #endregion
+
+        #region "CONSTRUCTOR"
+        public frmAjusteStock(Guid id = default) : base(id)
+        {
+            InitializeComponent();
+
+            // Cargar artículos para el LookUpEdit
+            CargarArticulosDisponibles();
+
+            // Configurar grilla de ítems
+            ConfigurarGrillaItems();
+
+            // Configurar eventos de botones
+            btnAgregarFila.Click += BtnAgregarFila_Click;
+            btnQuitarFila.Click += BtnQuitarFila_Click;
+
+            InicializarFormulario();
+        }
+        #endregion
+
+        #region "MÉTODOS PRIVADOS"
+
+        private void CargarArticulosDisponibles()
+        {
+            var res = ArticuloBLL.Current.ObtenerLista(new ReqArticulosObtener());
+            ArticulosDisponibles = res.Articulos ?? new List<Articulo>();
+        }
+
+        private void ConfigurarGrillaItems()
+        {
+            gridViewItems.Columns.Clear();
+
+            // Columna Artículo (LookUpEdit)
+            var colArticulo = new GridColumn
+            {
+                FieldName = nameof(MovimientoItem.IdArticulo),
+                Caption = "Artículo".Translate(),
+                Visible = true,
+                Width = 350
+            };
+
+            var lkpArticulo = new DevExpress.XtraEditors.Repository.RepositoryItemLookUpEdit();
+            lkpArticulo.DataSource = ArticulosDisponibles;
+            lkpArticulo.ValueMember = nameof(Articulo.IdArticulo);
+            lkpArticulo.DisplayMember = nameof(Articulo.Descripcion);
+            lkpArticulo.NullText = "";
+            lkpArticulo.Columns.Add(new DevExpress.XtraEditors.Controls.LookUpColumnInfo(nameof(Articulo.Codigo), "Código".Translate(), 80));
+            lkpArticulo.Columns.Add(new DevExpress.XtraEditors.Controls.LookUpColumnInfo(nameof(Articulo.Descripcion), "Descripción".Translate(), 200));
+            gridItems.RepositoryItems.Add(lkpArticulo);
+            colArticulo.ColumnEdit = lkpArticulo;
+            gridViewItems.Columns.Add(colArticulo);
+
+            // Columna Código (readonly, para visualización)
+            var colCodigo = new GridColumn
+            {
+                FieldName = nameof(MovimientoItem.CodigoArticulo),
+                Caption = "Código".Translate(),
+                Visible = true,
+                Width = 100
+            };
+            colCodigo.OptionsColumn.AllowEdit = false;
+            gridViewItems.Columns.Add(colCodigo);
+
+            // Columna Cantidad
+            var colCantidad = new GridColumn
+            {
+                FieldName = nameof(MovimientoItem.Cantidad),
+                Caption = "Cantidad".Translate(),
+                Visible = true,
+                Width = 120
+            };
+
+            var spnCantidad = new DevExpress.XtraEditors.Repository.RepositoryItemSpinEdit();
+            spnCantidad.MinValue = 0.01m;
+            spnCantidad.MaxValue = 999999;
+            spnCantidad.Increment = 1;
+            spnCantidad.IsFloatValue = true;
+            spnCantidad.EditFormat.FormatString = "N2";
+            gridItems.RepositoryItems.Add(spnCantidad);
+            colCantidad.ColumnEdit = spnCantidad;
+            gridViewItems.Columns.Add(colCantidad);
+
+            // Columna ID oculta
+            var colId = new GridColumn
+            {
+                FieldName = nameof(MovimientoItem.IdMovimientoItem),
+                Visible = false
+            };
+            gridViewItems.Columns.Add(colId);
+
+            // Ocultar columnas no necesarias en la grilla editable
+            var colIdStock = new GridColumn
+            {
+                FieldName = nameof(MovimientoItem.IdMovimientoStock),
+                Visible = false
+            };
+            gridViewItems.Columns.Add(colIdStock);
+
+            var colDescripcion = new GridColumn
+            {
+                FieldName = nameof(MovimientoItem.DescripcionArticulo),
+                Visible = false
+            };
+            gridViewItems.Columns.Add(colDescripcion);
+
+            // Evento para auto-llenar código al seleccionar artículo
+            gridViewItems.CellValueChanged += GridViewItems_CellValueChanged;
+        }
+
+        private void GridViewItems_CellValueChanged(object sender, DevExpress.XtraGrid.Views.Base.CellValueChangedEventArgs e)
+        {
+            if (e.Column.FieldName == nameof(MovimientoItem.IdArticulo) && e.Value != null)
+            {
+                Guid idArticulo = (Guid)e.Value;
+                var articulo = ArticulosDisponibles.Find(a => a.IdArticulo == idArticulo);
+                if (articulo != null)
+                {
+                    gridViewItems.SetRowCellValue(e.RowHandle, nameof(MovimientoItem.CodigoArticulo), articulo.Codigo);
+                    gridViewItems.SetRowCellValue(e.RowHandle, nameof(MovimientoItem.DescripcionArticulo), articulo.Descripcion);
+                }
+            }
+        }
+
+        #endregion
+
+        #region "EVENTOS BOTONES"
+
+        private void BtnAgregarFila_Click(object sender, EventArgs e)
+        {
+            ItemsBinding.Add(new MovimientoItem());
+        }
+
+        private void BtnQuitarFila_Click(object sender, EventArgs e)
+        {
+            int rowHandle = gridViewItems.FocusedRowHandle;
+            if (rowHandle >= 0 && rowHandle < ItemsBinding.Count)
+            {
+                ItemsBinding.RemoveAt(rowHandle);
+            }
+        }
+
+        #endregion
+
+        #region "MÉTODOS OVERRIDE"
+
+        protected override void ConfigurarTextos()
+        {
+            base.ConfigurarTextos();
+            this.Text = EsNuevo ? "Nuevo Ajuste de Stock".Translate() : "Detalle Ajuste de Stock".Translate();
+            lblTipoMovimiento.Text = "Tipo Movimiento".Translate();
+            lblFecha.Text = "Fecha".Translate();
+            lblTituloItems.Text = "Artículos del Ajuste".Translate();
+            btnAgregarFila.Text = "Agregar Artículo".Translate();
+            btnQuitarFila.Text = "Quitar Artículo".Translate();
+        }
+
+        protected override void CargarDatos()
+        {
+            if (EsNuevo)
+            {
+                TipoPantalla = E_TipoPantalla.Nuevo;
+
+                // Cargar opciones del combo
+                cmbTipoMovimiento.Properties.Items.Clear();
+                cmbTipoMovimiento.Properties.Items.Add("Alta".Translate());
+                cmbTipoMovimiento.Properties.Items.Add("Baja".Translate());
+                cmbTipoMovimiento.SelectedIndex = 0;
+
+                txtFecha.Text = DateTime.Now.ToString("dd/MM/yyyy HH:mm");
+
+                ItemsBinding = new BindingList<MovimientoItem>();
+                gridItems.DataSource = ItemsBinding;
+            }
+            else
+            {
+                var res = AjusteStockBLL.Current.Obtener(new ReqAjusteStockObtener { Id = Id });
+
+                if (res.Success && res.Movimiento != null)
+                {
+                    MovimientoActual = res.Movimiento;
+
+                    // Cargar combo y seleccionar
+                    cmbTipoMovimiento.Properties.Items.Clear();
+                    cmbTipoMovimiento.Properties.Items.Add("Alta".Translate());
+                    cmbTipoMovimiento.Properties.Items.Add("Baja".Translate());
+                    cmbTipoMovimiento.SelectedIndex = res.Movimiento.TipoMovimiento == E_TipoMovimiento.Alta ? 0 : 1;
+
+                    txtFecha.Text = res.Movimiento.Fecha.ToString("dd/MM/yyyy HH:mm");
+
+                    ItemsBinding = new BindingList<MovimientoItem>(res.Movimiento.Items);
+                    gridItems.DataSource = ItemsBinding;
+
+                    // Estado determina modo de visualización
+                    TipoPantalla = res.Movimiento.Estado == E_Estados.Activo 
+                        ? E_TipoPantalla.Visualizar 
+                        : E_TipoPantalla.VisualizarEliminado;
+                }
+            }
+        }
+
+        protected override bool ValidarDatos()
+        {
+            if (ItemsBinding == null || ItemsBinding.Count == 0)
+            {
+                XtraMessageBox.Show(
+                    "Debe agregar al menos un artículo al ajuste".Translate(),
+                    "Validación".Translate(),
+                    MessageBoxButtons.OK,
+                    MessageBoxIcon.Warning);
+                return false;
+            }
+
+            foreach (var item in ItemsBinding)
+            {
+                if (item.IdArticulo == Guid.Empty)
+                {
+                    XtraMessageBox.Show(
+                        "Todos los ítems deben tener un artículo seleccionado".Translate(),
+                        "Validación".Translate(),
+                        MessageBoxButtons.OK,
+                        MessageBoxIcon.Warning);
+                    return false;
+                }
+
+                if (item.Cantidad <= 0)
+                {
+                    XtraMessageBox.Show(
+                        "La cantidad debe ser mayor a cero".Translate(),
+                        "Validación".Translate(),
+                        MessageBoxButtons.OK,
+                        MessageBoxIcon.Warning);
+                    return false;
+                }
+            }
+
+            return true;
+        }
+
+        protected override bool GuardarDatos()
+        {
+            var movimiento = new MovimientoStock
+            {
+                TipoMovimiento = cmbTipoMovimiento.SelectedIndex == 0
+                    ? E_TipoMovimiento.Alta
+                    : E_TipoMovimiento.Baja,
+                Items = new List<MovimientoItem>(ItemsBinding)
+            };
+
+            var req = new ReqAjusteStockInsertar { Movimiento = movimiento };
+            var res = AjusteStockBLL.Current.Insertar(req);
+            return res.Success;
+        }
+
+        protected override bool EliminarRegistro()
+        {
+            var req = new ReqAjusteStockEliminar { Id = Id };
+            var res = AjusteStockBLL.Current.Eliminar(req);
+            return res.Success;
+        }
+
+        protected override bool RestaurarRegistro()
+        {
+            var req = new ReqAjusteStockRestaurar { Id = Id };
+            var res = AjusteStockBLL.Current.Restaurar(req);
+            return res.Success;
+        }
+
+        protected override void OnTipoPantallaCambiado(E_TipoPantalla tipoPantalla)
+        {
+            bool esEditable = EsModoEdicion;
+
+            cmbTipoMovimiento.Properties.ReadOnly = !esEditable;
+            txtFecha.Properties.ReadOnly = true; // Siempre readonly
+
+            // Mostrar/ocultar botones de agregar/quitar ítems
+            btnAgregarFila.Visible = esEditable;
+            btnQuitarFila.Visible = esEditable;
+
+            // Grilla editable solo en modo nuevo
+            gridViewItems.OptionsBehavior.Editable = esEditable;
+
+            ControlFactory.AplicarModo(
+                esEditable,
+                new[] { txtFecha },
+                new[] { lblTipoMovimiento, lblFecha, lblTituloItems }
+            );
+
+            // ComboBox — aplicar estilo manualmente
+            if (esEditable)
+                ControlFactory.AplicarModoEdicion(cmbTipoMovimiento);
+            else
+                ControlFactory.AplicarModoVisualizacion(cmbTipoMovimiento);
+
+            // Grilla estilo
+            if (esEditable)
+                ControlFactory.AplicarModoGrillaEdicion(gridViewItems);
+            else
+                ControlFactory.AplicarModoGrillaVisualizacion(gridViewItems);
+        }
+
+        protected override E_FormsServicesValues? GetFormServiceValue()
+        {
+            return E_FormsServicesValues.AjusteStock;
+        }
+
+        #endregion
+    }
+}

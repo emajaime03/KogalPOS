@@ -11,6 +11,7 @@ using UI.Formularios.Administrador.BackupRestore;
 using UI.Formularios.Proveedores;
 using UI.Formularios.Articulos;
 using UI.Formularios.Clientes;
+using UI.Formularios.AjustesStock;
 
 namespace UI.Formularios
 {
@@ -128,5 +129,24 @@ namespace UI.Formularios
             frm.Show();
         }
         #endregion
+
+        #region "AJUSTES DE STOCK"
+        public static void AjustesStock()
+        {
+            frmMovimientosStock frm = new frmMovimientosStock();
+            frm.MdiParent = frmPrincipal;
+            frm.MaximizeBox = true;
+            frm.Show();
+        }
+
+        public static void AjusteStockABM(System.Guid id = default)
+        {
+            frmAjusteStock frm = new frmAjusteStock(id);
+            frm.MdiParent = frmPrincipal;
+            frm.MaximizeBox = true;
+            frm.Show();
+        }
+        #endregion
     }
 }
+

@@ -23,10 +23,10 @@ namespace UI.Formularios.Articulos
         {
             AgregarColumnas(
                 CrearColumna(nameof(Articulo.IdArticulo), "ID", visible: false),
-                CrearColumna(nameof(Articulo.Estado), "ESTADO".Translate()),
-                CrearColumna(nameof(Articulo.Codigo), "CÓDIGO".Translate()),
-                CrearColumna(nameof(Articulo.Descripcion), "DESCRIPCIÓN".Translate()),
-                CrearColumna(nameof(Articulo.StockActual), "STOCK ACTUAL".Translate())
+                CrearColumna(nameof(Articulo.Estado), "Estado".Translate()),
+                CrearColumna(nameof(Articulo.Codigo), "Código".Translate()),
+                CrearColumna(nameof(Articulo.Descripcion), "Descripción".Translate()),
+                CrearColumna(nameof(Articulo.StockActual), "Stock Actual".Translate())
             );
         }
 

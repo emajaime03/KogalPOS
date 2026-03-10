@@ -51,6 +51,9 @@
     <Compile Include="Implementations\SqlServer\Mappers\ClienteMapper.cs" />
     <Compile Include="Implementations\SqlServer\Mappers\ProveedorMapper.cs" />
     <Compile Include="Implementations\SqlServer\ProveedorRepository.cs" />
+    <Compile Include="Implementations\SqlServer\MovimientoStockRepository.cs" />
+    <Compile Include="Implementations\SqlServer\Mappers\MovimientoStockMapper.cs" />
+    <Compile Include="Implementations\SqlServer\Mappers\MovimientoItemMapper.cs" />
     <Compile Include="Implementations\SqlServer\UnitOfWork\BusinessUnitOfWork.cs" />
     <Compile Include="Implementations\SqlServer\UnitOfWork\BusinessUnitOfWorkAdapter.cs" />
     <Compile Include="Implementations\SqlServer\UnitOfWork\BusinessUnitOfWorkRepository.cs" />

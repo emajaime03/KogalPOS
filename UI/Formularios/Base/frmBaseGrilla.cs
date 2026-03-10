@@ -89,6 +89,9 @@ namespace UI.Formularios.Base
             btnDetalle.Text = "Ver Detalle".Translate();
             btnRefresh.Text = "Actualizar".Translate();
             btnExport.Text = "Exportar".Translate();
+
+            // Traducir textos del FindPanel de DevExpress
+            gridView.OptionsFind.FindNullPrompt = "Introduzca texto a buscar".Translate();
         }
 
         /// <summary>

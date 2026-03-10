@@ -73,8 +73,8 @@ namespace UI.Formularios.Administrador.Familias
                 var colDescripcion = gvFamilias.Columns[nameof(Familia.Descripcion)];
 
                 if (colId != null) colId.Caption = "ID";
-                if (colEstado != null) colEstado.Caption = "ESTADO".Translate();
-                if (colDescripcion != null) colDescripcion.Caption = "DESCRIPCIÓN".Translate();
+                if (colEstado != null) colEstado.Caption = "Estado".Translate();
+                if (colDescripcion != null) colDescripcion.Caption = "Descripción".Translate();
             }
 
             // Columnas de gvFamiliasHijos
@@ -83,8 +83,8 @@ namespace UI.Formularios.Administrador.Familias
                 var colDescripcion = gvFamiliasHijos.Columns[nameof(Familia.Descripcion)];
                 var colEstado = gvFamiliasHijos.Columns[nameof(Familia.Estado)];
 
-                if (colDescripcion != null) colDescripcion.Caption = "DESCRIPCIÓN".Translate();
-                if (colEstado != null) colEstado.Caption = "ESTADO".Translate();
+                if (colDescripcion != null) colDescripcion.Caption = "Descripción".Translate();
+                if (colEstado != null) colEstado.Caption = "Estado".Translate();
             }
 
             // Columnas de gvPatentes
@@ -95,8 +95,8 @@ namespace UI.Formularios.Administrador.Familias
                 var colDescripcion = gvPatentes.Columns[nameof(Patente.Descripcion)];
 
                 if (colId != null) colId.Caption = "ID";
-                if (colEstado != null) colEstado.Caption = "ESTADO".Translate();
-                if (colDescripcion != null) colDescripcion.Caption = "DESCRIPCIÓN".Translate();
+                if (colEstado != null) colEstado.Caption = "Estado".Translate();
+                if (colDescripcion != null) colDescripcion.Caption = "Descripción".Translate();
             }
         }
 
@@ -113,13 +113,13 @@ namespace UI.Formularios.Administrador.Familias
                 new GridColumn
                 {
                     FieldName = nameof(Familia.Estado),
-                    Caption = "ESTADO".Translate(),
+                    Caption = "Estado".Translate(),
                     Visible = true,
                 },
                 new GridColumn
                 {
                     FieldName = nameof(Familia.Descripcion),
-                    Caption = "DESCRIPCIÓN".Translate(),
+                    Caption = "Descripción".Translate(),
                     Visible = true,
                 },
             };
@@ -132,13 +132,13 @@ namespace UI.Formularios.Administrador.Familias
                 new GridColumn
                 {
                     FieldName = nameof(Familia.Descripcion),
-                    Caption = "DESCRIPCIÓN".Translate(),
+                    Caption = "Descripción".Translate(),
                     Visible = true,
                 },
                 new GridColumn
                 {
                     FieldName = nameof(Familia.Estado),
-                    Caption = "ESTADO".Translate(),
+                    Caption = "Estado".Translate(),
                     Visible = true,
                 },
             };
@@ -156,13 +156,13 @@ namespace UI.Formularios.Administrador.Familias
                 new GridColumn
                 {
                     FieldName = nameof(Patente.Estado),
-                    Caption = "ESTADO".Translate(),
+                    Caption = "Estado".Translate(),
                     Visible = true,
                 },
                 new GridColumn
                 {
                     FieldName = nameof(Patente.Descripcion),
-                    Caption = "DESCRIPCIÓN".Translate(),
+                    Caption = "Descripción".Translate(),
                     Visible = true,
                 }
             };

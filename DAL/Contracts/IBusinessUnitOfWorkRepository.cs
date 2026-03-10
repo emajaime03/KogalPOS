@@ -1,4 +1,5 @@
 using Services.DAL.Contracts;
+using DAL.Implementations.SqlServer;
 
 namespace DAL.Contracts
 {
@@ -11,5 +12,6 @@ namespace DAL.Contracts
         IGenericRepository<Domain.Proveedor> ProveedorRepository { get; }
         IGenericRepository<Domain.Articulo> ArticuloRepository { get; }
         IGenericRepository<Domain.Cliente> ClienteRepository { get; }
+        MovimientoStockRepository MovimientoStockRepository { get; }
     }
 }

@@ -72,13 +72,13 @@ namespace UI.Formularios.Administrador.Usuarios
                 new GridColumn
                 {
                     FieldName = nameof(Familia.Descripcion),
-                    Caption = "DESCRIPCIÓN".Translate(),
+                    Caption = "Descripción".Translate(),
                     Visible = true
                 },
                 new GridColumn
                 {
                     FieldName = nameof(Familia.Temp_Seleccionado),
-                    Caption = "SELECCIONADO".Translate(),
+                    Caption = "Seleccionado".Translate(),
                     Visible = true,
                     UnboundType = DevExpress.Data.UnboundColumnType.Boolean,
                     ColumnEdit = new RepositoryItemCheckEdit()
@@ -91,13 +91,13 @@ namespace UI.Formularios.Administrador.Usuarios
                 new GridColumn
                 {
                     FieldName = nameof(Patente.Descripcion),
-                    Caption = "DESCRIPCIÓN".Translate(),
+                    Caption = "Descripción".Translate(),
                     Visible = true
                 },
                 new GridColumn
                 {
                     FieldName = nameof(Patente.Temp_Seleccionado),
-                    Caption = "SELECCIONADO".Translate(),
+                    Caption = "Seleccionado".Translate(),
                     Visible = true,
                     UnboundType = DevExpress.Data.UnboundColumnType.Boolean,
                     ColumnEdit = new RepositoryItemCheckEdit()
@@ -259,16 +259,16 @@ namespace UI.Formularios.Administrador.Usuarios
             {
                 var colDesc = gvFamilias.Columns[nameof(Familia.Descripcion)];
                 var colSel = gvFamilias.Columns[nameof(Familia.Temp_Seleccionado)];
-                if (colDesc != null) colDesc.Caption = "DESCRIPCIÓN".Translate();
-                if (colSel != null) colSel.Caption = "SELECCIONADO".Translate();
+                if (colDesc != null) colDesc.Caption = "Descripción".Translate();
+                if (colSel != null) colSel.Caption = "Seleccionado".Translate();
             }
 
             if (gvPatentes.Columns.Count > 0)
             {
                 var colDesc = gvPatentes.Columns[nameof(Patente.Descripcion)];
                 var colSel = gvPatentes.Columns[nameof(Patente.Temp_Seleccionado)];
-                if (colDesc != null) colDesc.Caption = "DESCRIPCIÓN".Translate();
-                if (colSel != null) colSel.Caption = "SELECCIONADO".Translate();
+                if (colDesc != null) colDesc.Caption = "Descripción".Translate();
+                if (colSel != null) colSel.Caption = "Seleccionado".Translate();
             }
         }
 

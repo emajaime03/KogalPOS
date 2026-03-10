@@ -47,6 +47,9 @@
     <Compile Include="BLL\ReqResClientes.cs" />
     <Compile Include="BLL\ReqResProveedores.cs" />
     <Compile Include="Proveedor.cs" />
+    <Compile Include="MovimientoStock.cs" />
+    <Compile Include="MovimientoItem.cs" />
+    <Compile Include="BLL\ReqResAjustesStock.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

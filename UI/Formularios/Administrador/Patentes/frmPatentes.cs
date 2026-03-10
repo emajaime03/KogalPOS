@@ -31,8 +31,8 @@ namespace UI.Formularios.Administrador.Patentes
                 var colEstado = GridViewPrincipal.Columns[nameof(Patente.Estado)];
 
                 if (colId != null) colId.Caption = "ID";
-                if (colDescripcion != null) colDescripcion.Caption = "DESCRIPCIÓN".Translate();
-                if (colEstado != null) colEstado.Caption = "ESTADO".Translate();
+                if (colDescripcion != null) colDescripcion.Caption = "Descripción".Translate();
+                if (colEstado != null) colEstado.Caption = "Estado".Translate();
             }
         }
 
@@ -40,8 +40,8 @@ namespace UI.Formularios.Administrador.Patentes
         {
             AgregarColumnas(
                 CrearColumna(nameof(Patente.Id), "ID", width: 80),
-                CrearColumna(nameof(Patente.Descripcion), "DESCRIPCIÓN".Translate()),
-                CrearColumna(nameof(Patente.Estado), "ESTADO".Translate(), width: 100)
+                CrearColumna(nameof(Patente.Descripcion), "Descripción".Translate()),
+                CrearColumna(nameof(Patente.Estado), "Estado".Translate(), width: 100)
             );
 
             // Configurar textos iniciales

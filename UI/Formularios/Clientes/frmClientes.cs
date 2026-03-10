@@ -23,10 +23,10 @@ namespace UI.Formularios.Clientes
         {
             AgregarColumnas(
                 CrearColumna(nameof(Cliente.IdCliente), "ID", visible: false),
-                CrearColumna(nameof(Cliente.Estado), "ESTADO".Translate()),
-                CrearColumna(nameof(Cliente.Descripcion), "DESCRIPCIÓN".Translate()),
-                CrearColumna(nameof(Cliente.NroDocumento), "NRO DOCUMENTO".Translate()),
-                CrearColumna(nameof(Cliente.TipoDocumento), "TIPO DOCUMENTO".Translate())
+                CrearColumna(nameof(Cliente.Estado), "Estado".Translate()),
+                CrearColumna(nameof(Cliente.Descripcion), "Descripción".Translate()),
+                CrearColumna(nameof(Cliente.NroDocumento), "Nro Documento".Translate()),
+                CrearColumna(nameof(Cliente.TipoDocumento), "Tipo Documento".Translate())
             );
         }
 

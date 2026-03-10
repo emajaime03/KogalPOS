@@ -176,7 +176,7 @@ namespace UI.Helpers
             foreach (var lbl in labels)
             {
                 lbl.ForeColor = LabelVisualizacion;
-                lbl.Font = FontHelper.FuenteSubtitulo;
+                lbl.Font = FontHelper.FuenteEtiqueta;
             }
         }
 

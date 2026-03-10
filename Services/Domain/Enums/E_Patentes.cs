@@ -18,6 +18,7 @@ namespace Services.Domain.Enums
 
         #region INVENTARIO
         Articulos = 40,
+        AjustesStock = 41,
         #endregion
 
         #region VENTAS
