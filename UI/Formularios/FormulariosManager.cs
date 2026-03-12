@@ -147,6 +147,24 @@ namespace UI.Formularios
             frm.Show();
         }
         #endregion
+
+        #region "LISTAS DE PRECIOS"
+        public static void ListaPrecios()
+        {
+            UI.Formularios.ListaPrecios.frmListaPrecios frm = new UI.Formularios.ListaPrecios.frmListaPrecios();
+            frm.MdiParent = frmPrincipal;
+            frm.MaximizeBox = true;
+            frm.Show();
+        }
+
+        public static void ListaPreciosABM(System.Guid id = default)
+        {
+            UI.Formularios.ListaPrecios.frmListaPreciosABM frm = new UI.Formularios.ListaPrecios.frmListaPreciosABM(id);
+            frm.MdiParent = frmPrincipal;
+            frm.MaximizeBox = true;
+            frm.Show();
+        }
+        #endregion
     }
 }
 

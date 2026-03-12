@@ -13,5 +13,6 @@ namespace DAL.Contracts
         IGenericRepository<Domain.Articulo> ArticuloRepository { get; }
         IGenericRepository<Domain.Cliente> ClienteRepository { get; }
         MovimientoStockRepository MovimientoStockRepository { get; }
+        ListaPrecioRepository ListaPrecioRepository { get; }
     }
 }

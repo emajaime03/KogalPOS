@@ -72,6 +72,7 @@ namespace UI.Principal
 
                 // ── Ventas ──
                 new MenuItemConfig { Patente = E_Patentes.Clientes, CaptionKey = "Clientes",  GetPage = () => rbpVentas, OnClick = () => FormulariosManager.Clientes() },
+                new MenuItemConfig { Patente = E_Patentes.ListasDePrecios, CaptionKey = "Listas de Precios",  GetPage = () => rbpVentas, OnClick = () => FormulariosManager.ListaPrecios() },
             };
         }
 

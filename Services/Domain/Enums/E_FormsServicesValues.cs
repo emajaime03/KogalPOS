@@ -16,6 +16,7 @@ namespace Services.Domain.Enums
         Proveedor,
         Articulo,
         Cliente,
-        AjusteStock
+        AjusteStock,
+        ListaPrecio
     }
 }

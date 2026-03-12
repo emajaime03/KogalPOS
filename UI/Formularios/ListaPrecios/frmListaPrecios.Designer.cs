@@ -1,0 +1,32 @@
+namespace UI.Formularios.ListaPrecios
+{
+    partial class frmListaPrecios
+    {
+        private System.ComponentModel.IContainer components = null;
+
+        protected override void Dispose(bool disposing)
+        {
+            if (disposing && (components != null))
+            {
+                components.Dispose();
+            }
+            base.Dispose(disposing);
+        }
+
+        #region Windows Form Designer generated code
+
+        private void InitializeComponent()
+        {
+            this.SuspendLayout();
+
+            // frmListaPrecios
+            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
+            this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.Name = "frmListaPrecios";
+
+            this.ResumeLayout(false);
+        }
+
+        #endregion
+    }
+}

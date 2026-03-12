@@ -11,6 +11,7 @@ namespace DAL.Implementations.SqlServer.UnitOfWork
         public IGenericRepository<Articulo> ArticuloRepository { get; }
         public IGenericRepository<Cliente> ClienteRepository { get; }
         public MovimientoStockRepository MovimientoStockRepository { get; }
+        public ListaPrecioRepository ListaPrecioRepository { get; }
 
         public BusinessUnitOfWorkRepository(SqlConnection context, SqlTransaction transaction)
         {
@@ -18,6 +19,7 @@ namespace DAL.Implementations.SqlServer.UnitOfWork
             ArticuloRepository = new ArticuloRepository(context, transaction);
             ClienteRepository = new ClienteRepository(context, transaction);
             MovimientoStockRepository = new MovimientoStockRepository(context, transaction);
+            ListaPrecioRepository = new ListaPrecioRepository(context, transaction);
         }
     }
 }

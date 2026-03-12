@@ -186,6 +186,18 @@
     <Compile Include="Formularios\AjustesStock\frmAjusteStock.Designer.cs">
       <DependentUpon>frmAjusteStock.cs</DependentUpon>
     </Compile>
+    <Compile Include="Formularios\ListaPrecios\frmListaPrecios.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Formularios\ListaPrecios\frmListaPrecios.Designer.cs">
+      <DependentUpon>frmListaPrecios.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Formularios\ListaPrecios\frmListaPreciosABM.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Formularios\ListaPrecios\frmListaPreciosABM.Designer.cs">
+      <DependentUpon>frmListaPreciosABM.cs</DependentUpon>
+    </Compile>
     <Compile Include="Helpers\ButtonStyleHelper.cs" />
     <Compile Include="Helpers\ControlFactory.cs" />
     <Compile Include="Helpers\FormStyleHelper.cs" />
