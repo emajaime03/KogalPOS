@@ -31,44 +31,64 @@ namespace UI.Formularios.Administrador.Usuarios
             this.gvFamilias = new DevExpress.XtraGrid.Views.Grid.GridView();
             this.gcPatentes = new DevExpress.XtraGrid.GridControl();
             this.gvPatentes = new DevExpress.XtraGrid.Views.Grid.GridView();
-            ((System.ComponentModel.ISupportInitialize)(this.panelContenido)).BeginInit();
+            this.txtUserName = new DevExpress.XtraEditors.TextEdit();
+            this.txtPassword = new DevExpress.XtraEditors.TextEdit();
+
+            this.layoutControlHijo = new DevExpress.XtraLayout.LayoutControl();
+            this.RootHijo = new DevExpress.XtraLayout.LayoutControlGroup();
+            this.lciUserName = new DevExpress.XtraLayout.LayoutControlItem();
+            this.lciPassword = new DevExpress.XtraLayout.LayoutControlItem();
+            this.emptySpace1 = new DevExpress.XtraLayout.EmptySpaceItem();
+            this.lciFamilias = new DevExpress.XtraLayout.LayoutControlItem();
+            this.emptySpace2 = new DevExpress.XtraLayout.EmptySpaceItem();
+            this.lciPatentes = new DevExpress.XtraLayout.LayoutControlItem();
+
             this.panelContenido.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.gcFamilias)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.gvFamilias)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.gcPatentes)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.gvPatentes)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.txtUserName.Properties)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.txtPassword.Properties)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.layoutControlHijo)).BeginInit();
+            this.layoutControlHijo.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.RootHijo)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.lciUserName)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.lciPassword)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.emptySpace1)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.lciFamilias)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.emptySpace2)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.lciPatentes)).BeginInit();
             this.SuspendLayout();
 
-            // Crear controles con ControlFactory (estilos estandarizados)
-            lblUserName = ControlFactory.CrearLabel("lblUserName", "Usuario");
-            txtUserName = ControlFactory.CrearTextEdit("txtUserName", 50);
+            // 
+            // txtUserName
+            // 
+            this.txtUserName.Location = new System.Drawing.Point(12, 12);
+            this.txtUserName.Name = "txtUserName";
+            this.txtUserName.Size = new System.Drawing.Size(953, 20);
+            this.txtUserName.TabIndex = 4;
 
-            lblPassword = ControlFactory.CrearLabel("lblPassword", "Contraseña");
-            txtPassword = ControlFactory.CrearTextEdit("txtPassword");
-            txtPassword.Properties.PasswordChar = '*';
-            txtPassword.Properties.UseSystemPasswordChar = true;
+            // 
+            // txtPassword
+            // 
+            this.txtPassword.Location = new System.Drawing.Point(12, 36);
+            this.txtPassword.Name = "txtPassword";
+            this.txtPassword.Properties.PasswordChar = '*';
+            this.txtPassword.Properties.UseSystemPasswordChar = true;
+            this.txtPassword.Size = new System.Drawing.Size(953, 20);
+            this.txtPassword.TabIndex = 5;
 
-            lblFamilias = ControlFactory.CrearLabelTitulo("lblFamilias", "Familias");
-            lblPatentes = ControlFactory.CrearLabelTitulo("lblPatentes", "Patentes");
-
-            // Posicionar campos de texto
-            ControlFactory.PosicionarCampos(20, 15, 16,
-                new KeyValuePair<DevExpress.XtraEditors.LabelControl, DevExpress.XtraEditors.BaseEdit>(lblUserName, txtUserName),
-                new KeyValuePair<DevExpress.XtraEditors.LabelControl, DevExpress.XtraEditors.BaseEdit>(lblPassword, txtPassword)
-            );
-
-            // lblFamilias debajo de los campos de texto
-            this.lblFamilias.Location = new System.Drawing.Point(20, 110);
             // 
             // gcFamilias
             // 
-            this.gcFamilias.Location = new System.Drawing.Point(20, 130);
+            this.gcFamilias.Location = new System.Drawing.Point(12, 100);
             this.gcFamilias.MainView = this.gvFamilias;
             this.gcFamilias.Name = "gcFamilias";
-            this.gcFamilias.Size = new System.Drawing.Size(910, 130);
-            this.gcFamilias.TabIndex = 5;
+            this.gcFamilias.TabIndex = 6;
             this.gcFamilias.ViewCollection.AddRange(new DevExpress.XtraGrid.Views.Base.BaseView[] {
             this.gvFamilias});
+
             // 
             // gvFamilias
             // 
@@ -76,18 +96,16 @@ namespace UI.Formularios.Administrador.Usuarios
             this.gvFamilias.Name = "gvFamilias";
             this.gvFamilias.OptionsView.ShowGroupPanel = false;
 
-            // lblPatentes
-            this.lblPatentes.Location = new System.Drawing.Point(20, 268);
             // 
             // gcPatentes
             // 
-            this.gcPatentes.Location = new System.Drawing.Point(20, 288);
+            this.gcPatentes.Location = new System.Drawing.Point(12, 260);
             this.gcPatentes.MainView = this.gvPatentes;
             this.gcPatentes.Name = "gcPatentes";
-            this.gcPatentes.Size = new System.Drawing.Size(910, 130);
             this.gcPatentes.TabIndex = 7;
             this.gcPatentes.ViewCollection.AddRange(new DevExpress.XtraGrid.Views.Base.BaseView[] {
             this.gvPatentes});
+
             // 
             // gvPatentes
             // 
@@ -95,41 +113,147 @@ namespace UI.Formularios.Administrador.Usuarios
             this.gvPatentes.Name = "gvPatentes";
             this.gvPatentes.OptionsView.ShowGroupPanel = false;
 
-            // Agregar al panelContenido del base
-            this.panelContenido.Controls.Add(this.lblUserName);
-            this.panelContenido.Controls.Add(this.txtUserName);
-            this.panelContenido.Controls.Add(this.lblPassword);
-            this.panelContenido.Controls.Add(this.txtPassword);
-            this.panelContenido.Controls.Add(this.lblFamilias);
-            this.panelContenido.Controls.Add(this.gcFamilias);
-            this.panelContenido.Controls.Add(this.lblPatentes);
-            this.panelContenido.Controls.Add(this.gcPatentes);
+            // 
+            // layoutControlHijo
+            // 
+            this.layoutControlHijo.Controls.Add(this.txtUserName);
+            this.layoutControlHijo.Controls.Add(this.txtPassword);
+            this.layoutControlHijo.Controls.Add(this.gcFamilias);
+            this.layoutControlHijo.Controls.Add(this.gcPatentes);
+            this.layoutControlHijo.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.layoutControlHijo.Location = new System.Drawing.Point(0, 0);
+            this.layoutControlHijo.Name = "layoutControlHijo";
+            this.layoutControlHijo.Root = this.RootHijo;
+            this.layoutControlHijo.TabIndex = 0;
+            this.layoutControlHijo.Text = "layoutControl1";
 
+            // 
+            // RootHijo
+            // 
+            this.RootHijo.EnableIndentsWithoutBorders = DevExpress.Utils.DefaultBoolean.True;
+            this.RootHijo.GroupBordersVisible = false;
+            this.RootHijo.Items.AddRange(new DevExpress.XtraLayout.BaseLayoutItem[] {
+            this.lciUserName,
+            this.lciPassword,
+            this.emptySpace1,
+            this.lciFamilias,
+            this.emptySpace2,
+            this.lciPatentes});
+            this.RootHijo.Name = "RootHijo";
+            this.RootHijo.Size = new System.Drawing.Size(977, 432);
+            this.RootHijo.TextVisible = false;
+
+            // 
+            // lciUserName
+            // 
+            this.lciUserName.Control = this.txtUserName;
+            this.lciUserName.Name = "lciUserName";
+            this.lciUserName.Text = "Usuario:";
+            this.lciUserName.TextSize = new System.Drawing.Size(65, 13);
+
+            // 
+            // lciPassword
+            // 
+            this.lciPassword.Control = this.txtPassword;
+            this.lciPassword.Name = "lciPassword";
+            this.lciPassword.Text = "Contraseña:";
+            this.lciPassword.TextSize = new System.Drawing.Size(65, 13);
+
+            // 
+            // emptySpace1
+            // 
+            this.emptySpace1.AllowHotTrack = false;
+            this.emptySpace1.Name = "emptySpace1";
+            this.emptySpace1.Size = new System.Drawing.Size(957, 30);
+            this.emptySpace1.MinSize = new System.Drawing.Size(10, 30);
+            this.emptySpace1.MaxSize = new System.Drawing.Size(0, 30);
+            this.emptySpace1.SizeConstraintsType = DevExpress.XtraLayout.SizeConstraintsType.Custom;
+            this.emptySpace1.TextSize = new System.Drawing.Size(0, 0);
+
+            // 
+            // lciFamilias
+            // 
+            this.lciFamilias.Control = this.gcFamilias;
+            this.lciFamilias.Name = "lciFamilias";
+            this.lciFamilias.Text = "Familias";
+            this.lciFamilias.TextLocation = DevExpress.Utils.Locations.Top;
+            this.lciFamilias.TextSize = new System.Drawing.Size(65, 13);
+            this.lciFamilias.MinSize = new System.Drawing.Size(100, 150);
+            this.lciFamilias.SizeConstraintsType = DevExpress.XtraLayout.SizeConstraintsType.Custom;
+
+            // 
+            // emptySpace2
+            // 
+            this.emptySpace2.AllowHotTrack = false;
+            this.emptySpace2.Name = "emptySpace2";
+            this.emptySpace2.Size = new System.Drawing.Size(957, 30);
+            this.emptySpace2.MinSize = new System.Drawing.Size(10, 30);
+            this.emptySpace2.MaxSize = new System.Drawing.Size(0, 30);
+            this.emptySpace2.SizeConstraintsType = DevExpress.XtraLayout.SizeConstraintsType.Custom;
+            this.emptySpace2.TextSize = new System.Drawing.Size(0, 0);
+
+            // 
+            // lciPatentes
+            // 
+            this.lciPatentes.Control = this.gcPatentes;
+            this.lciPatentes.Name = "lciPatentes";
+            this.lciPatentes.Text = "Patentes";
+            this.lciPatentes.TextLocation = DevExpress.Utils.Locations.Top;
+            this.lciPatentes.TextSize = new System.Drawing.Size(65, 13);
+            this.lciPatentes.MinSize = new System.Drawing.Size(100, 150);
+            this.lciPatentes.SizeConstraintsType = DevExpress.XtraLayout.SizeConstraintsType.Custom;
+
+            // 
+            // panelContenido
+            // 
+            this.panelContenido.Controls.Add(this.layoutControlHijo);
+
+            // 
             // frmUsuariosABM
+            // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.ClientSize = new System.Drawing.Size(977, 537);
             this.Name = "frmUsuariosABM";
-            ((System.ComponentModel.ISupportInitialize)(this.panelContenido)).EndInit();
+            this.Text = "Usuarios";
+
             this.panelContenido.ResumeLayout(false);
-            this.panelContenido.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.gcFamilias)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.gvFamilias)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.gcPatentes)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.gvPatentes)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.txtUserName.Properties)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.txtPassword.Properties)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.layoutControlHijo)).EndInit();
+            this.layoutControlHijo.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.RootHijo)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.lciUserName)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.lciPassword)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.emptySpace1)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.lciFamilias)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.emptySpace2)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.lciPatentes)).EndInit();
             this.ResumeLayout(false);
+
         }
 
         #endregion
 
-        private DevExpress.XtraEditors.LabelControl lblUserName;
         private DevExpress.XtraEditors.TextEdit txtUserName;
-        private DevExpress.XtraEditors.LabelControl lblPassword;
         private DevExpress.XtraEditors.TextEdit txtPassword;
-        private DevExpress.XtraEditors.LabelControl lblFamilias;
         private DevExpress.XtraGrid.GridControl gcFamilias;
         private DevExpress.XtraGrid.Views.Grid.GridView gvFamilias;
-        private DevExpress.XtraEditors.LabelControl lblPatentes;
         private DevExpress.XtraGrid.GridControl gcPatentes;
         private DevExpress.XtraGrid.Views.Grid.GridView gvPatentes;
+
+        // Variables del LayoutControl
+        private DevExpress.XtraLayout.LayoutControl layoutControlHijo;
+        private DevExpress.XtraLayout.LayoutControlGroup RootHijo;
+        private DevExpress.XtraLayout.LayoutControlItem lciUserName;
+        private DevExpress.XtraLayout.LayoutControlItem lciPassword;
+        private DevExpress.XtraLayout.EmptySpaceItem emptySpace1;
+        private DevExpress.XtraLayout.LayoutControlItem lciFamilias;
+        private DevExpress.XtraLayout.EmptySpaceItem emptySpace2;
+        private DevExpress.XtraLayout.LayoutControlItem lciPatentes;
     }
 }

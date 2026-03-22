@@ -15,7 +15,7 @@ using UI.Helpers;
 
 namespace UI.Formularios.Administrador.Familias
 {
-    public partial class frmFamiliasABM : frmBaseABM
+    public partial class frmFamiliasABM
     {
         #region "PROPIEDADES"
 
@@ -43,6 +43,10 @@ namespace UI.Formularios.Administrador.Familias
         {
             InitializeComponent();
             InicializarFormulario();
+
+            ControlFactory.ConfigurarLayoutItem(this.lciDescripcion, "Descripción:", false);
+            ControlFactory.ConfigurarLayoutItem(this.lciFamiliasHijos, "Familias Hijos", false);
+            ControlFactory.ConfigurarLayoutItem(this.lciPatentes, "Patentes", false);
         }
 
         #endregion
@@ -53,9 +57,9 @@ namespace UI.Formularios.Administrador.Familias
         {
             base.ConfigurarTextos();
             this.Text = EsNuevo ? "Nueva Familia".Translate() : "Detalle Familia".Translate();
-            lblDescripcion.Text = "Descripción".Translate();
-            lblFamiliasHijos.Text = "Familias Hijos".Translate();
-            lblPatentes.Text = "Patentes".Translate();
+            lciDescripcion.Text = "Descripción".Translate();
+            lciFamiliasHijos.Text = "Familias Hijos".Translate();
+            lciPatentes.Text = "Patentes".Translate();
 
             ActualizarCaptionsColumnas();
         }
@@ -220,9 +224,9 @@ namespace UI.Formularios.Administrador.Familias
 
             ControlFactory.AplicarModo(
                 esEditable,
-                new[] { txtDescripcion },
-                new[] { lblDescripcion, lblFamiliasHijos, lblPatentes },
-                new[] { gvFamiliasHijos, gvPatentes }
+                textEdits: new[] { this.txtDescripcion },
+                itemsLayout: new[] { this.lciDescripcion, this.lciFamiliasHijos, this.lciPatentes },
+                grillas: new[] { this.gvFamiliasHijos, this.gvPatentes }
             );
         }
 

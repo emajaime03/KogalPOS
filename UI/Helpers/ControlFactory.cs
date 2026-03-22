@@ -46,18 +46,14 @@ namespace UI.Helpers
 
         #endregion
 
-        #region "CREACIÓN DE CONTROLES"
+        #region "CREACIÓN DE CONTROLES (Adaptado a LayoutControl)"
 
         /// <summary>
-        /// Crea un TextEdit con estilo estandarizado.
+        /// Crea un TextEdit con estilo estandarizado. Ya no define Size ni Anchor porque LayoutControl lo maneja.
         /// </summary>
         public static TextEdit CrearTextEdit(string name, int maxLength = 0)
         {
-            var txt = new TextEdit
-            {
-                Name = name,
-                Size = new Size(400, 22),
-            };
+            var txt = new TextEdit { Name = name };
 
             txt.Properties.Appearance.Font = FontHelper.FuenteBase;
             txt.Properties.Appearance.Options.UseFont = true;
@@ -68,88 +64,49 @@ namespace UI.Helpers
             return txt;
         }
 
-        /// <summary>
-        /// Crea un LabelControl para campo de formulario (estilo Semibold).
-        /// </summary>
-        public static LabelControl CrearLabel(string name, string texto)
-        {
-            return new LabelControl
-            {
-                Name = name,
-                Text = texto,
-                Font = FontHelper.FuenteEtiqueta,
-                ForeColor = LabelEdicion,
-                AutoSizeMode = LabelAutoSizeMode.Default
-            };
-        }
-
-        /// <summary>
-        /// Crea un LabelControl para título de sección (más grande, bold).
-        /// </summary>
-        public static LabelControl CrearLabelTitulo(string name, string texto)
-        {
-            return new LabelControl
-            {
-                Name = name,
-                Text = texto,
-                Font = FontHelper.FuenteSubtituloSemibold,
-                ForeColor = LabelEdicion,
-                AutoSizeMode = LabelAutoSizeMode.Default
-            };
-        }
-
-        /// <summary>
-        /// Crea un ComboBoxEdit con estilo estandarizado.
-        /// </summary>
         public static ComboBoxEdit CrearComboBox(string name)
         {
-            var cmb = new ComboBoxEdit
-            {
-                Name = name,
-                Size = new Size(400, 22),
-            };
-
+            var cmb = new ComboBoxEdit { Name = name };
             cmb.Properties.Appearance.Font = FontHelper.FuenteBase;
             cmb.Properties.Appearance.Options.UseFont = true;
             cmb.Properties.TextEditStyle = DevExpress.XtraEditors.Controls.TextEditStyles.DisableTextEditor;
-
             return cmb;
         }
 
-        /// <summary>
-        /// Crea un LookUpEdit con estilo estandarizado (combo con búsqueda).
-        /// </summary>
         public static LookUpEdit CrearLookUpEdit(string name)
         {
-            var lkp = new LookUpEdit
-            {
-                Name = name,
-                Size = new Size(400, 22),
-            };
-
+            var lkp = new LookUpEdit { Name = name };
             lkp.Properties.Appearance.Font = FontHelper.FuenteBase;
             lkp.Properties.Appearance.Options.UseFont = true;
             lkp.Properties.NullText = string.Empty;
-
             return lkp;
+        }
+
+        /// <summary>
+        /// NUEVO: Estiliza un LayoutControlItem (el "Label" que genera el LayoutControl)
+        /// </summary>
+        public static void ConfigurarLayoutItem(DevExpress.XtraLayout.LayoutControlItem item, string texto, bool esTitulo = false)
+        {
+            item.Text = texto;
+
+            // Si es un título de grilla usamos la fuente más grande, si es un campo normal, la etiqueta base
+            item.AppearanceItemCaption.Font = esTitulo ? FontHelper.FuenteSubtituloSemibold : FontHelper.FuenteEtiqueta;
+            item.AppearanceItemCaption.ForeColor = LabelEdicion;
+
+            item.AppearanceItemCaption.Options.UseFont = true;
+            item.AppearanceItemCaption.Options.UseForeColor = true;
         }
 
         #endregion
 
         #region "MODOS (EDICIÓN / VISUALIZACIÓN)"
 
-        /// <summary>
-        /// Aplica modo edición a uno o más TextEdit: fondo blanco, borde azul, editable.
-        /// </summary>
         public static void AplicarModoEdicion(params TextEdit[] controles)
         {
             foreach (var txt in controles)
                 AplicarEstiloBaseEditor(txt, FondoEdicion, TextoEdicion, BordeEdicion, false);
         }
 
-        /// <summary>
-        /// Aplica modo visualización a uno o más TextEdit: fondo gris, borde gris, solo lectura.
-        /// </summary>
         public static void AplicarModoVisualizacion(params TextEdit[] controles)
         {
             foreach (var txt in controles)
@@ -157,32 +114,29 @@ namespace UI.Helpers
         }
 
         /// <summary>
-        /// Aplica modo edición a labels de campo.
+        /// NUEVO: Aplica colores a los labels del LayoutControl en modo edición
         /// </summary>
-        public static void AplicarModoEdicionLabels(params LabelControl[] labels)
+        public static void AplicarModoEdicionItems(params DevExpress.XtraLayout.LayoutControlItem[] items)
         {
-            foreach (var lbl in labels)
+            foreach (var item in items)
             {
-                lbl.ForeColor = LabelEdicion;
-                lbl.Font = FontHelper.FuenteEtiqueta;
+                item.AppearanceItemCaption.ForeColor = LabelEdicion;
+                item.AppearanceItemCaption.Options.UseForeColor = true;
             }
         }
 
         /// <summary>
-        /// Aplica modo visualización a labels de campo.
+        /// NUEVO: Aplica colores a los labels del LayoutControl en modo visualización
         /// </summary>
-        public static void AplicarModoVisualizacionLabels(params LabelControl[] labels)
+        public static void AplicarModoVisualizacionItems(params DevExpress.XtraLayout.LayoutControlItem[] items)
         {
-            foreach (var lbl in labels)
+            foreach (var item in items)
             {
-                lbl.ForeColor = LabelVisualizacion;
-                lbl.Font = FontHelper.FuenteEtiqueta;
+                item.AppearanceItemCaption.ForeColor = LabelVisualizacion;
+                item.AppearanceItemCaption.Options.UseForeColor = true;
             }
         }
 
-        /// <summary>
-        /// Aplica estilo de edición a una o más grillas.
-        /// </summary>
         public static void AplicarModoGrillaEdicion(params GridView[] gridViews)
         {
             foreach (var gv in gridViews)
@@ -194,9 +148,6 @@ namespace UI.Helpers
                     GrillaFocusedEdicionBg, GrillaFocusedEdicionFg);
         }
 
-        /// <summary>
-        /// Aplica estilo de visualización a una o más grillas.
-        /// </summary>
         public static void AplicarModoGrillaVisualizacion(params GridView[] gridViews)
         {
             foreach (var gv in gridViews)
@@ -209,46 +160,27 @@ namespace UI.Helpers
         }
 
         /// <summary>
-        /// Aplica modo completo según booleano: TextEdits + Labels + Grillas.
+        /// Actualizado para aceptar LayoutControlItem[] en lugar de LabelControl[]
         /// </summary>
-        public static void AplicarModo(bool esEditable, TextEdit[] textEdits = null, LabelControl[] labels = null, GridView[] grillas = null)
+        public static void AplicarModo(bool esEditable, TextEdit[] textEdits = null, DevExpress.XtraLayout.LayoutControlItem[] itemsLayout = null, GridView[] grillas = null)
         {
             if (esEditable)
             {
                 if (textEdits != null) AplicarModoEdicion(textEdits);
-                if (labels != null) AplicarModoEdicionLabels(labels);
+                if (itemsLayout != null) AplicarModoEdicionItems(itemsLayout);
                 if (grillas != null) AplicarModoGrillaEdicion(grillas);
             }
             else
             {
                 if (textEdits != null) AplicarModoVisualizacion(textEdits);
-                if (labels != null) AplicarModoVisualizacionLabels(labels);
+                if (itemsLayout != null) AplicarModoVisualizacionItems(itemsLayout);
                 if (grillas != null) AplicarModoGrillaVisualizacion(grillas);
             }
         }
 
         #endregion
 
-        #region "POSICIONAMIENTO"
-
-        /// <summary>
-        /// Posiciona pares Label + Control verticalmente dentro de un contenedor.
-        /// </summary>
-        public static void PosicionarCampos(int xInicio, int yInicio, int espacioEntreCampos, params KeyValuePair<LabelControl, BaseEdit>[] campos)
-        {
-            int y = yInicio;
-
-            foreach (var campo in campos)
-            {
-                campo.Key.Location = new Point(xInicio, y);
-                y += campo.Key.Height + 4;
-
-                campo.Value.Location = new Point(xInicio, y);
-                y += campo.Value.Height + espacioEntreCampos;
-            }
-        }
-
-        #endregion
+        // ELIMINADO: PosicionarCampos() ya no sirve porque LayoutControl maneja todo.
 
         #region "PRIVADO"
 

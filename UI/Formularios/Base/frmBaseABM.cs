@@ -4,7 +4,6 @@ using Services.Domain.Enums;
 using Services.Facade.Extensions;
 using Services.Facade.Observer;
 using System;
-using System.Drawing;
 using System.Windows.Forms;
 using UI.Helpers;
 
@@ -15,7 +14,7 @@ namespace UI.Formularios.Base
     /// Proporciona funcionalidad común: botones de acción, manejo de estados y estilos.
     /// Los formularios derivados deben agregar sus propios controles de datos.
     /// </summary>
-    public partial class frmBaseABM : XtraForm, IObserver
+    public partial class frmBaseABM : IObserver
     {
         #region "PROPIEDADES"
 
@@ -202,14 +201,14 @@ namespace UI.Formularios.Base
         }
 
         /// <summary>
-        /// Aplica estilo a un LabelControl según el modo
+        /// Aplica estilo a un LayoutControlItem (que contiene el label) según el modo
         /// </summary>
-        protected void AplicarEstiloLabel(LabelControl label, bool esEditable)
+        protected void AplicarEstiloLayoutItem(DevExpress.XtraLayout.LayoutControlItem item, bool esEditable)
         {
             if (esEditable)
-                ControlFactory.AplicarModoEdicionLabels(label);
+                ControlFactory.AplicarModoEdicionItems(item);
             else
-                ControlFactory.AplicarModoVisualizacionLabels(label);
+                ControlFactory.AplicarModoVisualizacionItems(item);
         }
 
         /// <summary>

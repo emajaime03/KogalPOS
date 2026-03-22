@@ -43,6 +43,12 @@ namespace UI.Formularios.Administrador.Usuarios
         {
             InitializeComponent();
             InicializarFormulario();
+
+            // 1. Estilizamos los "Labels" generados por el LayoutControl
+            ControlFactory.ConfigurarLayoutItem(this.lciUserName, "Usuario:", false);
+            ControlFactory.ConfigurarLayoutItem(this.lciPassword, "Contraseña:", false);
+            ControlFactory.ConfigurarLayoutItem(this.lciFamilias, "Familias", false);
+            ControlFactory.ConfigurarLayoutItem(this.lciPatentes, "Patentes", false);
         }
 
         #endregion
@@ -53,10 +59,10 @@ namespace UI.Formularios.Administrador.Usuarios
         {
             base.ConfigurarTextos();
             this.Text = EsNuevo ? "Nuevo Usuario".Translate() : "Detalle Usuario".Translate();
-            lblUserName.Text = "Usuario".Translate();
-            lblPassword.Text = "Contraseña".Translate();
-            lblFamilias.Text = "Familias".Translate();
-            lblPatentes.Text = "Patentes".Translate();
+            lciUserName.Text = "Usuario".Translate();
+            lciPassword.Text = "Contraseña".Translate();
+            lciFamilias.Text = "Familias".Translate();
+            lciPatentes.Text = "Patentes".Translate();
 
             ActualizarCaptionsColumnas();
         }
@@ -237,10 +243,10 @@ namespace UI.Formularios.Administrador.Usuarios
             gvPatentes.OptionsBehavior.Editable = esEditable;
 
             ControlFactory.AplicarModo(
-                esEditable,
-                new[] { txtUserName, txtPassword },
-                new[] { lblUserName, lblPassword, lblFamilias, lblPatentes },
-                new[] { gvFamilias, gvPatentes }
+                esEditable: true,
+                textEdits: new[] { this.txtUserName, this.txtPassword },
+                itemsLayout: new[] { this.lciUserName, this.lciPassword, this.lciFamilias, this.lciPatentes },
+                grillas: new[] { this.gvFamilias, this.gvPatentes }
             );
         }
 
