@@ -22,6 +22,10 @@ namespace UI.Formularios.Articulos
         {
             InitializeComponent();
             InicializarFormulario();
+
+            ControlFactory.ConfigurarLayoutItem(this.lciCodigo, false);
+            ControlFactory.ConfigurarLayoutItem(this.lciDescripcion, false);
+            ControlFactory.ConfigurarLayoutItem(this.lciStockActual, false);
         }
         #endregion
 
@@ -31,9 +35,9 @@ namespace UI.Formularios.Articulos
         {
             base.ConfigurarTextos();
             this.Text = EsNuevo ? "Nuevo Artículo".Translate() : "Detalle Artículo".Translate();
-            lblCodigo.Text = "Código".Translate();
-            lblDescripcion.Text = "Descripción".Translate();
-            lblStockActual.Text = "Stock Actual".Translate();
+            lciCodigo.Text = "Código".Translate();
+            lciDescripcion.Text = "Descripción".Translate();
+            lciStockActual.Text = "Stock Actual".Translate();
         }
 
         protected override void CargarDatos()
@@ -129,24 +133,15 @@ namespace UI.Formularios.Articulos
 
         protected override void OnTipoPantallaCambiado(E_TipoPantalla tipoPantalla)
         {
-            bool esEditable = EsModoEdicion;
-
-            txtCodigo.Properties.ReadOnly = !esEditable;
-            txtDescripcion.Properties.ReadOnly = !esEditable;
-            // StockActual siempre read-only — se actualiza por movimientos de stock
-            txtStockActual.Properties.ReadOnly = true;
-
             ControlFactory.AplicarModo(
-                esEditable,
-                new[] { txtCodigo, txtDescripcion },
-                new[] { lblCodigo, lblDescripcion, lblStockActual }
+                esEditable: EsModoEdicion,
+                textEdits: new[] { this.txtCodigo, this.txtDescripcion },
+                itemsLayout: new[] { this.lciCodigo, this.lciDescripcion, this.lciStockActual }
             );
 
-            // StockActual siempre se muestra con estilo de visualización
             ControlFactory.AplicarModo(
-                false,
-                new[] { txtStockActual },
-                null
+                esEditable: false,
+                textEdits: new[] { this.txtStockActual }
             );
         }
 

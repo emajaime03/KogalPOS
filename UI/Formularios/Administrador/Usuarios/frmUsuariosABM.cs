@@ -45,10 +45,10 @@ namespace UI.Formularios.Administrador.Usuarios
             InicializarFormulario();
 
             // 1. Estilizamos los "Labels" generados por el LayoutControl
-            ControlFactory.ConfigurarLayoutItem(this.lciUserName, "Usuario:", false);
-            ControlFactory.ConfigurarLayoutItem(this.lciPassword, "Contraseña:", false);
-            ControlFactory.ConfigurarLayoutItem(this.lciFamilias, "Familias", false);
-            ControlFactory.ConfigurarLayoutItem(this.lciPatentes, "Patentes", false);
+            ControlFactory.ConfigurarLayoutItem(this.lciUserName, false);
+            ControlFactory.ConfigurarLayoutItem(this.lciPassword, false);
+            ControlFactory.ConfigurarLayoutItem(this.lciFamilias, false);
+            ControlFactory.ConfigurarLayoutItem(this.lciPatentes, false);
         }
 
         #endregion
@@ -235,15 +235,8 @@ namespace UI.Formularios.Administrador.Usuarios
 
         protected override void OnTipoPantallaCambiado(E_TipoPantalla tipoPantalla)
         {
-            bool esEditable = EsModoEdicion;
-
-            txtUserName.Properties.ReadOnly = !esEditable;
-            txtPassword.Properties.ReadOnly = !esEditable;
-            gvFamilias.OptionsBehavior.Editable = esEditable;
-            gvPatentes.OptionsBehavior.Editable = esEditable;
-
             ControlFactory.AplicarModo(
-                esEditable: true,
+                EsModoEdicion,
                 textEdits: new[] { this.txtUserName, this.txtPassword },
                 itemsLayout: new[] { this.lciUserName, this.lciPassword, this.lciFamilias, this.lciPatentes },
                 grillas: new[] { this.gvFamilias, this.gvPatentes }

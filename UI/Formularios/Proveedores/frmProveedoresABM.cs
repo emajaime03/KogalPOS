@@ -16,6 +16,12 @@ namespace UI.Formularios.Proveedores
         {
             InitializeComponent();
             InicializarFormulario();
+
+            // 1. Estilizamos los "Labels" nativos del LayoutControl (false porque no son títulos de sección)
+            ControlFactory.ConfigurarLayoutItem(this.lciDescripcion, false);
+            ControlFactory.ConfigurarLayoutItem(this.lciEmail, false);
+            ControlFactory.ConfigurarLayoutItem(this.lciCelular, false);
+
         }
 
         #region "MÉTODOS OVERRIDE"
@@ -24,9 +30,9 @@ namespace UI.Formularios.Proveedores
         {
             base.ConfigurarTextos();
             this.Text = EsNuevo ? "Nuevo Proveedor".Translate() : "Detalle de Proveedor".Translate();
-            lblDescripcion.Text = "Descripción".Translate();
-            lblEmail.Text = "Email".Translate();
-            lblCelular.Text = "Celular".Translate();
+            lciDescripcion.Text = "Descripción".Translate();
+            lciEmail.Text = "Email".Translate();
+            lciCelular.Text = "Celular".Translate();
         }
 
         protected override void CargarDatos()
@@ -118,9 +124,9 @@ namespace UI.Formularios.Proveedores
         protected override void OnTipoPantallaCambiado(E_TipoPantalla tipoPantalla)
         {
             ControlFactory.AplicarModo(
-                EsModoEdicion,
-                new[] { txtDescripcion, txtEmail, txtCelular },
-                new[] { lblDescripcion, lblEmail, lblCelular }
+                EsModoEdicion, 
+                textEdits: new[] { this.txtDescripcion, this.txtEmail, this.txtCelular },
+                itemsLayout: new[] { this.lciDescripcion, this.lciEmail, this.lciCelular }
             );
         }
 

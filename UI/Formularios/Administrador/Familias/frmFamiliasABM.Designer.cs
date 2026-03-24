@@ -4,7 +4,7 @@ using UI.Helpers;
 
 namespace UI.Formularios.Administrador.Familias
 {
-    partial class frmFamiliasABM : frmBaseABM
+    partial class frmFamiliasABM
     {
         /// <summary>
         /// Required designer variable.
@@ -41,9 +41,7 @@ namespace UI.Formularios.Administrador.Familias
             this.layoutControlHijo = new DevExpress.XtraLayout.LayoutControl();
             this.RootHijo = new DevExpress.XtraLayout.LayoutControlGroup();
             this.lciDescripcion = new DevExpress.XtraLayout.LayoutControlItem();
-            this.emptySpace1 = new DevExpress.XtraLayout.EmptySpaceItem();
             this.lciFamiliasHijos = new DevExpress.XtraLayout.LayoutControlItem();
-            this.emptySpace2 = new DevExpress.XtraLayout.EmptySpaceItem();
             this.lciPatentes = new DevExpress.XtraLayout.LayoutControlItem();
 
             this.panelContenido.SuspendLayout();
@@ -56,9 +54,7 @@ namespace UI.Formularios.Administrador.Familias
             this.layoutControlHijo.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.RootHijo)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.lciDescripcion)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.emptySpace1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.lciFamiliasHijos)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.emptySpace2)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.lciPatentes)).BeginInit();
             this.SuspendLayout();
 
@@ -124,9 +120,7 @@ namespace UI.Formularios.Administrador.Familias
             this.RootHijo.GroupBordersVisible = false;
             this.RootHijo.Items.AddRange(new DevExpress.XtraLayout.BaseLayoutItem[] {
             this.lciDescripcion,
-            this.emptySpace1,
             this.lciFamiliasHijos,
-            this.emptySpace2,
             this.lciPatentes});
             this.RootHijo.Name = "RootHijo";
             this.RootHijo.Size = new System.Drawing.Size(977, 432);
@@ -141,17 +135,6 @@ namespace UI.Formularios.Administrador.Familias
             this.lciDescripcion.TextSize = new System.Drawing.Size(58, 13);
 
             // 
-            // emptySpace1
-            // 
-            this.emptySpace1.AllowHotTrack = false;
-            this.emptySpace1.Name = "emptySpace1";
-            this.emptySpace1.Size = new System.Drawing.Size(957, 30);
-            this.emptySpace1.MinSize = new System.Drawing.Size(10, 30);
-            this.emptySpace1.MaxSize = new System.Drawing.Size(0, 30);
-            this.emptySpace1.SizeConstraintsType = DevExpress.XtraLayout.SizeConstraintsType.Custom;
-            this.emptySpace1.TextSize = new System.Drawing.Size(0, 0);
-
-            // 
             // lciFamiliasHijos
             // 
             this.lciFamiliasHijos.Control = this.gcFamiliasHijos;
@@ -161,17 +144,6 @@ namespace UI.Formularios.Administrador.Familias
             this.lciFamiliasHijos.TextSize = new System.Drawing.Size(58, 13);
             this.lciFamiliasHijos.MinSize = new System.Drawing.Size(100, 150);
             this.lciFamiliasHijos.SizeConstraintsType = DevExpress.XtraLayout.SizeConstraintsType.Custom;
-
-            // 
-            // emptySpace2
-            // 
-            this.emptySpace2.AllowHotTrack = false;
-            this.emptySpace2.Name = "emptySpace2";
-            this.emptySpace2.Size = new System.Drawing.Size(957, 30);
-            this.emptySpace2.MinSize = new System.Drawing.Size(10, 30);
-            this.emptySpace2.MaxSize = new System.Drawing.Size(0, 30);
-            this.emptySpace2.SizeConstraintsType = DevExpress.XtraLayout.SizeConstraintsType.Custom;
-            this.emptySpace2.TextSize = new System.Drawing.Size(0, 0);
 
             // 
             // lciPatentes
@@ -208,9 +180,7 @@ namespace UI.Formularios.Administrador.Familias
             this.layoutControlHijo.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.RootHijo)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.lciDescripcion)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.emptySpace1)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.lciFamiliasHijos)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.emptySpace2)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.lciPatentes)).EndInit();
             this.ResumeLayout(false);
 
@@ -228,9 +198,7 @@ namespace UI.Formularios.Administrador.Familias
         private DevExpress.XtraLayout.LayoutControl layoutControlHijo;
         private DevExpress.XtraLayout.LayoutControlGroup RootHijo;
         private DevExpress.XtraLayout.LayoutControlItem lciDescripcion;
-        private DevExpress.XtraLayout.EmptySpaceItem emptySpace1;
         private DevExpress.XtraLayout.LayoutControlItem lciFamiliasHijos;
-        private DevExpress.XtraLayout.EmptySpaceItem emptySpace2;
         private DevExpress.XtraLayout.LayoutControlItem lciPatentes;
     }
 }

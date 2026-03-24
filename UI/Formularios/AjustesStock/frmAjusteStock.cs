@@ -39,6 +39,11 @@ namespace UI.Formularios.AjustesStock
             btnQuitarFila.Click += BtnQuitarFila_Click;
 
             InicializarFormulario();
+
+            ControlFactory.ConfigurarLayoutItem(this.lciTipoMovimiento, false);
+            ControlFactory.ConfigurarLayoutItem(this.lciFecha, false);
+            ControlFactory.ConfigurarLayoutItem(this.lciGridItems, true); // Como es la grilla, le pasamos true
+                        
         }
         #endregion
 
@@ -171,9 +176,9 @@ namespace UI.Formularios.AjustesStock
         {
             base.ConfigurarTextos();
             this.Text = EsNuevo ? "Nuevo Ajuste de Stock".Translate() : "Detalle Ajuste de Stock".Translate();
-            lblTipoMovimiento.Text = "Tipo Movimiento".Translate();
-            lblFecha.Text = "Fecha".Translate();
-            lblTituloItems.Text = "Artículos del Ajuste".Translate();
+            lciTipoMovimiento.Text = "Tipo Movimiento".Translate();
+            lciFecha.Text = "Fecha".Translate();
+            lciGridItems.Text = "Artículos del Ajuste".Translate();
             btnAgregarFila.Text = "Agregar Artículo".Translate();
             btnQuitarFila.Text = "Quitar Artículo".Translate();
         }
@@ -291,35 +296,18 @@ namespace UI.Formularios.AjustesStock
 
         protected override void OnTipoPantallaCambiado(E_TipoPantalla tipoPantalla)
         {
-            bool esEditable = EsModoEdicion;
-
-            cmbTipoMovimiento.Properties.ReadOnly = !esEditable;
-            txtFecha.Properties.ReadOnly = true; // Siempre readonly
-
-            // Mostrar/ocultar botones de agregar/quitar ítems
-            btnAgregarFila.Visible = esEditable;
-            btnQuitarFila.Visible = esEditable;
-
-            // Grilla editable solo en modo nuevo
-            gridViewItems.OptionsBehavior.Editable = esEditable;
-
             ControlFactory.AplicarModo(
-                esEditable,
-                new[] { txtFecha },
-                new[] { lblTipoMovimiento, lblFecha, lblTituloItems }
+                esEditable: EsModoEdicion,
+                textEdits: new[] { this.cmbTipoMovimiento },
+                itemsLayout: new[] { this.lciTipoMovimiento, this.lciFecha, this.lciGridItems },
+                grillas: new[] { this.gridViewItems },
+                botones: new[] { this.btnAgregarFila, this.btnQuitarFila }
             );
 
-            // ComboBox — aplicar estilo manualmente
-            if (esEditable)
-                ControlFactory.AplicarModoEdicion(cmbTipoMovimiento);
-            else
-                ControlFactory.AplicarModoVisualizacion(cmbTipoMovimiento);
-
-            // Grilla estilo
-            if (esEditable)
-                ControlFactory.AplicarModoGrillaEdicion(gridViewItems);
-            else
-                ControlFactory.AplicarModoGrillaVisualizacion(gridViewItems);
+            ControlFactory.AplicarModo(
+                esEditable: false,
+                textEdits: new[] { this.txtFecha }
+            );
         }
 
         protected override E_FormsServicesValues? GetFormServiceValue()

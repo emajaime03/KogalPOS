@@ -1,5 +1,6 @@
 using DevExpress.XtraEditors;
 using DevExpress.XtraGrid.Views.Grid;
+using DevExpress.XtraLayout;
 using System.Collections.Generic;
 using System.Drawing;
 
@@ -85,10 +86,8 @@ namespace UI.Helpers
         /// <summary>
         /// NUEVO: Estiliza un LayoutControlItem (el "Label" que genera el LayoutControl)
         /// </summary>
-        public static void ConfigurarLayoutItem(DevExpress.XtraLayout.LayoutControlItem item, string texto, bool esTitulo = false)
+        public static void ConfigurarLayoutItem(DevExpress.XtraLayout.LayoutControlItem item, bool esTitulo = false)
         {
-            item.Text = texto;
-
             // Si es un título de grilla usamos la fuente más grande, si es un campo normal, la etiqueta base
             item.AppearanceItemCaption.Font = esTitulo ? FontHelper.FuenteSubtituloSemibold : FontHelper.FuenteEtiqueta;
             item.AppearanceItemCaption.ForeColor = LabelEdicion;
@@ -140,41 +139,83 @@ namespace UI.Helpers
         public static void AplicarModoGrillaEdicion(params GridView[] gridViews)
         {
             foreach (var gv in gridViews)
+            {
+                gv.OptionsBehavior.Editable = true; // <-- AGREGADO
                 AplicarEstiloGrillaBase(gv,
                     GrillaHeaderEdicionBg, GrillaHeaderEdicionFg,
                     Color.White, Color.Black,
                     GrillaEvenRowEdicion, Color.White,
                     Color.Black, Color.Black,
                     GrillaFocusedEdicionBg, GrillaFocusedEdicionFg);
+            }
         }
 
         public static void AplicarModoGrillaVisualizacion(params GridView[] gridViews)
         {
             foreach (var gv in gridViews)
+            {
+                gv.OptionsBehavior.Editable = false; // <-- AGREGADO
                 AplicarEstiloGrillaBase(gv,
                     GrillaHeaderVisualizacionBg, GrillaHeaderVisualizacionFg,
                     GrillaRowVisualizacionBg, TextoVisualizacion,
                     GrillaEvenRowVisualizacion, GrillaOddRowVisualizacion,
                     TextoVisualizacion, TextoVisualizacion,
                     GrillaFocusedVisualizacionBg, GrillaFocusedVisualizacionFg);
+            }
+        }
+
+        public static void AplicarModoEdicionBotones(params DevExpress.XtraEditors.SimpleButton[] botones)
+        {
+            foreach (var btn in botones)
+            {
+                btn.Enabled = true;
+            }
+        }
+
+        public static void AplicarModoVisualizacionBotones(params DevExpress.XtraEditors.SimpleButton[] botones)
+        {
+            foreach (var btn in botones)
+            {
+                btn.Enabled = false;
+            }
+        }
+
+        public static void AplicarModoEdicionChecks(params DevExpress.XtraEditors.CheckEdit[] controles)
+        {
+            foreach (var chk in controles) chk.Properties.ReadOnly = false;
+        }
+
+        public static void AplicarModoVisualizacionChecks(params DevExpress.XtraEditors.CheckEdit[] controles)
+        {
+            foreach (var chk in controles) chk.Properties.ReadOnly = true;
         }
 
         /// <summary>
-        /// Actualizado para aceptar LayoutControlItem[] en lugar de LabelControl[]
+        /// Actualizado para aceptar también SimpleButton[]
         /// </summary>
-        public static void AplicarModo(bool esEditable, TextEdit[] textEdits = null, DevExpress.XtraLayout.LayoutControlItem[] itemsLayout = null, GridView[] grillas = null)
+        public static void AplicarModo(
+            bool esEditable,
+            TextEdit[] textEdits = null,
+            DevExpress.XtraLayout.LayoutControlItem[] itemsLayout = null,
+            GridView[] grillas = null,
+            DevExpress.XtraEditors.SimpleButton[] botones = null,
+            DevExpress.XtraEditors.CheckEdit[] checkEdits = null)
         {
             if (esEditable)
             {
                 if (textEdits != null) AplicarModoEdicion(textEdits);
                 if (itemsLayout != null) AplicarModoEdicionItems(itemsLayout);
                 if (grillas != null) AplicarModoGrillaEdicion(grillas);
+                if (botones != null) AplicarModoEdicionBotones(botones);
+                if (checkEdits != null) AplicarModoEdicionChecks(checkEdits);
             }
             else
             {
                 if (textEdits != null) AplicarModoVisualizacion(textEdits);
                 if (itemsLayout != null) AplicarModoVisualizacionItems(itemsLayout);
                 if (grillas != null) AplicarModoGrillaVisualizacion(grillas);
+                if (botones != null) AplicarModoVisualizacionBotones(botones);
+                if (checkEdits != null) AplicarModoVisualizacionChecks(checkEdits);
             }
         }
 

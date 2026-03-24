@@ -15,7 +15,7 @@ using UI.Helpers;
 
 namespace UI.Formularios.Administrador.Familias
 {
-    public partial class frmFamiliasABM
+    public partial class frmFamiliasABM : frmBaseABM
     {
         #region "PROPIEDADES"
 
@@ -44,9 +44,9 @@ namespace UI.Formularios.Administrador.Familias
             InitializeComponent();
             InicializarFormulario();
 
-            ControlFactory.ConfigurarLayoutItem(this.lciDescripcion, "Descripción:", false);
-            ControlFactory.ConfigurarLayoutItem(this.lciFamiliasHijos, "Familias Hijos", false);
-            ControlFactory.ConfigurarLayoutItem(this.lciPatentes, "Patentes", false);
+            ControlFactory.ConfigurarLayoutItem(this.lciDescripcion, false);
+            ControlFactory.ConfigurarLayoutItem(this.lciFamiliasHijos, false);
+            ControlFactory.ConfigurarLayoutItem(this.lciPatentes, false);
         }
 
         #endregion
@@ -216,14 +216,8 @@ namespace UI.Formularios.Administrador.Familias
 
         protected override void OnTipoPantallaCambiado(E_TipoPantalla tipoPantalla)
         {
-            bool esEditable = EsModoEdicion;
-
-            txtDescripcion.Properties.ReadOnly = !esEditable;
-            gvFamiliasHijos.OptionsBehavior.Editable = esEditable;
-            gvPatentes.OptionsBehavior.Editable = esEditable;
-
             ControlFactory.AplicarModo(
-                esEditable,
+                EsModoEdicion,
                 textEdits: new[] { this.txtDescripcion },
                 itemsLayout: new[] { this.lciDescripcion, this.lciFamiliasHijos, this.lciPatentes },
                 grillas: new[] { this.gvFamiliasHijos, this.gvPatentes }

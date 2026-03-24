@@ -38,9 +38,7 @@ namespace UI.Formularios.Administrador.Usuarios
             this.RootHijo = new DevExpress.XtraLayout.LayoutControlGroup();
             this.lciUserName = new DevExpress.XtraLayout.LayoutControlItem();
             this.lciPassword = new DevExpress.XtraLayout.LayoutControlItem();
-            this.emptySpace1 = new DevExpress.XtraLayout.EmptySpaceItem();
             this.lciFamilias = new DevExpress.XtraLayout.LayoutControlItem();
-            this.emptySpace2 = new DevExpress.XtraLayout.EmptySpaceItem();
             this.lciPatentes = new DevExpress.XtraLayout.LayoutControlItem();
 
             this.panelContenido.SuspendLayout();
@@ -55,9 +53,7 @@ namespace UI.Formularios.Administrador.Usuarios
             ((System.ComponentModel.ISupportInitialize)(this.RootHijo)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.lciUserName)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.lciPassword)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.emptySpace1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.lciFamilias)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.emptySpace2)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.lciPatentes)).BeginInit();
             this.SuspendLayout();
 
@@ -135,9 +131,7 @@ namespace UI.Formularios.Administrador.Usuarios
             this.RootHijo.Items.AddRange(new DevExpress.XtraLayout.BaseLayoutItem[] {
             this.lciUserName,
             this.lciPassword,
-            this.emptySpace1,
             this.lciFamilias,
-            this.emptySpace2,
             this.lciPatentes});
             this.RootHijo.Name = "RootHijo";
             this.RootHijo.Size = new System.Drawing.Size(977, 432);
@@ -160,17 +154,6 @@ namespace UI.Formularios.Administrador.Usuarios
             this.lciPassword.TextSize = new System.Drawing.Size(65, 13);
 
             // 
-            // emptySpace1
-            // 
-            this.emptySpace1.AllowHotTrack = false;
-            this.emptySpace1.Name = "emptySpace1";
-            this.emptySpace1.Size = new System.Drawing.Size(957, 30);
-            this.emptySpace1.MinSize = new System.Drawing.Size(10, 30);
-            this.emptySpace1.MaxSize = new System.Drawing.Size(0, 30);
-            this.emptySpace1.SizeConstraintsType = DevExpress.XtraLayout.SizeConstraintsType.Custom;
-            this.emptySpace1.TextSize = new System.Drawing.Size(0, 0);
-
-            // 
             // lciFamilias
             // 
             this.lciFamilias.Control = this.gcFamilias;
@@ -180,17 +163,6 @@ namespace UI.Formularios.Administrador.Usuarios
             this.lciFamilias.TextSize = new System.Drawing.Size(65, 13);
             this.lciFamilias.MinSize = new System.Drawing.Size(100, 150);
             this.lciFamilias.SizeConstraintsType = DevExpress.XtraLayout.SizeConstraintsType.Custom;
-
-            // 
-            // emptySpace2
-            // 
-            this.emptySpace2.AllowHotTrack = false;
-            this.emptySpace2.Name = "emptySpace2";
-            this.emptySpace2.Size = new System.Drawing.Size(957, 30);
-            this.emptySpace2.MinSize = new System.Drawing.Size(10, 30);
-            this.emptySpace2.MaxSize = new System.Drawing.Size(0, 30);
-            this.emptySpace2.SizeConstraintsType = DevExpress.XtraLayout.SizeConstraintsType.Custom;
-            this.emptySpace2.TextSize = new System.Drawing.Size(0, 0);
 
             // 
             // lciPatentes
@@ -229,9 +201,7 @@ namespace UI.Formularios.Administrador.Usuarios
             ((System.ComponentModel.ISupportInitialize)(this.RootHijo)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.lciUserName)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.lciPassword)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.emptySpace1)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.lciFamilias)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.emptySpace2)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.lciPatentes)).EndInit();
             this.ResumeLayout(false);
 
@@ -251,9 +221,7 @@ namespace UI.Formularios.Administrador.Usuarios
         private DevExpress.XtraLayout.LayoutControlGroup RootHijo;
         private DevExpress.XtraLayout.LayoutControlItem lciUserName;
         private DevExpress.XtraLayout.LayoutControlItem lciPassword;
-        private DevExpress.XtraLayout.EmptySpaceItem emptySpace1;
         private DevExpress.XtraLayout.LayoutControlItem lciFamilias;
-        private DevExpress.XtraLayout.EmptySpaceItem emptySpace2;
         private DevExpress.XtraLayout.LayoutControlItem lciPatentes;
     }
 }

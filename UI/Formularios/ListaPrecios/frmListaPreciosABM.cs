@@ -39,6 +39,11 @@ namespace UI.Formularios.ListaPrecios
             btnQuitarFila.Click += BtnQuitarFila_Click;
 
             InicializarFormulario();
+
+            ControlFactory.ConfigurarLayoutItem(this.lciDescripcion, false);
+            ControlFactory.ConfigurarLayoutItem(this.lciVigenciaDesde, false);
+            ControlFactory.ConfigurarLayoutItem(this.lciVigenciaHasta, false);
+            ControlFactory.ConfigurarLayoutItem(this.lciGridItems, true);
         }
         #endregion
 
@@ -158,11 +163,11 @@ namespace UI.Formularios.ListaPrecios
         {
             base.ConfigurarTextos();
             this.Text = EsNuevo ? "Nueva Lista de Precios".Translate() : "Detalle Lista de Precios".Translate();
-            lblDescripcion.Text = "Descripción".Translate();
+            lciDescripcion.Text = "Descripción".Translate();
             chkEsPredeterminada.Text = "Es Predeterminada".Translate();
-            lblVigenciaDesde.Text = "Vigencia Desde".Translate();
-            lblVigenciaHasta.Text = "Vigencia Hasta".Translate();
-            lblTituloItems.Text = "Artículos y Precios".Translate();
+            lciVigenciaDesde.Text = "Vigencia Desde".Translate();
+            lciVigenciaHasta.Text = "Vigencia Hasta".Translate();
+            lciGridItems.Text = "Artículos y Precios".Translate();
             btnAgregarFila.Text = "Agregar Artículo".Translate();
             btnQuitarFila.Text = "Quitar Artículo".Translate();
         }
@@ -301,31 +306,23 @@ namespace UI.Formularios.ListaPrecios
 
         protected override void OnTipoPantallaCambiado(E_TipoPantalla tipoPantalla)
         {
-            bool esEditable = EsModoEdicion;
-
-            txtDescripcion.Properties.ReadOnly = !esEditable;
-            chkEsPredeterminada.Properties.ReadOnly = !esEditable;
-            dtVigenciaDesde.Properties.ReadOnly = !esEditable;
-            dtVigenciaHasta.Properties.ReadOnly = !esEditable;
-
-            // Mostrar/ocultar botones de agregar/quitar ítems
-            btnAgregarFila.Visible = esEditable;
-            btnQuitarFila.Visible = esEditable;
-
-            // Grilla editable solo en modo edición
-            gridViewItems.OptionsBehavior.Editable = esEditable;
-
             ControlFactory.AplicarModo(
-                esEditable,
-                new[] { txtDescripcion },
-                new[] { lblDescripcion, lblVigenciaDesde, lblVigenciaHasta, lblTituloItems }
+                esEditable: EsModoEdicion,
+                textEdits: new DevExpress.XtraEditors.TextEdit[] {
+                    this.txtDescripcion,
+                    this.dtVigenciaDesde,
+                    this.dtVigenciaHasta
+                },
+                itemsLayout: new[] {
+                    this.lciDescripcion,
+                    this.lciVigenciaDesde,
+                    this.lciVigenciaHasta,
+                    this.lciGridItems
+                },
+                grillas: new[] { this.gridViewItems },
+                botones: new[] { this.btnAgregarFila, this.btnQuitarFila },
+                checkEdits: new[] { this.chkEsPredeterminada }
             );
-
-            // Grilla estilo
-            if (esEditable)
-                ControlFactory.AplicarModoGrillaEdicion(gridViewItems);
-            else
-                ControlFactory.AplicarModoGrillaVisualizacion(gridViewItems);
         }
 
         protected override E_FormsServicesValues? GetFormServiceValue()

@@ -17,6 +17,10 @@ namespace UI.Formularios.Clientes
             InitializeComponent();
             CargarComboTipoDocumento();
             InicializarFormulario();
+
+            ControlFactory.ConfigurarLayoutItem(this.lciDescripcion, false);
+            ControlFactory.ConfigurarLayoutItem(this.lciNroDocumento, false);
+            ControlFactory.ConfigurarLayoutItem(this.lciTipoDocumento, false);
         }
 
         #region "MÉTODOS PRIVADOS"
@@ -38,9 +42,9 @@ namespace UI.Formularios.Clientes
         {
             base.ConfigurarTextos();
             this.Text = EsNuevo ? "Nuevo Cliente".Translate() : "Detalle de Cliente".Translate();
-            lblDescripcion.Text = "Descripción".Translate();
-            lblNroDocumento.Text = "Nro Documento".Translate();
-            lblTipoDocumento.Text = "Tipo Documento".Translate();
+            lciDescripcion.Text = "Descripción".Translate();
+            lciNroDocumento.Text = "Nro Documento".Translate();
+            lciTipoDocumento.Text = "Tipo Documento".Translate();
         }
 
         protected override void CargarDatos()
@@ -133,9 +137,9 @@ namespace UI.Formularios.Clientes
         protected override void OnTipoPantallaCambiado(E_TipoPantalla tipoPantalla)
         {
             ControlFactory.AplicarModo(
-                EsModoEdicion,
-                new[] { txtDescripcion, txtNroDocumento, cmbTipoDocumento },
-                new[] { lblDescripcion, lblNroDocumento, lblTipoDocumento }
+                esEditable: EsModoEdicion,
+                textEdits: new[] { this.txtDescripcion, this.txtNroDocumento, this.cmbTipoDocumento },
+                itemsLayout: new[] { this.lciDescripcion, this.lciNroDocumento, this.lciTipoDocumento }
             );
         }
 
