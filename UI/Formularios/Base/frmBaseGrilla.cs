@@ -23,8 +23,10 @@ namespace UI.Formularios.Base
         /// </summary>
         public bool MostrarBotonNuevo
         {
-            get => btnNuevo.Visible;
-            set => btnNuevo.Visible = value;
+            get => layoutControlItem2.Visibility == DevExpress.XtraLayout.Utils.LayoutVisibility.Always;
+            set => layoutControlItem2.Visibility = value
+                ? DevExpress.XtraLayout.Utils.LayoutVisibility.Always
+                : DevExpress.XtraLayout.Utils.LayoutVisibility.Never;
         }
 
         /// <summary>
@@ -32,8 +34,10 @@ namespace UI.Formularios.Base
         /// </summary>
         public bool MostrarBotonDetalle
         {
-            get => btnDetalle.Visible;
-            set => btnDetalle.Visible = value;
+            get => layoutControlItem1.Visibility == DevExpress.XtraLayout.Utils.LayoutVisibility.Always;
+            set => layoutControlItem1.Visibility = value
+                ? DevExpress.XtraLayout.Utils.LayoutVisibility.Always
+                : DevExpress.XtraLayout.Utils.LayoutVisibility.Never;
         }
 
         /// <summary>
@@ -225,7 +229,7 @@ namespace UI.Formularios.Base
         {
             // Aplicar estilos automáticamente a todos los controles
             FormStyleHelper.AplicarEstilosListado(this);
-            
+
             ConfigurarTextos();
             ConfigurarColumnas();
             CargarPantalla();

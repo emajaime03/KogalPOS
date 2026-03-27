@@ -76,7 +76,8 @@ namespace UI.Formularios.Administrador.Familias
                 {
                     FieldName = nameof(Familia.Descripcion),
                     Caption = "Descripción".Translate(),
-                    Visible = true
+                    Visible = true,
+                    OptionsColumn = { AllowEdit = false }
                 },
                 new GridColumn
                 {
@@ -95,7 +96,8 @@ namespace UI.Formularios.Administrador.Familias
                 {
                     FieldName = nameof(Patente.Descripcion),
                     Caption = "Descripción".Translate(),
-                    Visible = true
+                    Visible = true,
+                    OptionsColumn = { AllowEdit = false }
                 },
                 new GridColumn
                 {
