@@ -10,6 +10,9 @@ namespace Services.Domain.BLL
     #region "OBTENER LISTA"
     public class ReqFamiliasObtener : ReqBase
     {
+        public ReqFamiliasObtener(GlobalCliente sesion) : base(sesion)
+        {
+        }
     }
 
     public class ResFamiliasObtener : ResBase
@@ -21,6 +24,10 @@ namespace Services.Domain.BLL
     #region "OBTENER DETALLE"
     public class ReqFamiliaObtener : ReqBase
     {
+        public ReqFamiliaObtener(GlobalCliente sesion) : base(sesion)
+        {
+        }
+
         public Guid Id { get; set; }
     }
 
@@ -35,6 +42,10 @@ namespace Services.Domain.BLL
     #region "INSERTAR"
     public class ReqFamiliaInsertar : ReqBase
     {
+        public ReqFamiliaInsertar(GlobalCliente sesion) : base(sesion)
+        {
+        }
+
         public Familia Familia { get; set; }
         public List<Guid> FamiliasHijosIds { get; set; }
         public List<Guid> PatentesIds { get; set; }
@@ -49,6 +60,10 @@ namespace Services.Domain.BLL
     #region "MODIFICAR"
     public class ReqFamiliaModificar : ReqBase
     {
+        public ReqFamiliaModificar(GlobalCliente sesion) : base(sesion)
+        {
+        }
+
         public Familia Familia { get; set; }
         public List<Guid> FamiliasHijosIds { get; set; }
         public List<Guid> PatentesIds { get; set; }
@@ -63,6 +78,10 @@ namespace Services.Domain.BLL
     #region "ELIMINAR"
     public class ReqFamiliaEliminar : ReqBase
     {
+        public ReqFamiliaEliminar(GlobalCliente sesion) : base(sesion)
+        {
+        }
+
         public Guid Id { get; set; }
     }
 
@@ -74,6 +93,10 @@ namespace Services.Domain.BLL
     #region "RESTAURAR"
     public class ReqFamiliaRestaurar : ReqBase
     {
+        public ReqFamiliaRestaurar(GlobalCliente sesion) : base(sesion)
+        {
+        }
+
         public Guid Id { get; set; }
     }
 

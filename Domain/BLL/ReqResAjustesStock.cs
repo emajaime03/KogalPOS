@@ -1,3 +1,4 @@
+using Services.Domain;
 using Services.Domain.BLL.Base;
 using System;
 using System.Collections.Generic;
@@ -7,6 +8,9 @@ namespace Domain.BLL
     #region "OBTENER LISTA"
     public class ReqAjustesStockObtener : ReqBase
     {
+        public ReqAjustesStockObtener(GlobalCliente sesion) : base(sesion)
+        {
+        }
     }
 
     public class ResAjustesStockObtener : ResBase
@@ -18,6 +22,10 @@ namespace Domain.BLL
     #region "OBTENER DETALLE"
     public class ReqAjusteStockObtener : ReqBase
     {
+        public ReqAjusteStockObtener(GlobalCliente sesion) : base(sesion)
+        {
+        }
+
         public Guid Id { get; set; }
     }
 
@@ -30,6 +38,10 @@ namespace Domain.BLL
     #region "INSERTAR"
     public class ReqAjusteStockInsertar : ReqBase
     {
+        public ReqAjusteStockInsertar(GlobalCliente sesion) : base(sesion)
+        {
+        }
+
         public MovimientoStock Movimiento { get; set; }
     }
 
@@ -42,6 +54,10 @@ namespace Domain.BLL
     #region "ELIMINAR"
     public class ReqAjusteStockEliminar : ReqBase
     {
+        public ReqAjusteStockEliminar(GlobalCliente sesion) : base(sesion)
+        {
+        }
+
         public Guid Id { get; set; }
     }
 
@@ -53,6 +69,10 @@ namespace Domain.BLL
     #region "RESTAURAR"
     public class ReqAjusteStockRestaurar : ReqBase
     {
+        public ReqAjusteStockRestaurar(GlobalCliente sesion) : base(sesion)
+        {
+        }
+
         public Guid Id { get; set; }
     }
 

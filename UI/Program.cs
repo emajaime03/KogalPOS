@@ -9,6 +9,9 @@ using System.Windows.Forms;
 using UI.Principal;
 using Services.Domain.BLL;
 using UI.Helpers;
+using Domain;
+using BLL.Services;
+using Domain.BLL;
 
 namespace UI
 {
@@ -39,7 +42,7 @@ namespace UI
                 DevExpress.XtraEditors.WindowsFormsSettings.DefaultFont = FontHelper.FuenteBase;
 
                 // Sincronizo todas las patentes del enum a la base de datos
-                PatentesBLL.Current.Sincronizar(new ReqPatentesSincronizar());
+                PatentesBLL.Current.Sincronizar(new ReqPatentesSincronizar(null));
 
                 // Ciclo de login - permite volver al login después de cerrar sesión
                 bool continuar = true;
@@ -62,9 +65,15 @@ namespace UI
                     }
                     else
                     {
-                        GlobalCliente.UsuarioLogin = usuario;
-                        
-                        using (frmPrincipal principal = new frmPrincipal())
+                        GlobalClientePOS sesion = new GlobalClientePOS();
+                        sesion.UsuarioLogin = usuario;
+
+                        var res = ConfiguracionAppBLL.Current.Obtener(new ReqConfiguracionAppObtener(sesion));
+
+                        // Lado del cliente - Desde el servidor (cuando exista) debe hacerse lo mismo
+                        ConfiguracionApp.Current.configuracionLocal = res.configuracionLocal;
+
+                        using (frmPrincipal principal = new frmPrincipal(sesion))
                         {
                             Application.Run(principal);
                         }

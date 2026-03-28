@@ -41,11 +41,15 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="BLL\ReqResConfiguracionApp.cs" />
+    <Compile Include="ConfiguracionApp.cs" />
+    <Compile Include="ConfiguracionLocal.cs" />
     <Compile Include="Articulo.cs" />
     <Compile Include="Cliente.cs" />
     <Compile Include="BLL\ReqResArticulos.cs" />
     <Compile Include="BLL\ReqResClientes.cs" />
     <Compile Include="BLL\ReqResProveedores.cs" />
+    <Compile Include="GlobalClientePOS.cs" />
     <Compile Include="Proveedor.cs" />
     <Compile Include="MovimientoStock.cs" />
     <Compile Include="MovimientoItem.cs" />

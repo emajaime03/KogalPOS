@@ -1,4 +1,4 @@
-using BLL.Services;
+﻿using BLL.Services;
 using Domain;
 using Domain.BLL;
 using Services.Domain.Enums;
@@ -9,7 +9,7 @@ namespace UI.Formularios.Proveedores
 {
     public partial class frmProveedores : frmBaseGrilla
     {
-        public frmProveedores()
+        public frmProveedores(Services.Domain.GlobalCliente sesion) : base(sesion)
         {
         }
 
@@ -32,7 +32,7 @@ namespace UI.Formularios.Proveedores
 
         protected override void CargarPantalla()
         {
-            var res = ProveedorBLL.Current.ObtenerLista(new ReqProveedoresObtener());
+            var res = ProveedorBLL.Current.ObtenerLista(new ReqProveedoresObtener(this.Sesion));
             EstablecerDataSource(res.Proveedores);
         }
 

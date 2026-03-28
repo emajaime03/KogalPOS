@@ -1,4 +1,4 @@
-using DevExpress.XtraEditors;
+﻿using DevExpress.XtraEditors;
 using DevExpress.XtraGrid.Columns;
 using Services.Domain;
 using Services.Domain.BLL;
@@ -15,9 +15,12 @@ namespace UI.Formularios.Administrador.Usuarios
 {
     public partial class frmUsuarios : XtraForm, IObserver
     {
+        public Services.Domain.GlobalCliente Sesion { get; private set; }
+
         #region "CONSTRUCTOR"
-        public frmUsuarios()
+        public frmUsuarios(Services.Domain.GlobalCliente sesion)
         {
+            this.Sesion = sesion;
             InitializeComponent();
 
             FormSubject.Current.Attach(this);
@@ -39,7 +42,7 @@ namespace UI.Formularios.Administrador.Usuarios
             ConfigurarTextos();
             ConfigurarColumnas();
             
-            // Aplicar estilos automáticamente (grilla principal + grillas compactas de detalle)
+            // Aplicar estilos automÃ¡ticamente (grilla principal + grillas compactas de detalle)
             FormStyleHelper.AplicarEstilosListado(this, "gcUsuarios");
             ButtonStyleHelper.ConfigurarBarraHerramientas(btnNuevo, btnDetalle, btnRefresh, btnExport);
             
@@ -163,7 +166,7 @@ namespace UI.Formularios.Administrador.Usuarios
 
         private void CargarPantalla()
         {
-            var res = UsuarioBLL.Current.ObtenerLista(new ReqUsuariosObtener());
+            var res = UsuarioBLL.Current.ObtenerLista(new ReqUsuariosObtener(this.Sesion));
             this.gcUsuarios.DataSource = res.Usuarios;
         }
 
@@ -244,13 +247,13 @@ namespace UI.Formularios.Administrador.Usuarios
                     if (saveFileDialog.ShowDialog() == DialogResult.OK)
                     {
                         gridView.ExportToXlsx(saveFileDialog.FileName);
-                        XtraMessageBox.Show("Exportación completada exitosamente.".Translate(), "Éxito".Translate(), MessageBoxButtons.OK, MessageBoxIcon.Information);
+                        XtraMessageBox.Show("ExportaciÃ³n completada exitosamente.".Translate(), "Ã‰xito".Translate(), MessageBoxButtons.OK, MessageBoxIcon.Information);
                     }
                 }
             }
             else
             {
-                XtraMessageBox.Show("El GridControl no contiene un GridView válido.".Translate(), "Error".Translate(), MessageBoxButtons.OK, MessageBoxIcon.Error);
+                XtraMessageBox.Show("El GridControl no contiene un GridView vÃ¡lido.".Translate(), "Error".Translate(), MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
 

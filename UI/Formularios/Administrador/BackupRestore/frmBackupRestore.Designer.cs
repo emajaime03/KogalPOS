@@ -1,4 +1,4 @@
-using DevExpress.XtraEditors;
+﻿using DevExpress.XtraEditors;
 using System.Drawing;
 using System.Windows.Forms;
 
@@ -70,7 +70,7 @@ namespace UI.Formularios.Administrador.BackupRestore
             this.lblInstrucciones.Name = "lblInstrucciones";
             this.lblInstrucciones.Size = new System.Drawing.Size(420, 60);
             this.lblInstrucciones.TabIndex = 0;
-            this.lblInstrucciones.Text = "Seleccione una opción para gestionar la copia de seguridad de la base de datos.";
+            this.lblInstrucciones.Text = "Seleccione una opciÃ³n para gestionar la copia de seguridad de la base de datos.";
             // 
             // frmBackupRestore
             // 

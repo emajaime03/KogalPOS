@@ -1,4 +1,4 @@
-using BLL.Services;
+﻿using BLL.Services;
 using Domain;
 using Domain.BLL;
 using Services.Domain.Enums;
@@ -9,7 +9,7 @@ namespace UI.Formularios.Clientes
 {
     public partial class frmClientes : frmBaseGrilla
     {
-        public frmClientes()
+        public frmClientes(Services.Domain.GlobalCliente sesion) : base(sesion)
         {
         }
 
@@ -32,7 +32,7 @@ namespace UI.Formularios.Clientes
 
         protected override void CargarPantalla()
         {
-            var res = ClienteBLL.Current.ObtenerLista(new ReqClientesObtener());
+            var res = ClienteBLL.Current.ObtenerLista(new ReqClientesObtener(this.Sesion));
             EstablecerDataSource(res.Clientes);
         }
 

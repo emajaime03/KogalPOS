@@ -16,6 +16,7 @@ namespace UI.Principal
     public partial class frmPrincipal : RibbonForm, IObserver
     {
         #region "PROPIEDADES"
+        public GlobalCliente Sesion { get; private set; }
         // Items de la barra de estado
         private BarStaticItem lblUsuario;
         private BarStaticItem lblIdioma;
@@ -26,8 +27,9 @@ namespace UI.Principal
         #endregion
 
         #region "CONSTRUCTOR"
-        public frmPrincipal()
+        public frmPrincipal(GlobalCliente sesion)
         {
+            this.Sesion = sesion;
             InitializeComponent();
 
             FormSubject.Current.Attach(this);
@@ -82,7 +84,7 @@ namespace UI.Principal
 
             foreach (var item in _menuItems)
             {
-                if (GlobalCliente.UsuarioLogin.CheckPatente(item.Patente))
+                if (this.Sesion.UsuarioLogin.CheckPatente(item.Patente))
                 {
                     AgregarItem(item);
                 }
@@ -128,7 +130,7 @@ namespace UI.Principal
             // === SECCIÓN IZQUIERDA: Usuario actual ===
             lblUsuario = new BarStaticItem
             {
-                Caption = $"👤 {GlobalCliente.UsuarioLogin?.UserName ?? "Usuario"}",
+                Caption = $"👤 {this.Sesion.UsuarioLogin?.UserName ?? "Usuario"}",
                 Id = ribbon.Items.Count + 1,
                 Alignment = BarItemLinkAlignment.Left
             };
@@ -212,7 +214,7 @@ namespace UI.Principal
 
         private void ConfigurarTextos()
         {
-            this.Text = $"KogalPOS - {GlobalCliente.UsuarioLogin?.UserName}";
+            this.Text = $"KogalPOS - {this.Sesion.UsuarioLogin?.UserName}";
 
             // Traducir captions de las páginas del ribbon
             rbpAdmin.Text = "Administración".Translate();
@@ -303,7 +305,7 @@ namespace UI.Principal
             if (result == DialogResult.Yes)
             {
                 Program.CerrarSesion = true;
-                GlobalCliente.UsuarioLogin = null;
+                this.Sesion.UsuarioLogin = null;
                 this.Close();
             }
         }

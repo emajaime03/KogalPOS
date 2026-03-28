@@ -1,4 +1,4 @@
-namespace UI.Formularios.ListaPrecios
+﻿namespace UI.Formularios.ListaPrecios
 {
     partial class frmListaPrecios
     {

@@ -6,7 +6,14 @@ using System.Threading.Tasks;
 
 namespace Services.Domain.BLL.Base
 {
-    public class ReqBase
+    public abstract class ReqBase
     {
+        public GlobalCliente Sesion { get; private set; }
+
+        protected ReqBase(GlobalCliente sesion)
+        {
+            Sesion = sesion;
+        }
     }
+
 }

@@ -1,4 +1,4 @@
-
+﻿
 namespace UI.Formularios.Administrador.Familias
 {
     partial class frmFamilias

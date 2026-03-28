@@ -1,4 +1,4 @@
-using BLL.Services;
+﻿using BLL.Services;
 using DevExpress.XtraEditors;
 using Domain;
 using Domain.BLL;
@@ -18,7 +18,7 @@ namespace UI.Formularios.Articulos
         #endregion
 
         #region "CONSTRUCTOR"
-        public frmArticulosABM(Guid id = default) : base(id)
+        public frmArticulosABM(Services.Domain.GlobalCliente sesion, Guid id = default) : base(sesion, id)
         {
             InitializeComponent();
             InicializarFormulario();
@@ -29,7 +29,7 @@ namespace UI.Formularios.Articulos
         }
         #endregion
 
-        #region "MÉTODOS OVERRIDE"
+        #region "METODOS OVERRIDE"
 
         protected override void ConfigurarTextos()
         {
@@ -49,7 +49,7 @@ namespace UI.Formularios.Articulos
             }
             else
             {
-                var res = ArticuloBLL.Current.Obtener(new ReqArticuloObtener { Id = Id });
+                var res = ArticuloBLL.Current.Obtener(new ReqArticuloObtener(this.Sesion) { Id = Id });
 
                 if (res.Success && res.Articulo != null)
                 {
@@ -96,7 +96,7 @@ namespace UI.Formularios.Articulos
         {
             if (EsNuevo)
             {
-                var req = new ReqArticuloInsertar
+                var req = new ReqArticuloInsertar(this.Sesion)
                 {
                     Articulo = new Articulo
                     {
@@ -113,7 +113,7 @@ namespace UI.Formularios.Articulos
                 ArticuloActual.Codigo = txtCodigo.Text.Trim();
                 ArticuloActual.Descripcion = txtDescripcion.Text.Trim();
 
-                var req = new ReqArticuloModificar { Articulo = ArticuloActual };
+                var req = new ReqArticuloModificar(this.Sesion) { Articulo = ArticuloActual };
                 var res = ArticuloBLL.Current.Modificar(req);
                 return res.Success;
             }
@@ -121,13 +121,13 @@ namespace UI.Formularios.Articulos
 
         protected override bool EliminarRegistro()
         {
-            var res = ArticuloBLL.Current.Eliminar(new ReqArticuloEliminar { Id = Id });
+            var res = ArticuloBLL.Current.Eliminar(new ReqArticuloEliminar(this.Sesion) { Id = Id });
             return res.Success;
         }
 
         protected override bool RestaurarRegistro()
         {
-            var res = ArticuloBLL.Current.Restaurar(new ReqArticuloRestaurar { Id = Id });
+            var res = ArticuloBLL.Current.Restaurar(new ReqArticuloRestaurar(this.Sesion) { Id = Id });
             return res.Success;
         }
 

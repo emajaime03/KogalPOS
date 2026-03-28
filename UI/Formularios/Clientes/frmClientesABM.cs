@@ -1,4 +1,4 @@
-using BLL.Services;
+﻿using BLL.Services;
 using DevExpress.XtraEditors;
 using Domain;
 using Domain.BLL;
@@ -12,7 +12,7 @@ namespace UI.Formularios.Clientes
 {
     public partial class frmClientesABM : frmBaseABM
     {
-        public frmClientesABM(Guid id = default) : base(id)
+        public frmClientesABM(Services.Domain.GlobalCliente sesion, Guid id = default) : base(sesion, id)
         {
             InitializeComponent();
             CargarComboTipoDocumento();
@@ -23,7 +23,7 @@ namespace UI.Formularios.Clientes
             ControlFactory.ConfigurarLayoutItem(this.lciTipoDocumento, false);
         }
 
-        #region "MÉTODOS PRIVADOS"
+        #region "METODOS PRIVADOS"
 
         private void CargarComboTipoDocumento()
         {
@@ -36,7 +36,7 @@ namespace UI.Formularios.Clientes
 
         #endregion
 
-        #region "MÉTODOS OVERRIDE"
+        #region "METODOS OVERRIDE"
 
         protected override void ConfigurarTextos()
         {
@@ -56,7 +56,7 @@ namespace UI.Formularios.Clientes
             }
             else
             {
-                var res = ClienteBLL.Current.Obtener(new ReqClienteObtener { Id = Id });
+                var res = ClienteBLL.Current.Obtener(new ReqClienteObtener(this.Sesion) { Id = Id });
 
                 if (res.Success && res.Cliente != null)
                 {
@@ -76,8 +76,8 @@ namespace UI.Formularios.Clientes
             if (string.IsNullOrWhiteSpace(txtDescripcion.Text))
             {
                 XtraMessageBox.Show(
-                    "La descripción es obligatoria.".Translate(),
-                    "Validación".Translate(),
+                    "La Descripción es obligatoria.".Translate(),
+                    "ValidaciÃ³n".Translate(),
                     System.Windows.Forms.MessageBoxButtons.OK,
                     System.Windows.Forms.MessageBoxIcon.Warning);
                 txtDescripcion.Focus();
@@ -91,7 +91,7 @@ namespace UI.Formularios.Clientes
         {
             if (EsNuevo)
             {
-                var req = new ReqClienteInsertar
+                var req = new ReqClienteInsertar(this.Sesion)
                 {
                     Cliente = new Cliente
                     {
@@ -106,7 +106,7 @@ namespace UI.Formularios.Clientes
             }
             else
             {
-                var req = new ReqClienteModificar
+                var req = new ReqClienteModificar(this.Sesion)
                 {
                     Cliente = new Cliente
                     {
@@ -124,13 +124,13 @@ namespace UI.Formularios.Clientes
 
         protected override bool EliminarRegistro()
         {
-            var res = ClienteBLL.Current.Eliminar(new ReqClienteEliminar { Id = Id });
+            var res = ClienteBLL.Current.Eliminar(new ReqClienteEliminar(this.Sesion) { Id = Id });
             return res.Success;
         }
 
         protected override bool RestaurarRegistro()
         {
-            var res = ClienteBLL.Current.Restaurar(new ReqClienteRestaurar { Id = Id });
+            var res = ClienteBLL.Current.Restaurar(new ReqClienteRestaurar(this.Sesion) { Id = Id });
             return res.Success;
         }
 

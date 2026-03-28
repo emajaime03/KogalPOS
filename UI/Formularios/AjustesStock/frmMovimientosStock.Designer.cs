@@ -1,4 +1,4 @@
-namespace UI.Formularios.AjustesStock
+﻿namespace UI.Formularios.AjustesStock
 {
     partial class frmMovimientosStock
     {

@@ -1,4 +1,4 @@
-
+ï»¿
 using DevExpress.XtraEditors;
 
 namespace UI.Formularios.Base
@@ -68,7 +68,7 @@ namespace UI.Formularios.Base
             // 
             this.btnModificar.Location = new System.Drawing.Point(12, 12);
             this.btnModificar.Name = "btnModificar";
-            this.btnModificar.Size = new System.Drawing.Size(101, 32); // TU TAMAÑO ORIGINAL
+            this.btnModificar.Size = new System.Drawing.Size(101, 32); // TU TAMAÃ‘O ORIGINAL
             this.btnModificar.TabIndex = 4;
             this.btnModificar.Text = "Modificar";
             // 
@@ -76,7 +76,7 @@ namespace UI.Formularios.Base
             // 
             this.btnEliminar.Location = new System.Drawing.Point(117, 12);
             this.btnEliminar.Name = "btnEliminar";
-            this.btnEliminar.Size = new System.Drawing.Size(101, 32); // TU TAMAÑO ORIGINAL
+            this.btnEliminar.Size = new System.Drawing.Size(101, 32); // TU TAMAÃ‘O ORIGINAL
             this.btnEliminar.TabIndex = 5;
             this.btnEliminar.Text = "Eliminar";
             // 
@@ -84,7 +84,7 @@ namespace UI.Formularios.Base
             // 
             this.btnRestaurar.Location = new System.Drawing.Point(222, 12);
             this.btnRestaurar.Name = "btnRestaurar";
-            this.btnRestaurar.Size = new System.Drawing.Size(101, 32); // TU TAMAÑO ORIGINAL
+            this.btnRestaurar.Size = new System.Drawing.Size(101, 32); // TU TAMAÃ‘O ORIGINAL
             this.btnRestaurar.TabIndex = 6;
             this.btnRestaurar.Text = "Restaurar";
             // 

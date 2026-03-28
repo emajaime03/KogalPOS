@@ -109,7 +109,7 @@ namespace Services.BLL.Services
         #endregion
 
         #region "INSERTAR"
-        public ResUsuarioInsertar Insertar(ReqUsuarioInsertar req)
+        public ResUsuarioInsertar Insertar(ReqUsuarioInsertar req, GlobalCliente sesion)
         {
             ResUsuarioInsertar res = new ResUsuarioInsertar();
 
@@ -171,7 +171,7 @@ namespace Services.BLL.Services
                 res.Success = true;
                 res.Message = "Usuario creado exitosamente";
 
-                LoggerService.WriteLog(new Log($"Usuario '{req.Usuario.UserName}' creado.", GlobalCliente.UsuarioLogin?.UserName ?? "Sistema", TraceLevel.Info));
+                LoggerService.WriteLog(new Log($"Usuario '{req.Usuario.UserName}' creado.", sesion?.UsuarioLogin?.UserName ?? "Sistema", TraceLevel.Info));
             }
 
             return res;
@@ -179,7 +179,7 @@ namespace Services.BLL.Services
         #endregion
 
         #region "MODIFICAR"
-        public ResUsuarioModificar Modificar(ReqUsuarioModificar req)
+        public ResUsuarioModificar Modificar(ReqUsuarioModificar req, GlobalCliente sesion)
         {
             ResUsuarioModificar res = new ResUsuarioModificar();
 
@@ -241,7 +241,7 @@ namespace Services.BLL.Services
                 res.Success = true;
                 res.Message = "Usuario modificado exitosamente";
 
-                LoggerService.WriteLog(new Log($"Usuario '{req.Usuario.UserName}' modificado.", GlobalCliente.UsuarioLogin?.UserName ?? "Sistema", TraceLevel.Info));
+                LoggerService.WriteLog(new Log($"Usuario '{req.Usuario.UserName}' modificado.", sesion?.UsuarioLogin?.UserName ?? "Sistema", TraceLevel.Info));
             }
 
             return res;
@@ -249,7 +249,7 @@ namespace Services.BLL.Services
         #endregion
 
         #region "ELIMINAR"
-        public ResUsuarioEliminar Eliminar(ReqUsuarioEliminar req)
+        public ResUsuarioEliminar Eliminar(ReqUsuarioEliminar req, GlobalCliente sesion)
         {
             ResUsuarioEliminar res = new ResUsuarioEliminar();
 
@@ -265,7 +265,7 @@ namespace Services.BLL.Services
                 var usuario = context.Repositories.UsuarioRepository.GetById(req.Id);
                 
                 // No permitir eliminar el usuario actual
-                if (GlobalCliente.UsuarioLogin != null && GlobalCliente.UsuarioLogin.IdUsuario == req.Id)
+                if (sesion?.UsuarioLogin != null && sesion.UsuarioLogin.IdUsuario == req.Id)
                 {
                     res.Success = false;
                     res.Message = "No puede eliminar el usuario con el que está logueado";
@@ -279,7 +279,7 @@ namespace Services.BLL.Services
                 res.Success = true;
                 res.Message = "Usuario eliminado exitosamente";
 
-                LoggerService.WriteLog(new Log($"Usuario '{usuario?.UserName}' eliminado.", GlobalCliente.UsuarioLogin?.UserName ?? "Sistema", TraceLevel.Info));
+                LoggerService.WriteLog(new Log($"Usuario '{usuario?.UserName}' eliminado.", sesion?.UsuarioLogin?.UserName ?? "Sistema", TraceLevel.Info));
             }
 
             return res;
@@ -287,7 +287,7 @@ namespace Services.BLL.Services
         #endregion
 
         #region "RESTAURAR"
-        public ResUsuarioRestaurar Restaurar(ReqUsuarioRestaurar req)
+        public ResUsuarioRestaurar Restaurar(ReqUsuarioRestaurar req, GlobalCliente sesion)
         {
             ResUsuarioRestaurar res = new ResUsuarioRestaurar();
 
@@ -308,7 +308,7 @@ namespace Services.BLL.Services
                 res.Success = true;
                 res.Message = "Usuario restaurado exitosamente";
 
-                LoggerService.WriteLog(new Log($"Usuario '{usuario?.UserName}' restaurado.", GlobalCliente.UsuarioLogin?.UserName ?? "Sistema", TraceLevel.Info));
+                LoggerService.WriteLog(new Log($"Usuario '{usuario?.UserName}' restaurado.", sesion?.UsuarioLogin?.UserName ?? "Sistema", TraceLevel.Info));
             }
 
             return res;

@@ -10,6 +10,10 @@ namespace Services.Domain.BLL
     // === BACKUP ===
     public class ReqBackupRealizar : ReqBase
     {
+        public ReqBackupRealizar(GlobalCliente sesion) : base(sesion)
+        {
+        }
+
         public string RutaArchivo { get; set; }
     }
 
@@ -20,6 +24,10 @@ namespace Services.Domain.BLL
     // === RESTORE ===
     public class ReqBackupRestaurar : ReqBase
     {
+        public ReqBackupRestaurar(GlobalCliente sesion) : base(sesion)
+        {
+        }
+
         public string RutaArchivo { get; set; }
     }
 

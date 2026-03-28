@@ -1,4 +1,4 @@
-using BLL.Services;
+﻿using BLL.Services;
 using Domain;
 using Domain.BLL;
 using Services.Domain.Enums;
@@ -9,7 +9,7 @@ namespace UI.Formularios.Articulos
 {
     public partial class frmArticulos : frmBaseGrilla
     {
-        public frmArticulos()
+        public frmArticulos(Services.Domain.GlobalCliente sesion) : base(sesion)
         {
         }
 
@@ -32,7 +32,7 @@ namespace UI.Formularios.Articulos
 
         protected override void CargarPantalla()
         {
-            var res = ArticuloBLL.Current.ObtenerLista(new ReqArticulosObtener());
+            var res = ArticuloBLL.Current.ObtenerLista(new ReqArticulosObtener(this.Sesion));
             EstablecerDataSource(res.Articulos);
         }
 

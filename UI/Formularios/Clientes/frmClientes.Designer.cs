@@ -1,4 +1,4 @@
-namespace UI.Formularios.Clientes
+﻿namespace UI.Formularios.Clientes
 {
     partial class frmClientes
     {

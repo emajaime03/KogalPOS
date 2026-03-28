@@ -1,4 +1,4 @@
-using Services.Domain;
+﻿using Services.Domain;
 using Services.Domain.BLL;
 using Services.BLL.Services;
 using Services.Facade.Extensions;
@@ -8,7 +8,7 @@ namespace UI.Formularios.Administrador.Patentes
 {
     public partial class frmPatentes : frmBaseGrilla
     {
-        public frmPatentes()
+        public frmPatentes(Services.Domain.GlobalCliente sesion) : base(sesion)
         {
             InitializeComponent();
 
@@ -18,7 +18,7 @@ namespace UI.Formularios.Administrador.Patentes
 
         protected override void ConfigurarTextos()
         {
-            // Llamar al método base para actualizar los botones de la barra de herramientas
+            // Llamar al mÃ©todo base para actualizar los botones de la barra de herramientas
             base.ConfigurarTextos();
 
             this.Text = "Patentes".Translate();
@@ -50,7 +50,7 @@ namespace UI.Formularios.Administrador.Patentes
 
         protected override void CargarPantalla()
         {
-            var res = PatentesBLL.Current.Obtener(new ReqPatentesObtener());
+            var res = PatentesBLL.Current.Obtener(new ReqPatentesObtener(this.Sesion));
             EstablecerDataSource(res.Patentes);
         }
     }

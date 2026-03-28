@@ -1,4 +1,4 @@
-using BLL.Services;
+﻿using BLL.Services;
 using Domain;
 using Domain.BLL;
 using Services.Domain.Enums;
@@ -9,7 +9,7 @@ namespace UI.Formularios.AjustesStock
 {
     public partial class frmMovimientosStock : frmBaseGrilla
     {
-        public frmMovimientosStock()
+        public frmMovimientosStock(Services.Domain.GlobalCliente sesion) : base(sesion)
         {
         }
 
@@ -31,7 +31,7 @@ namespace UI.Formularios.AjustesStock
 
         protected override void CargarPantalla()
         {
-            var res = AjusteStockBLL.Current.ObtenerLista(new ReqAjustesStockObtener());
+            var res = AjusteStockBLL.Current.ObtenerLista(new ReqAjustesStockObtener(this.Sesion));
             EstablecerDataSource(res.Movimientos);
         }
 

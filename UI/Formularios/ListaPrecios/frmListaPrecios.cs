@@ -1,4 +1,4 @@
-using BLL.Services;
+﻿using BLL.Services;
 using Domain;
 using Domain.BLL;
 using Services.Domain.Enums;
@@ -9,7 +9,7 @@ namespace UI.Formularios.ListaPrecios
 {
     public partial class frmListaPrecios : frmBaseGrilla
     {
-        public frmListaPrecios()
+        public frmListaPrecios(Services.Domain.GlobalCliente sesion) : base(sesion)
         {
         }
 
@@ -31,7 +31,7 @@ namespace UI.Formularios.ListaPrecios
 
         protected override void CargarPantalla()
         {
-            var res = ListaPrecioBLL.Current.ObtenerLista(new ReqListaPreciosObtener());
+            var res = ListaPrecioBLL.Current.ObtenerLista(new ReqListaPreciosObtener(this.Sesion));
             EstablecerDataSource(res.ListaPrecios);
         }
 

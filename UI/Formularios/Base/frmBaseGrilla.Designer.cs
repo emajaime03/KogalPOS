@@ -1,4 +1,4 @@
-
+﻿
 namespace UI.Formularios.Base
 {
     partial class frmBaseGrilla

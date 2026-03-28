@@ -1,4 +1,4 @@
-using BLL.Services;
+﻿using BLL.Services;
 using DevExpress.XtraEditors;
 using DevExpress.XtraGrid.Columns;
 using DevExpress.XtraGrid.Views.Grid;
@@ -24,14 +24,14 @@ namespace UI.Formularios.AjustesStock
         #endregion
 
         #region "CONSTRUCTOR"
-        public frmAjusteStock(Guid id = default) : base(id)
+        public frmAjusteStock(Services.Domain.GlobalCliente sesion, Guid id = default) : base(sesion, id)
         {
             InitializeComponent();
 
-            // Cargar artículos para el LookUpEdit
+            // Cargar Artículos para el LookUpEdit
             CargarArticulosDisponibles();
 
-            // Configurar grilla de ítems
+            // Configurar grilla de Items
             ConfigurarGrillaItems();
 
             // Configurar eventos de botones
@@ -47,11 +47,11 @@ namespace UI.Formularios.AjustesStock
         }
         #endregion
 
-        #region "MÉTODOS PRIVADOS"
+        #region "METODOS PRIVADOS"
 
         private void CargarArticulosDisponibles()
         {
-            var res = ArticuloBLL.Current.ObtenerLista(new ReqArticulosObtener());
+            var res = ArticuloBLL.Current.ObtenerLista(new ReqArticulosObtener(this.Sesion));
             ArticulosDisponibles = res.Articulos ?? new List<Articulo>();
         }
 
@@ -79,7 +79,7 @@ namespace UI.Formularios.AjustesStock
             colArticulo.ColumnEdit = lkpArticulo;
             gridViewItems.Columns.Add(colArticulo);
 
-            // Columna Código (readonly, para visualización)
+            // Columna Código (readonly, para visualizaciÃ³n)
             var colCodigo = new GridColumn
             {
                 FieldName = nameof(MovimientoItem.CodigoArticulo),
@@ -132,7 +132,7 @@ namespace UI.Formularios.AjustesStock
             };
             gridViewItems.Columns.Add(colDescripcion);
 
-            // Evento para auto-llenar código al seleccionar artículo
+            // Evento para auto-llenar Código al seleccionar Artículo
             gridViewItems.CellValueChanged += GridViewItems_CellValueChanged;
         }
 
@@ -170,7 +170,7 @@ namespace UI.Formularios.AjustesStock
 
         #endregion
 
-        #region "MÉTODOS OVERRIDE"
+        #region "METODOS OVERRIDE"
 
         protected override void ConfigurarTextos()
         {
@@ -202,7 +202,7 @@ namespace UI.Formularios.AjustesStock
             }
             else
             {
-                var res = AjusteStockBLL.Current.Obtener(new ReqAjusteStockObtener { Id = Id });
+                var res = AjusteStockBLL.Current.Obtener(new ReqAjusteStockObtener(this.Sesion) { Id = Id });
 
                 if (res.Success && res.Movimiento != null)
                 {
@@ -219,7 +219,7 @@ namespace UI.Formularios.AjustesStock
                     ItemsBinding = new BindingList<MovimientoItem>(res.Movimiento.Items);
                     gridItems.DataSource = ItemsBinding;
 
-                    // Estado determina modo de visualización
+                    // Estado determina modo de visualizaciÃ³n
                     TipoPantalla = res.Movimiento.Estado == E_Estados.Activo 
                         ? E_TipoPantalla.Visualizar 
                         : E_TipoPantalla.VisualizarEliminado;
@@ -232,8 +232,8 @@ namespace UI.Formularios.AjustesStock
             if (ItemsBinding == null || ItemsBinding.Count == 0)
             {
                 XtraMessageBox.Show(
-                    "Debe agregar al menos un artículo al ajuste".Translate(),
-                    "Validación".Translate(),
+                    "Debe agregar al menos un Artículo al ajuste".Translate(),
+                    "ValidaciÃ³n".Translate(),
                     MessageBoxButtons.OK,
                     MessageBoxIcon.Warning);
                 return false;
@@ -244,8 +244,8 @@ namespace UI.Formularios.AjustesStock
                 if (item.IdArticulo == Guid.Empty)
                 {
                     XtraMessageBox.Show(
-                        "Todos los ítems deben tener un artículo seleccionado".Translate(),
-                        "Validación".Translate(),
+                        "Todos los Items deben tener un Artículo seleccionado".Translate(),
+                        "ValidaciÃ³n".Translate(),
                         MessageBoxButtons.OK,
                         MessageBoxIcon.Warning);
                     return false;
@@ -255,7 +255,7 @@ namespace UI.Formularios.AjustesStock
                 {
                     XtraMessageBox.Show(
                         "La cantidad debe ser mayor a cero".Translate(),
-                        "Validación".Translate(),
+                        "ValidaciÃ³n".Translate(),
                         MessageBoxButtons.OK,
                         MessageBoxIcon.Warning);
                     return false;
@@ -275,21 +275,21 @@ namespace UI.Formularios.AjustesStock
                 Items = new List<MovimientoItem>(ItemsBinding)
             };
 
-            var req = new ReqAjusteStockInsertar { Movimiento = movimiento };
+            var req = new ReqAjusteStockInsertar(this.Sesion) { Movimiento = movimiento };
             var res = AjusteStockBLL.Current.Insertar(req);
             return res.Success;
         }
 
         protected override bool EliminarRegistro()
         {
-            var req = new ReqAjusteStockEliminar { Id = Id };
+            var req = new ReqAjusteStockEliminar(this.Sesion) { Id = Id };
             var res = AjusteStockBLL.Current.Eliminar(req);
             return res.Success;
         }
 
         protected override bool RestaurarRegistro()
         {
-            var req = new ReqAjusteStockRestaurar { Id = Id };
+            var req = new ReqAjusteStockRestaurar(this.Sesion) { Id = Id };
             var res = AjusteStockBLL.Current.Restaurar(req);
             return res.Success;
         }

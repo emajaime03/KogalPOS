@@ -1,4 +1,4 @@
-using DevExpress.XtraEditors;
+﻿using DevExpress.XtraEditors;
 using DevExpress.XtraEditors.Repository;
 using DevExpress.XtraGrid.Columns;
 using Services.Domain;
@@ -39,7 +39,7 @@ namespace UI.Formularios.Administrador.Familias
 
         #region "CONSTRUCTOR"
 
-        public frmFamiliasABM(Guid id = default) : base(id)
+        public frmFamiliasABM(Services.Domain.GlobalCliente sesion, Guid id = default) : base(sesion, id)
         {
             InitializeComponent();
             InicializarFormulario();
@@ -51,7 +51,7 @@ namespace UI.Formularios.Administrador.Familias
 
         #endregion
 
-        #region "MÉTODOS OVERRIDE"
+        #region "METODOS OVERRIDE"
 
         protected override void ConfigurarTextos()
         {
@@ -119,7 +119,7 @@ namespace UI.Formularios.Administrador.Familias
 
         protected override void CargarDatos()
         {
-            var res = FamiliasBLL.Current.Obtener(new ReqFamiliaObtener { Id = Id });
+            var res = FamiliasBLL.Current.Obtener(new ReqFamiliaObtener(this.Sesion) { Id = Id });
 
             TodasFamilias = res.ListaFamilias ?? new List<Familia>();
             TodasPatentes = res.ListaPatentes ?? new List<Patente>();
@@ -149,8 +149,8 @@ namespace UI.Formularios.Administrador.Familias
             if (string.IsNullOrWhiteSpace(txtDescripcion.Text))
             {
                 XtraMessageBox.Show(
-                    "La descripción es requerida".Translate(),
-                    "Validación".Translate(),
+                    "La Descripción es requerida".Translate(),
+                    "ValidaciÃ³n".Translate(),
                     MessageBoxButtons.OK,
                     MessageBoxIcon.Warning);
                 txtDescripcion.Focus();
@@ -180,7 +180,7 @@ namespace UI.Formularios.Administrador.Familias
                     Estado = E_Estados.Activo
                 };
 
-                var res = FamiliasBLL.Current.Insertar(new ReqFamiliaInsertar
+                var res = FamiliasBLL.Current.Insertar(new ReqFamiliaInsertar(this.Sesion)
                 {
                     Familia = familia,
                     FamiliasHijosIds = familiasHijosIds,
@@ -193,7 +193,7 @@ namespace UI.Formularios.Administrador.Familias
             {
                 FamiliaActual.Descripcion = txtDescripcion.Text.Trim();
 
-                var res = FamiliasBLL.Current.Modificar(new ReqFamiliaModificar
+                var res = FamiliasBLL.Current.Modificar(new ReqFamiliaModificar(this.Sesion)
                 {
                     Familia = FamiliaActual,
                     FamiliasHijosIds = familiasHijosIds,
@@ -206,13 +206,13 @@ namespace UI.Formularios.Administrador.Familias
 
         protected override bool EliminarRegistro()
         {
-            var res = FamiliasBLL.Current.Eliminar(new ReqFamiliaEliminar { Id = Id });
+            var res = FamiliasBLL.Current.Eliminar(new ReqFamiliaEliminar(this.Sesion) { Id = Id });
             return res.Success;
         }
 
         protected override bool RestaurarRegistro()
         {
-            var res = FamiliasBLL.Current.Restaurar(new ReqFamiliaRestaurar { Id = Id });
+            var res = FamiliasBLL.Current.Restaurar(new ReqFamiliaRestaurar(this.Sesion) { Id = Id });
             return res.Success;
         }
 
@@ -233,7 +233,7 @@ namespace UI.Formularios.Administrador.Familias
 
         #endregion
 
-        #region "MÉTODOS PRIVADOS"
+        #region "METODOS PRIVADOS"
 
         private void ActualizarCaptionsColumnas()
         {

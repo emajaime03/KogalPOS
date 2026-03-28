@@ -1,4 +1,4 @@
-using DevExpress.XtraEditors;
+﻿using DevExpress.XtraEditors;
 using DevExpress.XtraGrid.Views.Grid;
 using Services.Domain.Enums;
 using Services.Facade.Extensions;
@@ -6,17 +6,23 @@ using Services.Facade.Observer;
 using System;
 using System.Windows.Forms;
 using UI.Helpers;
+using Services.Domain;
 
 namespace UI.Formularios.Base
 {
     /// <summary>
-    /// Formulario base para pantallas ABM (Alta/Baja/Modificación).
-    /// Proporciona funcionalidad común: botones de acción, manejo de estados y estilos.
+    /// Formulario base para pantallas ABM (Alta/Baja/ModificaciÃ³n).
+    /// Proporciona funcionalidad comÃºn: botones de acciÃ³n, manejo de estados y estilos.
     /// Los formularios derivados deben agregar sus propios controles de datos.
     /// </summary>
     public partial class frmBaseABM : IObserver
     {
         #region "PROPIEDADES"
+
+        /// <summary>
+        /// SesiÃ³n del usuario actual del sistema.
+        /// </summary>
+        public GlobalCliente Sesion { get; private set; }
 
         /// <summary>
         /// Identificador del registro actual (Guid.Empty para nuevo)
@@ -39,7 +45,7 @@ namespace UI.Formularios.Base
         }
 
         /// <summary>
-        /// Indica si la pantalla está en modo edición (Modificar o Nuevo)
+        /// Indica si la pantalla estÃ¡ en modo ediciÃ³n (Modificar o Nuevo)
         /// </summary>
         protected bool EsModoEdicion => TipoPantalla == E_TipoPantalla.Modificar || TipoPantalla == E_TipoPantalla.Nuevo;
 
@@ -59,17 +65,22 @@ namespace UI.Formularios.Base
             FormSubject.Current.Attach(this);
         }
 
-        public frmBaseABM(Guid id) : this()
+        public frmBaseABM(GlobalCliente sesion) : this()
+        {
+            Sesion = sesion;
+        }
+
+        public frmBaseABM(GlobalCliente sesion, Guid id) : this(sesion)
         {
             Id = id;
         }
 
         #endregion
 
-        #region "MÉTODOS VIRTUALES - PARA SOBRESCRIBIR"
+        #region "METODOS VIRTUALES - PARA SOBRESCRIBIR"
 
         /// <summary>
-        /// Configura los textos de la pantalla (títulos, labels, etc.)
+        /// Configura los textos de la pantalla (tÃ­tulos, labels, etc.)
         /// Sobrescribir en clases derivadas.
         /// </summary>
         protected virtual void ConfigurarTextos()
@@ -104,7 +115,7 @@ namespace UI.Formularios.Base
         /// Valida los datos antes de guardar.
         /// Sobrescribir en clases derivadas.
         /// </summary>
-        /// <returns>True si la validación es exitosa</returns>
+        /// <returns>True si la validaciÃ³n es exitosa</returns>
         protected virtual bool ValidarDatos()
         {
             return true;
@@ -114,17 +125,17 @@ namespace UI.Formularios.Base
         /// Guarda los datos (insertar o modificar).
         /// Sobrescribir en clases derivadas.
         /// </summary>
-        /// <returns>True si se guardó correctamente</returns>
+        /// <returns>True si se guardÃ³ correctamente</returns>
         protected virtual bool GuardarDatos()
         {
             return true;
         }
 
         /// <summary>
-        /// Elimina el registro actual (eliminación lógica).
+        /// Elimina el registro actual (eliminaciÃ³n lÃ³gica).
         /// Sobrescribir en clases derivadas.
         /// </summary>
-        /// <returns>True si se eliminó correctamente</returns>
+        /// <returns>True si se eliminÃ³ correctamente</returns>
         protected virtual bool EliminarRegistro()
         {
             return true;
@@ -134,7 +145,7 @@ namespace UI.Formularios.Base
         /// Restaura el registro eliminado.
         /// Sobrescribir en clases derivadas.
         /// </summary>
-        /// <returns>True si se restauró correctamente</returns>
+        /// <returns>True si se restaurÃ³ correctamente</returns>
         protected virtual bool RestaurarRegistro()
         {
             return true;
@@ -142,7 +153,7 @@ namespace UI.Formularios.Base
 
         /// <summary>
         /// Se ejecuta cuando cambia el tipo de pantalla.
-        /// Sobrescribir para aplicar estilos o lógica adicional.
+        /// Sobrescribir para aplicar estilos o lÃ³gica adicional.
         /// </summary>
         protected virtual void OnTipoPantallaCambiado(E_TipoPantalla tipoPantalla)
         {
@@ -160,7 +171,7 @@ namespace UI.Formularios.Base
 
         #endregion
 
-        #region "MÉTODOS PROTEGIDOS - HELPERS"
+        #region "METODOS PROTEGIDOS - HELPERS"
 
         /// <summary>
         /// Inicializa el formulario. Llamar desde el constructor de la clase derivada.
@@ -174,7 +185,7 @@ namespace UI.Formularios.Base
         }
 
         /// <summary>
-        /// Aplica estilo de visualización a una grilla (solo lectura)
+        /// Aplica estilo de visualizaciÃ³n a una grilla (solo lectura)
         /// </summary>
         protected void AplicarEstiloGrillaVisualizacion(GridView gridView)
         {
@@ -182,7 +193,7 @@ namespace UI.Formularios.Base
         }
 
         /// <summary>
-        /// Aplica estilo de edición a una grilla
+        /// Aplica estilo de ediciÃ³n a una grilla
         /// </summary>
         protected void AplicarEstiloGrillaEdicion(GridView gridView)
         {
@@ -190,7 +201,7 @@ namespace UI.Formularios.Base
         }
 
         /// <summary>
-        /// Aplica estilo a un TextEdit según el modo (edición o visualización)
+        /// Aplica estilo a un TextEdit segÃºn el modo (ediciÃ³n o visualizaciÃ³n)
         /// </summary>
         protected void AplicarEstiloTextEdit(TextEdit textEdit, bool esEditable)
         {
@@ -201,7 +212,7 @@ namespace UI.Formularios.Base
         }
 
         /// <summary>
-        /// Aplica estilo a un LayoutControlItem (que contiene el label) según el modo
+        /// Aplica estilo a un LayoutControlItem (que contiene el label) segÃºn el modo
         /// </summary>
         protected void AplicarEstiloLayoutItem(DevExpress.XtraLayout.LayoutControlItem item, bool esEditable)
         {
@@ -225,7 +236,7 @@ namespace UI.Formularios.Base
 
         #endregion
 
-        #region "MÉTODOS PRIVADOS"
+        #region "METODOS PRIVADOS"
 
         private void ConfigurarEventosBase()
         {
@@ -290,8 +301,8 @@ namespace UI.Formularios.Base
         private void BtnEliminar_Click(object sender, EventArgs e)
         {
             var result = XtraMessageBox.Show(
-                "¿Está seguro que desea eliminar este registro?".Translate(),
-                "Confirmar eliminación".Translate(),
+                "Â¿EstÃ¡ seguro que desea eliminar este registro?".Translate(),
+                "Confirmar eliminaciÃ³n".Translate(),
                 MessageBoxButtons.YesNo,
                 MessageBoxIcon.Question);
 
@@ -301,7 +312,7 @@ namespace UI.Formularios.Base
             {
                 XtraMessageBox.Show(
                     "Registro eliminado exitosamente".Translate(),
-                    "Éxito".Translate(),
+                    "Ã‰xito".Translate(),
                     MessageBoxButtons.OK,
                     MessageBoxIcon.Information);
 
@@ -313,8 +324,8 @@ namespace UI.Formularios.Base
         private void BtnRestaurar_Click(object sender, EventArgs e)
         {
             var result = XtraMessageBox.Show(
-                "¿Está seguro que desea restaurar este registro?".Translate(),
-                "Confirmar restauración".Translate(),
+                "Â¿EstÃ¡ seguro que desea restaurar este registro?".Translate(),
+                "Confirmar restauraciÃ³n".Translate(),
                 MessageBoxButtons.YesNo,
                 MessageBoxIcon.Question);
 
@@ -324,7 +335,7 @@ namespace UI.Formularios.Base
             {
                 XtraMessageBox.Show(
                     "Registro restaurado exitosamente".Translate(),
-                    "Éxito".Translate(),
+                    "Ã‰xito".Translate(),
                     MessageBoxButtons.OK,
                     MessageBoxIcon.Information);
 
@@ -343,7 +354,7 @@ namespace UI.Formularios.Base
                     TipoPantalla == E_TipoPantalla.Nuevo
                         ? "Registro creado exitosamente".Translate()
                         : "Registro modificado exitosamente".Translate(),
-                    "Éxito".Translate(),
+                    "Ã‰xito".Translate(),
                     MessageBoxButtons.OK,
                     MessageBoxIcon.Information);
 
@@ -374,7 +385,7 @@ namespace UI.Formularios.Base
 
         #endregion
 
-        #region "IMPLEMENTACIÓN IOBSERVER"
+        #region "IMPLEMENTACIÃ“N IOBSERVER"
 
         public virtual void Update<T>(T value, object data = null)
         {

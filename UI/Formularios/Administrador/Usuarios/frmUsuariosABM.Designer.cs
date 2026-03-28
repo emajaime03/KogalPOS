@@ -1,19 +1,12 @@
-using UI.Helpers;
+﻿using UI.Helpers;
 using System.Collections.Generic;
 
 namespace UI.Formularios.Administrador.Usuarios
 {
     partial class frmUsuariosABM
     {
-        /// <summary>
-        /// Required designer variable.
-        /// </summary>
         private System.ComponentModel.IContainer components = null;
 
-        /// <summary>
-        /// Clean up any resources being used.
-        /// </summary>
-        /// <param name="disposing">true if managed resources should be disposed; otherwise, false.</param>
         protected override void Dispose(bool disposing)
         {
             if (disposing && (components != null))
@@ -33,7 +26,6 @@ namespace UI.Formularios.Administrador.Usuarios
             this.gvPatentes = new DevExpress.XtraGrid.Views.Grid.GridView();
             this.txtUserName = new DevExpress.XtraEditors.TextEdit();
             this.txtPassword = new DevExpress.XtraEditors.TextEdit();
-
             this.layoutControlHijo = new DevExpress.XtraLayout.LayoutControl();
             this.RootHijo = new DevExpress.XtraLayout.LayoutControlGroup();
             this.lciUserName = new DevExpress.XtraLayout.LayoutControlItem();
@@ -78,7 +70,7 @@ namespace UI.Formularios.Administrador.Usuarios
             // 
             // gcFamilias
             // 
-            this.gcFamilias.Location = new System.Drawing.Point(12, 100);
+            this.gcFamilias.Location = new System.Drawing.Point(12, 79);
             this.gcFamilias.MainView = this.gvFamilias;
             this.gcFamilias.Name = "gcFamilias";
             this.gcFamilias.TabIndex = 6;
@@ -95,7 +87,7 @@ namespace UI.Formularios.Administrador.Usuarios
             // 
             // gcPatentes
             // 
-            this.gcPatentes.Location = new System.Drawing.Point(12, 260);
+            this.gcPatentes.Location = new System.Drawing.Point(12, 269);
             this.gcPatentes.MainView = this.gvPatentes;
             this.gcPatentes.Name = "gcPatentes";
             this.gcPatentes.TabIndex = 7;
@@ -144,6 +136,8 @@ namespace UI.Formularios.Administrador.Usuarios
             this.lciUserName.Name = "lciUserName";
             this.lciUserName.Text = "Usuario:";
             this.lciUserName.TextSize = new System.Drawing.Size(65, 13);
+            this.lciUserName.Location = new System.Drawing.Point(0, 0);
+            this.lciUserName.Size = new System.Drawing.Size(957, 24);
 
             // 
             // lciPassword
@@ -152,6 +146,8 @@ namespace UI.Formularios.Administrador.Usuarios
             this.lciPassword.Name = "lciPassword";
             this.lciPassword.Text = "Contraseña:";
             this.lciPassword.TextSize = new System.Drawing.Size(65, 13);
+            this.lciPassword.Location = new System.Drawing.Point(0, 24);
+            this.lciPassword.Size = new System.Drawing.Size(957, 24);
 
             // 
             // lciFamilias
@@ -161,6 +157,7 @@ namespace UI.Formularios.Administrador.Usuarios
             this.lciFamilias.Text = "Familias";
             this.lciFamilias.TextLocation = DevExpress.Utils.Locations.Top;
             this.lciFamilias.TextSize = new System.Drawing.Size(65, 13);
+            this.lciFamilias.Location = new System.Drawing.Point(0, 48);
             this.lciFamilias.MinSize = new System.Drawing.Size(100, 150);
             this.lciFamilias.SizeConstraintsType = DevExpress.XtraLayout.SizeConstraintsType.Custom;
 
@@ -172,6 +169,7 @@ namespace UI.Formularios.Administrador.Usuarios
             this.lciPatentes.Text = "Patentes";
             this.lciPatentes.TextLocation = DevExpress.Utils.Locations.Top;
             this.lciPatentes.TextSize = new System.Drawing.Size(65, 13);
+            this.lciPatentes.Location = new System.Drawing.Point(0, 198);
             this.lciPatentes.MinSize = new System.Drawing.Size(100, 150);
             this.lciPatentes.SizeConstraintsType = DevExpress.XtraLayout.SizeConstraintsType.Custom;
 
@@ -204,7 +202,6 @@ namespace UI.Formularios.Administrador.Usuarios
             ((System.ComponentModel.ISupportInitialize)(this.lciFamilias)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.lciPatentes)).EndInit();
             this.ResumeLayout(false);
-
         }
 
         #endregion
@@ -215,8 +212,6 @@ namespace UI.Formularios.Administrador.Usuarios
         private DevExpress.XtraGrid.Views.Grid.GridView gvFamilias;
         private DevExpress.XtraGrid.GridControl gcPatentes;
         private DevExpress.XtraGrid.Views.Grid.GridView gvPatentes;
-
-        // Variables del LayoutControl
         private DevExpress.XtraLayout.LayoutControl layoutControlHijo;
         private DevExpress.XtraLayout.LayoutControlGroup RootHijo;
         private DevExpress.XtraLayout.LayoutControlItem lciUserName;

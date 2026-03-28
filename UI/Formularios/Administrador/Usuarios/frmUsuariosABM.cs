@@ -1,4 +1,4 @@
-using DevExpress.XtraEditors;
+﻿using DevExpress.XtraEditors;
 using DevExpress.XtraEditors.Repository;
 using DevExpress.XtraGrid.Columns;
 using Services.Domain;
@@ -39,7 +39,7 @@ namespace UI.Formularios.Administrador.Usuarios
 
         #region "CONSTRUCTOR"
 
-        public frmUsuariosABM(Guid id = default) : base(id)
+        public frmUsuariosABM(GlobalCliente sesion, Guid id = default) : base(sesion, id)
         {
             InitializeComponent();
             InicializarFormulario();
@@ -53,7 +53,7 @@ namespace UI.Formularios.Administrador.Usuarios
 
         #endregion
 
-        #region "MÉTODOS OVERRIDE"
+        #region "METODOS OVERRIDE"
 
         protected override void ConfigurarTextos()
         {
@@ -122,7 +122,7 @@ namespace UI.Formularios.Administrador.Usuarios
 
         protected override void CargarDatos()
         {
-            var res = UsuarioBLL.Current.Obtener(new ReqUsuarioObtener { Id = Id });
+            var res = UsuarioBLL.Current.Obtener(new ReqUsuarioObtener(this.Sesion) { Id = Id });
 
             TodasFamilias = res.ListaFamilias ?? new List<Familia>();
             TodasPatentes = res.ListaPatentes ?? new List<Patente>();
@@ -154,7 +154,7 @@ namespace UI.Formularios.Administrador.Usuarios
             {
                 XtraMessageBox.Show(
                     "El nombre de usuario es requerido".Translate(),
-                    "Validación".Translate(),
+                    "ValidaciÃ³n".Translate(),
                     MessageBoxButtons.OK,
                     MessageBoxIcon.Warning);
                 txtUserName.Focus();
@@ -164,8 +164,8 @@ namespace UI.Formularios.Administrador.Usuarios
             if (EsNuevo && string.IsNullOrWhiteSpace(txtPassword.Text))
             {
                 XtraMessageBox.Show(
-                    "La contraseña es requerida para nuevos usuarios".Translate(),
-                    "Validación".Translate(),
+                    "La Contraseña es requerida para nuevos usuarios".Translate(),
+                    "ValidaciÃ³n".Translate(),
                     MessageBoxButtons.OK,
                     MessageBoxIcon.Warning);
                 txtPassword.Focus();
@@ -196,12 +196,12 @@ namespace UI.Formularios.Administrador.Usuarios
                     Estado = E_Estados.Activo
                 };
 
-                var res = UsuarioBLL.Current.Insertar(new ReqUsuarioInsertar
+                var res = UsuarioBLL.Current.Insertar(new ReqUsuarioInsertar(this.Sesion)
                 {
                     Usuario = usuario,
                     FamiliasIds = familiasIds,
                     PatentesIds = patentesIds
-                });
+                }, this.Sesion);
 
                 return res.Success;
             }
@@ -212,12 +212,12 @@ namespace UI.Formularios.Administrador.Usuarios
                     ? txtPassword.Text
                     : null;
 
-                var res = UsuarioBLL.Current.Modificar(new ReqUsuarioModificar
+                var res = UsuarioBLL.Current.Modificar(new ReqUsuarioModificar(this.Sesion)
                 {
                     Usuario = UsuarioActual,
                     FamiliasIds = familiasIds,
                     PatentesIds = patentesIds
-                });
+                }, this.Sesion);
 
                 return res.Success;
             }
@@ -225,13 +225,13 @@ namespace UI.Formularios.Administrador.Usuarios
 
         protected override bool EliminarRegistro()
         {
-            var res = UsuarioBLL.Current.Eliminar(new ReqUsuarioEliminar { Id = Id });
+            var res = UsuarioBLL.Current.Eliminar(new ReqUsuarioEliminar(this.Sesion) { Id = Id }, this.Sesion);
             return res.Success;
         }
 
         protected override bool RestaurarRegistro()
         {
-            var res = UsuarioBLL.Current.Restaurar(new ReqUsuarioRestaurar { Id = Id });
+            var res = UsuarioBLL.Current.Restaurar(new ReqUsuarioRestaurar(this.Sesion) { Id = Id }, this.Sesion);
             return res.Success;
         }
 
@@ -252,7 +252,7 @@ namespace UI.Formularios.Administrador.Usuarios
 
         #endregion
 
-        #region "MÉTODOS PRIVADOS"
+        #region "METODOS PRIVADOS"
 
         private void ActualizarCaptionsColumnas()
         {

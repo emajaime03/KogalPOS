@@ -1,12 +1,14 @@
 using Services.Domain.BLL.Base;
 using System;
 using System.Collections.Generic;
+using Services.Domain;
 
 namespace Domain.BLL
 {
     #region "OBTENER LISTA"
     public class ReqClientesObtener : ReqBase
     {
+        public ReqClientesObtener(GlobalCliente sesion) : base(sesion) { }
     }
 
     public class ResClientesObtener : ResBase
@@ -18,6 +20,7 @@ namespace Domain.BLL
     #region "OBTENER DETALLE"
     public class ReqClienteObtener : ReqBase
     {
+        public ReqClienteObtener(GlobalCliente sesion) : base(sesion) { }
         public Guid Id { get; set; }
     }
 
@@ -30,6 +33,7 @@ namespace Domain.BLL
     #region "INSERTAR"
     public class ReqClienteInsertar : ReqBase
     {
+        public ReqClienteInsertar(GlobalCliente sesion) : base(sesion) { }
         public Cliente Cliente { get; set; }
     }
 
@@ -42,6 +46,7 @@ namespace Domain.BLL
     #region "MODIFICAR"
     public class ReqClienteModificar : ReqBase
     {
+        public ReqClienteModificar(GlobalCliente sesion) : base(sesion) { }
         public Cliente Cliente { get; set; }
     }
 
@@ -54,6 +59,7 @@ namespace Domain.BLL
     #region "ELIMINAR"
     public class ReqClienteEliminar : ReqBase
     {
+        public ReqClienteEliminar(GlobalCliente sesion) : base(sesion) { }
         public Guid Id { get; set; }
     }
 
@@ -65,6 +71,7 @@ namespace Domain.BLL
     #region "RESTAURAR"
     public class ReqClienteRestaurar : ReqBase
     {
+        public ReqClienteRestaurar(GlobalCliente sesion) : base(sesion) { }
         public Guid Id { get; set; }
     }
 

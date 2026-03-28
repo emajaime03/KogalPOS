@@ -45,6 +45,7 @@
     <Compile Include="Services\ArticuloBLL.cs" />
     <Compile Include="Services\AjusteStockBLL.cs" />
     <Compile Include="Services\ClienteBLL.cs" />
+    <Compile Include="Services\ConfiguracionAppBLL.cs" />
     <Compile Include="Services\ProveedorBLL.cs" />
     <Compile Include="Services\ListaPrecioBLL.cs" />
   </ItemGroup>

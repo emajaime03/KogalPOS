@@ -28,7 +28,7 @@ namespace Services.BLL.Services
         #endregion
 
         #region "BACKUP"
-        public ResBackupRealizar RealizarBackup(ReqBackupRealizar req)
+        public ResBackupRealizar RealizarBackup(ReqBackupRealizar req, GlobalCliente sesion)
         {
             ResBackupRealizar res = new ResBackupRealizar();
 
@@ -48,7 +48,7 @@ namespace Services.BLL.Services
                     res.Success = true;
                     res.Message = "Backup realizado exitosamente.";
                     
-                    LoggerService.WriteLog(new Log($"Backup realizado en: {req.RutaArchivo}", GlobalCliente.UsuarioLogin?.UserName ?? "Sistema", TraceLevel.Info));
+                    LoggerService.WriteLog(new Log($"Backup realizado en: {req.RutaArchivo}", sesion?.UsuarioLogin?.UserName ?? "Sistema", TraceLevel.Info));
                 }
             }
             catch (Exception ex)
@@ -63,7 +63,7 @@ namespace Services.BLL.Services
         #endregion
 
         #region "RESTORE"
-        public ResBackupRestaurar RealizarRestore(ReqBackupRestaurar req)
+        public ResBackupRestaurar RealizarRestore(ReqBackupRestaurar req, GlobalCliente sesion)
         {
             ResBackupRestaurar res = new ResBackupRestaurar();
 
@@ -91,7 +91,7 @@ namespace Services.BLL.Services
                     res.Success = true;
                     res.Message = "Base de datos restaurada exitosamente. La aplicación se reiniciará.";
                     
-                    LoggerService.WriteLog(new Log($"Restore realizado desde: {req.RutaArchivo}", GlobalCliente.UsuarioLogin?.UserName ?? "Sistema", TraceLevel.Warning));
+                    LoggerService.WriteLog(new Log($"Restore realizado desde: {req.RutaArchivo}", sesion?.UsuarioLogin?.UserName ?? "Sistema", TraceLevel.Warning));
                 }
             }
             catch (Exception ex)

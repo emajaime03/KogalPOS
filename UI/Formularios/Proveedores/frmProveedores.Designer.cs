@@ -1,4 +1,4 @@
-namespace UI.Formularios.Proveedores
+﻿namespace UI.Formularios.Proveedores
 {
     partial class frmProveedores
     {

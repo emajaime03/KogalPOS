@@ -1,4 +1,4 @@
-using DevExpress.XtraEditors;
+﻿using DevExpress.XtraEditors;
 using DevExpress.XtraGrid.Columns;
 using DevExpress.XtraGrid.Views.Grid;
 using Services.Domain.Enums;
@@ -7,19 +7,25 @@ using Services.Facade.Observer;
 using System;
 using System.Windows.Forms;
 using UI.Helpers;
+using Services.Domain;
 
 namespace UI.Formularios.Base
 {
     /// <summary>
     /// Formulario base para pantallas de listado con grilla.
-    /// Proporciona funcionalidad común: refrescar, exportar, nuevo y detalle.
+    /// Proporciona funcionalidad comÃºn: refrescar, exportar, nuevo y detalle.
     /// </summary>
     public partial class frmBaseGrilla : XtraForm, IObserver
     {
         #region "PROPIEDADES"
 
         /// <summary>
-        /// Indica si el botón Nuevo está visible
+        /// SesiÃ³n del usuario actual del sistema.
+        /// </summary>
+        public GlobalCliente Sesion { get; private set; }
+
+        /// <summary>
+        /// Indica si el botÃ³n Nuevo estÃ¡ visible
         /// </summary>
         public bool MostrarBotonNuevo
         {
@@ -30,7 +36,7 @@ namespace UI.Formularios.Base
         }
 
         /// <summary>
-        /// Indica si el botón Detalle está visible
+        /// Indica si el botÃ³n Detalle estÃ¡ visible
         /// </summary>
         public bool MostrarBotonDetalle
         {
@@ -41,7 +47,7 @@ namespace UI.Formularios.Base
         }
 
         /// <summary>
-        /// Acceso al GridView principal para configuración adicional
+        /// Acceso al GridView principal para configuraciÃ³n adicional
         /// </summary>
         protected GridView GridViewPrincipal => gridView;
 
@@ -78,12 +84,17 @@ namespace UI.Formularios.Base
             ConfigurarEstiloBotones();
         }
 
+        public frmBaseGrilla(GlobalCliente sesion) : this()
+        {
+            Sesion = sesion;
+        }
+
         #endregion
 
-        #region "MÉTODOS VIRTUALES"
+        #region "METODOS VIRTUALES"
 
         /// <summary>
-        /// Configura los textos de la pantalla (títulos, labels, captions de columnas, etc.)
+        /// Configura los textos de la pantalla (tÃ­tulos, labels, captions de columnas, etc.)
         /// Sobrescribir en clases derivadas para actualizar textos traducibles.
         /// </summary>
         protected virtual void ConfigurarTextos()
@@ -107,7 +118,7 @@ namespace UI.Formularios.Base
         }
 
         /// <summary>
-        /// Se ejecuta al hacer clic en el botón Nuevo. Sobrescribir en clases derivadas.
+        /// Se ejecuta al hacer clic en el botÃ³n Nuevo. Sobrescribir en clases derivadas.
         /// </summary>
         protected virtual void OnNuevoClick()
         {
@@ -115,7 +126,7 @@ namespace UI.Formularios.Base
         }
 
         /// <summary>
-        /// Se ejecuta al hacer clic en el botón Detalle o doble clic en una fila.
+        /// Se ejecuta al hacer clic en el botÃ³n Detalle o doble clic en una fila.
         /// Sobrescribir en clases derivadas.
         /// </summary>
         protected virtual void OnDetalleClick()
@@ -141,7 +152,7 @@ namespace UI.Formularios.Base
 
         #endregion
 
-        #region "MÉTODOS PÚBLICOS"
+        #region "METODOS PÃšBLICOS"
 
         /// <summary>
         /// Asigna el origen de datos a la grilla
@@ -188,7 +199,7 @@ namespace UI.Formularios.Base
 
         #endregion
 
-        #region "MÉTODOS PRIVADOS"
+        #region "METODOS PRIVADOS"
 
         private void ConfigurarEventos()
         {
@@ -227,7 +238,7 @@ namespace UI.Formularios.Base
 
         private void FrmBaseGrilla_Load(object sender, EventArgs e)
         {
-            // Aplicar estilos automáticamente a todos los controles
+            // Aplicar estilos automÃ¡ticamente a todos los controles
             FormStyleHelper.AplicarEstilosListado(this);
 
             ConfigurarTextos();
@@ -271,13 +282,13 @@ namespace UI.Formularios.Base
                     if (saveFileDialog.ShowDialog() == DialogResult.OK)
                     {
                         gv.ExportToXlsx(saveFileDialog.FileName);
-                        XtraMessageBox.Show("Exportación completada exitosamente.".Translate(), "Éxito".Translate(), MessageBoxButtons.OK, MessageBoxIcon.Information);
+                        XtraMessageBox.Show("ExportaciÃ³n completada exitosamente.".Translate(), "Ã‰xito".Translate(), MessageBoxButtons.OK, MessageBoxIcon.Information);
                     }
                 }
             }
             else
             {
-                XtraMessageBox.Show("El GridControl no contiene un GridView válido.".Translate(), "Error".Translate(), MessageBoxButtons.OK, MessageBoxIcon.Error);
+                XtraMessageBox.Show("El GridControl no contiene un GridView vÃ¡lido.".Translate(), "Error".Translate(), MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
 
@@ -294,16 +305,16 @@ namespace UI.Formularios.Base
             }
             else
             {
-                XtraMessageBox.Show("Seleccione un registro para ver el detalle.".Translate(), "Información".Translate(), MessageBoxButtons.OK, MessageBoxIcon.Information);
+                XtraMessageBox.Show("Seleccione un registro para ver el detalle.".Translate(), "InformaciÃ³n".Translate(), MessageBoxButtons.OK, MessageBoxIcon.Information);
             }
         }
 
         #endregion
 
-        #region "IMPLEMENTACIÓN IOBSERVER"
+        #region "IMPLEMENTACIÃ“N IOBSERVER"
 
         /// <summary>
-        /// Método llamado cuando se notifica un cambio desde el Subject.
+        /// MÃ©todo llamado cuando se notifica un cambio desde el Subject.
         /// </summary>
         public virtual void Update<T>(T value, object data = null)
         {

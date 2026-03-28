@@ -1,12 +1,14 @@
 using Services.Domain.BLL.Base;
 using System;
 using System.Collections.Generic;
+using Services.Domain;
 
 namespace Domain.BLL
 {
     #region "OBTENER LISTA"
     public class ReqProveedoresObtener : ReqBase
     {
+        public ReqProveedoresObtener(GlobalCliente sesion) : base(sesion) { }
     }
 
     public class ResProveedoresObtener : ResBase
@@ -18,6 +20,7 @@ namespace Domain.BLL
     #region "OBTENER DETALLE"
     public class ReqProveedorObtener : ReqBase
     {
+        public ReqProveedorObtener(GlobalCliente sesion) : base(sesion) { }
         public Guid Id { get; set; }
     }
 
@@ -30,6 +33,7 @@ namespace Domain.BLL
     #region "INSERTAR"
     public class ReqProveedorInsertar : ReqBase
     {
+        public ReqProveedorInsertar(GlobalCliente sesion) : base(sesion) { }
         public Proveedor Proveedor { get; set; }
     }
 
@@ -42,6 +46,7 @@ namespace Domain.BLL
     #region "MODIFICAR"
     public class ReqProveedorModificar : ReqBase
     {
+        public ReqProveedorModificar(GlobalCliente sesion) : base(sesion) { }
         public Proveedor Proveedor { get; set; }
     }
 
@@ -54,6 +59,7 @@ namespace Domain.BLL
     #region "ELIMINAR"
     public class ReqProveedorEliminar : ReqBase
     {
+        public ReqProveedorEliminar(GlobalCliente sesion) : base(sesion) { }
         public Guid Id { get; set; }
     }
 
@@ -65,6 +71,7 @@ namespace Domain.BLL
     #region "RESTAURAR"
     public class ReqProveedorRestaurar : ReqBase
     {
+        public ReqProveedorRestaurar(GlobalCliente sesion) : base(sesion) { }
         public Guid Id { get; set; }
     }
 

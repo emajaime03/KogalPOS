@@ -1,4 +1,4 @@
-namespace UI.Formularios.Articulos
+﻿namespace UI.Formularios.Articulos
 {
     partial class frmArticulos
     {

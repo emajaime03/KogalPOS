@@ -10,6 +10,10 @@ namespace Services.Domain.BLL
     #region "LOGIN"
     public class ReqUsuarioLogin : ReqBase
     {
+        public ReqUsuarioLogin(GlobalCliente sesion) : base(sesion)
+        {
+        }
+
         public string Username { get; set; }
         public string Password { get; set; }
     }
@@ -23,6 +27,9 @@ namespace Services.Domain.BLL
     #region "OBTENER LISTA"
     public class ReqUsuariosObtener : ReqBase
     {
+        public ReqUsuariosObtener(GlobalCliente sesion) : base(sesion)
+        {
+        }
     }
 
     public class ResUsuariosObtener : ResBase
@@ -34,6 +41,10 @@ namespace Services.Domain.BLL
     #region "OBTENER DETALLE"
     public class ReqUsuarioObtener : ReqBase
     {
+        public ReqUsuarioObtener(GlobalCliente sesion) : base(sesion)
+        {
+        }
+
         public Guid Id { get; set; }
     }
 
@@ -48,6 +59,10 @@ namespace Services.Domain.BLL
     #region "INSERTAR"
     public class ReqUsuarioInsertar : ReqBase
     {
+        public ReqUsuarioInsertar(GlobalCliente sesion) : base(sesion)
+        {
+        }
+
         public Usuario Usuario { get; set; }
         public List<Guid> FamiliasIds { get; set; }
         public List<Guid> PatentesIds { get; set; }
@@ -62,6 +77,10 @@ namespace Services.Domain.BLL
     #region "MODIFICAR"
     public class ReqUsuarioModificar : ReqBase
     {
+        public ReqUsuarioModificar(GlobalCliente sesion) : base(sesion)
+        {
+        }
+
         public Usuario Usuario { get; set; }
         public List<Guid> FamiliasIds { get; set; }
         public List<Guid> PatentesIds { get; set; }
@@ -76,6 +95,10 @@ namespace Services.Domain.BLL
     #region "ELIMINAR"
     public class ReqUsuarioEliminar : ReqBase
     {
+        public ReqUsuarioEliminar(GlobalCliente sesion) : base(sesion)
+        {
+        }
+
         public Guid Id { get; set; }
     }
 
@@ -87,6 +110,10 @@ namespace Services.Domain.BLL
     #region "RESTAURAR"
     public class ReqUsuarioRestaurar : ReqBase
     {
+        public ReqUsuarioRestaurar(GlobalCliente sesion) : base(sesion)
+        {
+        }
+
         public Guid Id { get; set; }
     }
 

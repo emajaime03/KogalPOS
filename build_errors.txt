@@ -1,0 +1,8 @@
+﻿C:\Program Files\dotnet\sdk\9.0.311\Microsoft.Common.CurrentVersion.targets(3455,5): error MSB4216: No se pudo ejecutar la tarea "GenerateResource" porque MSBuild no pudo crear o conectarse a un host de tareas con runtime "NET" y arquitectura "x86".  Aseg├║rese de que (1) el runtime y/o la arquitectura solicitados est├®n disponibles en el equipo y de que (2) el archivo ejecutable "C:\Program Files\dotnet\sdk\9.0.311\MSBuild.dll" requerido existe y se puede ejecutar. [d:\Tesis\KogalPos\UI\UI.csproj]
+C:\Program Files\dotnet\sdk\9.0.311\Microsoft.Common.CurrentVersion.targets(3479,7): error MSB4028: Las salidas de la tarea "GenerateResource" no pudieron recuperarse del par├ímetro "FilesWritten". Object type Microsoft.Build.Tasks.GenerateResource does not match target type Microsoft.Build.BackEnd.TaskHostTask. [d:\Tesis\KogalPos\UI\UI.csproj]
+
+ERROR al compilar.
+    11 Advertencia(s)
+    2 Errores
+
+Tiempo transcurrido 00:00:01.87

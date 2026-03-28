@@ -1,4 +1,4 @@
-using BLL.Services;
+﻿using BLL.Services;
 using DevExpress.XtraEditors;
 using DevExpress.XtraGrid.Columns;
 using DevExpress.XtraGrid.Views.Grid;
@@ -24,14 +24,14 @@ namespace UI.Formularios.ListaPrecios
         #endregion
 
         #region "CONSTRUCTOR"
-        public frmListaPreciosABM(Guid id = default) : base(id)
+        public frmListaPreciosABM(Services.Domain.GlobalCliente sesion, Guid id = default) : base(sesion, id)
         {
             InitializeComponent();
 
-            // Cargar artículos para el LookUpEdit
+            // Cargar Artículos para el LookUpEdit
             CargarArticulosDisponibles();
 
-            // Configurar grilla de ítems
+            // Configurar grilla de Items
             ConfigurarGrillaItems();
 
             // Configurar eventos de botones
@@ -43,15 +43,15 @@ namespace UI.Formularios.ListaPrecios
             ControlFactory.ConfigurarLayoutItem(this.lciDescripcion, false);
             ControlFactory.ConfigurarLayoutItem(this.lciVigenciaDesde, false);
             ControlFactory.ConfigurarLayoutItem(this.lciVigenciaHasta, false);
-            ControlFactory.ConfigurarLayoutItem(this.lciGridItems, true);
+            ControlFactory.ConfigurarLayoutItem(this.lciGridItems, false);
         }
         #endregion
 
-        #region "MÉTODOS PRIVADOS"
+        #region "METODOS PRIVADOS"
 
         private void CargarArticulosDisponibles()
         {
-            var res = ArticuloBLL.Current.ObtenerLista(new ReqArticulosObtener());
+            var res = ArticuloBLL.Current.ObtenerLista(new ReqArticulosObtener(this.Sesion));
             ArticulosDisponibles = res.Articulos ?? new List<Articulo>();
         }
 
@@ -79,7 +79,7 @@ namespace UI.Formularios.ListaPrecios
             colArticulo.ColumnEdit = lkpArticulo;
             gridViewItems.Columns.Add(colArticulo);
 
-            // Columna Código (readonly, para visualización)
+            // Columna Código (readonly, para visualizaciÃ³n)
             var colCodigo = new GridColumn
             {
                 FieldName = nameof(ListaPrecioArticulo.CodigoArticulo),
@@ -119,7 +119,7 @@ namespace UI.Formularios.ListaPrecios
             var colDescripcion = new GridColumn { FieldName = nameof(ListaPrecioArticulo.DescripcionArticulo), Visible = false };
             gridViewItems.Columns.Add(colDescripcion);
 
-            // Evento para auto-llenar código al seleccionar artículo
+            // Evento para auto-llenar Código al seleccionar Artículo
             gridViewItems.CellValueChanged += GridViewItems_CellValueChanged;
         }
 
@@ -157,7 +157,7 @@ namespace UI.Formularios.ListaPrecios
 
         #endregion
 
-        #region "MÉTODOS OVERRIDE"
+        #region "METODOS OVERRIDE"
 
         protected override void ConfigurarTextos()
         {
@@ -183,7 +183,7 @@ namespace UI.Formularios.ListaPrecios
             }
             else
             {
-                var res = ListaPrecioBLL.Current.Obtener(new ReqListaPrecioObtener { Id = Id });
+                var res = ListaPrecioBLL.Current.Obtener(new ReqListaPrecioObtener(this.Sesion) { Id = Id });
 
                 if (res.Success && res.ListaPrecio != null)
                 {
@@ -216,8 +216,8 @@ namespace UI.Formularios.ListaPrecios
             if (string.IsNullOrWhiteSpace(txtDescripcion.Text))
             {
                 XtraMessageBox.Show(
-                    "La descripción es requerida".Translate(),
-                    "Validación".Translate(),
+                    "La Descripción es requerida".Translate(),
+                    "ValidaciÃ³n".Translate(),
                     MessageBoxButtons.OK,
                     MessageBoxIcon.Warning);
                 txtDescripcion.Focus();
@@ -231,8 +231,8 @@ namespace UI.Formularios.ListaPrecios
                     if (item.IdArticulo == Guid.Empty)
                     {
                         XtraMessageBox.Show(
-                            "Todos los ítems deben tener un artículo seleccionado".Translate(),
-                            "Validación".Translate(),
+                            "Todos los Items deben tener un Artículo seleccionado".Translate(),
+                            "ValidaciÃ³n".Translate(),
                             MessageBoxButtons.OK,
                             MessageBoxIcon.Warning);
                         return false;
@@ -242,7 +242,7 @@ namespace UI.Formularios.ListaPrecios
                     {
                         XtraMessageBox.Show(
                             "El precio debe ser mayor a cero".Translate(),
-                            "Validación".Translate(),
+                            "ValidaciÃ³n".Translate(),
                             MessageBoxButtons.OK,
                             MessageBoxIcon.Warning);
                         return false;
@@ -266,7 +266,7 @@ namespace UI.Formularios.ListaPrecios
                     Items = new List<ListaPrecioArticulo>(ItemsBinding)
                 };
 
-                var req = new ReqListaPrecioInsertar { ListaPrecio = listaPrecio };
+                var req = new ReqListaPrecioInsertar(this.Sesion) { ListaPrecio = listaPrecio };
                 var res = ListaPrecioBLL.Current.Insertar(req);
                 return res.Success;
             }
@@ -278,7 +278,7 @@ namespace UI.Formularios.ListaPrecios
                 ListaPrecioActual.VigenciaHasta = dtVigenciaHasta.EditValue != null ? (DateTime?)dtVigenciaHasta.DateTime : null;
                 ListaPrecioActual.Items = new List<ListaPrecioArticulo>(ItemsBinding);
 
-                var req = new ReqListaPrecioModificar { ListaPrecio = ListaPrecioActual };
+                var req = new ReqListaPrecioModificar(this.Sesion) { ListaPrecio = ListaPrecioActual };
                 var res = ListaPrecioBLL.Current.Modificar(req);
                 return res.Success;
             }
@@ -286,12 +286,12 @@ namespace UI.Formularios.ListaPrecios
 
         protected override bool EliminarRegistro()
         {
-            var res = ListaPrecioBLL.Current.Eliminar(new ReqListaPrecioEliminar { Id = Id });
+            var res = ListaPrecioBLL.Current.Eliminar(new ReqListaPrecioEliminar(this.Sesion) { Id = Id });
             if (!res.Success)
             {
                 XtraMessageBox.Show(
                     res.Message,
-                    "Validación".Translate(),
+                    "ValidaciÃ³n".Translate(),
                     MessageBoxButtons.OK,
                     MessageBoxIcon.Warning);
             }
@@ -300,7 +300,7 @@ namespace UI.Formularios.ListaPrecios
 
         protected override bool RestaurarRegistro()
         {
-            var res = ListaPrecioBLL.Current.Restaurar(new ReqListaPrecioRestaurar { Id = Id });
+            var res = ListaPrecioBLL.Current.Restaurar(new ReqListaPrecioRestaurar(this.Sesion) { Id = Id });
             return res.Success;
         }
 

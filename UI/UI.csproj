@@ -94,6 +94,12 @@
     <Compile Include="Formularios\Administrador\BackupRestore\frmBackupRestore.Designer.cs">
       <DependentUpon>frmBackupRestore.cs</DependentUpon>
     </Compile>
+    <Compile Include="Formularios\Administrador\ConfiguracionLocal\frmConfiguracionLocal.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Formularios\Administrador\ConfiguracionLocal\frmConfiguracionLocal.Designer.cs">
+      <DependentUpon>frmConfiguracionLocal.cs</DependentUpon>
+    </Compile>
     <Compile Include="Formularios\Administrador\Familias\frmFamilias.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -220,6 +226,9 @@
     <EmbeddedResource Include="Formularios\Administrador\BackupRestore\frmBackupRestore.resx">
       <DependentUpon>frmBackupRestore.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="Formularios\Administrador\ConfiguracionLocal\frmConfiguracionLocal.resx">
+      <DependentUpon>frmConfiguracionLocal.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Formularios\Administrador\Familias\frmFamilias.resx">
       <DependentUpon>frmFamilias.cs</DependentUpon>
     </EmbeddedResource>
@@ -240,6 +249,12 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Formularios\Base\frmBaseGrilla.resx">
       <DependentUpon>frmBaseGrilla.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Formularios\Clientes\frmClientesABM.resx">
+      <DependentUpon>frmClientesABM.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Formularios\ListaPrecios\frmListaPreciosABM.resx">
+      <DependentUpon>frmListaPreciosABM.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Login\frmLogin.resx">
       <DependentUpon>frmLogin.cs</DependentUpon>

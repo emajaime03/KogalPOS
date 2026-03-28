@@ -1,4 +1,4 @@
-
+﻿
 namespace UI.Formularios.Administrador.Usuarios
 {
     partial class frmUsuarios

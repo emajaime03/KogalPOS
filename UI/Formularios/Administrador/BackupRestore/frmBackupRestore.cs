@@ -1,4 +1,4 @@
-using DevExpress.XtraEditors;
+﻿using DevExpress.XtraEditors;
 using Services.Domain.BLL;
 using Services.Domain.Enums;
 using Services.BLL.Services;
@@ -13,9 +13,14 @@ namespace UI.Formularios.Administrador.BackupRestore
 {
     public partial class frmBackupRestore : XtraForm, IObserver
     {
+        #region "PROPIEDADES"
+        public Services.Domain.GlobalCliente Sesion { get; private set; }
+        #endregion
+
         #region "CONSTRUCTOR"
-        public frmBackupRestore()
+        public frmBackupRestore(Services.Domain.GlobalCliente sesion)
         {
+            this.Sesion = sesion;
             InitializeComponent();
             FormSubject.Current.Attach(this);
             ConfigurarTextos();
@@ -28,14 +33,14 @@ namespace UI.Formularios.Administrador.BackupRestore
             this.Text = "Copias de Seguridad".Translate();
             btnBackup.Text = "Generar Backup".Translate();
             btnRestore.Text = "Restaurar Backup".Translate();
-            lblInstrucciones.Text = "Seleccione una opción para gestionar la copia de seguridad de la base de datos.".Translate();
+            lblInstrucciones.Text = "Seleccione una opciÃ³n para gestionar la copia de seguridad de la base de datos.".Translate();
         }
 
         private void MostrarResultado(Services.Domain.BLL.Base.ResBase res)
         {
             if (res.Success)
             {
-                XtraMessageBox.Show(res.Message.Translate(), "Éxito".Translate(), MessageBoxButtons.OK, MessageBoxIcon.Information);
+                XtraMessageBox.Show(res.Message.Translate(), "Ã‰xito".Translate(), MessageBoxButtons.OK, MessageBoxIcon.Information);
             }
             else
             {
@@ -55,8 +60,8 @@ namespace UI.Formularios.Administrador.BackupRestore
 
                 if (saveFileDialog.ShowDialog() == DialogResult.OK)
                 {
-                    var req = new ReqBackupRealizar { RutaArchivo = saveFileDialog.FileName };
-                    var res = BackupBLL.Current.RealizarBackup(req);
+                    var req = new ReqBackupRealizar(this.Sesion) { RutaArchivo = saveFileDialog.FileName };
+                    var res = BackupBLL.Current.RealizarBackup(req, this.Sesion);
 
                     MostrarResultado(res);
                 }
@@ -66,8 +71,8 @@ namespace UI.Formularios.Administrador.BackupRestore
         private void btnRestore_Click(object sender, EventArgs e)
         {
             var confirmResult = XtraMessageBox.Show(
-                "ADVERTENCIA: Restaurar una base de datos sobrescribirá todos los datos actuales y cerrará la sesión de la aplicación. ¿Desea continuar?".Translate(),
-                "Confirmar Restauración".Translate(),
+                "ADVERTENCIA: Restaurar una base de datos sobrescribirÃ¡ todos los datos actuales y cerrarÃ¡ la sesiÃ³n de la aplicaciÃ³n. Â¿Desea continuar?".Translate(),
+                "Confirmar RestauraciÃ³n".Translate(),
                 MessageBoxButtons.YesNo,
                 MessageBoxIcon.Warning);
 
@@ -80,11 +85,11 @@ namespace UI.Formularios.Administrador.BackupRestore
 
                 if (openFileDialog.ShowDialog() == DialogResult.OK)
                 {
-                    var req = new ReqBackupRestaurar { RutaArchivo = openFileDialog.FileName };
+                    var req = new ReqBackupRestaurar(this.Sesion) { RutaArchivo = openFileDialog.FileName };
                     
-                    // Mostrar wait form o cursor de espera sería ideal aquí, pero simplificamos
+                    // Mostrar wait form o cursor de espera serÃ­a ideal aquÃ­, pero simplificamos
                     Cursor.Current = Cursors.WaitCursor;
-                    var res = BackupBLL.Current.RealizarRestore(req);
+                    var res = BackupBLL.Current.RealizarRestore(req, this.Sesion);
                     Cursor.Current = Cursors.Default;
 
                     MostrarResultado(res);

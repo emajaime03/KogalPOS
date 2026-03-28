@@ -1,4 +1,4 @@
-﻿using Services.Domain;
+using Services.Domain;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -7,8 +7,8 @@ using System.Threading.Tasks;
 
 namespace Services.Domain
 {
-    public static class GlobalCliente
+    public abstract class GlobalCliente
     {
-        public static Usuario UsuarioLogin { get; set; }
+        public Usuario UsuarioLogin { get; set; }
     }
 }

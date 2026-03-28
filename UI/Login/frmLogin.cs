@@ -249,7 +249,7 @@ namespace UI.Login
             try
             {
                 var res = UsuarioBLL.Current.Login(
-                    new ReqUsuarioLogin
+                    new ReqUsuarioLogin(null)
                     {
                         Username = username,
                         Password = CryptographyService.Hash(password)

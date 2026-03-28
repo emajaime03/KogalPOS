@@ -8,31 +8,33 @@ using System;
 using UI.Formularios.Base;
 using UI.Helpers;
 
-namespace UI.Formularios.Proveedores
+namespace UI.Formularios.Administrador.ConfiguracionLocal
 {
-    public partial class frmProveedoresABM : frmBaseABM
+    public partial class frmConfiguracionLocal : frmBaseABM
     {
-        public frmProveedoresABM(Services.Domain.GlobalCliente sesion, Guid id = default) : base(sesion, id)
+        public frmConfiguracionLocal(Services.Domain.GlobalCliente sesion, Guid id = default) : base(sesion, id)
         {
             InitializeComponent();
             InicializarFormulario();
 
-            // 1. Estilizamos los "Labels" nativos del LayoutControl (false porque no son tÃ­tulos de secciÃ³n)
             ControlFactory.ConfigurarLayoutItem(this.lciDescripcion, false);
-            ControlFactory.ConfigurarLayoutItem(this.lciEmail, false);
-            ControlFactory.ConfigurarLayoutItem(this.lciCelular, false);
-
+            ControlFactory.ConfigurarLayoutItem(this.lciNroDocumento, false);
+            ControlFactory.ConfigurarLayoutItem(this.lciTipoDocumento, false);
         }
+
+        #region "METODOS PRIVADOS"
+
+        #endregion
 
         #region "METODOS OVERRIDE"
 
         protected override void ConfigurarTextos()
         {
             base.ConfigurarTextos();
-            this.Text = EsNuevo ? "Nuevo Proveedor".Translate() : "Detalle de Proveedor".Translate();
+            this.Text = EsNuevo ? "Nuevo Cliente".Translate() : "Detalle de Cliente".Translate();
             lciDescripcion.Text = "Descripción".Translate();
-            lciEmail.Text = "Email".Translate();
-            lciCelular.Text = "Celular".Translate();
+            lciNroDocumento.Text = "Nro Documento".Translate();
+            lciTipoDocumento.Text = "Tipo Documento".Translate();
         }
 
         protected override void CargarDatos()
@@ -40,18 +42,19 @@ namespace UI.Formularios.Proveedores
             if (EsNuevo)
             {
                 TipoPantalla = E_TipoPantalla.Nuevo;
+                cmbTipoDocumento.SelectedIndex = 0;
             }
             else
             {
-                var res = ProveedorBLL.Current.Obtener(new ReqProveedorObtener(this.Sesion) { Id = Id });
+                var res = ClienteBLL.Current.Obtener(new ReqClienteObtener(this.Sesion) { Id = Id });
 
-                if (res.Success && res.Proveedor != null)
+                if (res.Success && res.Cliente != null)
                 {
-                    txtDescripcion.Text = res.Proveedor.Descripcion;
-                    txtEmail.Text = res.Proveedor.Email;
-                    txtCelular.Text = res.Proveedor.Celular;
+                    txtDescripcion.Text = res.Cliente.Descripcion;
+                    txtNroDocumento.Text = res.Cliente.NroDocumento;
+                    cmbTipoDocumento.SelectedItem = res.Cliente.TipoDocumento;
 
-                    TipoPantalla = res.Proveedor.Estado == E_Estados.Activo
+                    TipoPantalla = res.Cliente.Estado == E_Estados.Activo
                         ? E_TipoPantalla.Visualizar
                         : E_TipoPantalla.VisualizarEliminado;
                 }
@@ -78,61 +81,61 @@ namespace UI.Formularios.Proveedores
         {
             if (EsNuevo)
             {
-                var req = new ReqProveedorInsertar(this.Sesion)
+                var req = new ReqClienteInsertar(this.Sesion)
                 {
-                    Proveedor = new Proveedor
+                    Cliente = new Cliente
                     {
                         Descripcion = txtDescripcion.Text.Trim(),
-                        Email = txtEmail.Text.Trim(),
-                        Celular = txtCelular.Text.Trim()
+                        NroDocumento = txtNroDocumento.Text.Trim(),
+                        TipoDocumento = (E_TipoDocumento)cmbTipoDocumento.SelectedItem
                     }
                 };
 
-                var res = ProveedorBLL.Current.Insertar(req);
+                var res = ClienteBLL.Current.Insertar(req);
                 return res.Success;
             }
             else
             {
-                var req = new ReqProveedorModificar(this.Sesion)
+                var req = new ReqClienteModificar(this.Sesion)
                 {
-                    Proveedor = new Proveedor
+                    Cliente = new Cliente
                     {
-                        IdProveedor = Id,
+                        IdCliente = Id,
                         Descripcion = txtDescripcion.Text.Trim(),
-                        Email = txtEmail.Text.Trim(),
-                        Celular = txtCelular.Text.Trim()
+                        NroDocumento = txtNroDocumento.Text.Trim(),
+                        TipoDocumento = (E_TipoDocumento)cmbTipoDocumento.SelectedItem
                     }
                 };
 
-                var res = ProveedorBLL.Current.Modificar(req);
+                var res = ClienteBLL.Current.Modificar(req);
                 return res.Success;
             }
         }
 
         protected override bool EliminarRegistro()
         {
-            var res = ProveedorBLL.Current.Eliminar(new ReqProveedorEliminar(this.Sesion) { Id = Id });
+            var res = ClienteBLL.Current.Eliminar(new ReqClienteEliminar(this.Sesion) { Id = Id });
             return res.Success;
         }
 
         protected override bool RestaurarRegistro()
         {
-            var res = ProveedorBLL.Current.Restaurar(new ReqProveedorRestaurar(this.Sesion) { Id = Id });
+            var res = ClienteBLL.Current.Restaurar(new ReqClienteRestaurar(this.Sesion) { Id = Id });
             return res.Success;
         }
 
         protected override void OnTipoPantallaCambiado(E_TipoPantalla tipoPantalla)
         {
             ControlFactory.AplicarModo(
-                EsModoEdicion, 
-                textEdits: new[] { this.txtDescripcion, this.txtEmail, this.txtCelular },
-                itemsLayout: new[] { this.lciDescripcion, this.lciEmail, this.lciCelular }
+                esEditable: EsModoEdicion,
+                textEdits: new[] { this.txtDescripcion, this.txtNroDocumento, this.cmbTipoDocumento },
+                itemsLayout: new[] { this.lciDescripcion, this.lciNroDocumento, this.lciTipoDocumento }
             );
         }
 
         protected override E_FormsServicesValues? GetFormServiceValue()
         {
-            return E_FormsServicesValues.Proveedor;
+            return E_FormsServicesValues.Cliente;
         }
 
         #endregion
