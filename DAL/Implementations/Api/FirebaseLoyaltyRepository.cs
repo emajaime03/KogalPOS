@@ -12,22 +12,13 @@ namespace DAL.Implementations.Api
         {
         }
 
-        const string urlClientes = "/clientes_web";
-
         public int ObtenerPuntos(string nroDocumento)
         {
             try
             {
                 if(string.IsNullOrEmpty(nroDocumento)) return 0;
 
-                // Base path de consulta, ejemplo: /loyalty/puntos/{nroDocumento}.json
-                var endpoint = $"{urlClientes}/{nroDocumento}.json";
-
-                var accessKey = ConfiguracionApp.Current.configuracionLocal.Loyalty_ApiAccessKey;
-                if (!string.IsNullOrEmpty(accessKey))
-                {
-                    endpoint += $"?auth={accessKey}";
-                }
+                var endpoint = ObtenerURLClientes(nroDocumento);
 
                 var result = Task.Run(() => GetAsync<FirebasePuntosRes>(endpoint)).GetAwaiter().GetResult();
                 return result?.Puntos ?? 0;
@@ -42,8 +33,45 @@ namespace DAL.Implementations.Api
 
         public async Task SumarPuntosAsync(string nroDocumento, int puntos)
         {
-            // Para futuras implementaciones usando el método PostAsync heredado
-            await Task.CompletedTask;
+            if (string.IsNullOrEmpty(nroDocumento) || puntos <= 0) return;
+            
+            int actuales = ObtenerPuntos(nroDocumento);
+            await ActualizarPuntosAsync(nroDocumento, actuales + puntos);
+        }
+
+        public async Task RestarPuntosAsync(string nroDocumento, int puntos)
+        {
+            if (string.IsNullOrEmpty(nroDocumento) || puntos <= 0) return;
+            
+            int actuales = ObtenerPuntos(nroDocumento);
+            int nuevosPuntos = actuales - puntos;
+            if (nuevosPuntos < 0) nuevosPuntos = 0;
+
+            await ActualizarPuntosAsync(nroDocumento, nuevosPuntos);
+        }
+
+        private async Task ActualizarPuntosAsync(string nroDocumento, int nuevosPuntos)
+        {
+            var endpoint = ObtenerURLClientes(nroDocumento);
+            if (string.IsNullOrEmpty(endpoint)) return;
+
+            // Aplicamos PATCH sólo a la propiedad Puntos del cliente web
+            await PatchAsync(endpoint, new { Puntos = nuevosPuntos });
+        }
+
+        private string ObtenerURLClientes(string nroDocumento)
+        {
+            if (string.IsNullOrEmpty(nroDocumento)) return "";
+
+            var endpoint = $"/clientes_web/{nroDocumento}.json";
+
+            var accessKey = ConfiguracionApp.Current.configuracionLocal.Loyalty_ApiAccessKey;
+            if (!string.IsNullOrEmpty(accessKey))
+            {
+                endpoint += $"?auth={accessKey}";
+            }
+
+            return endpoint;
         }
 
         /// <summary>

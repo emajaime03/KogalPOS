@@ -50,5 +50,20 @@ namespace Services.DAL.Tools.Helpers
             var jsonResponse = await response.Content.ReadAsStringAsync();
             return JsonConvert.DeserializeObject<TResponse>(jsonResponse);
         }
+
+        protected async Task PatchAsync<TRequest>(string endpoint, TRequest data)
+        {
+            var jsonRequest = JsonConvert.SerializeObject(data);
+            var content = new StringContent(jsonRequest, Encoding.UTF8, "application/json");
+
+            // HttpRequestMessage para compatibilidad PATCH con .NET Framework
+            var request = new HttpRequestMessage(new HttpMethod("PATCH"), endpoint) { Content = content };
+            var response = await _httpClient.SendAsync(request);
+
+            if (!response.IsSuccessStatusCode)
+            {
+                throw new Exception($"Error al comunicarse con la API: {response.StatusCode} - {response.ReasonPhrase}");
+            }
+        }
     }
 }

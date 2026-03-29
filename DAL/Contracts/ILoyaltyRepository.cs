@@ -11,8 +11,13 @@ namespace DAL.Contracts
         int ObtenerPuntos(string nroDocumento);
 
         /// <summary>
-        /// Suma puntos asíncronamente (opcional para futuras implementaciones).
+        /// Suma puntos asíncronamente.
         /// </summary>
         Task SumarPuntosAsync(string nroDocumento, int puntos);
+
+        /// <summary>
+        /// Resta puntos asíncronamente devengados (ej: al canjear puntos).
+        /// </summary>
+        Task RestarPuntosAsync(string nroDocumento, int puntos);
     }
 }
