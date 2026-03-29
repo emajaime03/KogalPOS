@@ -21,6 +21,11 @@ namespace UI.Formularios.Clientes
             ControlFactory.ConfigurarLayoutItem(this.lciDescripcion, false);
             ControlFactory.ConfigurarLayoutItem(this.lciNroDocumento, false);
             ControlFactory.ConfigurarLayoutItem(this.lciTipoDocumento, false);
+            ControlFactory.ConfigurarLayoutItem(this.lciPuntosActuales, true);
+
+            lciPuntosActuales.Visibility = ConfiguracionApp.Current.configuracionLocal.Loyalty_IsEnabled ? 
+                DevExpress.XtraLayout.Utils.LayoutVisibility.Always : 
+                DevExpress.XtraLayout.Utils.LayoutVisibility.Never;
         }
 
         #region "METODOS PRIVADOS"
@@ -45,6 +50,7 @@ namespace UI.Formularios.Clientes
             lciDescripcion.Text = "Descripción".Translate();
             lciNroDocumento.Text = "Nro Documento".Translate();
             lciTipoDocumento.Text = "Tipo Documento".Translate();
+            lciPuntosActuales.Text = "Puntos:".Translate();
         }
 
         protected override void CargarDatos()
@@ -63,6 +69,7 @@ namespace UI.Formularios.Clientes
                     txtDescripcion.Text = res.Cliente.Descripcion;
                     txtNroDocumento.Text = res.Cliente.NroDocumento;
                     cmbTipoDocumento.SelectedItem = res.Cliente.TipoDocumento;
+                    spinEdit1.Value = res.Cliente.Puntos;
 
                     TipoPantalla = res.Cliente.Estado == E_Estados.Activo
                         ? E_TipoPantalla.Visualizar

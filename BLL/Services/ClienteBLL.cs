@@ -41,6 +41,13 @@ namespace BLL.Services
             using (var context = BusinessFactory.UnitOfWork.Create(useTransaction: false))
             {
                 res.Cliente = context.Repositories.ClienteRepository.GetById(req.Id);
+
+                // Si tiene fidelizacion activa obtengo sus puntos
+                if (ConfiguracionApp.Current.configuracionLocal.Loyalty_IsEnabled)
+                {
+                    res.Cliente.Puntos = context.Repositories.LoyaltyRepository.ObtenerPuntos(res.Cliente.NroDocumento);
+                }
+
                 res.Success = res.Cliente != null;
 
                 if (!res.Success)

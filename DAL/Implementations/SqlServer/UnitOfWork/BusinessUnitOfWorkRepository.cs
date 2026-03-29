@@ -15,6 +15,9 @@ namespace DAL.Implementations.SqlServer.UnitOfWork
         public IListaPreciosRepository<ListaPrecio> ListaPrecioRepository { get; }
         public IConfiguracionesRepository<ConfiguracionLocal> ConfiguracionLocalRepository { get; }
 
+        private ILoyaltyRepository _loyaltyRepository;
+        public ILoyaltyRepository LoyaltyRepository => _loyaltyRepository ?? (_loyaltyRepository = new DAL.Implementations.Api.FirebaseLoyaltyRepository());
+
         public BusinessUnitOfWorkRepository(SqlConnection context, SqlTransaction transaction)
         {
             ProveedorRepository = new ProveedorRepository(context, transaction);

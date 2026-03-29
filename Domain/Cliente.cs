@@ -1,5 +1,6 @@
 using Services.Domain.Enums;
 using System;
+using System.Runtime.Remoting.Metadata.W3cXsd2001;
 
 namespace Domain
 {
@@ -10,6 +11,11 @@ namespace Domain
         public string Descripcion { get; set; }
         public string NroDocumento { get; set; }
         public E_TipoDocumento TipoDocumento { get; set; }
+        
+        /// <summary>
+        /// Este campo solo tiene sentido si tiene fidelización activa
+        /// </summary>
+        public int Puntos { get; set; }
 
         public Cliente()
         {
