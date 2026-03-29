@@ -1,5 +1,6 @@
 using DAL.Implementations.SqlServer.Mappers;
 using Domain;
+using Services.DAL.Contracts;
 using Services.Domain.Enums;
 using System;
 using System.Collections.Generic;
@@ -13,7 +14,7 @@ namespace DAL.Implementations.SqlServer
     /// Soporta lectura (GetAll, GetById), inserción (Add), y eliminación/restauración lógica (Remove/Restore).
     /// No soporta Update (los movimientos no se modifican una vez creados).
     /// </summary>
-    public sealed class MovimientoStockRepository : BusinessRepository
+    public sealed class MovimientoStockRepository : BusinessRepository, IGenericRepository<MovimientoStock>
     {
         public MovimientoStockRepository(SqlConnection context, SqlTransaction transaction)
             : base(context, transaction)
@@ -149,6 +150,11 @@ namespace DAL.Implementations.SqlServer
                 new SqlParameter("@Id", id),
                 new SqlParameter("@Estado", (int)E_Estados.Activo)
             });
+        }
+
+        public void Update(MovimientoStock obj)
+        {
+            throw new NotImplementedException();
         }
     }
 }

@@ -42,6 +42,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="BLL\ReqResConfiguracionApp.cs" />
+    <Compile Include="BLL\ReqResConfiguracionLocal.cs" />
     <Compile Include="ConfiguracionApp.cs" />
     <Compile Include="ConfiguracionLocal.cs" />
     <Compile Include="Articulo.cs" />

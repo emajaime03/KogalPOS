@@ -63,6 +63,7 @@ namespace UI.Principal
                 new MenuItemConfig { Patente = E_Patentes.Admin, CaptionKey = "Patentes",           GetPage = () => rbpAdmin,   OnClick = () => FormulariosManager.Patentes() },
                 new MenuItemConfig { Patente = E_Patentes.Admin, CaptionKey = "Familias",           GetPage = () => rbpAdmin,   OnClick = () => FormulariosManager.Familias() },
                 new MenuItemConfig { Patente = E_Patentes.Admin, CaptionKey = "Usuarios",           GetPage = () => rbpAdmin,   OnClick = () => FormulariosManager.Usuarios() },
+                new MenuItemConfig { Patente = E_Patentes.Admin, CaptionKey = "Configuración Local", GetPage = () => rbpAdmin,   OnClick = () => FormulariosManager.ConfiguracionLocal() },
                 new MenuItemConfig { Patente = E_Patentes.Admin, CaptionKey = "Copias de Seguridad", GetPage = () => rbpAdmin,   OnClick = () => FormulariosManager.CopiasSeguridad() },
 
                 // ── Compras ──

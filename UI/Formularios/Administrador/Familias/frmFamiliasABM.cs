@@ -150,7 +150,7 @@ namespace UI.Formularios.Administrador.Familias
             {
                 XtraMessageBox.Show(
                     "La Descripción es requerida".Translate(),
-                    "ValidaciÃ³n".Translate(),
+                    "Validación".Translate(),
                     MessageBoxButtons.OK,
                     MessageBoxIcon.Warning);
                 txtDescripcion.Focus();

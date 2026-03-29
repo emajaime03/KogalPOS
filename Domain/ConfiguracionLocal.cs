@@ -6,6 +6,7 @@ namespace Domain
     public class ConfiguracionLocal
     {
         public Guid IdConfig { get; set; }
+        public decimal Loyalty_MontoMinimo { get; set; }
         public decimal Loyalty_MontoRequerido { get; set; }
         public decimal Loyalty_PuntosOtorgados { get; set; }
         public bool Loyalty_IsEnabled { get; set; }

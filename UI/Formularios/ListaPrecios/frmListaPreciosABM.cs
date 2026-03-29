@@ -217,7 +217,7 @@ namespace UI.Formularios.ListaPrecios
             {
                 XtraMessageBox.Show(
                     "La Descripción es requerida".Translate(),
-                    "ValidaciÃ³n".Translate(),
+                    "Validación".Translate(),
                     MessageBoxButtons.OK,
                     MessageBoxIcon.Warning);
                 txtDescripcion.Focus();
@@ -232,7 +232,7 @@ namespace UI.Formularios.ListaPrecios
                     {
                         XtraMessageBox.Show(
                             "Todos los Items deben tener un Artículo seleccionado".Translate(),
-                            "ValidaciÃ³n".Translate(),
+                            "Validación".Translate(),
                             MessageBoxButtons.OK,
                             MessageBoxIcon.Warning);
                         return false;
@@ -242,7 +242,7 @@ namespace UI.Formularios.ListaPrecios
                     {
                         XtraMessageBox.Show(
                             "El precio debe ser mayor a cero".Translate(),
-                            "ValidaciÃ³n".Translate(),
+                            "Validación".Translate(),
                             MessageBoxButtons.OK,
                             MessageBoxIcon.Warning);
                         return false;
@@ -291,7 +291,7 @@ namespace UI.Formularios.ListaPrecios
             {
                 XtraMessageBox.Show(
                     res.Message,
-                    "ValidaciÃ³n".Translate(),
+                    "Validación".Translate(),
                     MessageBoxButtons.OK,
                     MessageBoxIcon.Warning);
             }

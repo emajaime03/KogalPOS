@@ -247,7 +247,7 @@ namespace UI.Formularios.Administrador.Usuarios
                     if (saveFileDialog.ShowDialog() == DialogResult.OK)
                     {
                         gridView.ExportToXlsx(saveFileDialog.FileName);
-                        XtraMessageBox.Show("ExportaciÃ³n completada exitosamente.".Translate(), "Ã‰xito".Translate(), MessageBoxButtons.OK, MessageBoxIcon.Information);
+                        XtraMessageBox.Show("ExportaciÃ³n completada exitosamente.".Translate(), "Éxito".Translate(), MessageBoxButtons.OK, MessageBoxIcon.Information);
                     }
                 }
             }

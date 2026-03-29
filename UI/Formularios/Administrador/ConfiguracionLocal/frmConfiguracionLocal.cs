@@ -1,10 +1,10 @@
 ﻿using BLL.Services;
-using DevExpress.XtraEditors;
 using Domain;
 using Domain.BLL;
 using Services.Domain.Enums;
 using Services.Facade.Extensions;
 using System;
+using System.Configuration;
 using UI.Formularios.Base;
 using UI.Helpers;
 
@@ -17,9 +17,13 @@ namespace UI.Formularios.Administrador.ConfiguracionLocal
             InitializeComponent();
             InicializarFormulario();
 
-            ControlFactory.ConfigurarLayoutItem(this.lciDescripcion, false);
-            ControlFactory.ConfigurarLayoutItem(this.lciNroDocumento, false);
-            ControlFactory.ConfigurarLayoutItem(this.lciTipoDocumento, false);
+            this.MostrarBotonEliminar = false;
+            this.MostrarBotonRestaurar = false;
+            
+            ControlFactory.ConfigurarLayoutItem(this.lciFidelizacion, true);
+            ControlFactory.ConfigurarLayoutItem(this.lciMontoRequerido, false);
+            ControlFactory.ConfigurarLayoutItem(this.lciPuntosOtorgados, false);
+            ControlFactory.ConfigurarLayoutItem(this.lciMontoMinimo, false);
         }
 
         #region "METODOS PRIVADOS"
@@ -31,105 +35,61 @@ namespace UI.Formularios.Administrador.ConfiguracionLocal
         protected override void ConfigurarTextos()
         {
             base.ConfigurarTextos();
-            this.Text = EsNuevo ? "Nuevo Cliente".Translate() : "Detalle de Cliente".Translate();
-            lciDescripcion.Text = "Descripción".Translate();
-            lciNroDocumento.Text = "Nro Documento".Translate();
-            lciTipoDocumento.Text = "Tipo Documento".Translate();
+            this.Text = "Configuración local".Translate();
+            lciFidelizacion.Text = "Fidelización".Translate();
+            lciMontoRequerido.Text = "Monto Requerido".Translate();
+            lciPuntosOtorgados.Text = "Puntos Otorgados".Translate();
+            lciMontoMinimo.Text = "Monto Mínimo".Translate();
         }
 
         protected override void CargarDatos()
         {
-            if (EsNuevo)
-            {
-                TipoPantalla = E_TipoPantalla.Nuevo;
-                cmbTipoDocumento.SelectedIndex = 0;
-            }
-            else
-            {
-                var res = ClienteBLL.Current.Obtener(new ReqClienteObtener(this.Sesion) { Id = Id });
+            var configuracionLocal = ConfiguracionApp.Current.configuracionLocal;
 
-                if (res.Success && res.Cliente != null)
-                {
-                    txtDescripcion.Text = res.Cliente.Descripcion;
-                    txtNroDocumento.Text = res.Cliente.NroDocumento;
-                    cmbTipoDocumento.SelectedItem = res.Cliente.TipoDocumento;
+            numMontoMinimo.Value = configuracionLocal.Loyalty_MontoMinimo;
+            numMontoRequerido.Value = configuracionLocal.Loyalty_MontoRequerido;
+            numPuntosOtorgados.Value = configuracionLocal.Loyalty_PuntosOtorgados;
 
-                    TipoPantalla = res.Cliente.Estado == E_Estados.Activo
-                        ? E_TipoPantalla.Visualizar
-                        : E_TipoPantalla.VisualizarEliminado;
-                }
-            }
+            TipoPantalla = E_TipoPantalla.Visualizar;
         }
 
         protected override bool ValidarDatos()
         {
-            if (string.IsNullOrWhiteSpace(txtDescripcion.Text))
-            {
-                XtraMessageBox.Show(
-                    "La Descripción es obligatoria.".Translate(),
-                    "ValidaciÃ³n".Translate(),
-                    System.Windows.Forms.MessageBoxButtons.OK,
-                    System.Windows.Forms.MessageBoxIcon.Warning);
-                txtDescripcion.Focus();
-                return false;
-            }
-
             return true;
         }
 
         protected override bool GuardarDatos()
         {
-            if (EsNuevo)
+            var req = new ReqConfiguracionLocalModificar(this.Sesion)
             {
-                var req = new ReqClienteInsertar(this.Sesion)
-                {
-                    Cliente = new Cliente
-                    {
-                        Descripcion = txtDescripcion.Text.Trim(),
-                        NroDocumento = txtNroDocumento.Text.Trim(),
-                        TipoDocumento = (E_TipoDocumento)cmbTipoDocumento.SelectedItem
-                    }
-                };
+                configuracionLocal = ConfiguracionApp.Current.configuracionLocal                
+            };
 
-                var res = ClienteBLL.Current.Insertar(req);
-                return res.Success;
-            }
-            else
-            {
-                var req = new ReqClienteModificar(this.Sesion)
-                {
-                    Cliente = new Cliente
-                    {
-                        IdCliente = Id,
-                        Descripcion = txtDescripcion.Text.Trim(),
-                        NroDocumento = txtNroDocumento.Text.Trim(),
-                        TipoDocumento = (E_TipoDocumento)cmbTipoDocumento.SelectedItem
-                    }
-                };
+            req.configuracionLocal.Loyalty_MontoMinimo = numMontoMinimo.Value;
+            req.configuracionLocal.Loyalty_MontoRequerido = numMontoRequerido.Value;
+            req.configuracionLocal.Loyalty_PuntosOtorgados = numPuntosOtorgados.Value;
 
-                var res = ClienteBLL.Current.Modificar(req);
-                return res.Success;
-            }
+            var res = ConfiguracionLocalBLL.Current.Modificar(req);
+            return res.Success;
         }
 
         protected override bool EliminarRegistro()
         {
-            var res = ClienteBLL.Current.Eliminar(new ReqClienteEliminar(this.Sesion) { Id = Id });
-            return res.Success;
+            return true;
         }
 
         protected override bool RestaurarRegistro()
         {
-            var res = ClienteBLL.Current.Restaurar(new ReqClienteRestaurar(this.Sesion) { Id = Id });
-            return res.Success;
+            return true;
         }
 
         protected override void OnTipoPantallaCambiado(E_TipoPantalla tipoPantalla)
         {
             ControlFactory.AplicarModo(
                 esEditable: EsModoEdicion,
-                textEdits: new[] { this.txtDescripcion, this.txtNroDocumento, this.cmbTipoDocumento },
-                itemsLayout: new[] { this.lciDescripcion, this.lciNroDocumento, this.lciTipoDocumento }
+                textEdits: new[] { this.numMontoMinimo, this.numMontoRequerido, this.numPuntosOtorgados },
+                itemsLayout: new[] { this.lciFidelizacion, this.lciMontoMinimo, this.lciMontoRequerido,
+                    this.lciPuntosOtorgados }
             );
         }
 

@@ -42,7 +42,7 @@ namespace UI.Formularios.AjustesStock
 
             ControlFactory.ConfigurarLayoutItem(this.lciTipoMovimiento, false);
             ControlFactory.ConfigurarLayoutItem(this.lciFecha, false);
-            ControlFactory.ConfigurarLayoutItem(this.lciGridItems, true); // Como es la grilla, le pasamos true
+            ControlFactory.ConfigurarLayoutItem(this.lciGridItems, false); // Como es la grilla, le pasamos true
                         
         }
         #endregion
@@ -233,7 +233,7 @@ namespace UI.Formularios.AjustesStock
             {
                 XtraMessageBox.Show(
                     "Debe agregar al menos un Artículo al ajuste".Translate(),
-                    "ValidaciÃ³n".Translate(),
+                    "Validación".Translate(),
                     MessageBoxButtons.OK,
                     MessageBoxIcon.Warning);
                 return false;
@@ -245,7 +245,7 @@ namespace UI.Formularios.AjustesStock
                 {
                     XtraMessageBox.Show(
                         "Todos los Items deben tener un Artículo seleccionado".Translate(),
-                        "ValidaciÃ³n".Translate(),
+                        "Validación".Translate(),
                         MessageBoxButtons.OK,
                         MessageBoxIcon.Warning);
                     return false;
@@ -255,7 +255,7 @@ namespace UI.Formularios.AjustesStock
                 {
                     XtraMessageBox.Show(
                         "La cantidad debe ser mayor a cero".Translate(),
-                        "ValidaciÃ³n".Translate(),
+                        "Validación".Translate(),
                         MessageBoxButtons.OK,
                         MessageBoxIcon.Warning);
                     return false;

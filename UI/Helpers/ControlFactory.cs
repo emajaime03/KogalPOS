@@ -83,12 +83,8 @@ namespace UI.Helpers
             return lkp;
         }
 
-        /// <summary>
-        /// NUEVO: Estiliza un LayoutControlItem (el "Label" que genera el LayoutControl)
-        /// </summary>
-        public static void ConfigurarLayoutItem(DevExpress.XtraLayout.LayoutControlItem item, bool esTitulo = false)
+        public static void ConfigurarLayoutItem(DevExpress.XtraLayout.BaseLayoutItem item, bool esTitulo = false)
         {
-            // Si es un título de grilla usamos la fuente más grande, si es un campo normal, la etiqueta base
             item.AppearanceItemCaption.Font = esTitulo ? FontHelper.FuenteSubtituloSemibold : FontHelper.FuenteEtiqueta;
             item.AppearanceItemCaption.ForeColor = LabelEdicion;
 

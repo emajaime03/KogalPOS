@@ -1,4 +1,4 @@
-using DAL.Contracts;
+using DAL.Contracts.UnitOfWork;
 using Services.DAL.Implementations.SqlServer.UnitOfWork;
 
 namespace DAL.Implementations.SqlServer.UnitOfWork

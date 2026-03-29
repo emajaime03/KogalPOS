@@ -13,19 +13,19 @@ namespace UI.Formularios.Base
 {
     /// <summary>
     /// Formulario base para pantallas de listado con grilla.
-    /// Proporciona funcionalidad comÃºn: refrescar, exportar, nuevo y detalle.
+    /// Proporciona funcionalidad común: refrescar, exportar, nuevo y detalle.
     /// </summary>
     public partial class frmBaseGrilla : XtraForm, IObserver
     {
         #region "PROPIEDADES"
 
         /// <summary>
-        /// SesiÃ³n del usuario actual del sistema.
+        /// Sesión del usuario actual del sistema.
         /// </summary>
         public GlobalCliente Sesion { get; private set; }
 
         /// <summary>
-        /// Indica si el botÃ³n Nuevo estÃ¡ visible
+        /// Indica si el botón Nuevo está visible
         /// </summary>
         public bool MostrarBotonNuevo
         {
@@ -36,7 +36,7 @@ namespace UI.Formularios.Base
         }
 
         /// <summary>
-        /// Indica si el botÃ³n Detalle estÃ¡ visible
+        /// Indica si el botón Detalle está visible
         /// </summary>
         public bool MostrarBotonDetalle
         {
@@ -47,7 +47,7 @@ namespace UI.Formularios.Base
         }
 
         /// <summary>
-        /// Acceso al GridView principal para configuraciÃ³n adicional
+        /// Acceso al GridView principal para configuración adicional
         /// </summary>
         protected GridView GridViewPrincipal => gridView;
 
@@ -118,7 +118,7 @@ namespace UI.Formularios.Base
         }
 
         /// <summary>
-        /// Se ejecuta al hacer clic en el botÃ³n Nuevo. Sobrescribir en clases derivadas.
+        /// Se ejecuta al hacer clic en el botón Nuevo. Sobrescribir en clases derivadas.
         /// </summary>
         protected virtual void OnNuevoClick()
         {
@@ -126,7 +126,7 @@ namespace UI.Formularios.Base
         }
 
         /// <summary>
-        /// Se ejecuta al hacer clic en el botÃ³n Detalle o doble clic en una fila.
+        /// Se ejecuta al hacer clic en el botón Detalle o doble clic en una fila.
         /// Sobrescribir en clases derivadas.
         /// </summary>
         protected virtual void OnDetalleClick()
@@ -152,7 +152,7 @@ namespace UI.Formularios.Base
 
         #endregion
 
-        #region "METODOS PÃšBLICOS"
+        #region "METODOS PUBLICOS"
 
         /// <summary>
         /// Asigna el origen de datos a la grilla
@@ -282,7 +282,7 @@ namespace UI.Formularios.Base
                     if (saveFileDialog.ShowDialog() == DialogResult.OK)
                     {
                         gv.ExportToXlsx(saveFileDialog.FileName);
-                        XtraMessageBox.Show("ExportaciÃ³n completada exitosamente.".Translate(), "Ã‰xito".Translate(), MessageBoxButtons.OK, MessageBoxIcon.Information);
+                        XtraMessageBox.Show("ExportaciÃ³n completada exitosamente.".Translate(), "Éxito".Translate(), MessageBoxButtons.OK, MessageBoxIcon.Information);
                     }
                 }
             }
@@ -311,7 +311,7 @@ namespace UI.Formularios.Base
 
         #endregion
 
-        #region "IMPLEMENTACIÃ“N IOBSERVER"
+        #region "IMPLEMENTACION IOBSERVER"
 
         /// <summary>
         /// MÃ©todo llamado cuando se notifica un cambio desde el Subject.

@@ -40,7 +40,7 @@ namespace UI.Formularios.Administrador.BackupRestore
         {
             if (res.Success)
             {
-                XtraMessageBox.Show(res.Message.Translate(), "Ã‰xito".Translate(), MessageBoxButtons.OK, MessageBoxIcon.Information);
+                XtraMessageBox.Show(res.Message.Translate(), "Éxito".Translate(), MessageBoxButtons.OK, MessageBoxIcon.Information);
             }
             else
             {
@@ -71,8 +71,8 @@ namespace UI.Formularios.Administrador.BackupRestore
         private void btnRestore_Click(object sender, EventArgs e)
         {
             var confirmResult = XtraMessageBox.Show(
-                "ADVERTENCIA: Restaurar una base de datos sobrescribirÃ¡ todos los datos actuales y cerrarÃ¡ la sesiÃ³n de la aplicaciÃ³n. Â¿Desea continuar?".Translate(),
-                "Confirmar RestauraciÃ³n".Translate(),
+                "ADVERTENCIA: Restaurar una base de datos sobrescribirÃ¡ todos los datos actuales y cerrarÃ¡ la Sesión de la aplicaciÃ³n. Â¿Desea continuar?".Translate(),
+                "Confirmar restauración".Translate(),
                 MessageBoxButtons.YesNo,
                 MessageBoxIcon.Warning);
 

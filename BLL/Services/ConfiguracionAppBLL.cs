@@ -1,11 +1,7 @@
 ﻿using DAL.Factories;
 using Domain;
 using Domain.BLL;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using System.Runtime.Remoting.Contexts;
 
 namespace BLL.Services
 {
@@ -35,7 +31,8 @@ namespace BLL.Services
 
             using (var context = BusinessFactory.UnitOfWork.Create(useTransaction: false))
             {
-                var configuracionLocal = new ConfiguracionLocal(); // falta llamada a bdd
+
+                var configuracionLocal = context.Repositories.ConfiguracionLocalRepository.Get(); // falta llamada a bdd
 
                 res.configuracionLocal = configuracionLocal;
                 res.Success = true;

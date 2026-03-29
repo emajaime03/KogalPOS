@@ -1,5 +1,7 @@
+using DAL.Contracts;
 using DAL.Implementations.SqlServer.Mappers;
 using Domain;
+using Services.DAL.Contracts;
 using Services.Domain.Enums;
 using System;
 using System.Collections.Generic;
@@ -12,7 +14,7 @@ namespace DAL.Implementations.SqlServer
     /// Repositorio para ListaPrecios.
     /// Soporta CRUD completo de cabecera + ítems (artículos con sus precios).
     /// </summary>
-    public sealed class ListaPrecioRepository : BusinessRepository
+    public sealed class ListaPrecioRepository : BusinessRepository, IListaPreciosRepository<ListaPrecio>
     {
         public ListaPrecioRepository(SqlConnection context, SqlTransaction transaction)
             : base(context, transaction)

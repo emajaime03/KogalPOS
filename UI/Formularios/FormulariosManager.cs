@@ -9,6 +9,7 @@ using UI.Formularios.Articulos;
 using UI.Formularios.Clientes;
 using UI.Formularios.AjustesStock;
 using UI.Formularios.ListaPrecios;
+using UI.Formularios.Administrador.ConfiguracionLocal;
 
 namespace UI.Formularios
 {
@@ -60,6 +61,16 @@ namespace UI.Formularios
             frmUsuariosABM.MdiParent = frmPrincipal;
             frmUsuariosABM.MaximizeBox = true;
             frmUsuariosABM.Show();
+        }
+        #endregion
+
+        #region "CONFIGURACION LOCAL"
+        public static void ConfiguracionLocal()
+        {
+            frmConfiguracionLocal frmUsuarios = new frmConfiguracionLocal(frmPrincipal.Sesion);
+            frmUsuarios.MdiParent = frmPrincipal;
+            frmUsuarios.MaximizeBox = true;
+            frmUsuarios.Show();
         }
         #endregion
 

@@ -154,7 +154,7 @@ namespace UI.Formularios.Administrador.Usuarios
             {
                 XtraMessageBox.Show(
                     "El nombre de usuario es requerido".Translate(),
-                    "ValidaciÃ³n".Translate(),
+                    "Validación".Translate(),
                     MessageBoxButtons.OK,
                     MessageBoxIcon.Warning);
                 txtUserName.Focus();
@@ -165,7 +165,7 @@ namespace UI.Formularios.Administrador.Usuarios
             {
                 XtraMessageBox.Show(
                     "La Contraseña es requerida para nuevos usuarios".Translate(),
-                    "ValidaciÃ³n".Translate(),
+                    "Validación".Translate(),
                     MessageBoxButtons.OK,
                     MessageBoxIcon.Warning);
                 txtPassword.Focus();

@@ -64,7 +64,7 @@ namespace UI.Formularios.Proveedores
             {
                 XtraMessageBox.Show(
                     "La Descripción es obligatoria.".Translate(),
-                    "ValidaciÃ³n".Translate(),
+                    "Validación".Translate(),
                     System.Windows.Forms.MessageBoxButtons.OK,
                     System.Windows.Forms.MessageBoxIcon.Warning);
                 txtDescripcion.Focus();

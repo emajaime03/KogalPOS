@@ -244,6 +244,9 @@
     <EmbeddedResource Include="Formularios\Administrador\Usuarios\frmUsuariosABM.resx">
       <DependentUpon>frmUsuariosABM.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="Formularios\AjustesStock\frmAjusteStock.resx">
+      <DependentUpon>frmAjusteStock.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Formularios\Base\frmBaseABM.resx">
       <DependentUpon>frmBaseABM.cs</DependentUpon>
     </EmbeddedResource>
