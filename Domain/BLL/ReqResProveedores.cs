@@ -39,7 +39,6 @@ namespace Domain.BLL
 
     public class ResProveedorInsertar : ResBase
     {
-        public Proveedor Proveedor { get; set; }
     }
     #endregion
 
@@ -52,7 +51,6 @@ namespace Domain.BLL
 
     public class ResProveedorModificar : ResBase
     {
-        public Proveedor Proveedor { get; set; }
     }
     #endregion
 

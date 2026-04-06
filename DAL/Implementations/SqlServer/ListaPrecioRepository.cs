@@ -14,7 +14,7 @@ namespace DAL.Implementations.SqlServer
     /// Repositorio para ListaPrecios.
     /// Soporta CRUD completo de cabecera + ítems (artículos con sus precios).
     /// </summary>
-    public sealed class ListaPrecioRepository : BusinessRepository, IListaPreciosRepository<ListaPrecio>
+    public sealed class ListaPrecioRepository : BusinessRepository, IListaPreciosRepository
     {
         public ListaPrecioRepository(SqlConnection context, SqlTransaction transaction)
             : base(context, transaction)
@@ -64,11 +64,9 @@ namespace DAL.Implementations.SqlServer
 
             if (lista == null) return null;
 
-            // Obtener ítems con JOIN a Articulos
-            string queryItems = @"SELECT lpa.IdListaPrecioArticulo, lpa.IdListaPrecio, lpa.IdArticulo, lpa.Precio, 
-                                         a.Codigo, a.Descripcion
+            // Obtener ítems puros
+            string queryItems = @"SELECT lpa.IdListaPrecioArticulo, lpa.IdListaPrecio, lpa.IdArticulo, lpa.Precio
                                   FROM ListaPrecioArticulos lpa
-                                  INNER JOIN Articulos a ON lpa.IdArticulo = a.IdArticulo
                                   WHERE lpa.IdListaPrecio = @Id";
             using (var reader = base.ExecuteReader(queryItems, CommandType.Text,
                 new SqlParameter[] { new SqlParameter("@Id", id) }))

@@ -143,6 +143,18 @@
     <Compile Include="Formularios\Base\frmBaseGrilla.Designer.cs">
       <DependentUpon>frmBaseGrilla.cs</DependentUpon>
     </Compile>
+    <Compile Include="Formularios\Premios\frmPremios.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Formularios\Premios\frmPremios.Designer.cs">
+      <DependentUpon>frmPremios.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Formularios\Premios\frmPremiosABM.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Formularios\Premios\frmPremiosABM.Designer.cs">
+      <DependentUpon>frmPremiosABM.cs</DependentUpon>
+    </Compile>
     <Compile Include="Formularios\FormulariosManager.cs" />
     <Compile Include="Formularios\Proveedores\frmProveedores.cs">
       <SubType>Form</SubType>
@@ -252,6 +264,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Formularios\Base\frmBaseGrilla.resx">
       <DependentUpon>frmBaseGrilla.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Formularios\Premios\frmPremiosABM.resx">
+      <DependentUpon>frmPremiosABM.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Formularios\Clientes\frmClientesABM.resx">
       <DependentUpon>frmClientesABM.cs</DependentUpon>

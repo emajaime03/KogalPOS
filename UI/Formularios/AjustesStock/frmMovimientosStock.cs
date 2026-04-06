@@ -1,5 +1,6 @@
-﻿using BLL.Services;
+using BLL.Services;
 using Domain;
+using Domain.DTOs;
 using Domain.BLL;
 using Services.Domain.Enums;
 using Services.Facade.Extensions;
@@ -22,16 +23,16 @@ namespace UI.Formularios.AjustesStock
         protected override void ConfigurarColumnas()
         {
             AgregarColumnas(
-                CrearColumna(nameof(MovimientoStock.IdMovimientoStock), "ID", visible: false),
-                CrearColumna(nameof(MovimientoStock.Estado), "Estado".Translate()),
-                CrearColumna(nameof(MovimientoStock.Fecha), "Fecha".Translate()),
-                CrearColumna(nameof(MovimientoStock.TipoMovimiento), "Tipo".Translate())
+                CrearColumna(nameof(MovimientoStockDTO.IdMovimientoStock), "ID", visible: false),
+                CrearColumna(nameof(MovimientoStockDTO.Estado), "Estado".Translate()),
+                CrearColumna(nameof(MovimientoStockDTO.Fecha), "Fecha".Translate()),
+                CrearColumna(nameof(MovimientoStockDTO.TipoMovimiento), "Tipo".Translate())
             );
         }
 
         protected override void CargarPantalla()
         {
-            var res = AjusteStockBLL.Current.ObtenerLista(new ReqAjustesStockObtener(this.Sesion));
+            var res = AjustesStockBLL.Current.ObtenerLista(new ReqAjustesStockObtener(this.Sesion));
             EstablecerDataSource(res.Movimientos);
         }
 
@@ -42,7 +43,7 @@ namespace UI.Formularios.AjustesStock
 
         protected override void OnDetalleClick()
         {
-            var movimiento = ObtenerFilaSeleccionada<MovimientoStock>();
+            var movimiento = ObtenerFilaSeleccionada<MovimientoStockDTO>();
             if (movimiento != null)
             {
                 FormulariosManager.AjusteStockABM(movimiento.IdMovimientoStock);

@@ -26,5 +26,8 @@ namespace Services.Domain.Enums
         ListasDePrecios = 61,
         #endregion
 
+        #region FIDELIZACION
+        Premios = 80,
+        #endregion
     }
 }

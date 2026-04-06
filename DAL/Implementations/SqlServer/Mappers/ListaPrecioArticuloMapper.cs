@@ -16,8 +16,8 @@ namespace DAL.Implementations.SqlServer.Mappers
         #endregion
 
         /// <summary>
-        /// Mapea un ListaPrecioArticulo desde un JOIN con Articulos.
-        /// Columnas esperadas: IdListaPrecioArticulo, IdListaPrecio, IdArticulo, Precio, Codigo, Descripcion
+        /// Mapea un ListaPrecioArticulo puro.
+        /// Columnas esperadas: IdListaPrecioArticulo, IdListaPrecio, IdArticulo, Precio
         /// </summary>
         public ListaPrecioArticulo Fill(object[] values)
         {
@@ -26,8 +26,6 @@ namespace DAL.Implementations.SqlServer.Mappers
             item.IdListaPrecio = System.Guid.Parse(values[1].ToString());
             item.IdArticulo = System.Guid.Parse(values[2].ToString());
             item.Precio = System.Convert.ToDecimal(values[3]);
-            item.CodigoArticulo = values[4].ToString();
-            item.DescripcionArticulo = values[5].ToString();
 
             return item;
         }

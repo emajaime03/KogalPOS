@@ -32,7 +32,7 @@ namespace UI.Formularios.Clientes
 
         protected override void CargarPantalla()
         {
-            var res = ClienteBLL.Current.ObtenerLista(new ReqClientesObtener(this.Sesion));
+            var res = ClientesBLL.Current.ObtenerLista(new ReqClientesObtener(this.Sesion));
             EstablecerDataSource(res.Clientes);
         }
 

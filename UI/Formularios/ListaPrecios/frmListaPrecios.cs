@@ -1,5 +1,6 @@
-﻿using BLL.Services;
+using BLL.Services;
 using Domain;
+using Domain.DTOs;
 using Domain.BLL;
 using Services.Domain.Enums;
 using Services.Facade.Extensions;
@@ -22,16 +23,16 @@ namespace UI.Formularios.ListaPrecios
         protected override void ConfigurarColumnas()
         {
             AgregarColumnas(
-                CrearColumna(nameof(ListaPrecio.IdListaPrecio), "ID", visible: false),
-                CrearColumna(nameof(ListaPrecio.Estado), "Estado".Translate()),
-                CrearColumna(nameof(ListaPrecio.Descripcion), "Descripción".Translate()),
-                CrearColumna(nameof(ListaPrecio.EsPredeterminada), "Es Predeterminada".Translate())
+                CrearColumna(nameof(ListaPrecioDTO.IdListaPrecio), "ID", visible: false),
+                CrearColumna(nameof(ListaPrecioDTO.Estado), "Estado".Translate()),
+                CrearColumna(nameof(ListaPrecioDTO.Descripcion), "Descripción".Translate()),
+                CrearColumna(nameof(ListaPrecioDTO.EsPredeterminada), "Es Predeterminada".Translate())
             );
         }
 
         protected override void CargarPantalla()
         {
-            var res = ListaPrecioBLL.Current.ObtenerLista(new ReqListaPreciosObtener(this.Sesion));
+            var res = ListasPreciosBLL.Current.ObtenerLista(new ReqListaPreciosObtener(this.Sesion));
             EstablecerDataSource(res.ListaPrecios);
         }
 
@@ -42,7 +43,7 @@ namespace UI.Formularios.ListaPrecios
 
         protected override void OnDetalleClick()
         {
-            var lista = ObtenerFilaSeleccionada<ListaPrecio>();
+            var lista = ObtenerFilaSeleccionada<ListaPrecioDTO>();
             if (lista != null)
             {
                 FormulariosManager.ListaPreciosABM(lista.IdListaPrecio);

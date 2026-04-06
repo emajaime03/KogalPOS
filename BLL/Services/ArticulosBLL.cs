@@ -6,17 +6,17 @@ using System;
 
 namespace BLL.Services
 {
-    public sealed class ArticuloBLL
+    public sealed class ArticulosBLL
     {
         #region Singleton
-        private readonly static ArticuloBLL _instance = new ArticuloBLL();
+        private readonly static ArticulosBLL _instance = new ArticulosBLL();
 
-        public static ArticuloBLL Current
+        public static ArticulosBLL Current
         {
             get { return _instance; }
         }
 
-        private ArticuloBLL()
+        private ArticulosBLL()
         {
         }
         #endregion
@@ -28,6 +28,26 @@ namespace BLL.Services
             using (var context = BusinessFactory.UnitOfWork.Create(useTransaction: false))
             {
                 res.Articulos = context.Repositories.ArticuloRepository.GetAll();
+                res.Success = true;
+            }
+
+            return res;
+        }
+
+        public ResArticulosObtenerPorIds ObtenerPorIds(ReqArticulosObtenerPorIds req)
+        {
+            ResArticulosObtenerPorIds res = new ResArticulosObtenerPorIds();
+
+            if (req.Ids == null || req.Ids.Count == 0)
+            {
+                res.Articulos = new System.Collections.Generic.List<Articulo>();
+                res.Success = true;
+                return res;
+            }
+
+            using (var context = BusinessFactory.UnitOfWork.Create(useTransaction: false))
+            {
+                res.Articulos = new System.Collections.Generic.List<Articulo>(context.Repositories.ArticuloRepository.GetByIds(req.Ids));
                 res.Success = true;
             }
 

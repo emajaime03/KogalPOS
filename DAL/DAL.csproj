@@ -46,6 +46,7 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Contracts\IArticulosRepository.cs" />
     <Compile Include="Contracts\IConfiguracionesRepository.cs" />
     <Compile Include="Contracts\ILoyaltyRepository.cs" />
     <Compile Include="Contracts\IListaPreciosRepository.cs" />
@@ -59,7 +60,9 @@
     <Compile Include="Implementations\SqlServer\Mappers\ArticuloMapper.cs" />
     <Compile Include="Implementations\SqlServer\Mappers\ClienteMapper.cs" />
     <Compile Include="Implementations\SqlServer\Mappers\ConfiguracionLocalMapper.cs" />
+    <Compile Include="Implementations\SqlServer\Mappers\PremioMapper.cs" />
     <Compile Include="Implementations\SqlServer\Mappers\ProveedorMapper.cs" />
+    <Compile Include="Implementations\SqlServer\PremiosRepository.cs" />
     <Compile Include="Implementations\SqlServer\ProveedorRepository.cs" />
     <Compile Include="Implementations\SqlServer\MovimientoStockRepository.cs" />
     <Compile Include="Implementations\SqlServer\Mappers\MovimientoStockMapper.cs" />

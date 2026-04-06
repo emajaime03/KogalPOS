@@ -43,7 +43,7 @@ namespace UI.Formularios.Proveedores
             }
             else
             {
-                var res = ProveedorBLL.Current.Obtener(new ReqProveedorObtener(this.Sesion) { Id = Id });
+                var res = ProveedoresBLL.Current.Obtener(new ReqProveedorObtener(this.Sesion) { Id = Id });
 
                 if (res.Success && res.Proveedor != null)
                 {
@@ -88,7 +88,7 @@ namespace UI.Formularios.Proveedores
                     }
                 };
 
-                var res = ProveedorBLL.Current.Insertar(req);
+                var res = ProveedoresBLL.Current.Insertar(req);
                 return res.Success;
             }
             else
@@ -104,20 +104,20 @@ namespace UI.Formularios.Proveedores
                     }
                 };
 
-                var res = ProveedorBLL.Current.Modificar(req);
+                var res = ProveedoresBLL.Current.Modificar(req);
                 return res.Success;
             }
         }
 
         protected override bool EliminarRegistro()
         {
-            var res = ProveedorBLL.Current.Eliminar(new ReqProveedorEliminar(this.Sesion) { Id = Id });
+            var res = ProveedoresBLL.Current.Eliminar(new ReqProveedorEliminar(this.Sesion) { Id = Id });
             return res.Success;
         }
 
         protected override bool RestaurarRegistro()
         {
-            var res = ProveedorBLL.Current.Restaurar(new ReqProveedorRestaurar(this.Sesion) { Id = Id });
+            var res = ProveedoresBLL.Current.Restaurar(new ReqProveedorRestaurar(this.Sesion) { Id = Id });
             return res.Success;
         }
 

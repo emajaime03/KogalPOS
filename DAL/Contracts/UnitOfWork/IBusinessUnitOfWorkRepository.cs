@@ -11,10 +11,11 @@ namespace DAL.Contracts.UnitOfWork
     public interface IBusinessUnitOfWorkRepository
     {
         IGenericRepository<Proveedor> ProveedorRepository { get; }
-        IGenericRepository<Articulo> ArticuloRepository { get; }
+        IArticulosRepository ArticuloRepository { get; }
         IGenericRepository<Cliente> ClienteRepository { get; }
         IGenericRepository<MovimientoStock> MovimientoStockRepository { get; }
-        IListaPreciosRepository<ListaPrecio> ListaPrecioRepository { get; }
+        IListaPreciosRepository ListaPrecioRepository { get; }
+        IGenericRepository<Premio> PremiosRepository { get; }
         IConfiguracionesRepository<ConfiguracionLocal> ConfiguracionLocalRepository { get; }
         ILoyaltyRepository LoyaltyRepository { get; }
     }

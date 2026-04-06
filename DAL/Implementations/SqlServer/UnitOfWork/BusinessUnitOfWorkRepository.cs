@@ -9,11 +9,12 @@ namespace DAL.Implementations.SqlServer.UnitOfWork
     public class BusinessUnitOfWorkRepository : IBusinessUnitOfWorkRepository
     {
         public IGenericRepository<Proveedor> ProveedorRepository { get; }
-        public IGenericRepository<Articulo> ArticuloRepository { get; }
+        public IArticulosRepository ArticuloRepository { get; }
         public IGenericRepository<Cliente> ClienteRepository { get; }
         public IGenericRepository<MovimientoStock> MovimientoStockRepository { get; }
-        public IListaPreciosRepository<ListaPrecio> ListaPrecioRepository { get; }
+        public IListaPreciosRepository ListaPrecioRepository { get; }
         public IConfiguracionesRepository<ConfiguracionLocal> ConfiguracionLocalRepository { get; }
+        public IGenericRepository<Premio> PremiosRepository { get; }
 
         private ILoyaltyRepository _loyaltyRepository;
         public ILoyaltyRepository LoyaltyRepository => _loyaltyRepository ?? (_loyaltyRepository = new DAL.Implementations.Api.FirebaseLoyaltyRepository());
@@ -26,6 +27,7 @@ namespace DAL.Implementations.SqlServer.UnitOfWork
             MovimientoStockRepository = new MovimientoStockRepository(context, transaction);
             ListaPrecioRepository = new ListaPrecioRepository(context, transaction);
             ConfiguracionLocalRepository = new ConfiguracionLocalRepository(context, transaction);
+            PremiosRepository = new PremiosRepository(context, transaction);
         }
     }
 }

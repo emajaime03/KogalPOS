@@ -65,5 +65,28 @@ namespace Services.DAL.Tools.Helpers
                 throw new Exception($"Error al comunicarse con la API: {response.StatusCode} - {response.ReasonPhrase}");
             }
         }
+
+        protected async Task PutAsync<TRequest>(string endpoint, TRequest data)
+        {
+            var jsonRequest = JsonConvert.SerializeObject(data);
+            var content = new StringContent(jsonRequest, Encoding.UTF8, "application/json");
+
+            var response = await _httpClient.PutAsync(endpoint, content);
+
+            if (!response.IsSuccessStatusCode)
+            {
+                throw new Exception($"Error al comunicarse con la API: {response.StatusCode} - {response.ReasonPhrase}");
+            }
+        }
+
+        protected async Task DeleteAsync(string endpoint)
+        {
+            var response = await _httpClient.DeleteAsync(endpoint);
+
+            if (!response.IsSuccessStatusCode)
+            {
+                throw new Exception($"Error al comunicarse con la API: {response.StatusCode} - {response.ReasonPhrase}");
+            }
+        }
     }
 }

@@ -6,17 +6,17 @@ using System;
 
 namespace BLL.Services
 {
-    public sealed class ClienteBLL
+    public sealed class ClientesBLL
     {
         #region Singleton
-        private readonly static ClienteBLL _instance = new ClienteBLL();
+        private readonly static ClientesBLL _instance = new ClientesBLL();
 
-        public static ClienteBLL Current
+        public static ClientesBLL Current
         {
             get { return _instance; }
         }
 
-        private ClienteBLL()
+        private ClientesBLL()
         {
         }
         #endregion

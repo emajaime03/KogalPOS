@@ -1,7 +1,8 @@
-﻿using BLL.Services;
+using BLL.Services;
 using DevExpress.XtraEditors;
 using DevExpress.XtraGrid.Columns;
 using DevExpress.XtraGrid.Views.Grid;
+using Domain.DTOs;
 using Domain;
 using Domain.BLL;
 using Services.Domain.Enums;
@@ -18,8 +19,8 @@ namespace UI.Formularios.AjustesStock
     public partial class frmAjusteStock : frmBaseABM
     {
         #region "PROPIEDADES"
-        private MovimientoStock MovimientoActual { get; set; }
-        private BindingList<MovimientoItem> ItemsBinding { get; set; }
+        private MovimientoStockDTO MovimientoActual { get; set; }
+        private BindingList<MovimientoItemDTO> ItemsBinding { get; set; }
         private List<Articulo> ArticulosDisponibles { get; set; }
         #endregion
 
@@ -51,7 +52,7 @@ namespace UI.Formularios.AjustesStock
 
         private void CargarArticulosDisponibles()
         {
-            var res = ArticuloBLL.Current.ObtenerLista(new ReqArticulosObtener(this.Sesion));
+            var res = ArticulosBLL.Current.ObtenerLista(new ReqArticulosObtener(this.Sesion));
             ArticulosDisponibles = res.Articulos ?? new List<Articulo>();
         }
 
@@ -62,7 +63,7 @@ namespace UI.Formularios.AjustesStock
             // Columna Artículo (LookUpEdit)
             var colArticulo = new GridColumn
             {
-                FieldName = nameof(MovimientoItem.IdArticulo),
+                FieldName = nameof(MovimientoItemDTO.IdArticulo),
                 Caption = "Artículo".Translate(),
                 Visible = true,
                 Width = 350
@@ -82,7 +83,7 @@ namespace UI.Formularios.AjustesStock
             // Columna Código (readonly, para visualizaciÃ³n)
             var colCodigo = new GridColumn
             {
-                FieldName = nameof(MovimientoItem.CodigoArticulo),
+                FieldName = nameof(MovimientoItemDTO.CodigoArticulo),
                 Caption = "Código".Translate(),
                 Visible = true,
                 Width = 100
@@ -93,7 +94,7 @@ namespace UI.Formularios.AjustesStock
             // Columna Cantidad
             var colCantidad = new GridColumn
             {
-                FieldName = nameof(MovimientoItem.Cantidad),
+                FieldName = nameof(MovimientoItemDTO.Cantidad),
                 Caption = "Cantidad".Translate(),
                 Visible = true,
                 Width = 120
@@ -112,7 +113,7 @@ namespace UI.Formularios.AjustesStock
             // Columna ID oculta
             var colId = new GridColumn
             {
-                FieldName = nameof(MovimientoItem.IdMovimientoItem),
+                FieldName = nameof(MovimientoItemDTO.IdMovimientoItem),
                 Visible = false
             };
             gridViewItems.Columns.Add(colId);
@@ -120,14 +121,14 @@ namespace UI.Formularios.AjustesStock
             // Ocultar columnas no necesarias en la grilla editable
             var colIdStock = new GridColumn
             {
-                FieldName = nameof(MovimientoItem.IdMovimientoStock),
+                FieldName = nameof(MovimientoItemDTO.IdMovimientoStock),
                 Visible = false
             };
             gridViewItems.Columns.Add(colIdStock);
 
             var colDescripcion = new GridColumn
             {
-                FieldName = nameof(MovimientoItem.DescripcionArticulo),
+                FieldName = nameof(MovimientoItemDTO.DescripcionArticulo),
                 Visible = false
             };
             gridViewItems.Columns.Add(colDescripcion);
@@ -138,14 +139,14 @@ namespace UI.Formularios.AjustesStock
 
         private void GridViewItems_CellValueChanged(object sender, DevExpress.XtraGrid.Views.Base.CellValueChangedEventArgs e)
         {
-            if (e.Column.FieldName == nameof(MovimientoItem.IdArticulo) && e.Value != null)
+            if (e.Column.FieldName == nameof(MovimientoItemDTO.IdArticulo) && e.Value != null)
             {
                 Guid idArticulo = (Guid)e.Value;
                 var articulo = ArticulosDisponibles.Find(a => a.IdArticulo == idArticulo);
                 if (articulo != null)
                 {
-                    gridViewItems.SetRowCellValue(e.RowHandle, nameof(MovimientoItem.CodigoArticulo), articulo.Codigo);
-                    gridViewItems.SetRowCellValue(e.RowHandle, nameof(MovimientoItem.DescripcionArticulo), articulo.Descripcion);
+                    gridViewItems.SetRowCellValue(e.RowHandle, nameof(MovimientoItemDTO.CodigoArticulo), articulo.Codigo);
+                    gridViewItems.SetRowCellValue(e.RowHandle, nameof(MovimientoItemDTO.DescripcionArticulo), articulo.Descripcion);
                 }
             }
         }
@@ -156,7 +157,7 @@ namespace UI.Formularios.AjustesStock
 
         private void BtnAgregarFila_Click(object sender, EventArgs e)
         {
-            ItemsBinding.Add(new MovimientoItem());
+            ItemsBinding.Add(new MovimientoItemDTO());
         }
 
         private void BtnQuitarFila_Click(object sender, EventArgs e)
@@ -197,12 +198,12 @@ namespace UI.Formularios.AjustesStock
 
                 txtFecha.Text = DateTime.Now.ToString("dd/MM/yyyy HH:mm");
 
-                ItemsBinding = new BindingList<MovimientoItem>();
+                ItemsBinding = new BindingList<MovimientoItemDTO>();
                 gridItems.DataSource = ItemsBinding;
             }
             else
             {
-                var res = AjusteStockBLL.Current.Obtener(new ReqAjusteStockObtener(this.Sesion) { Id = Id });
+                var res = AjustesStockBLL.Current.Obtener(new ReqAjusteStockObtener(this.Sesion) { Id = Id });
 
                 if (res.Success && res.Movimiento != null)
                 {
@@ -216,7 +217,7 @@ namespace UI.Formularios.AjustesStock
 
                     txtFecha.Text = res.Movimiento.Fecha.ToString("dd/MM/yyyy HH:mm");
 
-                    ItemsBinding = new BindingList<MovimientoItem>(res.Movimiento.Items);
+                    ItemsBinding = new BindingList<MovimientoItemDTO>(res.Movimiento.Items);
                     gridItems.DataSource = ItemsBinding;
 
                     // Estado determina modo de visualizaciÃ³n
@@ -267,30 +268,30 @@ namespace UI.Formularios.AjustesStock
 
         protected override bool GuardarDatos()
         {
-            var movimiento = new MovimientoStock
+            var movimiento = new MovimientoStockDTO
             {
                 TipoMovimiento = cmbTipoMovimiento.SelectedIndex == 0
                     ? E_TipoMovimiento.Alta
                     : E_TipoMovimiento.Baja,
-                Items = new List<MovimientoItem>(ItemsBinding)
+                Items = new List<MovimientoItemDTO>(ItemsBinding)
             };
 
             var req = new ReqAjusteStockInsertar(this.Sesion) { Movimiento = movimiento };
-            var res = AjusteStockBLL.Current.Insertar(req);
+            var res = AjustesStockBLL.Current.Insertar(req);
             return res.Success;
         }
 
         protected override bool EliminarRegistro()
         {
             var req = new ReqAjusteStockEliminar(this.Sesion) { Id = Id };
-            var res = AjusteStockBLL.Current.Eliminar(req);
+            var res = AjustesStockBLL.Current.Eliminar(req);
             return res.Success;
         }
 
         protected override bool RestaurarRegistro()
         {
             var req = new ReqAjusteStockRestaurar(this.Sesion) { Id = Id };
-            var res = AjusteStockBLL.Current.Restaurar(req);
+            var res = AjustesStockBLL.Current.Restaurar(req);
             return res.Success;
         }
 

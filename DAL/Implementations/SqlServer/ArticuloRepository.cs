@@ -1,3 +1,4 @@
+using DAL.Contracts;
 using DAL.Implementations.SqlServer.Mappers;
 using Domain;
 using Services.DAL.Contracts;
@@ -9,7 +10,7 @@ using System.Data.SqlClient;
 
 namespace DAL.Implementations.SqlServer
 {
-    public sealed class ArticuloRepository : BusinessRepository, IGenericRepository<Articulo>
+    public sealed class ArticuloRepository : BusinessRepository, IArticulosRepository
     {
         public ArticuloRepository(SqlConnection context, SqlTransaction transaction)
             : base(context, transaction)
@@ -93,6 +94,37 @@ namespace DAL.Implementations.SqlServer
 
             string query = "SELECT * FROM Articulos";
             using (var reader = base.ExecuteReader(query, CommandType.Text))
+            {
+                while (reader.Read())
+                {
+                    object[] data = new object[reader.FieldCount];
+                    reader.GetValues(data);
+                    articulos.Add(ArticuloMapper.Current.Fill(data));
+                }
+            }
+
+            return articulos;
+        }
+
+        public IEnumerable<Articulo> GetByIds(IEnumerable<Guid> ids)
+        {
+            var list = new List<Guid>(ids);
+            if (list.Count == 0) return new List<Articulo>();
+
+            var parameters = new List<SqlParameter>();
+            var paramNames = new List<string>();
+
+            for (int i = 0; i < list.Count; i++)
+            {
+                var pName = $"@id{i}";
+                paramNames.Add(pName);
+                parameters.Add(new SqlParameter(pName, list[i]));
+            }
+
+            string query = $"SELECT * FROM Articulos WHERE IdArticulo IN ({string.Join(",", paramNames)}) AND Estado = {(int)E_Estados.Activo}";
+
+            var articulos = new List<Articulo>();
+            using (var reader = base.ExecuteReader(query, CommandType.Text, parameters.ToArray()))
             {
                 while (reader.Read())
                 {

@@ -2,6 +2,7 @@ using Services.Domain.BLL.Base;
 using System;
 using System.Collections.Generic;
 using Services.Domain;
+using Domain.DTOs;
 
 namespace Domain.BLL
 {
@@ -13,7 +14,7 @@ namespace Domain.BLL
 
     public class ResListaPreciosObtener : ResBase
     {
-        public List<ListaPrecio> ListaPrecios { get; set; }
+        public List<ListaPrecioDTO> ListaPrecios { get; set; }
     }
     #endregion
 
@@ -26,7 +27,7 @@ namespace Domain.BLL
 
     public class ResListaPrecioObtener : ResBase
     {
-        public ListaPrecio ListaPrecio { get; set; }
+        public ListaPrecioDTO ListaPrecio { get; set; }
     }
     #endregion
 
@@ -34,12 +35,12 @@ namespace Domain.BLL
     public class ReqListaPrecioInsertar : ReqBase
     {
         public ReqListaPrecioInsertar(GlobalCliente sesion) : base(sesion) { }
-        public ListaPrecio ListaPrecio { get; set; }
+        public ListaPrecioDTO ListaPrecio { get; set; }
     }
 
     public class ResListaPrecioInsertar : ResBase
     {
-        public ListaPrecio ListaPrecio { get; set; }
+        public ListaPrecioDTO ListaPrecio { get; set; }
     }
     #endregion
 
@@ -47,12 +48,12 @@ namespace Domain.BLL
     public class ReqListaPrecioModificar : ReqBase
     {
         public ReqListaPrecioModificar(GlobalCliente sesion) : base(sesion) { }
-        public ListaPrecio ListaPrecio { get; set; }
+        public ListaPrecioDTO ListaPrecio { get; set; }
     }
 
     public class ResListaPrecioModificar : ResBase
     {
-        public ListaPrecio ListaPrecio { get; set; }
+        public ListaPrecioDTO ListaPrecio { get; set; }
     }
     #endregion
 

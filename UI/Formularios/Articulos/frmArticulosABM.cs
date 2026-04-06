@@ -49,7 +49,7 @@ namespace UI.Formularios.Articulos
             }
             else
             {
-                var res = ArticuloBLL.Current.Obtener(new ReqArticuloObtener(this.Sesion) { Id = Id });
+                var res = ArticulosBLL.Current.Obtener(new ReqArticuloObtener(this.Sesion) { Id = Id });
 
                 if (res.Success && res.Articulo != null)
                 {
@@ -105,7 +105,7 @@ namespace UI.Formularios.Articulos
                     }
                 };
 
-                var res = ArticuloBLL.Current.Insertar(req);
+                var res = ArticulosBLL.Current.Insertar(req);
                 return res.Success;
             }
             else
@@ -114,20 +114,20 @@ namespace UI.Formularios.Articulos
                 ArticuloActual.Descripcion = txtDescripcion.Text.Trim();
 
                 var req = new ReqArticuloModificar(this.Sesion) { Articulo = ArticuloActual };
-                var res = ArticuloBLL.Current.Modificar(req);
+                var res = ArticulosBLL.Current.Modificar(req);
                 return res.Success;
             }
         }
 
         protected override bool EliminarRegistro()
         {
-            var res = ArticuloBLL.Current.Eliminar(new ReqArticuloEliminar(this.Sesion) { Id = Id });
+            var res = ArticulosBLL.Current.Eliminar(new ReqArticuloEliminar(this.Sesion) { Id = Id });
             return res.Success;
         }
 
         protected override bool RestaurarRegistro()
         {
-            var res = ArticuloBLL.Current.Restaurar(new ReqArticuloRestaurar(this.Sesion) { Id = Id });
+            var res = ArticulosBLL.Current.Restaurar(new ReqArticuloRestaurar(this.Sesion) { Id = Id });
             return res.Success;
         }
 

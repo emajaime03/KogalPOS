@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using UI.Principal;
 using UI.Formularios.Administrador.Patentes;
 using UI.Formularios.Administrador.Familias;
@@ -10,6 +10,7 @@ using UI.Formularios.Clientes;
 using UI.Formularios.AjustesStock;
 using UI.Formularios.ListaPrecios;
 using UI.Formularios.Administrador.ConfiguracionLocal;
+using UI.Formularios.Premios;
 
 namespace UI.Formularios
 {
@@ -168,6 +169,24 @@ namespace UI.Formularios
         public static void ListaPreciosABM(System.Guid id = default)
         {
             frmListaPreciosABM frm = new frmListaPreciosABM(frmPrincipal.Sesion, id);
+            frm.MdiParent = frmPrincipal;
+            frm.MaximizeBox = true;
+            frm.Show();
+        }
+        #endregion
+
+        #region "PREMIOS"
+        public static void Premios()
+        {
+            frmPremios frm = new frmPremios(frmPrincipal.Sesion);
+            frm.MdiParent = frmPrincipal;
+            frm.MaximizeBox = true;
+            frm.Show();
+        }
+
+        public static void PremiosABM(System.Guid id = default)
+        {
+            frmPremiosABM frm = new frmPremiosABM(frmPrincipal.Sesion, id);
             frm.MdiParent = frmPrincipal;
             frm.MaximizeBox = true;
             frm.Show();

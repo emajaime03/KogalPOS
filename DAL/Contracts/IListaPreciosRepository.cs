@@ -1,4 +1,5 @@
-﻿using Services.DAL.Contracts;
+﻿using Domain;
+using Services.DAL.Contracts;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -7,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace DAL.Contracts
 {
-    public interface IListaPreciosRepository<T> : IGenericRepository<T>
+    public interface IListaPreciosRepository : IGenericRepository<ListaPrecio>
     {
         bool EsPredeterminada(Guid id);
     }

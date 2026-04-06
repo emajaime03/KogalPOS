@@ -62,7 +62,7 @@ namespace UI.Formularios.Clientes
             }
             else
             {
-                var res = ClienteBLL.Current.Obtener(new ReqClienteObtener(this.Sesion) { Id = Id });
+                var res = ClientesBLL.Current.Obtener(new ReqClienteObtener(this.Sesion) { Id = Id });
 
                 if (res.Success && res.Cliente != null)
                 {
@@ -108,7 +108,7 @@ namespace UI.Formularios.Clientes
                     }
                 };
 
-                var res = ClienteBLL.Current.Insertar(req);
+                var res = ClientesBLL.Current.Insertar(req);
                 return res.Success;
             }
             else
@@ -124,20 +124,20 @@ namespace UI.Formularios.Clientes
                     }
                 };
 
-                var res = ClienteBLL.Current.Modificar(req);
+                var res = ClientesBLL.Current.Modificar(req);
                 return res.Success;
             }
         }
 
         protected override bool EliminarRegistro()
         {
-            var res = ClienteBLL.Current.Eliminar(new ReqClienteEliminar(this.Sesion) { Id = Id });
+            var res = ClientesBLL.Current.Eliminar(new ReqClienteEliminar(this.Sesion) { Id = Id });
             return res.Success;
         }
 
         protected override bool RestaurarRegistro()
         {
-            var res = ClienteBLL.Current.Restaurar(new ReqClienteRestaurar(this.Sesion) { Id = Id });
+            var res = ClientesBLL.Current.Restaurar(new ReqClienteRestaurar(this.Sesion) { Id = Id });
             return res.Success;
         }
 

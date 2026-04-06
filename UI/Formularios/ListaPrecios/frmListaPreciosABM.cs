@@ -1,7 +1,8 @@
-﻿using BLL.Services;
+using BLL.Services;
 using DevExpress.XtraEditors;
 using DevExpress.XtraGrid.Columns;
 using DevExpress.XtraGrid.Views.Grid;
+using Domain.DTOs;
 using Domain;
 using Domain.BLL;
 using Services.Domain.Enums;
@@ -18,8 +19,8 @@ namespace UI.Formularios.ListaPrecios
     public partial class frmListaPreciosABM : frmBaseABM
     {
         #region "PROPIEDADES"
-        private ListaPrecio ListaPrecioActual { get; set; }
-        private BindingList<ListaPrecioArticulo> ItemsBinding { get; set; }
+        private ListaPrecioDTO ListaPrecioActual { get; set; }
+        private BindingList<ListaPrecioArticuloDTO> ItemsBinding { get; set; }
         private List<Articulo> ArticulosDisponibles { get; set; }
         #endregion
 
@@ -51,7 +52,7 @@ namespace UI.Formularios.ListaPrecios
 
         private void CargarArticulosDisponibles()
         {
-            var res = ArticuloBLL.Current.ObtenerLista(new ReqArticulosObtener(this.Sesion));
+            var res = ArticulosBLL.Current.ObtenerLista(new ReqArticulosObtener(this.Sesion));
             ArticulosDisponibles = res.Articulos ?? new List<Articulo>();
         }
 
@@ -62,7 +63,7 @@ namespace UI.Formularios.ListaPrecios
             // Columna Artículo (LookUpEdit)
             var colArticulo = new GridColumn
             {
-                FieldName = nameof(ListaPrecioArticulo.IdArticulo),
+                FieldName = nameof(ListaPrecioArticuloDTO.IdArticulo),
                 Caption = "Artículo".Translate(),
                 Visible = true,
                 Width = 350
@@ -82,7 +83,7 @@ namespace UI.Formularios.ListaPrecios
             // Columna Código (readonly, para visualizaciÃ³n)
             var colCodigo = new GridColumn
             {
-                FieldName = nameof(ListaPrecioArticulo.CodigoArticulo),
+                FieldName = nameof(ListaPrecioArticuloDTO.CodigoArticulo),
                 Caption = "Código".Translate(),
                 Visible = true,
                 Width = 100
@@ -93,7 +94,7 @@ namespace UI.Formularios.ListaPrecios
             // Columna Precio
             var colPrecio = new GridColumn
             {
-                FieldName = nameof(ListaPrecioArticulo.Precio),
+                FieldName = nameof(ListaPrecioArticuloDTO.Precio),
                 Caption = "Precio".Translate(),
                 Visible = true,
                 Width = 120
@@ -110,13 +111,13 @@ namespace UI.Formularios.ListaPrecios
             gridViewItems.Columns.Add(colPrecio);
 
             // Columnas ocultas
-            var colId = new GridColumn { FieldName = nameof(ListaPrecioArticulo.IdListaPrecioArticulo), Visible = false };
+            var colId = new GridColumn { FieldName = nameof(ListaPrecioArticuloDTO.IdListaPrecioArticulo), Visible = false };
             gridViewItems.Columns.Add(colId);
 
-            var colIdLista = new GridColumn { FieldName = nameof(ListaPrecioArticulo.IdListaPrecio), Visible = false };
+            var colIdLista = new GridColumn { FieldName = nameof(ListaPrecioArticuloDTO.IdListaPrecio), Visible = false };
             gridViewItems.Columns.Add(colIdLista);
 
-            var colDescripcion = new GridColumn { FieldName = nameof(ListaPrecioArticulo.DescripcionArticulo), Visible = false };
+            var colDescripcion = new GridColumn { FieldName = nameof(ListaPrecioArticuloDTO.DescripcionArticulo), Visible = false };
             gridViewItems.Columns.Add(colDescripcion);
 
             // Evento para auto-llenar Código al seleccionar Artículo
@@ -125,14 +126,14 @@ namespace UI.Formularios.ListaPrecios
 
         private void GridViewItems_CellValueChanged(object sender, DevExpress.XtraGrid.Views.Base.CellValueChangedEventArgs e)
         {
-            if (e.Column.FieldName == nameof(ListaPrecioArticulo.IdArticulo) && e.Value != null)
+            if (e.Column.FieldName == nameof(ListaPrecioArticuloDTO.IdArticulo) && e.Value != null)
             {
                 Guid idArticulo = (Guid)e.Value;
                 var articulo = ArticulosDisponibles.Find(a => a.IdArticulo == idArticulo);
                 if (articulo != null)
                 {
-                    gridViewItems.SetRowCellValue(e.RowHandle, nameof(ListaPrecioArticulo.CodigoArticulo), articulo.Codigo);
-                    gridViewItems.SetRowCellValue(e.RowHandle, nameof(ListaPrecioArticulo.DescripcionArticulo), articulo.Descripcion);
+                    gridViewItems.SetRowCellValue(e.RowHandle, nameof(ListaPrecioArticuloDTO.CodigoArticulo), articulo.Codigo);
+                    gridViewItems.SetRowCellValue(e.RowHandle, nameof(ListaPrecioArticuloDTO.DescripcionArticulo), articulo.Descripcion);
                 }
             }
         }
@@ -143,7 +144,7 @@ namespace UI.Formularios.ListaPrecios
 
         private void BtnAgregarFila_Click(object sender, EventArgs e)
         {
-            ItemsBinding.Add(new ListaPrecioArticulo());
+            ItemsBinding.Add(new ListaPrecioArticuloDTO());
         }
 
         private void BtnQuitarFila_Click(object sender, EventArgs e)
@@ -178,12 +179,12 @@ namespace UI.Formularios.ListaPrecios
             {
                 TipoPantalla = E_TipoPantalla.Nuevo;
 
-                ItemsBinding = new BindingList<ListaPrecioArticulo>();
+                ItemsBinding = new BindingList<ListaPrecioArticuloDTO>();
                 gridItems.DataSource = ItemsBinding;
             }
             else
             {
-                var res = ListaPrecioBLL.Current.Obtener(new ReqListaPrecioObtener(this.Sesion) { Id = Id });
+                var res = ListasPreciosBLL.Current.Obtener(new ReqListaPrecioObtener(this.Sesion) { Id = Id });
 
                 if (res.Success && res.ListaPrecio != null)
                 {
@@ -201,7 +202,7 @@ namespace UI.Formularios.ListaPrecios
                     else
                         dtVigenciaHasta.EditValue = null;
 
-                    ItemsBinding = new BindingList<ListaPrecioArticulo>(res.ListaPrecio.Items);
+                    ItemsBinding = new BindingList<ListaPrecioArticuloDTO>(res.ListaPrecio.Items);
                     gridItems.DataSource = ItemsBinding;
 
                     TipoPantalla = res.ListaPrecio.Estado == E_Estados.Activo
@@ -257,17 +258,17 @@ namespace UI.Formularios.ListaPrecios
         {
             if (EsNuevo)
             {
-                var listaPrecio = new ListaPrecio
+                var listaPrecio = new ListaPrecioDTO
                 {
                     Descripcion = txtDescripcion.Text.Trim(),
                     EsPredeterminada = chkEsPredeterminada.Checked,
                     VigenciaDesde = dtVigenciaDesde.EditValue != null ? (DateTime?)dtVigenciaDesde.DateTime : null,
                     VigenciaHasta = dtVigenciaHasta.EditValue != null ? (DateTime?)dtVigenciaHasta.DateTime : null,
-                    Items = new List<ListaPrecioArticulo>(ItemsBinding)
+                    Items = new List<ListaPrecioArticuloDTO>(ItemsBinding)
                 };
 
                 var req = new ReqListaPrecioInsertar(this.Sesion) { ListaPrecio = listaPrecio };
-                var res = ListaPrecioBLL.Current.Insertar(req);
+                var res = ListasPreciosBLL.Current.Insertar(req);
                 return res.Success;
             }
             else
@@ -276,17 +277,17 @@ namespace UI.Formularios.ListaPrecios
                 ListaPrecioActual.EsPredeterminada = chkEsPredeterminada.Checked;
                 ListaPrecioActual.VigenciaDesde = dtVigenciaDesde.EditValue != null ? (DateTime?)dtVigenciaDesde.DateTime : null;
                 ListaPrecioActual.VigenciaHasta = dtVigenciaHasta.EditValue != null ? (DateTime?)dtVigenciaHasta.DateTime : null;
-                ListaPrecioActual.Items = new List<ListaPrecioArticulo>(ItemsBinding);
+                ListaPrecioActual.Items = new List<ListaPrecioArticuloDTO>(ItemsBinding);
 
                 var req = new ReqListaPrecioModificar(this.Sesion) { ListaPrecio = ListaPrecioActual };
-                var res = ListaPrecioBLL.Current.Modificar(req);
+                var res = ListasPreciosBLL.Current.Modificar(req);
                 return res.Success;
             }
         }
 
         protected override bool EliminarRegistro()
         {
-            var res = ListaPrecioBLL.Current.Eliminar(new ReqListaPrecioEliminar(this.Sesion) { Id = Id });
+            var res = ListasPreciosBLL.Current.Eliminar(new ReqListaPrecioEliminar(this.Sesion) { Id = Id });
             if (!res.Success)
             {
                 XtraMessageBox.Show(
@@ -300,7 +301,7 @@ namespace UI.Formularios.ListaPrecios
 
         protected override bool RestaurarRegistro()
         {
-            var res = ListaPrecioBLL.Current.Restaurar(new ReqListaPrecioRestaurar(this.Sesion) { Id = Id });
+            var res = ListasPreciosBLL.Current.Restaurar(new ReqListaPrecioRestaurar(this.Sesion) { Id = Id });
             return res.Success;
         }
 

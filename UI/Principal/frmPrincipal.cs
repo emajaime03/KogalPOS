@@ -1,6 +1,7 @@
 using DevExpress.XtraBars;
 using DevExpress.XtraBars.Ribbon;
 using DevExpress.XtraEditors;
+using Domain;
 using Services.Domain;
 using Services.Domain.Enums;
 using Services.Facade;
@@ -57,7 +58,7 @@ namespace UI.Principal
 
         private MenuItemConfig[] CrearMenuItems()
         {
-            return new[]
+            var menuItems = new System.Collections.Generic.List<MenuItemConfig>
             {
                 // ── Admin ──
                 new MenuItemConfig { Patente = E_Patentes.Admin, CaptionKey = "Patentes",           GetPage = () => rbpAdmin,   OnClick = () => FormulariosManager.Patentes() },
@@ -75,8 +76,44 @@ namespace UI.Principal
 
                 // ── Ventas ──
                 new MenuItemConfig { Patente = E_Patentes.Clientes, CaptionKey = "Clientes",  GetPage = () => rbpVentas, OnClick = () => FormulariosManager.Clientes() },
-                new MenuItemConfig { Patente = E_Patentes.ListasDePrecios, CaptionKey = "Listas de Precios",  GetPage = () => rbpVentas, OnClick = () => FormulariosManager.ListaPrecios() },
+                new MenuItemConfig { Patente = E_Patentes.ListasDePrecios, CaptionKey = "Listas de Precios",  GetPage = () => rbpVentas, OnClick = () => FormulariosManager.ListaPrecios() }
             };
+
+            // ── Fidelizacion ──
+            if (ConfiguracionApp.Current.configuracionLocal.Loyalty_IsEnabled)
+            {
+                menuItems.Add(new MenuItemConfig { Patente = E_Patentes.Premios, CaptionKey = "Premios",  GetPage = () => rbpFidelizacion, OnClick = () => FormulariosManager.Premios() });
+            }
+
+            return menuItems.ToArray();
+        }
+
+        private void ConfigurarTextos()
+        {
+            this.Text = $"KogalPOS - {this.Sesion.UsuarioLogin?.UserName}";
+
+            // Traducir captions de las páginas del ribbon
+            rbpAdmin.Text = "Administración".Translate();
+            rbpCompras.Text = "Compras".Translate();
+            rbpInventario.Text = "Inventario".Translate();
+            rbpVentas.Text = "Ventas".Translate();
+            rbpFidelizacion.Text = "Fidelización".Translate();
+
+            // Actualizar textos de la barra de estado
+            if (lblIdioma != null) lblIdioma.Caption = "🌐 " + "Idioma".Translate() + ":";
+            if (btnCerrarSesion != null)
+            {
+                btnCerrarSesion.Caption = "🔄 " + "Cerrar Sesión".Translate();
+                btnCerrarSesion.Hint = "Cerrar sesión y volver al login".Translate();
+            }
+            if (btnSalir != null)
+            {
+                btnSalir.Caption = "❌ " + "Salir".Translate();
+                btnSalir.Hint = "Salir del sistema".Translate();
+            }
+
+            // Actualizar captions de los items del menú
+            ActualizarCaptionsMenu();
         }
 
         private void ControlesInicializar()
@@ -211,34 +248,7 @@ namespace UI.Principal
             btnSalir.ItemClick += BtnSalir_ItemClick;
             ribbon.Items.Add(btnSalir);
             ribbonStatusBar.ItemLinks.Add(btnSalir);
-        }
-
-        private void ConfigurarTextos()
-        {
-            this.Text = $"KogalPOS - {this.Sesion.UsuarioLogin?.UserName}";
-
-            // Traducir captions de las páginas del ribbon
-            rbpAdmin.Text = "Administración".Translate();
-            rbpCompras.Text = "Compras".Translate();
-            rbpInventario.Text = "Inventario".Translate();
-            rbpVentas.Text = "Ventas".Translate();
-
-            // Actualizar textos de la barra de estado
-            if (lblIdioma != null) lblIdioma.Caption = "🌐 " + "Idioma".Translate() + ":";
-            if (btnCerrarSesion != null) 
-            {
-                btnCerrarSesion.Caption = "🔄 " + "Cerrar Sesión".Translate();
-                btnCerrarSesion.Hint = "Cerrar sesión y volver al login".Translate();
-            }
-            if (btnSalir != null) 
-            {
-                btnSalir.Caption = "❌ " + "Salir".Translate();
-                btnSalir.Hint = "Salir del sistema".Translate();
-            }
-
-            // Actualizar captions de los items del menú
-            ActualizarCaptionsMenu();
-        }
+        }        
 
         private void ActualizarCaptionsMenu()
         {

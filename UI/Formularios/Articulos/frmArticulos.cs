@@ -32,7 +32,7 @@ namespace UI.Formularios.Articulos
 
         protected override void CargarPantalla()
         {
-            var res = ArticuloBLL.Current.ObtenerLista(new ReqArticulosObtener(this.Sesion));
+            var res = ArticulosBLL.Current.ObtenerLista(new ReqArticulosObtener(this.Sesion));
             EstablecerDataSource(res.Articulos);
         }
 

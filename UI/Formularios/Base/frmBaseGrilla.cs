@@ -305,7 +305,7 @@ namespace UI.Formularios.Base
             }
             else
             {
-                XtraMessageBox.Show("Seleccione un registro para ver el detalle.".Translate(), "InformaciÃ³n".Translate(), MessageBoxButtons.OK, MessageBoxIcon.Information);
+                XtraMessageBox.Show("Seleccione un registro para ver el detalle.".Translate(), "Información".Translate(), MessageBoxButtons.OK, MessageBoxIcon.Information);
             }
         }
 

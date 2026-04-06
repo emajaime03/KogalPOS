@@ -83,5 +83,43 @@ namespace DAL.Implementations.Api
         {
             public int Puntos { get; set; }
         }
+
+        public async Task SyncPremioAsync(Guid idPremio, decimal puntosRequeridos, string descripcion)
+        {
+            var endpoint = ObtenerURLPremios(idPremio);
+            if (string.IsNullOrEmpty(endpoint)) return;
+
+            var payload = new
+            {
+                Id = idPremio.ToString(),
+                PuntosRequeridos = puntosRequeridos,
+                Descripcion = descripcion
+            };
+
+            await PutAsync(endpoint, payload);
+        }
+
+        public async Task EliminarPremioAsync(Guid idPremio)
+        {
+            var endpoint = ObtenerURLPremios(idPremio);
+            if (string.IsNullOrEmpty(endpoint)) return;
+
+            await DeleteAsync(endpoint);
+        }
+
+        private string ObtenerURLPremios(Guid idPremio)
+        {
+            if (idPremio == Guid.Empty) return "";
+
+            var endpoint = $"/premios/{idPremio}.json";
+
+            var accessKey = ConfiguracionApp.Current.configuracionLocal.Loyalty_ApiAccessKey;
+            if (!string.IsNullOrEmpty(accessKey))
+            {
+                endpoint += $"?auth={accessKey}";
+            }
+
+            return endpoint;
+        }
     }
 }

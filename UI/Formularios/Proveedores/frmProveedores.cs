@@ -32,7 +32,7 @@ namespace UI.Formularios.Proveedores
 
         protected override void CargarPantalla()
         {
-            var res = ProveedorBLL.Current.ObtenerLista(new ReqProveedoresObtener(this.Sesion));
+            var res = ProveedoresBLL.Current.ObtenerLista(new ReqProveedoresObtener(this.Sesion));
             EstablecerDataSource(res.Proveedores);
         }
 

@@ -64,11 +64,9 @@ namespace DAL.Implementations.SqlServer
 
             if (movimiento == null) return null;
 
-            // Obtener ítems con JOIN a Articulos
-            string queryItems = @"SELECT mi.IdMovimientoItem, mi.IdMovimientoStock, mi.IdArticulo, mi.Cantidad, 
-                                         a.Codigo, a.Descripcion
+            // Obtener ítems puros
+            string queryItems = @"SELECT mi.IdMovimientoItem, mi.IdMovimientoStock, mi.IdArticulo, mi.Cantidad
                                   FROM MovimientosItem mi
-                                  INNER JOIN Articulos a ON mi.IdArticulo = a.IdArticulo
                                   WHERE mi.IdMovimientoStock = @Id";
             using (var reader = base.ExecuteReader(queryItems, CommandType.Text,
                 new SqlParameter[] { new SqlParameter("@Id", id) }))

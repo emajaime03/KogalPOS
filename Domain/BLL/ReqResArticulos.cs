@@ -17,6 +17,19 @@ namespace Domain.BLL
     {
         public List<Articulo> Articulos { get; set; }
     }
+
+    public class ReqArticulosObtenerPorIds : ReqBase
+    {
+        public ReqArticulosObtenerPorIds(GlobalCliente sesion) : base(sesion)
+        {
+        }
+        public List<Guid> Ids { get; set; }
+    }
+
+    public class ResArticulosObtenerPorIds : ResBase
+    {
+        public List<Articulo> Articulos { get; set; }
+    }
     #endregion
 
     #region "OBTENER DETALLE"

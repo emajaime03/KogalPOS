@@ -2,6 +2,7 @@ using Services.Domain;
 using Services.Domain.BLL.Base;
 using System;
 using System.Collections.Generic;
+using Domain.DTOs;
 
 namespace Domain.BLL
 {
@@ -15,7 +16,7 @@ namespace Domain.BLL
 
     public class ResAjustesStockObtener : ResBase
     {
-        public List<MovimientoStock> Movimientos { get; set; }
+        public List<MovimientoStockDTO> Movimientos { get; set; }
     }
     #endregion
 
@@ -31,7 +32,7 @@ namespace Domain.BLL
 
     public class ResAjusteStockObtener : ResBase
     {
-        public MovimientoStock Movimiento { get; set; }
+        public MovimientoStockDTO Movimiento { get; set; }
     }
     #endregion
 
@@ -42,12 +43,12 @@ namespace Domain.BLL
         {
         }
 
-        public MovimientoStock Movimiento { get; set; }
+        public MovimientoStockDTO Movimiento { get; set; }
     }
 
     public class ResAjusteStockInsertar : ResBase
     {
-        public MovimientoStock Movimiento { get; set; }
+        public MovimientoStockDTO Movimiento { get; set; }
     }
     #endregion
 

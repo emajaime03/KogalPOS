@@ -6,17 +6,17 @@ using System;
 
 namespace BLL.Services
 {
-    public sealed class ProveedorBLL
+    public sealed class ProveedoresBLL
     {
         #region Singleton
-        private readonly static ProveedorBLL _instance = new ProveedorBLL();
+        private readonly static ProveedoresBLL _instance = new ProveedoresBLL();
 
-        public static ProveedorBLL Current
+        public static ProveedoresBLL Current
         {
             get { return _instance; }
         }
 
-        private ProveedorBLL()
+        private ProveedoresBLL()
         {
         }
         #endregion
@@ -61,7 +61,6 @@ namespace BLL.Services
             {
                 context.Repositories.ProveedorRepository.Add(req.Proveedor);
                 context.SaveChanges();
-                res.Proveedor = req.Proveedor;
                 res.Success = true;
                 res.Message = "Proveedor creado exitosamente.";
             }
@@ -77,7 +76,6 @@ namespace BLL.Services
             {
                 context.Repositories.ProveedorRepository.Update(req.Proveedor);
                 context.SaveChanges();
-                res.Proveedor = req.Proveedor;
                 res.Success = true;
                 res.Message = "Proveedor modificado exitosamente.";
             }

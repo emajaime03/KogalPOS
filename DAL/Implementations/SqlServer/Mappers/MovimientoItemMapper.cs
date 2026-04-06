@@ -16,8 +16,8 @@ namespace DAL.Implementations.SqlServer.Mappers
         #endregion
 
         /// <summary>
-        /// Mapea un MovimientoItem desde un JOIN con Articulos.
-        /// Columnas esperadas: IdMovimientoItem, IdMovimientoStock, IdArticulo, Cantidad, Codigo, Descripcion
+        /// Mapea un MovimientoItem puro.
+        /// Columnas esperadas: IdMovimientoItem, IdMovimientoStock, IdArticulo, Cantidad
         /// </summary>
         public MovimientoItem Fill(object[] values)
         {
@@ -26,8 +26,6 @@ namespace DAL.Implementations.SqlServer.Mappers
             item.IdMovimientoStock = System.Guid.Parse(values[1].ToString());
             item.IdArticulo = System.Guid.Parse(values[2].ToString());
             item.Cantidad = System.Convert.ToDecimal(values[3]);
-            item.CodigoArticulo = values[4].ToString();
-            item.DescripcionArticulo = values[5].ToString();
 
             return item;
         }

@@ -43,6 +43,7 @@
   <ItemGroup>
     <Compile Include="BLL\ReqResConfiguracionApp.cs" />
     <Compile Include="BLL\ReqResConfiguracionLocal.cs" />
+    <Compile Include="BLL\ReqResPremios.cs" />
     <Compile Include="ConfiguracionApp.cs" />
     <Compile Include="ConfiguracionLocal.cs" />
     <Compile Include="Articulo.cs" />
@@ -50,7 +51,9 @@
     <Compile Include="BLL\ReqResArticulos.cs" />
     <Compile Include="BLL\ReqResClientes.cs" />
     <Compile Include="BLL\ReqResProveedores.cs" />
+    <Compile Include="DTOs\PremioDTO.cs" />
     <Compile Include="GlobalClientePOS.cs" />
+    <Compile Include="Premio.cs" />
     <Compile Include="Proveedor.cs" />
     <Compile Include="MovimientoStock.cs" />
     <Compile Include="MovimientoItem.cs" />
@@ -58,6 +61,10 @@
     <Compile Include="BLL\ReqResListaPrecios.cs" />
     <Compile Include="ListaPrecio.cs" />
     <Compile Include="ListaPrecioArticulo.cs" />
+    <Compile Include="DTOs\MovimientoStockDTO.cs" />
+    <Compile Include="DTOs\MovimientoItemDTO.cs" />
+    <Compile Include="DTOs\ListaPrecioDTO.cs" />
+    <Compile Include="DTOs\ListaPrecioArticuloDTO.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
