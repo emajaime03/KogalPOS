@@ -1,4 +1,4 @@
-namespace Services.Domain.Enums
+namespace Domain.Enums
 {
     public enum E_TipoDocumento
     {

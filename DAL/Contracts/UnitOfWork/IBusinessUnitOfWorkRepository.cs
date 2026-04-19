@@ -16,6 +16,7 @@ namespace DAL.Contracts.UnitOfWork
         IGenericRepository<MovimientoStock> MovimientoStockRepository { get; }
         IListaPreciosRepository ListaPrecioRepository { get; }
         IGenericRepository<Premio> PremiosRepository { get; }
+        IMovimientosPuntosRepository MovimientosPuntosRepository { get; }
         IConfiguracionesRepository<ConfiguracionLocal> ConfiguracionLocalRepository { get; }
         ILoyaltyRepository LoyaltyRepository { get; }
     }

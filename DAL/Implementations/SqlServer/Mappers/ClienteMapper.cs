@@ -1,4 +1,5 @@
 using Domain;
+using Domain.Enums;
 using Services.Domain.Enums;
 
 namespace DAL.Implementations.SqlServer.Mappers

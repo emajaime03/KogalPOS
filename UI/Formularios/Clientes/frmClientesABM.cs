@@ -2,6 +2,7 @@
 using DevExpress.XtraEditors;
 using Domain;
 using Domain.BLL;
+using Domain.Enums;
 using Services.Domain.Enums;
 using Services.Facade.Extensions;
 using System;

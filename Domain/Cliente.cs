@@ -1,3 +1,4 @@
+using Domain.Enums;
 using Services.Domain.Enums;
 using System;
 using System.Runtime.Remoting.Metadata.W3cXsd2001;

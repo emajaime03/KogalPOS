@@ -1,94 +1,69 @@
+using DAL.Contracts;
 using Domain;
+using Newtonsoft.Json;
 using Services.DAL.Tools.Helpers;
 using System;
 using System.Threading.Tasks;
 
 namespace DAL.Implementations.Api
 {
-    public class FirebaseLoyaltyRepository : BaseExternalApiClient, Contracts.ILoyaltyRepository
+    public class FirebaseLoyaltyRepository : BaseExternalApiClient, ILoyaltyRepository
     {
-        public FirebaseLoyaltyRepository() 
+        public FirebaseLoyaltyRepository()
             : base(ConfiguracionApp.Current.configuracionLocal.Loyalty_ApiEndpoint)
         {
         }
 
-        public int ObtenerPuntos(string nroDocumento)
+        // 1. LECTURA (GET)
+        public async Task<int> ObtenerPuntosAsync(string idFirebaseCliente)
         {
             try
             {
-                if(string.IsNullOrEmpty(nroDocumento)) return 0;
+                if (string.IsNullOrEmpty(idFirebaseCliente)) return 0;
 
-                var endpoint = ObtenerURLClientes(nroDocumento);
+                var endpoint = ConstruirEndpoint($"clientes_web/{idFirebaseCliente}");
+                var result = await GetAsync<FirebasePuntosRes>(endpoint);
 
-                var result = Task.Run(() => GetAsync<FirebasePuntosRes>(endpoint)).GetAwaiter().GetResult();
                 return result?.Puntos ?? 0;
             }
             catch (Exception)
             {
-                // Manejar error silencioso de red o Firebase
-                // Idealmente enviaríamos el error al LoggerSystem pero para no ensuciar la response de BLL retornamos 0 puntos.
+                // Manejo silencioso. Idealmente: LoggerSystem.LogError(ex);
                 return 0;
             }
         }
 
-        public async Task SumarPuntosAsync(string nroDocumento, int puntos)
+        // 2. MUTACIÓN ATÓMICA (PATCH)
+        public async Task<bool> UpdatePuntosBalanceAsync(string idFirebaseCliente, int deltaPuntos)
         {
-            if (string.IsNullOrEmpty(nroDocumento) || puntos <= 0) return;
-            
-            int actuales = ObtenerPuntos(nroDocumento);
-            await ActualizarPuntosAsync(nroDocumento, actuales + puntos);
-        }
-
-        public async Task RestarPuntosAsync(string nroDocumento, int puntos)
-        {
-            if (string.IsNullOrEmpty(nroDocumento) || puntos <= 0) return;
-            
-            int actuales = ObtenerPuntos(nroDocumento);
-            int nuevosPuntos = actuales - puntos;
-            if (nuevosPuntos < 0) nuevosPuntos = 0;
-
-            await ActualizarPuntosAsync(nroDocumento, nuevosPuntos);
-        }
-
-        private async Task ActualizarPuntosAsync(string nroDocumento, int nuevosPuntos)
-        {
-            var endpoint = ObtenerURLClientes(nroDocumento);
-            if (string.IsNullOrEmpty(endpoint)) return;
-
-            // Aplicamos PATCH sólo a la propiedad Puntos del cliente web
-            await PatchAsync(endpoint, new { Puntos = nuevosPuntos });
-        }
-
-        private string ObtenerURLClientes(string nroDocumento)
-        {
-            if (string.IsNullOrEmpty(nroDocumento)) return "";
-
-            var endpoint = $"/clientes_web/{nroDocumento}.json";
-
-            var accessKey = ConfiguracionApp.Current.configuracionLocal.Loyalty_ApiAccessKey;
-            if (!string.IsNullOrEmpty(accessKey))
+            try
             {
-                endpoint += $"?auth={accessKey}";
+                if (string.IsNullOrEmpty(idFirebaseCliente)) return false;
+
+                var endpoint = ConstruirEndpoint($"clientes_web/{idFirebaseCliente}");
+
+                var payload = new
+                {
+                    puntos = new FirebaseIncrementValue(deltaPuntos)
+                };
+
+                // Utilizamos el PatchAsync de tu clase base (ver nota abajo si no existe)
+                await PatchAsync<dynamic>(endpoint, payload);
+
+                return true;
             }
-
-            return endpoint;
+            catch (Exception)
+            {
+                return false;
+            }
         }
 
-        /// <summary>
-        /// DTO interno para mapear la respuesta de Firebase.
-        /// Asume que Firebase devuelve un nodo como {"Puntos": 150} o {"puntos": 150}
-        /// Newtonsoft es case-insensitive por defecto con las propiedades JSON.
-        /// </summary>
-        private class FirebasePuntosRes
-        {
-            public int Puntos { get; set; }
-        }
-
+        // 3. SINCRONIZACIÓN DE PREMIOS (PUT)
         public async Task SyncPremioAsync(Guid idPremio, decimal puntosRequeridos, string descripcion)
         {
-            var endpoint = ObtenerURLPremios(idPremio);
-            if (string.IsNullOrEmpty(endpoint)) return;
+            if (idPremio == Guid.Empty) return;
 
+            var endpoint = ConstruirEndpoint($"premios/{idPremio}");
             var payload = new
             {
                 Id = idPremio.ToString(),
@@ -99,21 +74,26 @@ namespace DAL.Implementations.Api
             await PutAsync(endpoint, payload);
         }
 
+        // 4. ELIMINACIÓN LÓGICA/FÍSICA (DELETE)
         public async Task EliminarPremioAsync(Guid idPremio)
         {
-            var endpoint = ObtenerURLPremios(idPremio);
-            if (string.IsNullOrEmpty(endpoint)) return;
+            if (idPremio == Guid.Empty) return;
 
+            var endpoint = ConstruirEndpoint($"premios/{idPremio}");
             await DeleteAsync(endpoint);
         }
 
-        private string ObtenerURLPremios(Guid idPremio)
+        #region "Helpers Internos y DTOs"
+
+        /// <summary>
+        /// Centraliza la construcción de la URL asegurando que siempre se agregue .json 
+        /// y el token de autenticación si está configurado.
+        /// </summary>
+        private string ConstruirEndpoint(string path)
         {
-            if (idPremio == Guid.Empty) return "";
-
-            var endpoint = $"/premios/{idPremio}.json";
-
+            var endpoint = $"/{path}.json";
             var accessKey = ConfiguracionApp.Current.configuracionLocal.Loyalty_ApiAccessKey;
+
             if (!string.IsNullOrEmpty(accessKey))
             {
                 endpoint += $"?auth={accessKey}";
@@ -121,5 +101,33 @@ namespace DAL.Implementations.Api
 
             return endpoint;
         }
+
+        private class FirebasePuntosRes
+        {
+            public int Puntos { get; set; }
+        }
+
+        /// <summary>
+        /// DTO estructurado específicamente para el operador .sv de Firebase.
+        /// En C# no podés nombrar una variable ".sv", por eso usamos JsonProperty.
+        /// </summary>
+        private class FirebaseIncrementValue
+        {
+            [JsonProperty(".sv")]
+            public IncrementDetail Sv { get; set; }
+
+            public FirebaseIncrementValue(int delta)
+            {
+                Sv = new IncrementDetail { Increment = delta };
+            }
+        }
+
+        private class IncrementDetail
+        {
+            [JsonProperty("increment")]
+            public int Increment { get; set; }
+        }
+
+        #endregion
     }
 }

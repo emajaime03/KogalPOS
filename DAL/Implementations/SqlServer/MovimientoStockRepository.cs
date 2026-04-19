@@ -1,5 +1,6 @@
 using DAL.Implementations.SqlServer.Mappers;
 using Domain;
+using Domain.Enums;
 using Services.DAL.Contracts;
 using Services.Domain.Enums;
 using System;
@@ -114,7 +115,7 @@ namespace DAL.Implementations.SqlServer
                 });
 
                 // Actualizar StockActual del artículo
-                string signo = movimiento.TipoMovimiento == E_TipoMovimiento.Alta ? "+" : "-";
+                string signo = movimiento.TipoMovimiento == E_TipoMovimientoStock.Alta ? "+" : "-";
                 string queryStock = $"UPDATE Articulos SET StockActual = StockActual {signo} @Cantidad WHERE IdArticulo = @IdArt";
                 base.ExecuteNonQuery(queryStock, CommandType.Text, new SqlParameter[]
                 {

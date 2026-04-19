@@ -50,6 +50,7 @@
     <Compile Include="Contracts\IConfiguracionesRepository.cs" />
     <Compile Include="Contracts\ILoyaltyRepository.cs" />
     <Compile Include="Contracts\IListaPreciosRepository.cs" />
+    <Compile Include="Contracts\IMovimientosPuntosRepository.cs" />
     <Compile Include="Contracts\UnitOfWork\IBusinessUnitOfWorkRepository.cs" />
     <Compile Include="Factories\BusinessFactory.cs" />
     <Compile Include="Implementations\Api\FirebaseLoyaltyRepository.cs" />
@@ -62,6 +63,7 @@
     <Compile Include="Implementations\SqlServer\Mappers\ConfiguracionLocalMapper.cs" />
     <Compile Include="Implementations\SqlServer\Mappers\PremioMapper.cs" />
     <Compile Include="Implementations\SqlServer\Mappers\ProveedorMapper.cs" />
+    <Compile Include="Implementations\SqlServer\MovimientosPuntosRepository.cs" />
     <Compile Include="Implementations\SqlServer\PremiosRepository.cs" />
     <Compile Include="Implementations\SqlServer\ProveedorRepository.cs" />
     <Compile Include="Implementations\SqlServer\MovimientoStockRepository.cs" />

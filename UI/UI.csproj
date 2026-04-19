@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
+﻿<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="15.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
   <PropertyGroup>
@@ -216,6 +216,12 @@
     <Compile Include="Formularios\ListaPrecios\frmListaPreciosABM.Designer.cs">
       <DependentUpon>frmListaPreciosABM.cs</DependentUpon>
     </Compile>
+    <Compile Include="Formularios\TerminalPuntos\frmTerminalPuntos.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Formularios\TerminalPuntos\frmTerminalPuntos.Designer.cs">
+      <DependentUpon>frmTerminalPuntos.cs</DependentUpon>
+    </Compile>
     <Compile Include="Helpers\ButtonStyleHelper.cs" />
     <Compile Include="Helpers\ControlFactory.cs" />
     <Compile Include="Helpers\FormStyleHelper.cs" />
@@ -273,6 +279,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Formularios\ListaPrecios\frmListaPreciosABM.resx">
       <DependentUpon>frmListaPreciosABM.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Formularios\TerminalPuntos\frmTerminalPuntos.resx">
+      <DependentUpon>frmTerminalPuntos.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Login\frmLogin.resx">
       <DependentUpon>frmLogin.cs</DependentUpon>
@@ -337,5 +346,6 @@
       <Install>false</Install>
     </BootstrapperPackage>
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

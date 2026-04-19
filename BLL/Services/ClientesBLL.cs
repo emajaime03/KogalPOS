@@ -45,7 +45,7 @@ namespace BLL.Services
                 // Si tiene fidelizacion activa obtengo sus puntos
                 if (ConfiguracionApp.Current.configuracionLocal.Loyalty_IsEnabled)
                 {
-                    res.Cliente.Puntos = context.Repositories.LoyaltyRepository.ObtenerPuntos(res.Cliente.NroDocumento);
+                    res.Cliente.Puntos = context.Repositories.LoyaltyRepository.ObtenerPuntosAsync(res.Cliente.NroDocumento).GetAwaiter().GetResult();
                 }
 
                 res.Success = res.Cliente != null;

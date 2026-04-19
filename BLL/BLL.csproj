@@ -47,6 +47,7 @@
     <Compile Include="Services\ClientesBLL.cs" />
     <Compile Include="Services\ConfiguracionLocalBLL.cs" />
     <Compile Include="Services\ConfiguracionAppBLL.cs" />
+    <Compile Include="Services\MovimientosPuntosBLL.cs" />
     <Compile Include="Services\PremiosBLL.cs" />
     <Compile Include="Services\ProveedoresBLL.cs" />
     <Compile Include="Services\ListasPreciosBLL.cs" />

@@ -43,6 +43,7 @@
   <ItemGroup>
     <Compile Include="BLL\ReqResConfiguracionApp.cs" />
     <Compile Include="BLL\ReqResConfiguracionLocal.cs" />
+    <Compile Include="BLL\ReqResMovimientosPuntos.cs" />
     <Compile Include="BLL\ReqResPremios.cs" />
     <Compile Include="ConfiguracionApp.cs" />
     <Compile Include="ConfiguracionLocal.cs" />
@@ -52,7 +53,11 @@
     <Compile Include="BLL\ReqResClientes.cs" />
     <Compile Include="BLL\ReqResProveedores.cs" />
     <Compile Include="DTOs\PremioDTO.cs" />
+    <Compile Include="Enums\E_TipoDocumento.cs" />
+    <Compile Include="Enums\E_TipoMovimientoPuntos.cs" />
+    <Compile Include="Enums\E_TipoMovimientoStock.cs" />
     <Compile Include="GlobalClientePOS.cs" />
+    <Compile Include="MovimientoPuntos.cs" />
     <Compile Include="Premio.cs" />
     <Compile Include="Proveedor.cs" />
     <Compile Include="MovimientoStock.cs" />
@@ -73,8 +78,6 @@
       <Name>Services</Name>
     </ProjectReference>
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Enums\" />
-  </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

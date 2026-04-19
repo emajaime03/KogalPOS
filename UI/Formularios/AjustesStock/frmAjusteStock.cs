@@ -13,6 +13,7 @@ using System.ComponentModel;
 using System.Windows.Forms;
 using UI.Formularios.Base;
 using UI.Helpers;
+using Domain.Enums;
 
 namespace UI.Formularios.AjustesStock
 {
@@ -213,7 +214,7 @@ namespace UI.Formularios.AjustesStock
                     cmbTipoMovimiento.Properties.Items.Clear();
                     cmbTipoMovimiento.Properties.Items.Add("Alta".Translate());
                     cmbTipoMovimiento.Properties.Items.Add("Baja".Translate());
-                    cmbTipoMovimiento.SelectedIndex = res.Movimiento.TipoMovimiento == E_TipoMovimiento.Alta ? 0 : 1;
+                    cmbTipoMovimiento.SelectedIndex = res.Movimiento.TipoMovimiento == E_TipoMovimientoStock.Alta ? 0 : 1;
 
                     txtFecha.Text = res.Movimiento.Fecha.ToString("dd/MM/yyyy HH:mm");
 
@@ -271,8 +272,8 @@ namespace UI.Formularios.AjustesStock
             var movimiento = new MovimientoStockDTO
             {
                 TipoMovimiento = cmbTipoMovimiento.SelectedIndex == 0
-                    ? E_TipoMovimiento.Alta
-                    : E_TipoMovimiento.Baja,
+                    ? E_TipoMovimientoStock.Alta
+                    : E_TipoMovimientoStock.Baja,
                 Items = new List<MovimientoItemDTO>(ItemsBinding)
             };
 
