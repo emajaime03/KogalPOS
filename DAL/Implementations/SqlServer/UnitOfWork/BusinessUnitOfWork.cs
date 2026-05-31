@@ -16,5 +16,10 @@ namespace DAL.Implementations.SqlServer.UnitOfWork
         {
             return new BusinessUnitOfWorkAdapter(_connectionString, useTransaction);
         }
+
+        public IUnitOfWorkAdapter<IBusinessUnitOfWorkRepository> Create(string connectionString, bool useTransaction = false)
+        {
+            throw new System.NotImplementedException();
+        }
     }
 }

@@ -1,4 +1,4 @@
-﻿using System.Configuration;
+using System.Configuration;
 
 namespace Services.Domain
 {
@@ -49,7 +49,7 @@ namespace Services.Domain
         {
             get
             {
-                return ConfigurationManager.ConnectionStrings["LoggerPath"].ToString();
+                return ConfigurationManager.AppSettings["LoggerPath"];
             }
         }
 
@@ -81,7 +81,15 @@ namespace Services.Domain
         {
             get
             {
-                return ConfigurationManager.ConnectionStrings["LanguagePath"].ToString();
+                return ConfigurationManager.AppSettings["LanguagePath"];
+            }
+        }
+
+        public string DefaultBackupPath
+        {
+            get
+            {
+                return ConfigurationManager.AppSettings["DefaultBackupPath"];
             }
         }
     }

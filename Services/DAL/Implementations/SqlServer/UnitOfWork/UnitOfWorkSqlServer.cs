@@ -1,4 +1,4 @@
-﻿using Services.DAL.Contracts.UnitOfWork;
+using Services.DAL.Contracts.UnitOfWork;
 using Services.Domain;
 using System;
 using System.Collections.Generic;
@@ -17,6 +17,11 @@ namespace Services.DAL.Implementations.SqlServer.UnitOfWork
         }
 
         public IUnitOfWorkAdapter<IUnitOfWorkRepository> Create(bool useTransaction = true)
+        {
+            return new ServicesUnitOfWorkAdapter(connectionString, useTransaction);
+        }
+
+        public IUnitOfWorkAdapter<IUnitOfWorkRepository> Create(string connectionString, bool useTransaction = false)
         {
             return new ServicesUnitOfWorkAdapter(connectionString, useTransaction);
         }

@@ -1,4 +1,4 @@
-﻿using DevExpress.XtraEditors;
+using DevExpress.XtraEditors;
 using Services.Domain.BLL;
 using Services.Domain.Enums;
 using Services.BLL.Services;
@@ -33,7 +33,7 @@ namespace UI.Formularios.Administrador.BackupRestore
             this.Text = "Copias de Seguridad".Translate();
             btnBackup.Text = "Generar Backup".Translate();
             btnRestore.Text = "Restaurar Backup".Translate();
-            lblInstrucciones.Text = "Seleccione una opciÃ³n para gestionar la copia de seguridad de la base de datos.".Translate();
+            lblInstrucciones.Text = "Seleccione una opción para gestionar la copia de seguridad de la base de datos.".Translate();
         }
 
         private void MostrarResultado(Services.Domain.BLL.Base.ResBase res)
@@ -52,16 +52,23 @@ namespace UI.Formularios.Administrador.BackupRestore
         #region "EVENTOS"
         private void btnBackup_Click(object sender, EventArgs e)
         {
-            using (SaveFileDialog saveFileDialog = new SaveFileDialog())
-            {
-                saveFileDialog.Filter = "SQL Server Backup (*.bak)|*.bak";
-                saveFileDialog.Title = "Guardar Backup";
-                saveFileDialog.FileName = $"KogalPOS_Backup_{DateTime.Now:yyyyMMdd_HHmmss}.bak";
+            string defaultPath = Services.Domain.ApplicationSettings.Current.DefaultBackupPath;
 
-                if (saveFileDialog.ShowDialog() == DialogResult.OK)
+            using (FolderBrowserDialog folderDialog = new FolderBrowserDialog())
+            {
+                folderDialog.Description = "Seleccioná la carpeta donde guardar los backups";
+                folderDialog.ShowNewFolderButton = true;
+
+                // Abrir el diálogo ya parado en la carpeta por defecto
+                if (!string.IsNullOrWhiteSpace(defaultPath) && System.IO.Directory.Exists(defaultPath))
+                    folderDialog.SelectedPath = defaultPath;
+
+                if (folderDialog.ShowDialog() == DialogResult.OK)
                 {
-                    var req = new ReqBackupRealizar(this.Sesion) { RutaArchivo = saveFileDialog.FileName };
+                    Cursor.Current = Cursors.WaitCursor;
+                    var req = new ReqBackupRealizar(this.Sesion) { RutaArchivo = folderDialog.SelectedPath };
                     var res = BackupBLL.Current.RealizarBackup(req, this.Sesion);
+                    Cursor.Current = Cursors.Default;
 
                     MostrarResultado(res);
                 }
@@ -71,7 +78,7 @@ namespace UI.Formularios.Administrador.BackupRestore
         private void btnRestore_Click(object sender, EventArgs e)
         {
             var confirmResult = XtraMessageBox.Show(
-                "ADVERTENCIA: Restaurar una base de datos sobrescribirÃ¡ todos los datos actuales y cerrarÃ¡ la Sesión de la aplicaciÃ³n. Â¿Desea continuar?".Translate(),
+                "ADVERTENCIA: Restaurar una base de datos sobrescribirá todos los datos actuales y cerrará la sesión de la aplicación. ¿Desea continuar?".Translate(),
                 "Confirmar restauración".Translate(),
                 MessageBoxButtons.YesNo,
                 MessageBoxIcon.Warning);
@@ -85,9 +92,19 @@ namespace UI.Formularios.Administrador.BackupRestore
 
                 if (openFileDialog.ShowDialog() == DialogResult.OK)
                 {
-                    var req = new ReqBackupRestaurar(this.Sesion) { RutaArchivo = openFileDialog.FileName };
-                    
-                    // Mostrar wait form o cursor de espera serÃ­a ideal aquÃ­, pero simplificamos
+                    // El nombre del archivo tiene el formato: {ConnectionStringName}_Backup_{timestamp}.bak
+                    // Extraemos el ConnectionStringName del nombre del archivo para saber a qué DB restaurar
+                    string fileName = System.IO.Path.GetFileNameWithoutExtension(openFileDialog.FileName);
+                    string connStringName = fileName.Contains("_Backup_")
+                        ? fileName.Substring(0, fileName.IndexOf("_Backup_"))
+                        : null;
+
+                    var req = new ReqBackupRestaurar(this.Sesion)
+                    {
+                        RutaArchivo = openFileDialog.FileName,
+                        ConnectionStringName = connStringName
+                    };
+
                     Cursor.Current = Cursors.WaitCursor;
                     var res = BackupBLL.Current.RealizarRestore(req, this.Sesion);
                     Cursor.Current = Cursors.Default;
