@@ -19,5 +19,6 @@ namespace DAL.Contracts.UnitOfWork
         IMovimientosPuntosRepository MovimientosPuntosRepository { get; }
         IConfiguracionesRepository<ConfiguracionLocal> ConfiguracionLocalRepository { get; }
         ILoyaltyRepository LoyaltyRepository { get; }
+        ICatalogosRepository CatalogoRepository { get; }
     }
 }

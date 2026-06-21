@@ -48,8 +48,10 @@
     <Compile Include="ConfiguracionApp.cs" />
     <Compile Include="ConfiguracionLocal.cs" />
     <Compile Include="Articulo.cs" />
+    <Compile Include="Catalogo.cs" />
     <Compile Include="Cliente.cs" />
     <Compile Include="BLL\ReqResArticulos.cs" />
+    <Compile Include="BLL\ReqResCatalogos.cs" />
     <Compile Include="BLL\ReqResClientes.cs" />
     <Compile Include="BLL\ReqResProveedores.cs" />
     <Compile Include="DTOs\PremioDTO.cs" />

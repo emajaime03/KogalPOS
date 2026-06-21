@@ -19,6 +19,7 @@ namespace DAL.Implementations.SqlServer.UnitOfWork
 
         private ILoyaltyRepository _loyaltyRepository;
         public ILoyaltyRepository LoyaltyRepository => _loyaltyRepository ?? (_loyaltyRepository = new DAL.Implementations.Api.FirebaseLoyaltyRepository());
+        public ICatalogosRepository CatalogoRepository { get; }
 
 
         public BusinessUnitOfWorkRepository(SqlConnection context, SqlTransaction transaction)
@@ -31,6 +32,7 @@ namespace DAL.Implementations.SqlServer.UnitOfWork
             ConfiguracionLocalRepository = new ConfiguracionLocalRepository(context, transaction);
             PremiosRepository = new PremiosRepository(context, transaction);
             MovimientosPuntosRepository = new MovimientosPuntosRepository(context, transaction);
+            CatalogoRepository = new CatalogoRepository(context, transaction);
         }
     }
 }

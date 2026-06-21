@@ -73,6 +73,7 @@ namespace UI.Principal
                 // ── Inventario ──
                 new MenuItemConfig { Patente = E_Patentes.Articulos, CaptionKey = "Artículos",  GetPage = () => rbpInventario, OnClick = () => FormulariosManager.Articulos() },
                 new MenuItemConfig { Patente = E_Patentes.AjustesStock, CaptionKey = "Ajustes de Stock",  GetPage = () => rbpInventario, OnClick = () => FormulariosManager.AjustesStock() },
+                new MenuItemConfig { Patente = E_Patentes.Catalogos, CaptionKey = "Catálogos",  GetPage = () => rbpInventario, OnClick = () => FormulariosManager.Catalogos() },
 
                 // ── Ventas ──
                 new MenuItemConfig { Patente = E_Patentes.Clientes, CaptionKey = "Clientes",  GetPage = () => rbpVentas, OnClick = () => FormulariosManager.Clientes() },

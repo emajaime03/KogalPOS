@@ -18,6 +18,7 @@ namespace Services.Domain.Enums
         Cliente,
         AjusteStock,
         ListaPrecio,
-        Premio
+        Premio,
+        Catalogo
     }
 }

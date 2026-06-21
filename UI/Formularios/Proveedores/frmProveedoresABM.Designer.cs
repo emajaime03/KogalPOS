@@ -23,13 +23,15 @@ namespace UI.Formularios.Proveedores
             this.txtDescripcion = new DevExpress.XtraEditors.TextEdit();
             this.txtEmail = new DevExpress.XtraEditors.TextEdit();
             this.txtCelular = new DevExpress.XtraEditors.TextEdit();
-
             this.layoutControlHijo = new DevExpress.XtraLayout.LayoutControl();
             this.RootHijo = new DevExpress.XtraLayout.LayoutControlGroup();
             this.lciDescripcion = new DevExpress.XtraLayout.LayoutControlItem();
             this.lciEmail = new DevExpress.XtraLayout.LayoutControlItem();
             this.lciCelular = new DevExpress.XtraLayout.LayoutControlItem();
-
+            ((System.ComponentModel.ISupportInitialize)(this.pnlSuperior)).BeginInit();
+            this.pnlSuperior.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.pnlInferior)).BeginInit();
+            this.pnlInferior.SuspendLayout();
             this.panelContenido.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.txtDescripcion.Properties)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.txtEmail.Properties)).BeginInit();
@@ -41,34 +43,40 @@ namespace UI.Formularios.Proveedores
             ((System.ComponentModel.ISupportInitialize)(this.lciEmail)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.lciCelular)).BeginInit();
             this.SuspendLayout();
-
+            // 
+            // panelContenido
+            // 
+            this.panelContenido.Controls.Add(this.layoutControlHijo);
             // 
             // txtDescripcion
             // 
-            this.txtDescripcion.Location = new System.Drawing.Point(12, 12);
+            this.txtDescripcion.Location = new System.Drawing.Point(87, 14);
+            this.txtDescripcion.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.txtDescripcion.Name = "txtDescripcion";
             this.txtDescripcion.Properties.MaxLength = 50;
-            this.txtDescripcion.Size = new System.Drawing.Size(953, 20);
+            this.txtDescripcion.Size = new System.Drawing.Size(1039, 22);
+            this.txtDescripcion.StyleController = this.layoutControlHijo;
             this.txtDescripcion.TabIndex = 4;
-
             // 
             // txtEmail
             // 
-            this.txtEmail.Location = new System.Drawing.Point(12, 36);
+            this.txtEmail.Location = new System.Drawing.Point(87, 66);
+            this.txtEmail.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.txtEmail.Name = "txtEmail";
             this.txtEmail.Properties.MaxLength = 50;
-            this.txtEmail.Size = new System.Drawing.Size(953, 20);
+            this.txtEmail.Size = new System.Drawing.Size(1039, 22);
+            this.txtEmail.StyleController = this.layoutControlHijo;
             this.txtEmail.TabIndex = 5;
-
             // 
             // txtCelular
             // 
-            this.txtCelular.Location = new System.Drawing.Point(12, 60);
+            this.txtCelular.Location = new System.Drawing.Point(87, 40);
+            this.txtCelular.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.txtCelular.Name = "txtCelular";
             this.txtCelular.Properties.MaxLength = 20;
-            this.txtCelular.Size = new System.Drawing.Size(953, 20);
+            this.txtCelular.Size = new System.Drawing.Size(1039, 22);
+            this.txtCelular.StyleController = this.layoutControlHijo;
             this.txtCelular.TabIndex = 6;
-
             // 
             // layoutControlHijo
             // 
@@ -77,11 +85,12 @@ namespace UI.Formularios.Proveedores
             this.layoutControlHijo.Controls.Add(this.txtCelular);
             this.layoutControlHijo.Dock = System.Windows.Forms.DockStyle.Fill;
             this.layoutControlHijo.Location = new System.Drawing.Point(0, 0);
+            this.layoutControlHijo.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.layoutControlHijo.Name = "layoutControlHijo";
             this.layoutControlHijo.Root = this.RootHijo;
+            this.layoutControlHijo.Size = new System.Drawing.Size(1140, 525);
             this.layoutControlHijo.TabIndex = 0;
             this.layoutControlHijo.Text = "layoutControl1";
-
             // 
             // RootHijo
             // 
@@ -92,47 +101,51 @@ namespace UI.Formularios.Proveedores
             this.lciEmail,
             this.lciCelular});
             this.RootHijo.Name = "RootHijo";
-            this.RootHijo.Size = new System.Drawing.Size(977, 432);
+            this.RootHijo.Size = new System.Drawing.Size(1140, 525);
             this.RootHijo.TextVisible = false;
-
             // 
             // lciDescripcion
             // 
             this.lciDescripcion.Control = this.txtDescripcion;
+            this.lciDescripcion.Location = new System.Drawing.Point(0, 0);
             this.lciDescripcion.Name = "lciDescripcion";
+            this.lciDescripcion.Size = new System.Drawing.Size(1116, 26);
             this.lciDescripcion.Text = "Descripción:";
-            this.lciDescripcion.TextSize = new System.Drawing.Size(65, 13);
-
+            this.lciDescripcion.TextSize = new System.Drawing.Size(70, 16);
             // 
             // lciEmail
             // 
             this.lciEmail.Control = this.txtEmail;
+            this.lciEmail.Location = new System.Drawing.Point(0, 52);
             this.lciEmail.Name = "lciEmail";
+            this.lciEmail.Size = new System.Drawing.Size(1116, 449);
             this.lciEmail.Text = "Email:";
-            this.lciEmail.TextSize = new System.Drawing.Size(65, 13);
-
+            this.lciEmail.TextSize = new System.Drawing.Size(70, 16);
             // 
             // lciCelular
             // 
             this.lciCelular.Control = this.txtCelular;
+            this.lciCelular.Location = new System.Drawing.Point(0, 26);
             this.lciCelular.Name = "lciCelular";
+            this.lciCelular.Size = new System.Drawing.Size(1116, 26);
             this.lciCelular.Text = "Celular:";
-            this.lciCelular.TextSize = new System.Drawing.Size(65, 13);
-
-            // 
-            // panelContenido
-            // 
-            this.panelContenido.Controls.Add(this.layoutControlHijo);
-
+            this.lciCelular.TextSize = new System.Drawing.Size(70, 16);
             // 
             // frmProveedoresABM
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(977, 537);
+            this.ClientSize = new System.Drawing.Size(1140, 661);
+            this.Margin = new System.Windows.Forms.Padding(3, 5, 3, 5);
+            this.MostrarBotonEliminar = true;
+            this.MostrarBotonModificar = true;
+            this.MostrarBotonRestaurar = true;
             this.Name = "frmProveedoresABM";
             this.Text = "Proveedores";
-
+            ((System.ComponentModel.ISupportInitialize)(this.pnlSuperior)).EndInit();
+            this.pnlSuperior.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.pnlInferior)).EndInit();
+            this.pnlInferior.ResumeLayout(false);
             this.panelContenido.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.txtDescripcion.Properties)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.txtEmail.Properties)).EndInit();

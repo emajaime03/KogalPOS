@@ -11,6 +11,7 @@ using UI.Formularios.AjustesStock;
 using UI.Formularios.ListaPrecios;
 using UI.Formularios.Administrador.ConfiguracionLocal;
 using UI.Formularios.Premios;
+using UI.Formularios.Catalogos;
 
 namespace UI.Formularios
 {
@@ -169,6 +170,24 @@ namespace UI.Formularios
         public static void ListaPreciosABM(System.Guid id = default)
         {
             frmListaPreciosABM frm = new frmListaPreciosABM(frmPrincipal.Sesion, id);
+            frm.MdiParent = frmPrincipal;
+            frm.MaximizeBox = true;
+            frm.Show();
+        }
+        #endregion
+
+        #region "CATALOGOS"
+        public static void Catalogos()
+        {
+            frmCatalogos frm = new frmCatalogos(frmPrincipal.Sesion);
+            frm.MdiParent = frmPrincipal;
+            frm.MaximizeBox = true;
+            frm.Show();
+        }
+
+        public static void CatalogosABM(System.Guid id = default)
+        {
+            frmCatalogosABM frm = new frmCatalogosABM(frmPrincipal.Sesion, id);
             frm.MdiParent = frmPrincipal;
             frm.MaximizeBox = true;
             frm.Show();

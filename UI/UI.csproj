@@ -168,6 +168,18 @@
     <Compile Include="Formularios\Proveedores\frmProveedoresABM.Designer.cs">
       <DependentUpon>frmProveedoresABM.cs</DependentUpon>
     </Compile>
+    <Compile Include="Formularios\Catalogos\frmCatalogos.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Formularios\Catalogos\frmCatalogos.Designer.cs">
+      <DependentUpon>frmCatalogos.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Formularios\Catalogos\frmCatalogosABM.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Formularios\Catalogos\frmCatalogosABM.Designer.cs">
+      <DependentUpon>frmCatalogosABM.cs</DependentUpon>
+    </Compile>
     <Compile Include="Formularios\Articulos\frmArticulos.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -262,6 +274,12 @@
     <EmbeddedResource Include="Formularios\Administrador\Usuarios\frmUsuariosABM.resx">
       <DependentUpon>frmUsuariosABM.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="Formularios\Catalogos\frmCatalogos.resx">
+      <DependentUpon>frmCatalogos.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Formularios\Catalogos\frmCatalogosABM.resx">
+      <DependentUpon>frmCatalogosABM.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Formularios\AjustesStock\frmAjusteStock.resx">
       <DependentUpon>frmAjusteStock.cs</DependentUpon>
     </EmbeddedResource>
@@ -279,6 +297,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Formularios\ListaPrecios\frmListaPreciosABM.resx">
       <DependentUpon>frmListaPreciosABM.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Formularios\Proveedores\frmProveedoresABM.resx">
+      <DependentUpon>frmProveedoresABM.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Formularios\TerminalPuntos\frmTerminalPuntos.resx">
       <DependentUpon>frmTerminalPuntos.cs</DependentUpon>
