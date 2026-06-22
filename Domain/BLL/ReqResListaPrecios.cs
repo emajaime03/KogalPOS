@@ -18,6 +18,18 @@ namespace Domain.BLL
     }
     #endregion
 
+    #region "OBTENER VIGENTES"
+    public class ReqListaPreciosVigentes : ReqBase
+    {
+        public ReqListaPreciosVigentes(GlobalCliente sesion) : base(sesion) { }
+    }
+
+    public class ResListaPreciosVigentes : ResBase
+    {
+        public List<ListaPrecioDTO> ListaPrecios { get; set; }
+    }
+    #endregion
+
     #region "OBTENER DETALLE"
     public class ReqListaPrecioObtener : ReqBase
     {

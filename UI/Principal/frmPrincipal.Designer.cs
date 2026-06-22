@@ -64,11 +64,11 @@ namespace UI.Principal
             this.ribbon.MaxItemId = 5;
             this.ribbon.Name = "ribbon";
             this.ribbon.Pages.AddRange(new DevExpress.XtraBars.Ribbon.RibbonPage[] {
-            this.rbpAdmin,
             this.rbpVentas,
             this.rbpCompras,
             this.rbpInventario,
-            this.rbpFidelizacion});
+            this.rbpFidelizacion,
+            this.rbpAdmin});
             this.ribbon.RibbonStyle = DevExpress.XtraBars.Ribbon.RibbonControlStyle.TabletOffice;
             this.ribbon.Size = new System.Drawing.Size(938, 121);
             this.ribbon.StatusBar = this.ribbonStatusBar;

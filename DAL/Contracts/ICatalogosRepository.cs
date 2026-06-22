@@ -9,5 +9,8 @@ namespace DAL.Contracts
     {
         List<Guid> GetArticulosAsignados(Guid idCatalogo);
         void ReasignarArticulos(Guid idCatalogo, List<Guid> idsArticulos);
+
+        List<Guid> GetCatalogosDeArticulo(Guid idArticulo);
+        void ReasignarCatalogosDeArticulo(Guid idArticulo, List<Guid> idsCatalogos);
     }
 }

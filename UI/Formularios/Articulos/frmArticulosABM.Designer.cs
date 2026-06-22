@@ -23,22 +23,28 @@ namespace UI.Formularios.Articulos
             this.txtCodigo = new DevExpress.XtraEditors.TextEdit();
             this.txtDescripcion = new DevExpress.XtraEditors.TextEdit();
             this.txtStockActual = new DevExpress.XtraEditors.TextEdit();
+            this.gcCatalogos = new DevExpress.XtraGrid.GridControl();
+            this.gvCatalogos = new DevExpress.XtraGrid.Views.Grid.GridView();
             this.layoutControlHijo = new DevExpress.XtraLayout.LayoutControl();
             this.RootHijo = new DevExpress.XtraLayout.LayoutControlGroup();
             this.lciCodigo = new DevExpress.XtraLayout.LayoutControlItem();
             this.lciDescripcion = new DevExpress.XtraLayout.LayoutControlItem();
             this.lciStockActual = new DevExpress.XtraLayout.LayoutControlItem();
+            this.lciCatalogos = new DevExpress.XtraLayout.LayoutControlItem();
 
             this.panelContenido.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.txtCodigo.Properties)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.txtDescripcion.Properties)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.txtStockActual.Properties)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.gcCatalogos)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.gvCatalogos)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.layoutControlHijo)).BeginInit();
             this.layoutControlHijo.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.RootHijo)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.lciCodigo)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.lciDescripcion)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.lciStockActual)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.lciCatalogos)).BeginInit();
             this.SuspendLayout();
 
             this.txtCodigo.Location = new System.Drawing.Point(12, 12);
@@ -58,9 +64,22 @@ namespace UI.Formularios.Articulos
             this.txtStockActual.Size = new System.Drawing.Size(953, 20);
             this.txtStockActual.TabIndex = 6;
 
+            this.gcCatalogos.Location = new System.Drawing.Point(12, 107);
+            this.gcCatalogos.MainView = this.gvCatalogos;
+            this.gcCatalogos.Name = "gcCatalogos";
+            this.gcCatalogos.Size = new System.Drawing.Size(953, 357);
+            this.gcCatalogos.TabIndex = 7;
+            this.gcCatalogos.ViewCollection.AddRange(new DevExpress.XtraGrid.Views.Base.BaseView[] {
+            this.gvCatalogos});
+
+            this.gvCatalogos.GridControl = this.gcCatalogos;
+            this.gvCatalogos.Name = "gvCatalogos";
+            this.gvCatalogos.OptionsView.ShowGroupPanel = false;
+
             this.layoutControlHijo.Controls.Add(this.txtCodigo);
             this.layoutControlHijo.Controls.Add(this.txtDescripcion);
             this.layoutControlHijo.Controls.Add(this.txtStockActual);
+            this.layoutControlHijo.Controls.Add(this.gcCatalogos);
             this.layoutControlHijo.Dock = System.Windows.Forms.DockStyle.Fill;
             this.layoutControlHijo.Location = new System.Drawing.Point(0, 0);
             this.layoutControlHijo.Name = "layoutControlHijo";
@@ -72,7 +91,8 @@ namespace UI.Formularios.Articulos
             this.RootHijo.Items.AddRange(new DevExpress.XtraLayout.BaseLayoutItem[] {
             this.lciCodigo,
             this.lciDescripcion,
-            this.lciStockActual});
+            this.lciStockActual,
+            this.lciCatalogos});
             this.RootHijo.Name = "RootHijo";
             this.RootHijo.Size = new System.Drawing.Size(977, 432);
             this.RootHijo.TextVisible = false;
@@ -92,6 +112,14 @@ namespace UI.Formularios.Articulos
             this.lciStockActual.Text = "Stock Actual:";
             this.lciStockActual.TextSize = new System.Drawing.Size(65, 13);
 
+            this.lciCatalogos.Control = this.gcCatalogos;
+            this.lciCatalogos.Name = "lciCatalogos";
+            this.lciCatalogos.Text = "Catálogos";
+            this.lciCatalogos.TextLocation = DevExpress.Utils.Locations.Top;
+            this.lciCatalogos.TextSize = new System.Drawing.Size(65, 13);
+            this.lciCatalogos.MinSize = new System.Drawing.Size(100, 150);
+            this.lciCatalogos.SizeConstraintsType = DevExpress.XtraLayout.SizeConstraintsType.Custom;
+
             this.panelContenido.Controls.Add(this.layoutControlHijo);
 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -104,12 +132,15 @@ namespace UI.Formularios.Articulos
             ((System.ComponentModel.ISupportInitialize)(this.txtCodigo.Properties)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.txtDescripcion.Properties)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.txtStockActual.Properties)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.gcCatalogos)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.gvCatalogos)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.layoutControlHijo)).EndInit();
             this.layoutControlHijo.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.RootHijo)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.lciCodigo)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.lciDescripcion)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.lciStockActual)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.lciCatalogos)).EndInit();
             this.ResumeLayout(false);
         }
 
@@ -118,10 +149,13 @@ namespace UI.Formularios.Articulos
         private DevExpress.XtraEditors.TextEdit txtCodigo;
         private DevExpress.XtraEditors.TextEdit txtDescripcion;
         private DevExpress.XtraEditors.TextEdit txtStockActual;
+        private DevExpress.XtraGrid.GridControl gcCatalogos;
+        private DevExpress.XtraGrid.Views.Grid.GridView gvCatalogos;
         private DevExpress.XtraLayout.LayoutControl layoutControlHijo;
         private DevExpress.XtraLayout.LayoutControlGroup RootHijo;
         private DevExpress.XtraLayout.LayoutControlItem lciCodigo;
         private DevExpress.XtraLayout.LayoutControlItem lciDescripcion;
         private DevExpress.XtraLayout.LayoutControlItem lciStockActual;
+        private DevExpress.XtraLayout.LayoutControlItem lciCatalogos;
     }
 }

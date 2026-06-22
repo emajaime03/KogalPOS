@@ -180,6 +180,30 @@
     <Compile Include="Formularios\Catalogos\frmCatalogosABM.Designer.cs">
       <DependentUpon>frmCatalogosABM.cs</DependentUpon>
     </Compile>
+    <Compile Include="Formularios\Ventas\frmVentas.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Formularios\Ventas\frmVentas.Designer.cs">
+      <DependentUpon>frmVentas.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Formularios\Ventas\frmCobro.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Formularios\Ventas\frmCobro.Designer.cs">
+      <DependentUpon>frmCobro.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Formularios\Ventas\frmVentasHistorial.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Formularios\Ventas\frmVentasHistorial.Designer.cs">
+      <DependentUpon>frmVentasHistorial.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Formularios\Ventas\frmVentaVista.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Formularios\Ventas\frmVentaVista.Designer.cs">
+      <DependentUpon>frmVentaVista.cs</DependentUpon>
+    </Compile>
     <Compile Include="Formularios\Articulos\frmArticulos.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -279,6 +303,18 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Formularios\Catalogos\frmCatalogosABM.resx">
       <DependentUpon>frmCatalogosABM.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Formularios\Ventas\frmVentas.resx">
+      <DependentUpon>frmVentas.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Formularios\Ventas\frmCobro.resx">
+      <DependentUpon>frmCobro.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Formularios\Ventas\frmVentasHistorial.resx">
+      <DependentUpon>frmVentasHistorial.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Formularios\Ventas\frmVentaVista.resx">
+      <DependentUpon>frmVentaVista.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Formularios\AjustesStock\frmAjusteStock.resx">
       <DependentUpon>frmAjusteStock.cs</DependentUpon>

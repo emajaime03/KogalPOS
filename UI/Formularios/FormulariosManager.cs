@@ -12,6 +12,7 @@ using UI.Formularios.ListaPrecios;
 using UI.Formularios.Administrador.ConfiguracionLocal;
 using UI.Formularios.Premios;
 using UI.Formularios.Catalogos;
+using UI.Formularios.Ventas;
 
 namespace UI.Formularios
 {
@@ -188,6 +189,32 @@ namespace UI.Formularios
         public static void CatalogosABM(System.Guid id = default)
         {
             frmCatalogosABM frm = new frmCatalogosABM(frmPrincipal.Sesion, id);
+            frm.MdiParent = frmPrincipal;
+            frm.MaximizeBox = true;
+            frm.Show();
+        }
+        #endregion
+
+        #region "VENTAS"
+        public static void PuntoDeVenta()
+        {
+            frmVentas frm = new frmVentas(frmPrincipal.Sesion);
+            frm.MdiParent = frmPrincipal;
+            frm.MaximizeBox = true;
+            frm.Show();
+        }
+
+        public static void VentasHistorial()
+        {
+            frmVentasHistorial frm = new frmVentasHistorial(frmPrincipal.Sesion);
+            frm.MdiParent = frmPrincipal;
+            frm.MaximizeBox = true;
+            frm.Show();
+        }
+
+        public static void VentaVista(System.Guid id)
+        {
+            frmVentaVista frm = new frmVentaVista(frmPrincipal.Sesion, id);
             frm.MdiParent = frmPrincipal;
             frm.MaximizeBox = true;
             frm.Show();

@@ -19,6 +19,7 @@ namespace Services.Domain.Enums
         AjusteStock,
         ListaPrecio,
         Premio,
-        Catalogo
+        Catalogo,
+        Venta
     }
 }

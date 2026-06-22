@@ -144,5 +144,47 @@ namespace DAL.Implementations.SqlServer
                 });
             }
         }
+
+        public List<Guid> GetCatalogosDeArticulo(Guid idArticulo)
+        {
+            var ids = new List<Guid>();
+
+            string query = "SELECT IdCatalogo FROM articulos_catalogos WHERE IdArticulo = @IdArticulo";
+            using (var reader = base.ExecuteReader(query, CommandType.Text,
+                new SqlParameter[] { new SqlParameter("@IdArticulo", idArticulo) }))
+            {
+                while (reader.Read())
+                {
+                    ids.Add(Guid.Parse(reader[0].ToString()));
+                }
+            }
+
+            return ids;
+        }
+
+        public void ReasignarCatalogosDeArticulo(Guid idArticulo, List<Guid> idsCatalogos)
+        {
+            string deleteQuery = "DELETE FROM articulos_catalogos WHERE IdArticulo = @IdArticulo";
+            base.ExecuteNonQuery(deleteQuery, CommandType.Text, new SqlParameter[]
+            {
+                new SqlParameter("@IdArticulo", idArticulo)
+            });
+
+            if (idsCatalogos == null || idsCatalogos.Count == 0)
+                return;
+
+            string insertQuery = @"INSERT INTO articulos_catalogos (IdArticuloCatalogo, IdCatalogo, IdArticulo)
+                                   VALUES (@IdArticuloCatalogo, @IdCatalogo, @IdArticulo)";
+
+            foreach (var idCatalogo in idsCatalogos)
+            {
+                base.ExecuteNonQuery(insertQuery, CommandType.Text, new SqlParameter[]
+                {
+                    new SqlParameter("@IdArticuloCatalogo", Guid.NewGuid()),
+                    new SqlParameter("@IdCatalogo", idCatalogo),
+                    new SqlParameter("@IdArticulo", idArticulo)
+                });
+            }
+        }
     }
 }

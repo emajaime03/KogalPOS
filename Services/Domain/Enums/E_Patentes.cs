@@ -25,6 +25,8 @@ namespace Services.Domain.Enums
         #region VENTAS
         Clientes = 60,
         ListasDePrecios = 61,
+        PuntoDeVenta = 62,
+        Ventas = 63,
         #endregion
 
         #region FIDELIZACION

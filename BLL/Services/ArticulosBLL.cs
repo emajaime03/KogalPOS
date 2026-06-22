@@ -3,6 +3,8 @@ using Domain;
 using Domain.BLL;
 using Services.Domain.Enums;
 using System;
+using System.Collections.Generic;
+using System.Linq;
 
 namespace BLL.Services
 {
@@ -70,6 +72,53 @@ namespace BLL.Services
             return res;
         }
 
+        /// <summary>
+        /// Verifica, contra el stock actual en BD, qué artículos no tienen stock suficiente para lo pedido.
+        /// </summary>
+        public ResArticulosVerificarStock VerificarStock(ReqArticulosVerificarStock req)
+        {
+            ResArticulosVerificarStock res = new ResArticulosVerificarStock { Faltantes = new List<string>() };
+
+            var cantidades = req.Cantidades ?? new Dictionary<Guid, decimal>();
+            if (cantidades.Count == 0)
+            {
+                res.Success = true;
+                return res;
+            }
+
+            using (var context = BusinessFactory.UnitOfWork.Create(useTransaction: false))
+            {
+                var articulos = context.Repositories.ArticuloRepository
+                    .GetByIds(cantidades.Keys.ToList())
+                    .ToList();
+
+                foreach (var kv in cantidades)
+                {
+                    var art = articulos.FirstOrDefault(a => a.IdArticulo == kv.Key);
+                    decimal disponible = art != null ? art.StockActual : 0;
+                    if (kv.Value > disponible)
+                        res.Faltantes.Add(art != null ? art.Descripcion : kv.Key.ToString());
+                }
+
+                res.Success = true;
+            }
+
+            return res;
+        }
+
+        public ResArticuloObtenerCatalogos ObtenerCatalogosAsignados(ReqArticuloObtenerCatalogos req)
+        {
+            ResArticuloObtenerCatalogos res = new ResArticuloObtenerCatalogos();
+
+            using (var context = BusinessFactory.UnitOfWork.Create(useTransaction: false))
+            {
+                res.IdsCatalogos = context.Repositories.CatalogoRepository.GetCatalogosDeArticulo(req.IdArticulo);
+                res.Success = true;
+            }
+
+            return res;
+        }
+
         public ResArticuloInsertar Insertar(ReqArticuloInsertar req)
         {
             ResArticuloInsertar res = new ResArticuloInsertar();
@@ -81,6 +130,9 @@ namespace BLL.Services
             using (var context = BusinessFactory.UnitOfWork.Create())
             {
                 context.Repositories.ArticuloRepository.Add(req.Articulo);
+                context.Repositories.CatalogoRepository.ReasignarCatalogosDeArticulo(
+                    req.Articulo.IdArticulo,
+                    req.IdsCatalogos ?? new System.Collections.Generic.List<Guid>());
                 context.SaveChanges();
                 res.Articulo = req.Articulo;
                 res.Success = true;
@@ -97,6 +149,9 @@ namespace BLL.Services
             using (var context = BusinessFactory.UnitOfWork.Create())
             {
                 context.Repositories.ArticuloRepository.Update(req.Articulo);
+                context.Repositories.CatalogoRepository.ReasignarCatalogosDeArticulo(
+                    req.Articulo.IdArticulo,
+                    req.IdsCatalogos ?? new System.Collections.Generic.List<Guid>());
                 context.SaveChanges();
                 res.Articulo = req.Articulo;
                 res.Success = true;

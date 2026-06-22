@@ -56,6 +56,7 @@ namespace Domain.BLL
         }
 
         public Articulo Articulo { get; set; }
+        public List<Guid> IdsCatalogos { get; set; }
     }
 
     public class ResArticuloInsertar : ResBase
@@ -72,6 +73,7 @@ namespace Domain.BLL
         }
 
         public Articulo Articulo { get; set; }
+        public List<Guid> IdsCatalogos { get; set; }
     }
 
     public class ResArticuloModificar : ResBase
@@ -107,6 +109,37 @@ namespace Domain.BLL
 
     public class ResArticuloRestaurar : ResBase
     {
+    }
+    #endregion
+
+    #region "VERIFICAR STOCK"
+    public class ReqArticulosVerificarStock : ReqBase
+    {
+        public ReqArticulosVerificarStock(GlobalCliente sesion) : base(sesion) { }
+        /// <summary>Cantidad pedida por artículo (IdArticulo → cantidad).</summary>
+        public Dictionary<Guid, decimal> Cantidades { get; set; }
+    }
+
+    public class ResArticulosVerificarStock : ResBase
+    {
+        /// <summary>Descripciones de los artículos cuyo pedido supera el stock actual en BD.</summary>
+        public List<string> Faltantes { get; set; }
+    }
+    #endregion
+
+    #region "OBTENER CATALOGOS ASIGNADOS"
+    public class ReqArticuloObtenerCatalogos : ReqBase
+    {
+        public ReqArticuloObtenerCatalogos(GlobalCliente sesion) : base(sesion)
+        {
+        }
+
+        public Guid IdArticulo { get; set; }
+    }
+
+    public class ResArticuloObtenerCatalogos : ResBase
+    {
+        public List<Guid> IdsCatalogos { get; set; }
     }
     #endregion
 }

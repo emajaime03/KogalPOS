@@ -58,6 +58,9 @@
     <Compile Include="Enums\E_TipoDocumento.cs" />
     <Compile Include="Enums\E_TipoMovimientoPuntos.cs" />
     <Compile Include="Enums\E_TipoMovimientoStock.cs" />
+    <Compile Include="Enums\E_FormaPago.cs" />
+    <Compile Include="Enums\E_TipoComprobante.cs" />
+    <Compile Include="Enums\E_EstadoVenta.cs" />
     <Compile Include="GlobalClientePOS.cs" />
     <Compile Include="MovimientoPuntos.cs" />
     <Compile Include="Premio.cs" />
@@ -68,10 +71,18 @@
     <Compile Include="BLL\ReqResListaPrecios.cs" />
     <Compile Include="ListaPrecio.cs" />
     <Compile Include="ListaPrecioArticulo.cs" />
+    <Compile Include="Venta.cs" />
+    <Compile Include="VentaDetalle.cs" />
+    <Compile Include="Documento.cs" />
+    <Compile Include="Pago.cs" />
+    <Compile Include="BLL\ReqResVentas.cs" />
     <Compile Include="DTOs\MovimientoStockDTO.cs" />
     <Compile Include="DTOs\MovimientoItemDTO.cs" />
     <Compile Include="DTOs\ListaPrecioDTO.cs" />
     <Compile Include="DTOs\ListaPrecioArticuloDTO.cs" />
+    <Compile Include="DTOs\VentaItemDTO.cs" />
+    <Compile Include="DTOs\VentaDTO.cs" />
+    <Compile Include="DTOs\CobroDTO.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

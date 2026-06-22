@@ -20,5 +20,7 @@ namespace DAL.Contracts.UnitOfWork
         IConfiguracionesRepository<ConfiguracionLocal> ConfiguracionLocalRepository { get; }
         ILoyaltyRepository LoyaltyRepository { get; }
         ICatalogosRepository CatalogoRepository { get; }
+        IGenericRepository<Venta> VentaRepository { get; }
+        IDocumentoRepository DocumentoRepository { get; }
     }
 }

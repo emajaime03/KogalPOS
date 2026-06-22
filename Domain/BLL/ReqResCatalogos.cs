@@ -21,6 +21,25 @@ namespace Domain.BLL
         }
     }
 
+    /// <summary>
+    /// DTO para la grilla de catálogos (con checkbox) en el ABM de Artículos.
+    /// </summary>
+    public class CatalogoArticuloDTO
+    {
+        public Guid IdCatalogo { get; set; }
+        public string Descripcion { get; set; }
+        public bool Seleccionado { get; set; }
+
+        public CatalogoArticuloDTO() { }
+
+        public CatalogoArticuloDTO(Catalogo catalogo, bool seleccionado)
+        {
+            IdCatalogo = catalogo.IdCatalogo;
+            Descripcion = catalogo.Descripcion;
+            Seleccionado = seleccionado;
+        }
+    }
+
     #region "OBTENER LISTA"
     public class ReqCatalogosObtener : ReqBase
     {

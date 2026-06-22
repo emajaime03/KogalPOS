@@ -45,6 +45,36 @@ namespace BLL.Services
             return res;
         }
 
+        /// <summary>
+        /// Listas de precios activas y vigentes a la fecha actual (para selección en el POS).
+        /// </summary>
+        public ResListaPreciosVigentes ObtenerVigentes(ReqListaPreciosVigentes req)
+        {
+            ResListaPreciosVigentes res = new ResListaPreciosVigentes();
+
+            using (var context = BusinessFactory.UnitOfWork.Create(useTransaction: false))
+            {
+                var hoy = DateTime.Now.Date;
+                var listas = context.Repositories.ListaPrecioRepository.GetAll()
+                    .Where(l => l.Estado == E_Estados.Activo
+                        && (!l.VigenciaDesde.HasValue || l.VigenciaDesde.Value.Date <= hoy)
+                        && (!l.VigenciaHasta.HasValue || l.VigenciaHasta.Value.Date >= hoy));
+
+                res.ListaPrecios = listas.Select(l => new ListaPrecioDTO
+                {
+                    IdListaPrecio = l.IdListaPrecio,
+                    Descripcion = l.Descripcion,
+                    Estado = l.Estado,
+                    EsPredeterminada = l.EsPredeterminada,
+                    VigenciaDesde = l.VigenciaDesde,
+                    VigenciaHasta = l.VigenciaHasta
+                }).ToList();
+                res.Success = true;
+            }
+
+            return res;
+        }
+
         public ResListaPrecioObtener Obtener(ReqListaPrecioObtener req)
         {
             ResListaPrecioObtener res = new ResListaPrecioObtener();

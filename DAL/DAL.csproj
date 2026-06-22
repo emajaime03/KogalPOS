@@ -48,6 +48,7 @@
   <ItemGroup>
     <Compile Include="Contracts\IArticulosRepository.cs" />
     <Compile Include="Contracts\ICatalogosRepository.cs" />
+    <Compile Include="Contracts\IDocumentoRepository.cs" />
     <Compile Include="Contracts\IConfiguracionesRepository.cs" />
     <Compile Include="Contracts\ILoyaltyRepository.cs" />
     <Compile Include="Contracts\IListaPreciosRepository.cs" />
@@ -75,6 +76,12 @@
     <Compile Include="Implementations\SqlServer\Mappers\ListaPrecioMapper.cs" />
     <Compile Include="Implementations\SqlServer\Mappers\ListaPrecioArticuloMapper.cs" />
     <Compile Include="Implementations\SqlServer\ListaPrecioRepository.cs" />
+    <Compile Include="Implementations\SqlServer\VentaRepository.cs" />
+    <Compile Include="Implementations\SqlServer\DocumentoRepository.cs" />
+    <Compile Include="Implementations\SqlServer\Mappers\VentaMapper.cs" />
+    <Compile Include="Implementations\SqlServer\Mappers\VentaDetalleMapper.cs" />
+    <Compile Include="Implementations\SqlServer\Mappers\DocumentoMapper.cs" />
+    <Compile Include="Implementations\SqlServer\Mappers\PagoMapper.cs" />
     <Compile Include="Implementations\SqlServer\UnitOfWork\BusinessUnitOfWork.cs" />
     <Compile Include="Implementations\SqlServer\UnitOfWork\BusinessUnitOfWorkAdapter.cs" />
     <Compile Include="Implementations\SqlServer\UnitOfWork\BusinessUnitOfWorkRepository.cs" />
