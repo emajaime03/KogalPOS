@@ -22,7 +22,7 @@ namespace DAL.Implementations.Api
                 if (string.IsNullOrEmpty(idFirebaseCliente)) return 0;
 
                 var endpoint = ConstruirEndpoint($"clientes_web/{idFirebaseCliente}");
-                var result = await GetAsync<FirebasePuntosRes>(endpoint);
+                var result = await GetAsync<FirebasePuntosRes>(endpoint).ConfigureAwait(false);
 
                 return result?.Puntos ?? 0;
             }
@@ -48,7 +48,7 @@ namespace DAL.Implementations.Api
                 };
 
                 // Utilizamos el PatchAsync de tu clase base (ver nota abajo si no existe)
-                await PatchAsync<dynamic>(endpoint, payload);
+                await PatchAsync<dynamic>(endpoint, payload).ConfigureAwait(false);
 
                 return true;
             }
@@ -61,26 +61,41 @@ namespace DAL.Implementations.Api
         // 3. SINCRONIZACIÓN DE PREMIOS (PUT)
         public async Task SyncPremioAsync(Guid idPremio, decimal puntosRequeridos, string descripcion)
         {
-            if (idPremio == Guid.Empty) return;
-
-            var endpoint = ConstruirEndpoint($"premios/{idPremio}");
-            var payload = new
+            try
             {
-                Id = idPremio.ToString(),
-                PuntosRequeridos = puntosRequeridos,
-                Descripcion = descripcion
-            };
+                if (idPremio == Guid.Empty) return;
 
-            await PutAsync(endpoint, payload);
+                var endpoint = ConstruirEndpoint($"premios/{idPremio}");
+                var payload = new
+                {
+                    Id = idPremio.ToString(),
+                    PuntosRequeridos = puntosRequeridos,
+                    Descripcion = descripcion
+                };
+
+                await PutAsync(endpoint, payload).ConfigureAwait(false);
+            }
+            catch (Exception)
+            {
+                // Manejo silencioso: un fallo/timeout de la nube no debe impedir
+                // que el premio se guarde localmente. Idealmente: LoggerSystem.LogError(ex);
+            }
         }
 
         // 4. ELIMINACIÓN LÓGICA/FÍSICA (DELETE)
         public async Task EliminarPremioAsync(Guid idPremio)
         {
-            if (idPremio == Guid.Empty) return;
+            try
+            {
+                if (idPremio == Guid.Empty) return;
 
-            var endpoint = ConstruirEndpoint($"premios/{idPremio}");
-            await DeleteAsync(endpoint);
+                var endpoint = ConstruirEndpoint($"premios/{idPremio}");
+                await DeleteAsync(endpoint).ConfigureAwait(false);
+            }
+            catch (Exception)
+            {
+                // Manejo silencioso coherente con el resto del repositorio.
+            }
         }
 
         #region "Helpers Internos y DTOs"

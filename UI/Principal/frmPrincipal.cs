@@ -85,6 +85,7 @@ namespace UI.Principal
             // ── Fidelizacion ──
             if (ConfiguracionApp.Current.configuracionLocal.Loyalty_IsEnabled)
             {
+                menuItems.Add(new MenuItemConfig { Patente = E_Patentes.TerminalPuntos, CaptionKey = "Terminal de Puntos",  GetPage = () => rbpFidelizacion, OnClick = () => FormulariosManager.TerminalPuntos() });
                 menuItems.Add(new MenuItemConfig { Patente = E_Patentes.Premios, CaptionKey = "Premios",  GetPage = () => rbpFidelizacion, OnClick = () => FormulariosManager.Premios() });
             }
 

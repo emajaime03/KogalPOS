@@ -24,7 +24,7 @@ namespace DAL.Implementations.SqlServer
                 new SqlParameter("@IdMovimientoPuntos", obj.IdMovimientoPuntos),
                 new SqlParameter("@IdCliente", obj.IdCliente),
                 new SqlParameter("@IdPremio", (object)obj.IdPremio ?? DBNull.Value),
-                new SqlParameter("@TipoMovimiento", obj.TipoMovimiento),
+                new SqlParameter("@TipoMovimiento", (int)obj.TipoMovimiento),
                 new SqlParameter("@Puntos", obj.Puntos),
                 new SqlParameter("@MontoOperacion", obj.MontoOperacion),
                 new SqlParameter("@Observaciones", obj.Observaciones)

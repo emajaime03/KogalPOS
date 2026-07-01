@@ -13,6 +13,7 @@ using UI.Formularios.Administrador.ConfiguracionLocal;
 using UI.Formularios.Premios;
 using UI.Formularios.Catalogos;
 using UI.Formularios.Ventas;
+using UI.Formularios.TerminalPuntos;
 
 namespace UI.Formularios
 {
@@ -233,6 +234,16 @@ namespace UI.Formularios
         public static void PremiosABM(System.Guid id = default)
         {
             frmPremiosABM frm = new frmPremiosABM(frmPrincipal.Sesion, id);
+            frm.MdiParent = frmPrincipal;
+            frm.MaximizeBox = true;
+            frm.Show();
+        }
+        #endregion
+
+        #region "TERMINAL PUNTOS"
+        public static void TerminalPuntos()
+        {
+            frmTerminalPuntos frm = new frmTerminalPuntos(frmPrincipal.Sesion);
             frm.MdiParent = frmPrincipal;
             frm.MaximizeBox = true;
             frm.Show();

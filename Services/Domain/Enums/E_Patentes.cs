@@ -31,6 +31,7 @@ namespace Services.Domain.Enums
 
         #region FIDELIZACION
         Premios = 80,
+        TerminalPuntos = 81,
         #endregion
     }
 }

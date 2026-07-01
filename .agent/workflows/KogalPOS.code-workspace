@@ -1,0 +1,14 @@
+{
+	"folders": [
+		{
+			"path": "../.."
+		},
+		{
+			"path": "../../../KogalFidelizacion"
+		}
+	],
+	"settings": {
+		"dotnet.preferCSharpExtension": true,
+		"liveServer.settings.multiRootWorkspaceName": "KogalFidelizacion"
+	}
+}

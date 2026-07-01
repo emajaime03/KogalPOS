@@ -7,7 +7,7 @@ namespace Domain
     {
         public Guid IdMovimientoPuntos { get; set; }
         public Guid IdCliente { get; set; }
-        public Guid IdPremio { get; set; }
+        public Guid? IdPremio { get; set; }
         public E_TipoMovimientoPuntos TipoMovimiento { get; set; }
         public int Puntos { get; set; }
         public decimal MontoOperacion { get; set; }

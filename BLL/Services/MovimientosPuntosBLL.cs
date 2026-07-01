@@ -1,5 +1,6 @@
 ﻿using DAL.Factories;
 using DAL.Implementations.Api;
+using Domain;
 using Domain.BLL;
 using Services.Domain.Enums;
 using System;
@@ -52,6 +53,9 @@ namespace BLL.Services
                 {
                     movimiento.IdMovimientoPuntos = Guid.NewGuid();
 
+                    if (movimiento.Fecha == default(DateTime))
+                        movimiento.Fecha = DateTime.Now;
+
                     // Vamos acumulando los puntos (positivos o negativos)
                     sumatoriaPuntos += movimiento.Puntos;
 
@@ -59,9 +63,19 @@ namespace BLL.Services
                 }
 
                 // 4. SINCRONIZACIÓN CON LA NUBE
-                // Tomamos el ID del primer elemento (seguro, porque validamos arriba)
-                // y le hacemos .ToString() para que coincida con la firma de Firebase
-                string idFirebaseCliente = req.MovimientosPuntos[0].IdCliente.ToString();
+                // En Firebase los puntos se guardan bajo el NroDocumento del cliente
+                // (ver ClientesBLL.Obtener -> ObtenerPuntosAsync(cliente.NroDocumento)).
+                // Por eso resolvemos el cliente y usamos su NroDocumento como clave,
+                // para que lectura y escritura impacten el mismo nodo.
+                var cliente = context.Repositories.ClienteRepository.GetById(req.MovimientosPuntos[0].IdCliente);
+                if (cliente == null || string.IsNullOrWhiteSpace(cliente.NroDocumento))
+                {
+                    res.Success = false;
+                    res.Message = "No se pudo identificar al cliente para sincronizar los puntos.";
+                    return res;
+                }
+
+                string idFirebaseCliente = cliente.NroDocumento;
 
                 // Usamos .Result para mantener el flujo sincrónico en este método
                 bool nubeOk = context.Repositories.LoyaltyRepository
@@ -83,6 +97,22 @@ namespace BLL.Services
             }
 
             return res;
+        }
+
+        /// <summary>
+        /// Calcula cuántos puntos de acumulación otorga un monto, según la configuración de fidelización.
+        /// Regla: si el monto alcanza el mínimo y hay un monto requerido configurado,
+        /// se otorgan PuntosOtorgados por cada MontoRequerido completo.
+        /// </summary>
+        public int CalcularPuntosPorMonto(decimal monto)
+        {
+            var config = ConfiguracionApp.Current.configuracionLocal;
+
+            if (monto < config.Loyalty_MontoMinimo || config.Loyalty_MontoRequerido <= 0)
+                return 0;
+
+            int bloques = (int)Math.Floor(monto / config.Loyalty_MontoRequerido);
+            return bloques * (int)config.Loyalty_PuntosOtorgados;
         }
     }
 }
